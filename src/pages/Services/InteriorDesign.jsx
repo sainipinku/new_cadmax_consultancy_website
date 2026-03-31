@@ -47,9 +47,9 @@ export const InteriorDesign = () => {
       />
       <div className="absolute inset-0 bg-black/50 group-hover:bg-black/0 transition duration-500"></div>
       <div className="absolute inset-0 flex items-center justify-center">
-        <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
+        {/* <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
           CADMAX CONSULTANCY
-        </h3>
+        </h3> */}
       </div>
     </Link>
 
@@ -62,9 +62,9 @@ export const InteriorDesign = () => {
       />
       <div className="absolute inset-0 bg-black/50 group-hover:bg-black/0 transition duration-500"></div>
       <div className="absolute inset-0 flex items-center justify-center">
-        <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
+        {/* <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
           CADMAX PROJECTS
-        </h3>
+        </h3> */}
       </div>
     </Link>
 
@@ -77,9 +77,9 @@ export const InteriorDesign = () => {
       />
       <div className="absolute inset-0 bg-black/50 group-hover:bg-black/0 transition duration-500"></div>
       <div className="absolute inset-0 flex items-center justify-center">
-        <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
+        {/* <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
           DIPENDRA JI GONER SITE
-        </h3>
+        </h3> */}
       </div>
     </Link>
 

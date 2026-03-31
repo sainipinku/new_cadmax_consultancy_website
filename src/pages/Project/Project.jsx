@@ -7,7 +7,7 @@ import heroBG from "../../../src/assets/Images/project/project-banner.png";
 
 import image0 from "../../assets/Images/project/image-1.jpg";
 import image1 from "../../assets/Images/project/img-1.jpg";
-// import image2 from "../../assets/Images/project/img-2.jpg";
+import image2 from "../../assets/Images/project/img-2.jpg";
 import image3 from "../../assets/Images/project/img-3.jpg";
 import image4 from "../../assets/Images/project/img-4.jpg";
 import image5 from "../../assets/Images/project/img-5.jpg";
@@ -33,11 +33,11 @@ const Project = () => {
       title: "HOMELAND GROUP- KESHVAM HOMELAND",
       
     },
-    // {
-    //   img: image2,
-    //   title: "HAPPY HOMES – ALWAR SCHEME",
+    {
+      img: image2,
+      title: "HAPPY HOMES – ALWAR ",
       
-    // },
+    },
     {
       img: image3,
       title: "MADHAV MARKET - KALWAR ROAD",
@@ -55,7 +55,7 @@ const Project = () => {
     },
     {
       img: image6,
-      title: " MUKUNDAM HOMELAND-MUKUNDAM ROAD",
+      title: " MUKUNDAM HOMELAND-MUKUNDPURA ROAD",
     },
     {
       img: image7,
