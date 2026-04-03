@@ -23,9 +23,9 @@ const DipendraSite = () => {
 
 
             <section className="py-20 px-4 md:px-10 lg:px-20 bg-gray-50">
-                <h2 className="text-3xl pt-4 md:text-4xl font-bold text-center mb-12 tracking-wide">
+                {/* <h2 className="text-3xl pt-4 md:text-4xl font-bold text-center mb-12 tracking-wide">
                     DIPENDRA JI GONER SITE
-                </h2>
+                </h2> */}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {images.map((image, index) => (

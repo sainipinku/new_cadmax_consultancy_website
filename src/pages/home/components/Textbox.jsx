@@ -4,10 +4,11 @@ const Textbox = () => {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    setAnimate(true); // run only on page load
+    setAnimate(true); 
   }, []);
 
   return (
+    
     <div className="w-screen relative pt-0 mt-[-5px] left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-x-hidden">
 
   {/* TOP TEXT */}
