@@ -81,10 +81,10 @@ const handleMouseMove = (e) => {
       {/* HERO */}
       <div className="about-hero" style={{ backgroundImage: `url(${heroBG})` }}></div>
 
-      {/* OUR STORY */}
+      {/* Company Overview*/}
       <div style={{ background: "black" }}>
         <div className="story-section ">
-          <h2 >OUR STORY</h2>
+          <h2 >Company Overview</h2>
           <p>
             At CADMAX Consultancy, we specialize in architectural design, planning, and consultancy services for residential, commercial, and industrial projects. Our experienced team combines advanced CAD technology with thoughtful design to bring ideas to life. We build trust before we build structures. That’s the CadMax difference.Customers choose CadMax because we turn complex ideas into precise, buildable designs—on time, every time.CadMax: Where accuracy meets creativity. Trusted by clients who value quality, innovation, and flawless execution.We don’t just design spaces—CadMax designs solutions. That’s why clients trust us to deliver excellence from concept to completion.CadMax stands out for our attention to detail, advanced CAD technology, and commitment to client satisfaction.From 2D to 3D perfection—customers choose CadMax for designs that are accurate, clear, and construction-ready.
           </p>

@@ -36,6 +36,22 @@ export const InteriorDesign = () => {
   </div>
 </div>
 <div className="max-w-7xl mx-auto px-6 py-16">
+ <h3 className="
+  text-black
+  uppercase
+  text-2xl sm:text-3xl md:text-4xl lg:text-5xl
+  font-extrabold
+  tracking-wide
+  text-center
+  px-4
+  pb-4 md:pb-5
+  font-['Playfair_Display']
+  drop-shadow-lg
+  leading-tight
+">
+  Inspired Interiors
+</h3>
+
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
     {/* Card 1 */}
@@ -47,9 +63,7 @@ export const InteriorDesign = () => {
       />
       <div className="absolute inset-0 bg-black/50 group-hover:bg-black/0 transition duration-500"></div>
       <div className="absolute inset-0 flex items-center justify-center">
-        {/* <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
-          CADMAX CONSULTANCY
-        </h3> */}
+        
       </div>
     </Link>
 
