@@ -20,13 +20,15 @@ const MasonryGallery = () => {
   return (
     
     <div className="max-w-7xl mx-auto px-6 py-16">
-       <div className="text-center pb-20">
-       <h2 className="text-3xl md:text-5xl  font-light tracking-wide text-gray-800 leading-snug">
-      <span className="block font-semibold text-gray-900 mt-2">
-        TYPES OF SURVEY
-      </span>
-    </h2>
-    </div>
+       <div className="text-center pb-12 md:pb-20 px-4">
+  <h2 className="text-2xl sm:text-3xl md:text-5xl font-light tracking-wide text-gray-800 leading-snug">
+    <span className="block font-semibold text-gray-900 mt-2">
+      TYPES OF SURVEY
+    </span>
+  </h2>
+
+  <div className="w-24 sm:w-40 md:w-[420px] h-[2px] bg-gray-900 mx-auto mt-3 mb-8 md:mb-12"></div>
+</div>
 
       {/* TOP 3 */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
