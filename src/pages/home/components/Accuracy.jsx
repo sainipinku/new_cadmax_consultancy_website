@@ -9,10 +9,11 @@ const Accuracy = () => {
   const [expanded, setExpanded] = useState(false);
 
   const fullText = `
-    We build trust before we build structures. That’s the CadMax difference.Customers choose CadMax because we turn complex ideas into precise, buildable designs—on time, every time.CadMax: Where accuracy meets creativity. Trusted by clients who value quality, innovation, and flawless execution.We don’t just design spaces—CadMax designs solutions. That’s why clients trust us to deliver excellence from concept to completion.CadMax stands out for our attention to detail, advanced CAD technology, and commitment to client satisfaction.From 2D to 3D perfection—customers choose CadMax for designs that are accurate, clear, and construction-ready.Because CadMax delivers plans that save time, reduce errors, and cut construction costs.Smart designs, smooth construction—CadMax makes building easier.CadMax combines industry expertise with cutting-edge technology to bring your vision to life.Clients choose CadMax for our fast turnaround, top-tier accuracy, and designs engineered for real-world success.
+   We build trust before we build structures That’s the CadMax difference. Customers choose CadMax because we turn complex ideas into precise, buildable designs on time, every time. CadMax is where accuracy meets creativity and is trusted by clients who value quality, innovation and flawless execution. We don’t just design spaces, CadMax designs solutions. That’s why clients trust us to deliver excellence from concept to completion. CadMax stands out for our attention to detail, advanced CAD technology and commitment to client satisfaction. From 2D to 3D perfection, customers choose CadMax for designs that are accurate, clear and construction-ready because CadMax delivers plans that save time, reduce errors and cut construction costs. Smart designs and smooth construction make building easier. CadMax combines industry expertise with cutting-edge technology to bring your vision to life. Clients choose CadMax for our fast turnaround, top-tier accuracy and designs engineered for real-world success.
+
   `;
 
-  const previewLength = 736;
+  const previewLength = 726;
   const isLongText = fullText.length > previewLength;
   const shownText = expanded ? fullText : fullText.slice(0, previewLength);
 
