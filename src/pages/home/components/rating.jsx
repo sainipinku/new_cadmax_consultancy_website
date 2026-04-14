@@ -81,9 +81,9 @@ const Testimonial = () => {
     <div className="testimonial-bg">
       <div className="testimonial-wrapper">
         <h2 className="testimonial-title">Proof of Performance</h2>
-        <p className="testimonial-subtitle">
+        {/* <p className="testimonial-subtitle">
           Each discipline is handled by teams trained to convert field conditions into design-ready data.
-        </p>
+        </p> */}
 
         <div className="testimonial-slider-container">
           {/* LEFT BUTTON */}

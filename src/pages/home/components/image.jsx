@@ -10,11 +10,11 @@ import image5 from "../../../assets/Images/collage/MOBILR.jpg"
 
 const MasonryGallery = () => {
   const images = [
-    { img: image1, title: "1. DGPS SURVEY" },
-    { img: image2, title: "2. TOPOGRAPHICAL SURVEY" },
-    { img: image3, title: "3. ENGINEERING SURVEY" },
-    { img: image4, title: "4. LAND SURVEYING" },
-    { img: image5, title: "5. MOBILE MAPPING & GIS" },
+    { img: image1, title: " DGPS SURVEY" },
+    { img: image2, title: " TOPOGRAPHICAL SURVEY" },
+    { img: image3, title: " ENGINEERING SURVEY" },
+    { img: image4, title: " LAND SURVEYING" },
+    { img: image5, title: " MOBILE MAPPING & GIS" },
   ];
 
   return (
