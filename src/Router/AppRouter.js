@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./ScrollToTop";
 
 // ===== PUBLIC PAGES =====
 
@@ -46,6 +47,7 @@ import AdminPrivate from "../admin/routes/AdminPrivate";
 export default function AppRouter() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* ===== PUBLIC ROUTES ===== */}
         <Route path="/" element={<Home />} />
