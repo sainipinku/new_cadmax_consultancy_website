@@ -18,9 +18,11 @@ import SubCategoryList from "../pages/services/SubCategoryList";
 import SubCategoryForm from "../pages/services/SubCategoryForm";
 
 /* PROJECTS */
-import ProjectList from "../pages/projects/ProjectList";
-import AddProject from "../pages/projects/AddProject";
-import EditProject from "../pages/projects/EditProject";
+import ProjectManagement from "../pages/projects/ProjectManagement";
+import AddProjectCard from "../pages/projects/AddProjectCard";
+import AddProjectList from "../pages/projects/AddProjectList";
+import EditProjectCard from "../pages/projects/EditProjectCard";
+import EditProjectList from "../pages/projects/EditProjectList";
 
 /* SETTINGS */
 import ProfileUpdate from "../pages/settings/ProfileUpdate";
@@ -66,9 +68,13 @@ const AdminRoutes = () => {
         />
 
         {/* ===== PROJECTS ===== */}
-        <Route path="projects" element={<ProjectList />} />
-        <Route path="projects/add" element={<AddProject />} />
-        <Route path="projects/edit/:id" element={<EditProject />} />
+        <Route path="projects" element={<ProjectManagement />} />
+        {/* Project Cards */}
+        <Route path="projects/add-card" element={<AddProjectCard />} />
+        <Route path="projects/edit-card/:id" element={<EditProjectCard />} />
+        {/* Project List/Table */}
+        <Route path="projects/add-list" element={<AddProjectList />} />
+        <Route path="projects/edit-list/:id" element={<EditProjectList />} />
 
         {/* ===== SETTINGS ===== */}
         <Route path="profile" element={<ProfileUpdate />} />

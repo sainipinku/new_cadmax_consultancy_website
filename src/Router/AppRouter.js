@@ -31,8 +31,19 @@ import DipendraSite from "../pages/Services/interior-sub-page/DipendraSite";
 
 
 
-// project
+// project (static page - unchanged)
 import Project from "../pages/Project/Project";
+
+// dynamic project pages
+import EngineeringProjects from "../pages/Projects/Engineering/EngineeringProjects";
+import SurveyingProjects from "../pages/Projects/Surveying/SurveyingProjects";
+import Transportation from "../pages/Projects/Surveying/Transportation";
+import WaterInfluence from "../pages/Projects/Surveying/WaterInfluence";
+import EnergySector from "../pages/Projects/Surveying/EnergySector";
+import IrrigationSector from "../pages/Projects/Surveying/IrrigationSector";
+import CitySurvey from "../pages/Projects/Surveying/CitySurvey";
+import RealEstateSector from "../pages/Projects/Surveying/RealEstateSector";
+import PlanningProjects from "../pages/Projects/Planning/PlanningProjects";
 
 // contact
 import Contact from "../pages/contact/Contact";
@@ -73,20 +84,30 @@ export default function AppRouter() {
         <Route path="/services/waterSupply" element={<Watersupply />} />
         <Route path="/services/sewer" element={<Sewer />} />
 
+        {/* ===== STATIC PROJECT PAGE (UNCHANGED) ===== */}
         <Route path="/projects" element={<Project />} />
+
+        {/* ===== DYNAMIC PROJECT PAGES ===== */}
+        {/* Engineering */}
+        <Route path="/projects/engineering" element={<EngineeringProjects />} />
+
+        {/* Surveying */}
+        <Route path="/projects/surveying" element={<SurveyingProjects />} />
+        <Route path="/projects/surveying/transportation" element={<Transportation />} />
+        <Route path="/projects/surveying/water-influence" element={<WaterInfluence />} />
+        <Route path="/projects/surveying/energy-sector" element={<EnergySector />} />
+        <Route path="/projects/surveying/irrigation-sector" element={<IrrigationSector />} />
+        <Route path="/projects/surveying/city-survey" element={<CitySurvey />} />
+        <Route path="/projects/surveying/real-estate-sector" element={<RealEstateSector />} />
+
+        {/* Planning */}
+        <Route path="/projects/planning" element={<PlanningProjects />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/careerpath" element={<Careerpath />} />
 
         {/* ===== 🔐 ADMIN ROUTES ===== */}
-        <Route
-          path="/admin/*"
-          element={
-            <AdminPrivate>
-              <AdminRoutes />
-            </AdminPrivate>
-          }
-        />
+        <Route path="/admin/*" element={<AdminRoutes />} />
       </Routes>
     </BrowserRouter>
   );

@@ -23,8 +23,8 @@ const Sidebar = () => {
   // 🔥 fetch unread inquiries
   const fetchUnreadCount = async () => {
     try {
-      const res = await API.get("/inquiries");
-      const unread = res.data.filter((i) => i.status === "new").length;
+      const res = await API.get("/admin/inquiries");
+      const unread = res.data?.data?.filter((i) => i.status === "unread").length || 0;
       setUnreadCount(unread);
     } catch (err) {
       console.error("Failed to fetch inquiry count", err);

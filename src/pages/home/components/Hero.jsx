@@ -45,6 +45,15 @@ const Hero = () => {
 
       </div>
 
+      {/* STICKY COMPANY BAR */}
+      <div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-sm border-t border-gray-200 py-2 z-50">
+        <div className="flex items-center justify-center gap-8 md:gap-16">
+          <span className="text-sm md:text-lg font-bold text-gray-800">CADMAX</span>
+          <span className="text-sm md:text-lg font-bold text-gray-800">AutoDesk</span>
+          <span className="text-sm md:text-lg font-bold text-gray-800">SolidWorks</span>
+        </div>
+      </div>
+
     </section>
   );
 };

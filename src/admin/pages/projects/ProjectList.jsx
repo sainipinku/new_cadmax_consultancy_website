@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, Plus, Eye, X } from "lucide-react";
+import { Pencil, Trash2, Plus, Eye, X, Download, RotateCcw, Trash } from "lucide-react";
 import API from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 
@@ -7,16 +7,17 @@ const ProjectList = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [preview, setPreview] = useState(null);
+  const [showDeleted, setShowDeleted] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [showDeleted]);
 
   const fetchProjects = async () => {
     try {
-      const res = await API.get("/projects");
+      const res = await API.get(`/projects/admin/all?includeDeleted=${showDeleted}`);
       setProjects(res.data || []);
     } catch (err) {
       console.error(err);
@@ -26,12 +27,33 @@ const ProjectList = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete this project?")) return;
-
+  const handleSoftDelete = async (id) => {
+    if (!window.confirm("Move this project to trash?")) return;
     try {
       await API.delete(`/projects/${id}`);
-      setProjects((prev) => prev.filter((p) => p._id !== id));
+      fetchProjects();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete project");
+    }
+  };
+
+  const handleRestore = async (id) => {
+    if (!window.confirm("Restore this project?")) return;
+    try {
+      await API.put(`/projects/${id}/restore`);
+      fetchProjects();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to restore project");
+    }
+  };
+
+  const handlePermanentDelete = async (id) => {
+    if (!window.confirm("⚠️ PERMANENTLY DELETE? This cannot be undone!")) return;
+    try {
+      await API.delete(`/projects/${id}/permanent`);
+      fetchProjects();
     } catch (err) {
       console.error(err);
       alert("Failed to delete project");
@@ -45,101 +67,178 @@ const ProjectList = () => {
       {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-semibold">Projects</h1>
-          <p className="text-sm text-slate-500">
-            Manage all website projects
-          </p>
+          <h1 className="text-2xl font-semibold">Project List</h1>
+          <p className="text-sm text-slate-500">Manage all website projects</p>
         </div>
-
-        <button
-          onClick={() => navigate("/admin/projects/add")}
-          className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg"
-        >
-          <Plus size={16} />
-          Add Project
-        </button>
+        <div className="flex items-center gap-3">
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={showDeleted}
+              onChange={(e) => setShowDeleted(e.target.checked)}
+              className="w-4 h-4"
+            />
+            Show Deleted
+          </label>
+          <button
+            onClick={() => navigate("/admin/projects/add")}
+            className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg"
+          >
+            <Plus size={16} />
+            Add Project
+          </button>
+        </div>
       </div>
 
-      {/* TABLE */}
-      <div className="bg-white rounded-xl border overflow-hidden">
+      {/* PROFESSIONAL TABLE */}
+      <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
         <table className="w-full">
           <thead className="bg-slate-100 text-slate-700">
             <tr>
-              <th className="p-4 text-left w-[20%]">Project</th>
-              <th className="p-4 text-left w-[30%]">Title</th>
-              <th className="p-4 text-left w-[25%]">Category</th>
-              <th className="p-4 text-right w-[25%]">Actions</th>
+              <th className="p-4 text-left w-[8%]">No.</th>
+              <th className="p-4 text-left w-[30%]">Project Name</th>
+              <th className="p-4 text-left w-[30%]">Location</th>
+              <th className="p-4 text-left w-[15%]">Area</th>
+              <th className="p-4 text-left w-[12%]">File</th>
+              <th className="p-4 text-center w-[5%]">Actions</th>
             </tr>
           </thead>
-
           <tbody>
             {projects.length === 0 && (
               <tr>
-                <td colSpan="4" className="p-6 text-center text-slate-500">
+                <td colSpan="6" className="p-6 text-center text-slate-500">
                   No projects found
                 </td>
               </tr>
             )}
 
-            {projects.map((item) => (
-              <tr key={item._id} className="border-t align-middle">
-                {/* PROJECT IMAGE */}
-                <td className="p-4">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-28 h-20 object-cover rounded-lg border"
-                  />
+            {projects.map((item, index) => (
+              <tr
+                key={item._id}
+                className={`border-t align-middle hover:bg-slate-50 ${
+                  item.isDeleted ? "bg-red-50 opacity-70" : ""
+                } ${!item.isActive && !item.isDeleted ? "bg-yellow-50" : ""}`}
+              >
+                {/* SERIAL NUMBER */}
+                <td className="p-4 text-slate-600">
+                  {item.serialNumber || index + 1}.
                 </td>
 
-                {/* TITLE COLUMN */}
+                {/* PROJECT NAME */}
                 <td className="p-4">
-                  <p className="font-semibold text-slate-800">
-                    {item.title}
-                  </p>
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-16 h-12 object-cover rounded border"
+                    />
+                    <div>
+                      <p className="font-semibold text-slate-800">{item.title}</p>
+                      <div className="flex gap-1 mt-1">
+                        {item.sector && (
+                          <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded">
+                            {item.sector}
+                          </span>
+                        )}
+                        {item.subCategory && (
+                          <span className="text-xs px-2 py-0.5 bg-purple-100 text-purple-700 rounded">
+                            {item.subCategory}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </td>
 
-                {/* CATEGORY */}
+                {/* LOCATION */}
+                <td className="p-4 text-slate-600 text-sm">
+                  {item.location || "—"}
+                </td>
+
+                {/* AREA */}
+                <td className="p-4 text-slate-600 text-sm">
+                  {item.area || "—"}
+                </td>
+
+                {/* FILE DOWNLOAD */}
                 <td className="p-4">
-                  <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
-                    {item.category}
-                  </span>
+                  {item.file ? (
+                    <a
+                      href={item.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 border border-red-600 rounded hover:bg-red-50"
+                    >
+                      <Download size={12} />
+                      DOWNLOAD
+                    </a>
+                  ) : (
+                    <span className="text-slate-400 text-sm">—</span>
+                  )}
                 </td>
 
                 {/* ACTIONS */}
                 <td className="p-4">
-                  <div className="flex justify-end gap-4">
+                  <div className="flex items-center justify-center gap-2">
                     <button
                       onClick={() => setPreview(item)}
                       title="Preview"
-                      className="text-slate-600 hover:text-black"
+                      className="text-slate-500 hover:text-blue-600"
                     >
-                      <Eye size={18} />
+                      <Eye size={16} />
                     </button>
 
-                    <button
-                      onClick={() =>
-                        navigate(`/admin/projects/edit/${item._id}`)
-                      }
-                      title="Edit"
-                      className="text-blue-600 hover:text-blue-800"
-                    >
-                      <Pencil size={18} />
-                    </button>
-
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      title="Delete"
-                      className="text-red-600 hover:text-red-800"
-                    >
-                      <Trash2 size={18} />
-                    </button>
+                    {!item.isDeleted ? (
+                      <>
+                        <button
+                          onClick={() => navigate(`/admin/projects/edit/${item._id}`)}
+                          title="Edit"
+                          className="text-slate-500 hover:text-blue-600"
+                        >
+                          <Pencil size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleSoftDelete(item._id)}
+                          title="Move to Trash"
+                          className="text-slate-500 hover:text-red-600"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => handleRestore(item._id)}
+                          title="Restore"
+                          className="text-slate-500 hover:text-green-600"
+                        >
+                          <RotateCcw size={16} />
+                        </button>
+                        <button
+                          onClick={() => handlePermanentDelete(item._id)}
+                          title="Delete Forever"
+                          className="text-slate-500 hover:text-red-600"
+                        >
+                          <Trash size={16} />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* LEGEND */}
+      <div className="mt-4 flex gap-4 text-xs text-slate-500">
+        <span className="flex items-center gap-1">
+          <span className="w-3 h-3 bg-yellow-50 border rounded"></span> Inactive
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="w-3 h-3 bg-red-50 border rounded"></span> Deleted (Trash)
+        </span>
       </div>
 
       {/* PREVIEW MODAL */}
@@ -159,13 +258,42 @@ const ProjectList = () => {
               className="w-full h-56 object-cover rounded-lg mb-4"
             />
 
-            <h2 className="text-xl font-semibold">
-              {preview.title}
-            </h2>
+            <h2 className="text-xl font-semibold">{preview.title}</h2>
 
-            <span className="inline-block mt-3 px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
-              {preview.category}
-            </span>
+            {preview.location && (
+              <p className="text-sm text-gray-600 mt-2">📍 {preview.location}</p>
+            )}
+            {preview.area && (
+              <p className="text-sm text-gray-600 mt-1">� Area: {preview.area}</p>
+            )}
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {preview.sector && (
+                <span className="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
+                  {preview.sector}
+                </span>
+              )}
+              {preview.subCategory && (
+                <span className="px-3 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-700">
+                  {preview.subCategory}
+                </span>
+              )}
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
+                {preview.category}
+              </span>
+            </div>
+
+            {preview.file && (
+              <a
+                href={preview.file}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 border border-red-600 rounded hover:bg-red-50"
+              >
+                <Download size={16} />
+                Download File
+              </a>
+            )}
           </div>
         </div>
       )}
