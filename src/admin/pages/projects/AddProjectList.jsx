@@ -2,6 +2,8 @@ import { ArrowLeft, Upload, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import API from "../../../api/axios";
+import { useToast } from "../../../components/Toast/Toast";
+import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 
 const SECTORS = [
   { value: "", label: "Select Sector" },
@@ -23,6 +25,8 @@ const SUB_CATEGORIES = [
 
 const AddProjectList = () => {
   const navigate = useNavigate();
+  const toast = useToast();
+  const confirm = useConfirm();
 
   const [form, setForm] = useState({
     title: "",
@@ -44,6 +48,13 @@ const AddProjectList = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const confirmed = await confirm({
+      title: "Add Project List Entry",
+      message: `Are you sure you want to add "${form.title}" to the project list?`,
+      type: "info"
+    });
+    if (!confirmed) return;
+
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("projectType", "PROJECT LIST"); // Internal project type for list
@@ -60,11 +71,11 @@ const AddProjectList = () => {
       await API.post("/admin/projects", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert("Project list entry added successfully");
+      toast.success("Project list entry added successfully");
       navigate("/admin/projects");
     } catch (err) {
       console.error(err);
-      alert("Failed to add project list entry");
+      toast.error("Failed to add project list entry");
     } finally {
       setLoading(false);
     }

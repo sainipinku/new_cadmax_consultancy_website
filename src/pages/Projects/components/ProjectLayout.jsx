@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MapPin } from "lucide-react";
 import Navbar from "../../../components/Layout/Header/Navbar";
 import Footer from "../../../components/Layout/Footer/Footer";
 import API from "../../../api/axios";
@@ -156,56 +157,40 @@ const ProjectLayout = ({
                           className="group animate-fadeInUp"
                           style={{ animationDelay: `${index * 100}ms` }}
                         >
-                          <div className="relative bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-400 h-72">
+                          <div className="relative overflow-hidden group">
                             {/* Project Image */}
-                            <div className="relative h-36 overflow-hidden">
+                            <div className="relative h-64">
                               <img
                                 src={project.image ? `http://localhost:5000${project.image}` : "https://via.placeholder.com/600x400?text=No+Image"}
                                 alt={project.title}
-                                className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 onError={(e) => {
                                   e.target.src = "https://via.placeholder.com/600x400?text=No+Image";
                                 }}
                               />
-                              {/* Overlay on hover */}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
-                              
-                              {/* Status Badge */}
-                              <div className="absolute top-2 left-2">
+                              {/* Status Badge on Image */}
+                              <div className="absolute top-4 left-4">
                                 <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-gray-700 border border-gray-200">
                                   PROJECT
                                 </span>
                               </div>
                             </div>
                             
-                            {/* Content */}
-                            <div className="p-3 flex flex-col h-full">
-                              {/* Title */}
-                              <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
+                            {/* Content Below Image */}
+                            <div className="p-4 bg-white">
+                              {/* Title and Location */}
+                              <h3 className="text-gray-900 text-lg font-bold mb-2">
                                 {project.title}
                               </h3>
                               
-                              {/* Location */}
                               {project.location && (
-                                <div className="flex items-center text-gray-600 text-xs mb-4">
-                                  <svg className="w-3 h-3 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                  </svg>
+                                <div className="flex items-center text-gray-600 text-sm">
+                                 
                                   {project.location}
                                 </div>
                               )}
-                              
-                              {/* View Details Button - Commented */}
-                              {/* <div className="flex items-center justify-between">
-                                <span className="text-blue-600 font-semibold text-xs group-hover:text-blue-700 transition-colors duration-300">
-                                  View Details
-                                </span>
-                                <svg className="w-3 h-3 text-blue-600 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                              </div> */}
                             </div>
+                              
                           </div>
                         </div>
                       ))}

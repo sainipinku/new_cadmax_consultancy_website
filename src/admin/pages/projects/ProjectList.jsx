@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Pencil, Trash2, Plus, Eye, X, Download, RotateCcw, Trash } from "lucide-react";
 import API from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../../../components/Toast/Toast";
+import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
@@ -10,6 +12,8 @@ const ProjectList = () => {
   const [showDeleted, setShowDeleted] = useState(false);
 
   const navigate = useNavigate();
+  const toast = useToast();
+  const confirm = useConfirm();
 
   useEffect(() => {
     fetchProjects();
@@ -21,42 +25,60 @@ const ProjectList = () => {
       setProjects(res.data || []);
     } catch (err) {
       console.error(err);
-      alert("Failed to load projects");
+      toast.error("Failed to load projects");
     } finally {
       setLoading(false);
     }
   };
 
   const handleSoftDelete = async (id) => {
-    if (!window.confirm("Move this project to trash?")) return;
+    const confirmed = await confirm({
+      title: "Move to Trash",
+      message: "Are you sure you want to move this project to trash? You can restore it later.",
+      type: "warning"
+    });
+    if (!confirmed) return;
     try {
       await API.delete(`/projects/${id}`);
       fetchProjects();
+      toast.success("Project moved to trash");
     } catch (err) {
       console.error(err);
-      alert("Failed to delete project");
+      toast.error("Failed to delete project");
     }
   };
 
   const handleRestore = async (id) => {
-    if (!window.confirm("Restore this project?")) return;
+    const confirmed = await confirm({
+      title: "Restore Project",
+      message: "Are you sure you want to restore this project? It will be visible on the website again.",
+      type: "info"
+    });
+    if (!confirmed) return;
     try {
       await API.put(`/projects/${id}/restore`);
       fetchProjects();
+      toast.success("Project restored successfully");
     } catch (err) {
       console.error(err);
-      alert("Failed to restore project");
+      toast.error("Failed to restore project");
     }
   };
 
   const handlePermanentDelete = async (id) => {
-    if (!window.confirm("⚠️ PERMANENTLY DELETE? This cannot be undone!")) return;
+    const confirmed = await confirm({
+      title: "Permanent Delete",
+      message: "⚠️ This action cannot be undone! The project will be permanently deleted from the system forever.",
+      type: "danger"
+    });
+    if (!confirmed) return;
     try {
       await API.delete(`/projects/${id}/permanent`);
       fetchProjects();
+      toast.success("Project permanently deleted");
     } catch (err) {
       console.error(err);
-      alert("Failed to delete project");
+      toast.error("Failed to delete project");
     }
   };
 

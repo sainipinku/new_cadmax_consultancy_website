@@ -2,6 +2,8 @@ import { ArrowLeft, Upload, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import API from "../../../api/axios";
+import { useToast } from "../../../components/Toast/Toast";
+import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 
 const SECTORS = [
   { value: "", label: "Select Sector" },
@@ -34,6 +36,8 @@ const CATEGORIES = [
 
 const AddProject = () => {
   const navigate = useNavigate();
+  const toast = useToast();
+  const confirm = useConfirm();
 
   const [form, setForm] = useState({
     title: "",
@@ -60,9 +64,16 @@ const AddProject = () => {
     e.preventDefault();
 
     if (!image) {
-      alert("Please upload project image");
+      toast.warning("Please upload project image");
       return;
     }
+
+    const confirmed = await confirm({
+      title: "Add New Project",
+      message: `Are you sure you want to add "${form.title}" as a new project?`,
+      type: "info"
+    });
+    if (!confirmed) return;
 
     const formData = new FormData();
     formData.append("title", form.title);
@@ -83,11 +94,11 @@ const AddProject = () => {
       await API.post("/projects", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert("Project added successfully");
+      toast.success("Project added successfully");
       navigate("/admin/projects");
     } catch (err) {
       console.error(err);
-      alert("Failed to add project");
+      toast.error("Failed to add project");
     } finally {
       setLoading(false);
     }

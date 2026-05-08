@@ -2,6 +2,8 @@ import { ArrowLeft, Upload, FileText, X, Download } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import API from "../../../api/axios";
+import { useToast } from "../../../components/Toast/Toast";
+import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 
 const SECTORS = [
   { value: "", label: "Select Sector" },
@@ -35,6 +37,8 @@ const CATEGORIES = [
 const EditProjectList = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const toast = useToast();
+  const confirm = useConfirm();
 
   const [form, setForm] = useState({
     title: "",
@@ -65,7 +69,7 @@ const EditProjectList = () => {
       const project = res.data.find((p) => p._id === id);
 
       if (!project) {
-        alert("Project not found");
+        toast.error("Project not found");
         return navigate("/admin/projects");
       }
 
@@ -83,7 +87,7 @@ const EditProjectList = () => {
       setCurrentFile(project.file || "");
     } catch (err) {
       console.error(err);
-      alert("Failed to load project");
+      toast.error("Failed to load project");
     } finally {
       setLoading(false);
     }
@@ -95,6 +99,13 @@ const EditProjectList = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const confirmed = await confirm({
+      title: "Update Project List Entry",
+      message: `Are you sure you want to update "${form.title}"?`,
+      type: "info"
+    });
+    if (!confirmed) return;
 
     const formData = new FormData();
     formData.append("title", form.title);
@@ -113,11 +124,11 @@ const EditProjectList = () => {
       await API.put(`/projects/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert("Project list entry updated successfully");
+      toast.success("Project list entry updated successfully");
       navigate("/admin/projects");
     } catch (err) {
       console.error(err);
-      alert("Failed to update project list entry");
+      toast.error("Failed to update project list entry");
     }
   };
 

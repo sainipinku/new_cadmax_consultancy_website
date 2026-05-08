@@ -2,6 +2,8 @@ import { ArrowLeft, Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import API from "../../../api/axios";
+import { useToast } from "../../../components/Toast/Toast";
+import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 
 const SECTORS = [
   { value: "", label: "Select Sector" },
@@ -23,6 +25,8 @@ const SUB_CATEGORIES = [
 
 const AddProjectCard = () => {
   const navigate = useNavigate();
+  const toast = useToast();
+  const confirm = useConfirm();
 
   const [form, setForm] = useState({
     title: "",
@@ -42,6 +46,13 @@ const AddProjectCard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const confirmed = await confirm({
+      title: "Add Project Card",
+      message: `Are you sure you want to add "${form.title}" as a new project card?`,
+      type: "info"
+    });
+    if (!confirmed) return;
+
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("projectType", "PROJECT CARD"); // Internal project type for cards
@@ -58,11 +69,11 @@ const AddProjectCard = () => {
       await API.post("/admin/projects", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert("Project card added successfully");
+      toast.success("Project card added successfully");
       navigate("/admin/projects");
     } catch (err) {
       console.error(err);
-      alert("Failed to add project card");
+      toast.error("Failed to add project card");
     } finally {
       setLoading(false);
     }

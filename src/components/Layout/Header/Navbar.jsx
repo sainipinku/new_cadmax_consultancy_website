@@ -141,7 +141,7 @@ const Navbar = () => {
 
                   {/* Surveying Submenu */}
                   {item.submenu && surveyingDropdown && (
-                    <div className="absolute top-0 left-full bg-white shadow-lg rounded-md py-2 min-w-[200px] border border-gray-100 ml-1">
+                    <div className="absolute top-0 left-full bg-white shadow-lg rounded-md py-2 min-w-[200px] border border-gray-100">
                       {item.submenu.map((sub) => (
                         <Link
                           key={sub.path}
@@ -181,7 +181,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`
         md:hidden absolute top-[77px] left-0 w-full
-        bg-white/95 backdrop-blur-lg
+        bg-white
         flex flex-col px-5 py-4 gap-3
         transition-all duration-300
         ${menuOpen ? "opacity-100 visible" : "opacity-0 invisible"}
@@ -204,44 +204,70 @@ const Navbar = () => {
 
         {/* Mobile Projects Menu */}
         <div className="border-b pb-2">
-          <p className="text-[14px] font-semibold text-[#0F2C59] mb-2">PROJECTS</p>
-          <div className="pl-4 flex flex-col gap-2">
-            <Link
-              to="/projects"
-              onClick={() => setMenuOpen(false)}
-              className="text-[13px] text-gray-600 hover:text-[#0F2C59]"
+          <div className="relative">
+            <button
+              onClick={() => setProjectsDropdown(!projectsDropdown)}
+              className="text-[14px] font-semibold text-[#0F2C59] flex items-center justify-between w-full mb-2"
             >
-              All Projects
-            </Link>
-            <Link
-              to="/projects/engineering"
-              onClick={() => setMenuOpen(false)}
-              className="text-[13px] text-gray-600 hover:text-[#0F2C59]"
-            >
-              Engineering
-            </Link>
-            <Link
-              to="/projects/surveying"
-              onClick={() => setMenuOpen(false)}
-              className="text-[13px] text-gray-600 hover:text-[#0F2C59]"
-            >
-              Surveying
-            </Link>
-            <div className="pl-4 flex flex-col gap-1">
-              <Link to="/projects/surveying/transportation" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Transportation</Link>
-              <Link to="/projects/surveying/water-influence" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Water Influence</Link>
-              <Link to="/projects/surveying/energy-sector" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Energy Sector</Link>
-              <Link to="/projects/surveying/irrigation-sector" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Irrigation Sector</Link>
-              <Link to="/projects/surveying/city-survey" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">City Survey</Link>
-              <Link to="/projects/surveying/real-estate-sector" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Real Estate Sector</Link>
-            </div>
-            <Link
-              to="/projects/planning"
-              onClick={() => setMenuOpen(false)}
-              className="text-[13px] text-gray-600 hover:text-[#0F2C59]"
-            >
-              Planning
-            </Link>
+              <span>PROJECTS</span>
+              <svg
+                className={`w-4 h-4 transition-transform ${projectsDropdown ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            {projectsDropdown && (
+              <div className="pl-2 flex flex-col gap-2">
+                <Link
+                  to="/projects/engineering"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-[13px] text-gray-600 hover:text-[#0F2C59]"
+                >
+                  Engineering
+                </Link>
+                
+                {/* Surveying Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setSurveyingDropdown(!surveyingDropdown)}
+                    className="text-[13px] text-gray-600 hover:text-[#0F2C59] flex items-center justify-between w-full"
+                  >
+                    <span>Surveying</span>
+                    <svg
+                      className={`w-4 h-4 transition-transform ${surveyingDropdown ? "rotate-180" : ""}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {surveyingDropdown && (
+                    <div className="pl-4 flex flex-col gap-1 mt-2">
+                      <Link to="/projects/surveying/transportation" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Transportation</Link>
+                      <Link to="/projects/surveying/water-influence" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Water Influence</Link>
+                      <Link to="/projects/surveying/energy-sector" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Energy Sector</Link>
+                      <Link to="/projects/surveying/irrigation-sector" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Irrigation Sector</Link>
+                      <Link to="/projects/surveying/city-survey" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">City Survey</Link>
+                      <Link to="/projects/surveying/real-estate-sector" onClick={() => setMenuOpen(false)} className="text-[12px] text-gray-500 hover:text-[#0F2C59]">Real Estate Sector</Link>
+                    </div>
+                  )}
+                </div>
+                
+                <Link
+                  to="/projects/planning"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-[13px] text-gray-600 hover:text-[#0F2C59]"
+                >
+                  Planning
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
