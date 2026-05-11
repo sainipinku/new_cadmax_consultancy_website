@@ -21,6 +21,7 @@ const AdminLayout = () => {
       
       {/* SIDEBAR */}
       <Sidebar />
+      
 
       {/* RIGHT SIDE */}
       <div className="flex-1 flex flex-col">
