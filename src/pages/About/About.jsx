@@ -36,7 +36,7 @@ import svg4 from "../../../src/assets/Images/about/Frame-38.png";
 
 const members = [
  { img: m1, name: "Mr. HANUMAN SHARMA", role: "CHAIRMAN" },
- { img: m2, name: "Ms. KIRAN SHARMA", role: "INTERIOR DIRECTOR  " },
+ { img: m2, name: "Ms. KIRAN SHARMA", role: " DIRECTOR  " },
  { img: m3, name: "Mr. RAMDAYAL SHARMA ", role: "ADMIN MANAGER " },
  { img: m4, name: "Mr. BABU LAL SHARMA ", role: "C.E.O " },
  { img: m5, name: "Mr. MUKESH SAINI", role: "PLANNING MANAGER" },
