@@ -25,7 +25,7 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 👇 OPTIONAL: response error logger (sirf debug help ke liye)
+//  OPTIONAL: response error logger 
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
