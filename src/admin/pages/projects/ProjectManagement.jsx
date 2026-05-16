@@ -20,7 +20,7 @@ import {
   XCircle,
   AlertCircle
 } from "lucide-react";
-import API from "../../../api/axios";
+import API, { resolveFileUrl } from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../../components/Toast/Toast";
 import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
@@ -318,7 +318,7 @@ const ProjectManagement = () => {
                   <td className="px-6 py-4">
                     <div className="relative">
                       <img
-                        src={item.image ? `http://localhost:5000${item.image}` : 'https://via.placeholder.com/150?text=No+Image'}
+                        src={item.image ? resolveFileUrl(item.image) : 'https://via.placeholder.com/150?text=No+Image'}
                         alt={item.title}
                         className="w-28 h-20 object-cover rounded-xl border border-slate-200 shadow-sm group-hover:shadow-md transition-shadow"
                       />
@@ -495,7 +495,7 @@ const ProjectManagement = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <img
-                        src={item.image ? `http://localhost:5000${item.image}` : 'https://via.placeholder.com/150?text=No+Image'}
+                        src={item.image ? resolveFileUrl(item.image) : 'https://via.placeholder.com/150?text=No+Image'}
                         alt={item.title}
                         className="w-12 h-10 object-cover rounded-lg border border-slate-200"
                       />
@@ -648,7 +648,7 @@ const ProjectManagement = () => {
             {/* IMAGE */}
             <div className="relative">
               <img
-                src={preview.image ? `http://localhost:5000${preview.image}` : 'https://via.placeholder.com/400x300?text=No+Image'}
+                src={preview.image ? resolveFileUrl(preview.image) : 'https://via.placeholder.com/400x300?text=No+Image'}
                 alt={preview.title}
                 className="w-full h-64 object-cover"
               />
