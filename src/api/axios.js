@@ -10,7 +10,7 @@ const getDefaultFileOrigin = () => {
   if (apiUrl && /^https?:\/\//i.test(apiUrl)) {
     return apiUrl.replace(/\/api\/?$/i, "");
   }
-  return "http://localhost:5001";
+  return "http://localhost:9000";
 };
 
 export const FILE_ORIGIN = normalizeOrigin(
