@@ -1,11 +1,33 @@
 import axios from "axios";
 
+const normalizeOrigin = (value) => {
+  if (!value) return "";
+  return String(value).replace(/\/$/, "");
+};
+
+const getDefaultFileOrigin = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  if (apiUrl && /^https?:\/\//i.test(apiUrl)) {
+    return apiUrl.replace(/\/api\/?$/i, "");
+  }
+  return "http://localhost:9000";
+};
+
+export const FILE_ORIGIN = normalizeOrigin(
+  process.env.REACT_APP_FILE_ORIGIN || getDefaultFileOrigin()
+);
+
+export const resolveFileUrl = (path) => {
+  if (!path) return "";
+  if (/^https?:\/\//i.test(path)) return path;
+  const origin = FILE_ORIGIN || window.location.origin;
+  if (String(path).startsWith("/")) return `${origin}${path}`;
+  return `${origin}/${path}`;
+};
+
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json", // 
-  },
+  baseURL: process.env.REACT_APP_API_URL || "/api",
+  withCredentials: process.env.REACT_APP_WITH_CREDENTIALS === "true",
 });
 
 instance.interceptors.request.use(
@@ -15,9 +37,19 @@ instance.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    // 👇 optional safety: ensure content-type always set
-    if (!config.headers["Content-Type"]) {
-      config.headers["Content-Type"] = "application/json";
+    const method = (config.method || "get").toLowerCase();
+    const hasBody = config.data !== undefined && config.data !== null;
+    const isFormData =
+      typeof FormData !== "undefined" && config.data instanceof FormData;
+
+    if (
+      hasBody &&
+      !isFormData &&
+      ["post", "put", "patch", "delete"].includes(method)
+    ) {
+      if (!config.headers["Content-Type"]) {
+        config.headers["Content-Type"] = "application/json";
+      }
     }
 
     return config;

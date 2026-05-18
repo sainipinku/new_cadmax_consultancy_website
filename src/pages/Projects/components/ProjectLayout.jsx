@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MapPin } from "lucide-react";
 import Navbar from "../../../components/Layout/Header/Navbar";
 import Footer from "../../../components/Layout/Footer/Footer";
-import API from "../../../api/axios";
+import API, { resolveFileUrl } from "../../../api/axios";
 
 // Custom CSS for animations
 const styles = `
@@ -154,14 +154,15 @@ const ProjectLayout = ({
                       {cardProjects.map((project, index) => (
                         <div
                           key={project._id}
-                          className="group animate-fadeInUp"
+                          className="group animate-fadeInUp cursor-pointer"
                           style={{ animationDelay: `${index * 100}ms` }}
+                          onClick={() => setSelectedProject(project)}
                         >
                           <div className="relative overflow-hidden group">
                             {/* Project Image */}
                             <div className="relative h-64">
                               <img
-                                src={project.image ? `http://localhost:5000${project.image}` : "https://via.placeholder.com/600x400?text=No+Image"}
+                                src={project.image ? resolveFileUrl(project.image) : "https://via.placeholder.com/600x400?text=No+Image"}
                                 alt={project.title}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 onError={(e) => {
@@ -218,7 +219,10 @@ const ProjectLayout = ({
                             <tr key={project._id} className="border-b border-gray-100 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-200 animate-slideInLeft" style={{ animationDelay: `${index * 50}ms` }}>
                               <td className="py-4 px-6 text-gray-600 font-medium">{index + 1}.</td>
                               <td className="py-4 px-6">
-                                <span className="text-blue-600 hover:text-blue-800 cursor-pointer font-medium hover:underline transition-all duration-200">
+                                <span
+                                  className="text-blue-600 hover:text-blue-800 cursor-pointer font-medium hover:underline transition-all duration-200"
+                                  onClick={() => setSelectedProject(project)}
+                                >
                                   {project.title}
                                 </span>
                               </td>
@@ -227,7 +231,7 @@ const ProjectLayout = ({
                               <td className="py-4 px-6">
                                 {(project.file || project.image) ? (
                                   <a
-                                    href={`http://localhost:5000${project.file || project.image}`}
+                                    href={resolveFileUrl(project.file || project.image)}
                                     download
                                     className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 transform hover:scale-105 shadow-md"
                                   >
@@ -272,7 +276,7 @@ const ProjectLayout = ({
           >
             <div className="relative h-80 md:h-96 bg-gradient-to-br from-gray-100 to-gray-200">
               <img
-                src={selectedProject.image ? `http://localhost:5000${selectedProject.image}` : "https://via.placeholder.com/800x600?text=No+Image"}
+                src={selectedProject.image ? resolveFileUrl(selectedProject.image) : "https://via.placeholder.com/800x600?text=No+Image"}
                 alt={selectedProject.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {
