@@ -1,6 +1,6 @@
 import axios from "../../api/axios";
 
-/* ================= CREATE ================= */
+/*  CREATE  */
 // FormData expected (name, category, status, description, image)
 export const addSubCategory = (formData) => {
   return axios.post("/subcategories", formData, {
@@ -10,17 +10,17 @@ export const addSubCategory = (formData) => {
   });
 };
 
-/* ================= GET ALL ================= */
+/*  GET ALL */
 export const getSubCategories = () => {
   return axios.get("/subcategories");
 };
 
-/* ================= GET BY CATEGORY ================= */
+/*  GET BY CATEGORY  */
 export const getSubByCategory = (categoryId) => {
   return axios.get(`/subcategories/category/${categoryId}`);
 };
 
-/* ================= UPDATE ================= */
+/*  UPDATE  */
 // image optional
 export const updateSubCategory = (id, formData) => {
   return axios.put(`/subcategories/${id}`, formData, {
@@ -30,7 +30,7 @@ export const updateSubCategory = (id, formData) => {
   });
 };
 
-/* ================= DELETE ================= */
+/* DELETE  */
 export const deleteSubCategory = (id) => {
   return axios.delete(`/subcategories/${id}`);
 };

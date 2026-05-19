@@ -67,8 +67,8 @@ const EditProject = () => {
 
   const fetchProject = async () => {
     try {
-      const res = await API.get(`/projects`);
-      const project = res.data.find((p) => p._id === id);
+      const res = await API.get(`/projects/${id}`);
+      const project = res.data?.data;
 
       if (!project) {
         toast.error("Project not found");
@@ -76,8 +76,8 @@ const EditProject = () => {
       }
 
       setForm({
-        title: project.title,
-        category: project.category,
+        title: project.title || "",
+        category: project.category || "",
         sector: project.sector || "",
         subCategory: project.subCategory || "",
         location: project.location || "",
@@ -88,7 +88,7 @@ const EditProject = () => {
         isActive: project.isActive !== false,
       });
 
-      setCurrentImage(project.image);
+      setCurrentImage(project.image?.url || project.image || "");
       setCurrentFile(project.file || "");
     } catch (err) {
       console.error(err);

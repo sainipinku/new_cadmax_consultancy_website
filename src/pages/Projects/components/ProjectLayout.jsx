@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { MapPin } from "lucide-react";
 import Navbar from "../../../components/Layout/Header/Navbar";
 import Footer from "../../../components/Layout/Footer/Footer";
 import API, { resolveFileUrl } from "../../../api/axios";
+
+// Inline SVG data URI for fallback "No Image" placeholder (no external network request)
+const noImagePlaceholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f3f4f6'/%3E%3Cg transform='translate(250,130)'%3E%3Crect x='20' y='20' width='120' height='90' rx='8' fill='%23d1d5db' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='60' cy='50' r='12' fill='%239ca3af'/%3E%3Crect x='35' y='70' width='90' height='25' rx='4' fill='%239ca3af'/%3E%3C/g%3E%3Ctext x='300' y='300' font-family='Arial,sans-serif' font-size='20' fill='%239ca3af' text-anchor='middle' font-weight='bold'%3ENo Image%3C/text%3E%3C/svg%3E";
+const noImagePlaceholderLarge = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23f3f4f6'/%3E%3Cg transform='translate(325,200)'%3E%3Crect x='20' y='20' width='150' height='110' rx='8' fill='%23d1d5db' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='70' cy='60' r='15' fill='%239ca3af'/%3E%3Crect x='40' y='85' width='110' height='30' rx='4' fill='%239ca3af'/%3E%3C/g%3E%3Ctext x='400' y='400' font-family='Arial,sans-serif' font-size='24' fill='%239ca3af' text-anchor='middle' font-weight='bold'%3ENo Image%3C/text%3E%3C/svg%3E";
 
 // Custom CSS for animations
 const styles = `
@@ -162,11 +166,11 @@ const ProjectLayout = ({
                             {/* Project Image */}
                             <div className="relative h-64">
                               <img
-                                src={project.image ? resolveFileUrl(project.image) : "https://via.placeholder.com/600x400?text=No+Image"}
+                                src={project.image ? resolveFileUrl(project.image?.url || project.image) : noImagePlaceholder}
                                 alt={project.title}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 onError={(e) => {
-                                  e.target.src = "https://via.placeholder.com/600x400?text=No+Image";
+                                  e.target.src = noImagePlaceholder;
                                 }}
                               />
                               {/* Status Badge on Image */}
@@ -231,7 +235,7 @@ const ProjectLayout = ({
                               <td className="py-4 px-6">
                                 {(project.file || project.image) ? (
                                   <a
-                                    href={resolveFileUrl(project.file || project.image)}
+                                    href={resolveFileUrl(project.file || project.image?.url || project.image)}
                                     download
                                     className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 transform hover:scale-105 shadow-md"
                                   >
@@ -276,11 +280,11 @@ const ProjectLayout = ({
           >
             <div className="relative h-80 md:h-96 bg-gradient-to-br from-gray-100 to-gray-200">
               <img
-                src={selectedProject.image ? resolveFileUrl(selectedProject.image) : "https://via.placeholder.com/800x600?text=No+Image"}
+                src={selectedProject.image ? resolveFileUrl(selectedProject.image?.url || selectedProject.image) : noImagePlaceholderLarge}
                 alt={selectedProject.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  e.target.src = "https://via.placeholder.com/800x600?text=No+Image";
+                  e.target.src = noImagePlaceholderLarge;
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>

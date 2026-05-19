@@ -1,7 +1,7 @@
 import { ArrowLeft, Upload, FileText, X, Download } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import API from "../../../api/axios";
+import API, { resolveFileUrl } from "../../../api/axios";
 import { useToast } from "../../../components/Toast/Toast";
 import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 
@@ -22,18 +22,6 @@ const SUB_CATEGORIES = [
   { value: "REAL ESTATE SECTOR", label: "Real Estate Sector" },
 ];
 
-const CATEGORIES = [
-  { value: "MANORATE AND BOUNDARY CONSTRUCTION", label: "Manorate and Boundary Construction" },
-  { value: "ROAD NETWORK", label: "Road Network" },
-  { value: "WATER SUPPLY", label: "Water Supply" },
-  { value: "ELECTRICITY", label: "Electricity" },
-  { value: "MEP PROJECTS", label: "MEP Projects" },
-  { value: "INFRASTRUCTURE", label: "Infrastructure" },
-  { value: "RESIDENTIAL", label: "Residential" },
-  { value: "COMMERCIAL", label: "Commercial" },
-  { value: "INDUSTRIAL", label: "Industrial" },
-];
-
 const EditProjectList = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -42,7 +30,6 @@ const EditProjectList = () => {
 
   const [form, setForm] = useState({
     title: "",
-    category: "",
     sector: "",
     subCategory: "",
     location: "",
@@ -65,8 +52,8 @@ const EditProjectList = () => {
 
   const fetchProject = async () => {
     try {
-      const res = await API.get(`/projects`);
-      const project = res.data.find((p) => p._id === id);
+      const res = await API.get(`/projects/${id}`);
+      const project = res.data?.data;
 
       if (!project) {
         toast.error("Project not found");
@@ -74,16 +61,17 @@ const EditProjectList = () => {
       }
 
       setForm({
-        title: project.title,
+        title: project.title || "",
         sector: project.sector || "",
         subCategory: project.subCategory || "",
         location: project.location || "",
         area: project.area || "",
         serialNumber: project.serialNumber || "",
+        description: project.description || "",
         isActive: project.isActive !== false,
       });
 
-      setCurrentImage(project.image);
+      setCurrentImage(project.image?.url || project.image || "");
       setCurrentFile(project.file || "");
     } catch (err) {
       console.error(err);
@@ -110,11 +98,13 @@ const EditProjectList = () => {
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("category", "PROJECT LIST");
+    formData.append("projectType", "PROJECT LIST");
     formData.append("sector", form.sector);
     formData.append("subCategory", form.subCategory);
     formData.append("location", form.location);
     formData.append("area", form.area);
     formData.append("serialNumber", form.serialNumber);
+    formData.append("description", form.description);
     formData.append("isActive", form.isActive);
 
     if (newImage) formData.append("image", newImage);
@@ -189,20 +179,17 @@ const EditProjectList = () => {
             </div>
           </div>
 
-          {/* CATEGORY */}
+          {/* DESCRIPTION */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Category *</label>
-            <select name="category" value={form.category} onChange={handleChange} className="w-full rounded-lg border px-4 py-2.5" required>
-              <option value="">Select Category</option>
-              {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
-            </select>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <textarea name="description" value={form.description} onChange={handleChange} rows="3" className="w-full rounded-lg border px-4 py-2.5" />
           </div>
 
           {/* CURRENT IMAGE */}
           {currentImage && (
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Current Image</label>
-              <img src={currentImage} alt="Project" className="w-32 h-24 object-cover rounded border" />
+              <img src={resolveFileUrl(currentImage?.url || currentImage)} alt="Project" className="w-32 h-24 object-cover rounded border" />
             </div>
           )}
 
