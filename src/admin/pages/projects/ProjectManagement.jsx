@@ -12,7 +12,6 @@ import {
   List, 
   Search,
   Filter,
-  MoreVertical,
   Image as ImageIcon,
   MapPin,
   FileText,
