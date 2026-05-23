@@ -23,7 +23,7 @@ const Login = () => {
     try {
       setLoading(true);
 
-      const res = await API.post("/admin/login", {
+      const res = await API.post("/api/admin/login", {
         email,
         password,
       });
