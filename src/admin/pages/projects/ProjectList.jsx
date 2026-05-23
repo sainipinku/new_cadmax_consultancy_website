@@ -150,7 +150,7 @@ const ProjectList = () => {
                 <td className="p-4">
                   <div className="flex items-center gap-3">
                     <img
-                      src={item.image}
+                      src={item.image?.url || item.image}
                       alt={item.title}
                       className="w-16 h-12 object-cover rounded border"
                     />
@@ -275,7 +275,7 @@ const ProjectList = () => {
             </button>
 
             <img
-              src={preview.image}
+              src={preview.image?.url || preview.image}
               alt={preview.title}
               className="w-full h-56 object-cover rounded-lg mb-4"
             />

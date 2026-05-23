@@ -3,8 +3,10 @@ import "./Project.css";
 import Navbar from "../../components/Layout/Header/Navbar";
 import Footer from "../../components/Layout/Footer/Footer";
 import API, { resolveFileUrl } from "../../api/axios";
-
 import heroBG from "../../../src/assets/Images/project/project-banner.png";
+
+// Inline SVG data URI for fallback "No Image" placeholder (no external network request)
+const noImagePlaceholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f3f4f6'/%3E%3Cg transform='translate(250,130)'%3E%3Crect x='20' y='20' width='120' height='90' rx='8' fill='%23d1d5db' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='60' cy='50' r='12' fill='%239ca3af'/%3E%3Crect x='35' y='70' width='90' height='25' rx='4' fill='%239ca3af'/%3E%3C/g%3E%3Ctext x='300' y='300' font-family='Arial,sans-serif' font-size='20' fill='%239ca3af' text-anchor='middle' font-weight='bold'%3ENo Image%3C/text%3E%3C/svg%3E";
 
 const Project = () => {
   const [projects, setProjects] = useState([]);
@@ -76,13 +78,13 @@ const Project = () => {
                   <img
                     src={
                       item.image
-                        ? resolveFileUrl(item.image)
-                        : "https://via.placeholder.com/600x400?text=No+Image"
+                        ? resolveFileUrl(item.image?.url || item.image)
+                        : noImagePlaceholder
                     }
                     alt={item.title}
                     className="project-img"
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/600x400?text=No+Image";
+                      e.target.src = noImagePlaceholder;
                     }}
                   />
                 </div>

@@ -1,7 +1,7 @@
 import { ArrowLeft, Upload } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import API from "../../../api/axios";
+import API, { resolveFileUrl } from "../../../api/axios";
 import { useToast } from "../../../components/Toast/Toast";
 import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 
@@ -50,8 +50,8 @@ const EditProjectCard = () => {
 
   const fetchProject = async () => {
     try {
-      const res = await API.get(`/projects`);
-      const project = res.data.find((p) => p._id === id);
+      const res = await API.get(`/projects/${id}`);
+      const project = res.data?.data;
 
       if (!project) {
         toast.error("Project not found");
@@ -59,14 +59,16 @@ const EditProjectCard = () => {
       }
 
       setForm({
-        title: project.title,
+        title: project.title || "",
         sector: project.sector || "",
         subCategory: project.subCategory || "",
         location: project.location || "",
+        description: project.description || "",
+        content: project.content || "",
         isActive: project.isActive !== false,
       });
 
-      setCurrentImage(project.image);
+      setCurrentImage(project.image?.url || project.image || "");
     } catch (err) {
       console.error(err);
       toast.error("Failed to load project");
@@ -95,6 +97,8 @@ const EditProjectCard = () => {
     formData.append("sector", form.sector);
     formData.append("subCategory", form.subCategory);
     formData.append("location", form.location);
+    formData.append("description", form.description);
+    formData.append("content", form.content);
     formData.append("isActive", form.isActive);
 
     if (newImage) {
@@ -134,7 +138,7 @@ const EditProjectCard = () => {
           {currentImage && (
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Current Image</label>
-              <img src={currentImage} alt="Project" className="w-full max-w-xs h-48 object-cover rounded-lg border" />
+              <img src={resolveFileUrl(currentImage?.url || currentImage)} alt="Project" className="w-full max-w-xs h-48 object-cover rounded-lg border" />
             </div>
           )}
 
@@ -164,6 +168,18 @@ const EditProjectCard = () => {
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Location / Address *</label>
             <input name="location" value={form.location} onChange={handleChange} placeholder="e.g., Tonk road, Jaipur" className="w-full rounded-lg border px-4 py-2.5" required />
+          </div>
+
+          {/* DESCRIPTION */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <textarea name="description" value={form.description} onChange={handleChange} rows="3" placeholder="Short description" className="w-full rounded-lg border px-4 py-2.5" />
+          </div>
+
+          {/* CONTENT */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Detailed Content (HTML allowed)</label>
+            <textarea name="content" value={form.content} onChange={handleChange} rows="6" placeholder="Detailed content" className="w-full rounded-lg border px-4 py-2.5 font-mono text-sm" />
           </div>
 
           {/* SECTOR & SUB CATEGORY */}

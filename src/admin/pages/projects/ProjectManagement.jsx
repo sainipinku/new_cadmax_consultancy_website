@@ -12,7 +12,6 @@ import {
   List, 
   Search,
   Filter,
-  MoreVertical,
   Image as ImageIcon,
   MapPin,
   FileText,
@@ -24,6 +23,10 @@ import API, { resolveFileUrl } from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../../components/Toast/Toast";
 import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
+
+// Inline SVG data URI for fallback "No Image" placeholder (no external network request)
+const noImageSmall = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23f3f4f6'/%3E%3Cg transform='translate(25,25)'%3E%3Crect x='20' y='20' width='100' height='70' rx='6' fill='%23d1d5db' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='50' cy='45' r='10' fill='%239ca3af'/%3E%3Crect x='30' y='60' width='80' height='20' rx='3' fill='%239ca3af'/%3E%3C/g%3E%3Ctext x='75' y='125' font-family='Arial,sans-serif' font-size='14' fill='%239ca3af' text-anchor='middle' font-weight='bold'%3ENo Image%3C/text%3E%3C/svg%3E";
+const noImageMedium = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Cg transform='translate(125,80)'%3E%3Crect x='20' y='20' width='150' height='100' rx='8' fill='%23d1d5db' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='70' cy='55' r='14' fill='%239ca3af'/%3E%3Crect x='40' y='80' width='110' height='25' rx='4' fill='%239ca3af'/%3E%3C/g%3E%3Ctext x='200' y='230' font-family='Arial,sans-serif' font-size='18' fill='%239ca3af' text-anchor='middle' font-weight='bold'%3ENo Image%3C/text%3E%3C/svg%3E";
 
 const ProjectManagement = () => {
   const [projects, setProjects] = useState([]);
@@ -44,7 +47,7 @@ const ProjectManagement = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await API.get(`/admin/projects?includeDeleted=${showDeleted}`);
+      const res = await API.get(`/projects/admin/all?includeDeleted=${showDeleted}`);
       setProjects(res.data?.data || []);
     } catch (err) {
       console.error(err);
@@ -62,7 +65,7 @@ const ProjectManagement = () => {
     });
     if (!confirmed) return;
     try {
-      await API.delete(`/admin/projects/${id}`);
+      await API.delete(`/projects/${id}`);
       fetchProjects();
       toast.success("Project moved to trash");
     } catch (err) {
@@ -79,7 +82,7 @@ const ProjectManagement = () => {
     });
     if (!confirmed) return;
     try {
-      await API.put(`/admin/projects/${id}/restore`);
+      await API.put(`/projects/${id}/restore`);
       fetchProjects();
       toast.success("Project restored successfully");
     } catch (err) {
@@ -96,7 +99,7 @@ const ProjectManagement = () => {
     });
     if (!confirmed) return;
     try {
-      await API.delete(`/admin/projects/${id}/permanent`);
+      await API.delete(`/projects/${id}/permanent`);
       fetchProjects();
       toast.success("Project permanently deleted");
     } catch (err) {
@@ -318,7 +321,7 @@ const ProjectManagement = () => {
                   <td className="px-6 py-4">
                     <div className="relative">
                       <img
-                        src={item.image ? resolveFileUrl(item.image) : 'https://via.placeholder.com/150?text=No+Image'}
+                        src={item.image ? resolveFileUrl(item.image?.url || item.image) : noImageSmall}
                         alt={item.title}
                         className="w-28 h-20 object-cover rounded-xl border border-slate-200 shadow-sm group-hover:shadow-md transition-shadow"
                       />
@@ -495,7 +498,7 @@ const ProjectManagement = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <img
-                        src={item.image ? resolveFileUrl(item.image) : 'https://via.placeholder.com/150?text=No+Image'}
+                        src={item.image ? resolveFileUrl(item.image?.url || item.image) : noImageSmall}
                         alt={item.title}
                         className="w-12 h-10 object-cover rounded-lg border border-slate-200"
                       />
@@ -531,7 +534,7 @@ const ProjectManagement = () => {
                   <td className="px-6 py-4 text-center">
                     {item.file ? (
                       <a
-                        href={item.file}
+                        href={resolveFileUrl(item.file?.url || item.file)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
@@ -648,7 +651,7 @@ const ProjectManagement = () => {
             {/* IMAGE */}
             <div className="relative">
               <img
-                src={preview.image ? resolveFileUrl(preview.image) : 'https://via.placeholder.com/400x300?text=No+Image'}
+                src={preview.image ? resolveFileUrl(preview.image?.url || preview.image) : noImageMedium}
                 alt={preview.title}
                 className="w-full h-64 object-cover"
               />
@@ -724,7 +727,7 @@ const ProjectManagement = () => {
               {preview.file && (
                 <div className="mt-4 pt-4 border-t border-slate-100">
                   <a
-                    href={preview.file}
+                    href={resolveFileUrl(preview.file?.url || preview.file)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-xl hover:bg-red-100 transition-colors"
