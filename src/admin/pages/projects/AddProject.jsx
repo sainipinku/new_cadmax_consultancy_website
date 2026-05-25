@@ -90,8 +90,12 @@ const AddProject = () => {
     if (file) formData.append("file", file);
 
     try {
+      // Determine project type - if area/serialNumber provided, it's a list entry, otherwise card
+      const projectType = form.area || form.serialNumber ? "PROJECT LIST" : "PROJECT CARD";
+      formData.append("projectType", projectType);
+
       setLoading(true);
-      await API.post("/projects", formData, {
+      await API.post("/admin/projects", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Project added successfully");

@@ -78,7 +78,7 @@ const ProjectLayout = ({
         if (subCategory) {
           cardUrl += `&subCategory=${subCategory}`;
         }
-        const cardRes = await API.get(`/api${cardUrl}`);
+        const cardRes = await API.get(cardUrl);
         setCardProjects(cardRes.data?.data || []);
         
         // Fetch PROJECT LIST type
@@ -86,7 +86,7 @@ const ProjectLayout = ({
         if (subCategory) {
           listUrl += `&subCategory=${subCategory}`;
         }
-        const listRes = await API.get(`/api${listUrl}`);
+        const listRes = await API.get(listUrl);
         setListProjects(listRes.data?.data || []);
         
       } catch (error) {

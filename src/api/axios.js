@@ -26,7 +26,7 @@ export const resolveFileUrl = (path) => {
 };
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "/api",
+  baseURL: (process.env.REACT_APP_API_URL || "") + "/api",
   withCredentials: process.env.REACT_APP_WITH_CREDENTIALS === "true",
 });
 

@@ -22,7 +22,7 @@ const ProjectList = () => {
   const fetchProjects = async () => {
     try {
       const res = await API.get(`/projects/admin/all?includeDeleted=${showDeleted}`);
-      setProjects(res.data || []);
+      setProjects(res.data?.data || []);
     } catch (err) {
       console.error(err);
       toast.error("Failed to load projects");

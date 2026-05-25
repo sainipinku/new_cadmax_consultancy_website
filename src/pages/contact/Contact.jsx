@@ -34,7 +34,7 @@ const Contact = () => {
     setError("");
 
     try {
-      await API.post("/api/inquiries", form);
+      await API.post("/inquiries", form);
 
       setSuccess("Your inquiry has been sent successfully!");
 
