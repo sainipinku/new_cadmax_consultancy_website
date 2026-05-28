@@ -58,6 +58,7 @@ const EditProject = () => {
   const [currentFile, setCurrentFile] = useState("");
   const [newFile, setNewFile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
   /* ================= FETCH PROJECT ================= */
   useEffect(() => {
@@ -101,6 +102,26 @@ const EditProject = () => {
   /* ================= CHANGE ================= */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleNewImageSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size > MAX_SIZE) {
+      toast.warning("Image size should be less than 10MB.");
+      e.target.value = "";
+      return;
+    }
+    setNewImage(selectedFile);
+  };
+
+  const handleNewFileSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size > MAX_SIZE) {
+      toast.warning("File size should be less than 10MB. कृपया 10MB से कम की फाइल ही अपलोड करें।");
+      e.target.value = "";
+      return;
+    }
+    setNewFile(selectedFile);
   };
 
   /* ================= SUBMIT ================= */
@@ -282,7 +303,7 @@ const EditProject = () => {
             <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 cursor-pointer hover:bg-slate-50">
               <Upload />
               <span className="text-sm mt-2">{newImage ? newImage.name : "Replace Image"}</span>
-              <input type="file" hidden accept="image/*" onChange={(e) => setNewImage(e.target.files[0])} />
+              <input type="file" hidden accept="image/*" onChange={handleNewImageSelect} />
             </label>
             <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 cursor-pointer hover:bg-slate-50">
               <FileText />
@@ -296,7 +317,7 @@ const EditProject = () => {
                   <X size={12} /> Remove current file
                 </button>
               )}
-              <input type="file" hidden accept=".pdf,.doc,.docx" onChange={(e) => setNewFile(e.target.files[0])} />
+              <input type="file" hidden accept=".pdf,.doc,.docx" onChange={handleNewFileSelect} />
             </label>
           </div>
 

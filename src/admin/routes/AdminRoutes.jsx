@@ -11,11 +11,11 @@ import Dashboard from "../pages/dashboard/Dashboard";
 /* INQUIRIES */
 import Inquiries from "../pages/Inquiries/Inquiries"; // ✅ correct import
 
-/* SERVICES */
-import CategoryList from "../pages/services/CategoryList";
-import CategoryForm from "../pages/services/CategoryForm";
-import SubCategoryList from "../pages/services/SubCategoryList";
-import SubCategoryForm from "../pages/services/SubCategoryForm";
+/* SERVICES - Commented out as per requirement */
+// import CategoryList from "../pages/services/CategoryList";
+// import CategoryForm from "../pages/services/CategoryForm";
+// import SubCategoryList from "../pages/services/SubCategoryList";
+// import SubCategoryForm from "../pages/services/SubCategoryForm";
 
 /* PROJECTS */
 import ProjectManagement from "../pages/projects/ProjectManagement";
@@ -49,8 +49,8 @@ const AdminRoutes = () => {
         {/* ===== INQUIRIES ===== */}
         <Route path="inquiries" element={<Inquiries />} />
 
-        {/* ===== SERVICES ===== */}
-        <Route path="services/categories" element={<CategoryList />} />
+        {/* ===== SERVICES (Commented out) ===== */}
+        {/* <Route path="services/categories" element={<CategoryList />} />
         <Route path="services/categories/add" element={<CategoryForm />} />
         <Route
           path="services/categories/edit/:id"
@@ -65,7 +65,7 @@ const AdminRoutes = () => {
         <Route
           path="services/subcategories/edit/:id"
           element={<SubCategoryForm />}
-        />
+        /> */}
 
         {/* ===== PROJECTS ===== */}
         <Route path="projects" element={<ProjectManagement />} />

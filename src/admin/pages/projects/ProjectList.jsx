@@ -149,11 +149,11 @@ const ProjectList = () => {
                 {/* PROJECT NAME */}
                 <td className="p-4">
                   <div className="flex items-center gap-3">
-                    <img
+                    {/* <img
                       src={item.image?.url || item.image}
                       alt={item.title}
                       className="w-16 h-12 object-cover rounded border"
-                    />
+                    /> */}
                     <div>
                       <p className="font-semibold text-slate-800">{item.title}</p>
                       <div className="flex gap-1 mt-1">

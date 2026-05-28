@@ -44,6 +44,7 @@ const EditProjectList = () => {
   const [currentFile, setCurrentFile] = useState("");
   const [newFile, setNewFile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
   useEffect(() => {
     fetchProject();
@@ -83,6 +84,26 @@ const EditProjectList = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleNewImageSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size > MAX_SIZE) {
+      toast.warning("Image size should be less than 10MB. कृपया 10MB से कम की इमेज ही अपलोड करें।");
+      e.target.value = "";
+      return;
+    }
+    setNewImage(selectedFile);
+  };
+
+  const handleNewFileSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size > MAX_SIZE) {
+      toast.warning("File size should be less than 10MB. कृपया 10MB से कम की फाइल ही अपलोड करें।");
+      e.target.value = "";
+      return;
+    }
+    setNewFile(selectedFile);
   };
 
   const handleSubmit = async (e) => {
@@ -205,7 +226,7 @@ const EditProjectList = () => {
                   <span className="text-sm text-slate-500 mt-1">Click to replace image</span>
                 </>
               )}
-              <input type="file" hidden accept="image/*" onChange={(e) => setNewImage(e.target.files[0])} />
+              <input type="file" hidden accept="image/*" onChange={handleNewImageSelect} />
             </label>
           </div>
 
@@ -237,7 +258,7 @@ const EditProjectList = () => {
                   <X size={12} /> Remove current file
                 </button>
               )}
-              <input type="file" hidden accept=".pdf,.doc,.docx" onChange={(e) => setNewFile(e.target.files[0])} />
+              <input type="file" hidden accept=".pdf,.doc,.docx" onChange={handleNewFileSelect} />
             </label>
           </div>
 

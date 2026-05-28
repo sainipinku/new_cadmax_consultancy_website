@@ -55,9 +55,30 @@ const AddProject = () => {
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleImageSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size > MAX_SIZE) {
+      toast.warning("Image size should be less than 10MB");
+      e.target.value = "";
+      return;
+    }
+    setImage(selectedFile);
+  };
+
+  const handleFileSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size > MAX_SIZE) {
+      toast.warning("File size should be less than 10MB");
+      e.target.value = "";
+      return;
+    }
+    setFile(selectedFile);
   };
 
   const handleSubmit = async (e) => {
@@ -192,12 +213,12 @@ const AddProject = () => {
             <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 cursor-pointer hover:bg-slate-50">
               <Upload />
               <span className="text-sm mt-2">{image ? image.name : "Upload Project Image *"}</span>
-              <input type="file" hidden accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
+              <input type="file" hidden accept="image/*" onChange={handleImageSelect} />
             </label>
             <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 cursor-pointer hover:bg-slate-50">
               <FileText />
               <span className="text-sm mt-2">{file ? file.name : "Upload File (PDF/DOC) - Optional"}</span>
-              <input type="file" hidden accept=".pdf,.doc,.docx" onChange={(e) => setFile(e.target.files[0])} />
+              <input type="file" hidden accept=".pdf,.doc,.docx" onChange={handleFileSelect} />
             </label>
           </div>
 

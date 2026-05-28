@@ -38,9 +38,20 @@ const AddProjectCard = () => {
 
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleImageSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size > MAX_SIZE) {
+      toast.warning("Image size should be less than 10MB");
+      e.target.value = "";
+      return;
+    }
+    setImage(selectedFile);
   };
 
   const handleSubmit = async (e) => {
@@ -104,7 +115,7 @@ const AddProjectCard = () => {
                 <span className="text-sm text-slate-500 mt-2">Click to upload project image *</span>
               </>
             )}
-            <input type="file" hidden accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
+            <input type="file" hidden accept="image/*" onChange={handleImageSelect} />
           </label>
 
           {/* TITLE */}

@@ -42,6 +42,7 @@ const EditProjectCard = () => {
   const [currentImage, setCurrentImage] = useState("");
   const [newImage, setNewImage] = useState(null);
   const [loading, setLoading] = useState(true);
+  const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
   useEffect(() => {
     fetchProject();
@@ -79,6 +80,16 @@ const EditProjectCard = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleNewImageSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size > MAX_SIZE) {
+      toast.warning("Image size should be less than 10MB. कृपया 10MB से कम की इमेज ही अपलोड करें।");
+      e.target.value = "";
+      return;
+    }
+    setNewImage(selectedFile);
   };
 
   const handleSubmit = async (e) => {
@@ -154,7 +165,7 @@ const EditProjectCard = () => {
                   <span className="text-sm text-slate-500 mt-1">Click to replace image</span>
                 </>
               )}
-              <input type="file" hidden accept="image/*" onChange={(e) => setNewImage(e.target.files[0])} />
+              <input type="file" hidden accept="image/*" onChange={handleNewImageSelect} />
             </label>
           </div>
 
