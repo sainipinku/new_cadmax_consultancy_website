@@ -61,6 +61,7 @@ const ProjectLayout = ({
   sector,
   subCategory = null,
   showProjectList = true,
+  noProjectContent = null,
 }) => {
   const [cardProjects, setCardProjects] = useState([]);
   const [listProjects, setListProjects] = useState([]);
@@ -282,8 +283,10 @@ const ProjectLayout = ({
 
                 {/* NO PROJECTS FOUND */}
                 {cardProjects.length === 0 && listProjects.length === 0 && (
-                  <div className="text-center py-12">
-                    <p className="text-xl text-gray-600">No projects found.</p>
+                  <div className="py-12">
+                    {noProjectContent || (
+                      <p className="text-xl text-gray-600 text-center">No projects found.</p>
+                    )}
                   </div>
                 )}
               </>
