@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, LogOut, Mail, Menu, User } from "lucide-react";
+import { ChevronDown, LogOut, Mail, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ onToggleSidebar }) => {

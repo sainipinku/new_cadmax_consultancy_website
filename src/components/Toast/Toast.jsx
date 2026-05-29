@@ -18,17 +18,12 @@ export const ToastProvider = ({ children }) => {
     
     setToasts((prev) => [...prev, newToast]);
     
-    // Auto remove after duration
-    setTimeout(() => {
-      removeToast(id);
-    }, duration);
-    
     return id;
   }, []);
 
   const removeToast = useCallback((id) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
-  }, []);
+  }, [setToasts]);
 
   const success = useCallback((message, duration) => {
     return addToast(message, 'success', duration);
@@ -80,6 +75,7 @@ const ToastItem = ({ toast, onClose }) => {
     }, toast.duration - 300);
     
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toast.duration]);
 
   const getIcon = () => {

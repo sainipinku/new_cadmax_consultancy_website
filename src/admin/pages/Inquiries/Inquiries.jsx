@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Mail, Eye, RefreshCw, Inbox, CheckCheck, ChevronLeft, ChevronRight, Search, X } from "lucide-react";
+import { Mail, RefreshCw, Inbox, Search, X } from "lucide-react";
 import API from "../../../api/axios";
 
 const Inquiries = () => {

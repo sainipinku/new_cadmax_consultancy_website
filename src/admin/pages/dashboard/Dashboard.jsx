@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import {
-  Users,
-  Briefcase,
-  Phone,
   FolderKanban,
-  TrendingUp,
-  Eye,
   Mail,
   Calendar,
-  Clock,
   CheckCircle2,
   AlertCircle,
   ArrowUpRight,

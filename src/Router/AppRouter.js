@@ -53,7 +53,7 @@ import Careerpath from "../pages/CAREER-PATHS/careerpath";
 
 // ===== ADMIN =====
 import AdminRoutes from "../admin/routes/AdminRoutes";
-import AdminPrivate from "../admin/routes/AdminPrivate";
+
 
 export default function AppRouter() {
   return (

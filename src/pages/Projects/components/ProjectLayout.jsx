@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { MapPin } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../../components/Layout/Header/Navbar";
 import Footer from "../../../components/Layout/Footer/Footer";
 import API, { resolveFileUrl } from "../../../api/axios";

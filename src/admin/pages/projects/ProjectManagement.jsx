@@ -72,7 +72,8 @@ const ProjectManagement = () => {
   const toast = useToast();
   const confirm = useConfirm();
 
-  useEffect(() => { fetchProjects(); }, [showDeleted]);
+  useEffect(() => { fetchProjects(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showDeleted]);
 
   const fetchProjects = async () => {
     try {
