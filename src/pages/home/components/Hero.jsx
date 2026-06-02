@@ -45,28 +45,28 @@ const Hero = () => {
 
       </div>
 
-      {/* STICKY COMPANY BAR */}
+      {/* STICKY COMPANY BAR
       <div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-gray-200 py-2 px-4 z-50 shadow-sm">
   <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 sm:gap-4md:gap-8 text-center">
     
     <span className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-800 whitespace-nowrap">
-      Cad Max Consultancy
+     
     </span>
 
     <span className="hidden sm:block text-gray-500">||</span>
 
     <span className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-800 whitespace-nowrap">
-      Urban Max Architects
+    
     </span>
 
     <span className="hidden sm:block text-gray-500">||</span>
 
     <span className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-800 whitespace-nowrap">
-      Cad Core Infra
+     
     </span>
 
   </div>
-</div>
+</div> */}
 
     </section>
   );
