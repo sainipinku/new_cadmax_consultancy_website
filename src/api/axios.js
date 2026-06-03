@@ -1,32 +1,18 @@
 import axios from "axios";
 
-const normalizeOrigin = (value) => {
-  if (!value) return "";
-  return String(value).replace(/\/$/, "");
-};
-
-const getDefaultFileOrigin = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
-  if (apiUrl && /^https?:\/\//i.test(apiUrl)) {
-    return apiUrl.replace(/\/api\/?$/i, "");
-  }
-  return "http://localhost:9000";
-};
-
-export const FILE_ORIGIN = normalizeOrigin(
-  process.env.REACT_APP_FILE_ORIGIN || getDefaultFileOrigin()
-);
+// All API calls go through the proxy (port 3000 -> port 5001)
+export const FILE_ORIGIN = ""; // Uses same origin since files are also served by backend
 
 export const resolveFileUrl = (path) => {
   if (!path) return "";
   if (/^https?:\/\//i.test(path)) return path;
-  const origin = FILE_ORIGIN || window.location.origin;
+  const origin = window.location.origin;
   if (String(path).startsWith("/")) return `${origin}${path}`;
   return `${origin}/${path}`;
 };
 
 const instance = axios.create({
-  baseURL: (process.env.REACT_APP_API_URL || "") + "/api",
+  baseURL: "/api",
   withCredentials: process.env.REACT_APP_WITH_CREDENTIALS === "true",
 });
 
