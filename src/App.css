@@ -14,8 +14,13 @@ a, a:link, a:visited {
 }
 
 html, body {
-    overflow-x: hidden !important;
     width: 100%;
-   
+}
+
+body {
+    /* `clip` prevents horizontal overflow WITHOUT creating a scroll
+       container, so descendant `position: sticky` keeps working.
+       (`overflow-x: hidden` would break sticky pinning.) */
+    overflow-x: clip;
 }
 
