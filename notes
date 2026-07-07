@@ -194,3 +194,45 @@ const Contact = () => {
 }
 
 export default Contact
+
+
+
+
+
+visuals ui prompt 
+Build a React component using GSAP + ScrollTrigger that recreates this exact scroll-scrubbed hero transition sequence:
+Setup:
+
+Install/use gsap and gsap/ScrollTrigger, register the plugin
+Wrap the whole sequence in one pinned section (ScrollTrigger.create or .pin: true) that stays fixed on screen while the user scrolls through it — use scrub: true (or scrub: 1 for slight smoothing) so animation progress is directly tied to scroll position, not time-based
+Total pinned scroll distance: roughly 300-400vh (end: "+=3000" or similar) so the sequence feels slow/deliberate, not rushed
+
+Stage 1 — Hero (0% to 25% of scroll progress):
+
+Full-bleed background image (hero photo) with a large serif headline centered/left, e.g. two-line uppercase text, white color, plus an outlined pill CTA button below it
+This is the resting state at scroll start, no animation yet
+
+Stage 2 — Blinds/slat reveal (25% to 55% of scroll progress):
+
+Render 15-20 vertical div strips absolutely positioned side-by-side, evenly spaced across full width, each with a solid gold/accent background color (#A8916B or similar)
+Animate each strip's scaleX (from a transform-origin: left) from 0 to 1, using GSAP timeline with a small stagger (e.g. 0.02-0.03 between each strip) so they fill in a wave from left to right, not all at once
+Simultaneously fade out the hero headline and CTA (opacity: 1 → 0, slight y: 0 → -20)
+By end of this stage, the gold strips should have fully merged into one solid gold color panel covering the entire hero image
+
+Stage 3 — Circle/iris reveal (55% to 100% of scroll progress):
+
+Add a circular element (a div with border-radius: 50% or an SVG circle) centered horizontally, anchored to the bottom of the viewport, starting at a small size (e.g. 40px diameter, mostly off-screen below)
+Animate its scale (or width/height) from small to large enough to cover the full viewport — use transform-origin: center bottom so it grows upward like a rising sun/curtain
+Background color of the circle: cream/ivory (#F5F0E8 or similar)
+As the circle grows past ~40% of this stage, fade in a new heading (serif font, muted gold/brown text color, e.g. "Winnipeg's Premiere Nail Spa") positioned inside/on top of the circle, plus a small centered SVG logo icon above it — both animate opacity: 0 → 1 and y: 20 → 0
+As the circle continues expanding to near-full-screen, reveal a second background image (e.g. storefront photo) positioned behind/within the circle so it appears to "emerge" as the circle grows — this image should be at a lower z-index than the cream circle content but becomes visible through/around it as the circle's edge passes the viewport bounds
+
+Technical requirements:
+
+Use one GSAP timeline with scrollTrigger: { trigger: sectionRef, start: "top top", end: "+=3500", scrub: 1, pin: true }
+All animations added to this single timeline at specific time positions (use label syntax like "blinds", "circleGrow", "textReveal" for clarity) so the whole sequence scrubs smoothly forward AND backward when scrolling up
+Use useRef for all animated elements, useEffect with gsap.context() for cleanup on unmount (React best practice with GSAP)
+Make sure ScrollTrigger.refresh() is called appropriately if content loads async
+Keep the whole thing performant: prefer animating transform and opacity only (no width/height/top/left animation where avoidable) for GPU acceleration
+
+Fallback: on mobile/small screens, reduce the pinned scroll distance and consider simplifying the blinds stage to a straight opacity crossfade instead of the staggered strip reveal, to keep performance smooth.

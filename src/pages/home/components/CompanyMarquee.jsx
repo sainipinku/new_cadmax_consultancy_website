@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
-import "./company.css";
+import React, { useRef } from 'react';
+import { useScrollReveal } from '../../../hooks/useScrollReveal';
 
-// Company logo imports
+// Company logo imports - keep the same imports as original company.jsx
 import img5 from "../../../assets/Images/company logo/ANUKAMPA LOGO.jpg";
 import img6 from "../../../assets/Images/company logo/FS REALITY COMPANY LOGO.jpg";
 import img7 from "../../../assets/Images/company logo/HG INFRA.jpg";
@@ -46,71 +46,63 @@ import img47 from "../../../assets/Images/company logo/Frame 21.jpg";
 
 const images = [img5, img6, img7, img8, img9, img11, img12, img13, img14, img15, img16, img17, img18, img19, img20, img21, img22, img23, img24, img25, img26, img27, img28, img29, img30, img31, img33, img34, img35, img36, img37, img38, img39, img40, img41, img42, img43, img44, img45, img46, img47];
 
-const CompanyShowcase = () => {
-  const sectionRef = useRef(null);
-  const [visible, setVisible] = useState(false);
+const CompanyMarquee = () => {
+  const sectionRef = useScrollReveal({ start: 'top 85%' });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(false);
-            setTimeout(() => setVisible(true), 50);
-          } else {
-            setVisible(false);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Duplicate images for infinite marquee
-  const marqueeImages = [...images, ...images];
+  const allLogos = [...images, ...images, ...images];
 
   return (
-    <section 
-      className="company-showcase-section" 
+    <section
       ref={sectionRef}
-      style={{
-        background: 'linear-gradient(135deg, #f5f3f0 0%, #e8e4df 100%)',
-        padding: '40px 0'
-      }}
+      className="relative py-16 md:py-20 bg-[#F8F5F1] overflow-hidden border-y border-[#E8E4DD]"
     >
-      <div className="max-w-full px-5 md:px-16 lg:px-24">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          
-          {/* LEFT SIDE - Label Box */}
-          <div className={`company-label-box ${visible ? "visible" : ""}`}>
-            <div className="company-label-content">
-              <p className="company-label-text">Clients who inspire us</p>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 mb-10">
+        <div className="flex items-center gap-4">
+          <div className="w-8 h-[1px] bg-[#CAAA79]" />
+          <span className="text-xs font-general font-semibold text-[#CAAA79] uppercase tracking-[0.2em]">
+            Trusted By
+          </span>
+          <div className="flex-1 h-[1px] bg-gradient-to-r from-[#E8E4DD] to-transparent" />
+        </div>
+      </div>
 
-          {/* RIGHT SIDE - Horizontal Logo Slider */}
-          <div className={`company-slider-container ${visible ? "visible" : ""}`}>
-            <div className="company-slider-track">
-              {marqueeImages.map((img, index) => (
-                <div key={index} className="company-logo-item">
-                  <img 
-                    src={img} 
-                    alt={`Client logo ${index + 1}`}
-                    className="company-logo-image"
-                  />
-                </div>
-              ))}
+      {/* Marquee row 1 - left to right */}
+      <div className="relative mb-4">
+        <div className="flex gap-8 animate-marquee" style={{ width: 'max-content' }}>
+          {allLogos.map((img, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 w-[120px] h-[60px] md:w-[140px] md:h-[70px] bg-white rounded-lg p-3 flex items-center justify-center shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105"
+            >
+              <img
+                src={img}
+                alt={`Client ${i + 1}`}
+                className="w-full h-full object-contain grayscale hover:grayscale-0 transition-all duration-500"
+              />
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
 
+      {/* Marquee row 2 - right to left */}
+      <div className="relative">
+        <div className="flex gap-8 animate-marquee-reverse" style={{ width: 'max-content' }}>
+          {allLogos.reverse().map((img, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 w-[120px] h-[60px] md:w-[140px] md:h-[70px] bg-white rounded-lg p-3 flex items-center justify-center shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105"
+            >
+              <img
+                src={img}
+                alt={`Client ${i + 1}`}
+                className="w-full h-full object-contain grayscale hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 };
 
-export default CompanyShowcase;
+export default CompanyMarquee;

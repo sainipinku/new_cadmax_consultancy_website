@@ -1,16 +1,18 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 import "swiper/css";
-import img1 from "../../../assets/Images/header/banner1.jpg";
+// import img1 from "../../../assets/Images/header/banner1.jpg";
 // import img1 from "../../../assets/Images/header/home-banner-1.jpg";
-import img2 from "../../../assets/Images/header/banner2.jpg";
-import img3 from "../../../assets/Images/header/banner3.jpg";
-import img4 from "../../../assets/Images/header/home-banner-4.jpg";
+// import img2 from "../../../assets/Images/header/banner2.jpg";
+// import img3 from "../../../assets/Images/header/banner3.jpg";
+// import img4 from "../../../assets/Images/header/home-banner-4.jpg";
+import heroImg from "../../../assets/Images/header/hero.jpg";
 
 const Hero = () => {
-  const sliderImages = [img1, img2, img3, img4];
+  const sliderImages = [heroImg, heroImg];
 
   return (
     <section className="w-full overflow-hidden">
@@ -34,8 +36,16 @@ const Hero = () => {
                 <img
                   src={img}
                   alt={`slide-${i}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hero-zoom-effect"
                 />
+
+                {/* Dark overlay for better text readability */}
+                <div className="absolute inset-0 bg-black/40"></div>
+
+                {/* HERO CONTENT - Image only, no text */}
+                <div className="absolute inset-0">
+                  {/* Text content removed - keeping only the image with overlay */}
+                </div>
 
               </div>
             </SwiperSlide>
@@ -44,29 +54,6 @@ const Hero = () => {
         </Swiper>
 
       </div>
-
-      {/* STICKY COMPANY BAR
-      <div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-gray-200 py-2 px-4 z-50 shadow-sm">
-  <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 sm:gap-4md:gap-8 text-center">
-    
-    <span className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-800 whitespace-nowrap">
-     
-    </span>
-
-    <span className="hidden sm:block text-gray-500">||</span>
-
-    <span className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-800 whitespace-nowrap">
-    
-    </span>
-
-    <span className="hidden sm:block text-gray-500">||</span>
-
-    <span className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-800 whitespace-nowrap">
-     
-    </span>
-
-  </div>
-</div> */}
 
     </section>
   );

@@ -1,0 +1,192 @@
+/* ============================================
+   HERO SCROLL SECTION — GSAP ScrollTrigger
+   ============================================ */
+
+.hero-scroll-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.hero-scroll-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* === Hero Background Layer === */
+.hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* === Hero Content (headline + CTA) === */
+.hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 0 1.5rem;
+}
+
+.hero-headline {
+  color: #ffffff;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  max-width: 64rem;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+@media (min-width: 768px) {
+  .hero-headline {
+    text-align: left;
+    font-size: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-headline {
+    font-size: 7rem;
+  }
+}
+
+.hero-cta-wrapper {
+  margin-top: 2rem;
+}
+
+.hero-cta-btn {
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero-cta-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* === Gold Blinds/Strips === */
+.hero-strips {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  pointer-events: none;
+}
+
+.hero-strip {
+  height: 100%;
+  will-change: transform;
+}
+
+/* === Storefront Background === */
+.hero-storefront {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  will-change: opacity;
+}
+
+.hero-storefront-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hero-storefront-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* === Circle/Iris Element === */
+.hero-circle {
+  position: absolute;
+  z-index: 40;
+  will-change: transform;
+}
+
+.hero-circle-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-15%);
+}
+
+.hero-circle-logo {
+  margin-bottom: 1rem;
+  will-change: transform, opacity;
+}
+
+.hero-circle-heading {
+  text-align: center;
+  padding: 0 2rem;
+  line-height: 1.2;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  will-change: transform, opacity;
+}
+
+/* === Mobile Responsive === */
+@media (max-width: 767px) {
+  .hero-headline {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-cta-btn {
+    font-size: 0.875rem;
+    padding: 0.625rem 1.5rem;
+  }
+
+  .hero-circle-heading {
+    font-size: 1.5rem;
+  }
+
+  .hero-circle-logo {
+    width: 40px;
+    height: 40px;
+  }
+}

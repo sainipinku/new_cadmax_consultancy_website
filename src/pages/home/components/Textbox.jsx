@@ -14,7 +14,7 @@ const Textbox = () => {
   {/* TOP TEXT */}
   <div
     className={`
-      bg-[#d0d0d0] 
+      bg-[#EEEAE2] 
       px-4 sm:px-6 md:px-8 
       py-[50px] sm:py-[60px]
       w-full
@@ -28,25 +28,25 @@ const Textbox = () => {
     <div className="max-w-[100%] sm:max-w-[100%] md:max-w-[100%] lg:max-w-[100%px] text-center">
 
       <h2 className="
-        text-black uppercase font-extrabold
+        text-[#151515] uppercase font-bold
         text-[18px] 
         sm:text-[20px] 
         md:text-[22px] 
         lg:text-[26px]
         leading-[1.4]
       ">
-        From your ideas to smart designs—Architech listens.
+        From your ideas to smart designs—Cadmax listens.
       </h2>
 
       <p className="
-        text-black capitalize font-bold mt-3
+        text-[#636363] font-semibold mt-3
         text-[13px] 
         sm:text-[14px] 
         md:text-[16px] 
         lg:text-[20px]
         leading-[1.6]
       ">
-       At Architech, every detail counts. From innovative interiors that inspire to engineering solutions that endure, we’re committed to shaping spaces where design meets precision. Take our survey and help us craft environments that reflect your vision.
+        At Cadmax, every detail counts. From innovative interiors that inspire to engineering solutions that endure, we're committed to shaping spaces where design meets precision. Take our survey and help us craft environments that reflect your vision.
       </p>
 
     </div>

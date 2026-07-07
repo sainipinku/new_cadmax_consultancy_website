@@ -1,34 +1,28 @@
-import React from 'react'
+import React from 'react';
 import Navbar from '../../components/Layout/Header/Navbar';
-import Hero from './components/Hero';
-import Textbox from './components/Textbox';
-import Footer from '../../components/Layout/Footer/Footer'
-// import Image from '../home/components/image'
-import Accuracy from '../home/components/Accuracy'
-import Collage2 from '../home/components/collage'
-// import RatingPage from '../home/components/rating'
-import CompanyShowcase from '../home/components/company'
-// import MasonryGallery from './components/MasonryGallery';
-import MasonryGallery from '../home/components/image'
+import HeroSection from './components/HeroSection';
+import CompanyShowcase from './components/company';
+import AboutSection from './components/AboutSection';
+import ServicesSection from './components/ServicesSection';
+import ProjectsShowcase from './components/ProjectsShowcase';
+import TestimonialsSection from './components/TestimonialsSection';
+import ContactSection from './components/ContactSection';
+import Footer from '../../components/Layout/Footer/Footer';
 
-import TestimonialSlider from '../home/components/rating'
 function Home() {
-
- return (
-  <div className="min-h-screen py-0 px-0 mt-0 mb-0 bg-[#f1f1f1]">
-    <Navbar />
-    <Hero />
-    <Textbox />
-    <MasonryGallery />
-    <Accuracy />
-    <Collage2 />
-    <TestimonialSlider />
-    <CompanyShowcase />
-    <Footer />
-  </div>
-);
-
-
+  return (
+    <div className="min-h-screen bg-[#F8F7F4] font-inter">
+      <Navbar />
+      <HeroSection />
+      <CompanyShowcase />
+      <AboutSection />
+      <ServicesSection />
+      <ProjectsShowcase />
+      <TestimonialsSection />
+      <ContactSection />
+      <Footer />
+    </div>
+  );
 }
 
-export default Home
+export default Home;
