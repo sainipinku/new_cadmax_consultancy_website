@@ -234,7 +234,7 @@ const Navbar = () => {
       fixed top-0 left-0 w-full z-50
       h-[77px]
       flex items-center justify-between px-4 md:px-6
-      bg-white/90 backdrop-blur-md
+      bg-[#F8F7F4]/90 backdrop-blur-md
       border-b border-black/5
     ">
 
@@ -356,7 +356,7 @@ const Navbar = () => {
       {/* Desktop Button */}
       <Link
         to="/contact"
-        className="hidden lg:block bg-[#171717] text-white px-6 py-3 rounded-md text-[14px] font-bold"
+        className="hidden lg:block bg-[#CAAA79] text-white hover:bg-[#c09c66] px-6 py-2 rounded-md text-[14px] font-bold"
       >
         ENQUIRE TODAY
       </Link>

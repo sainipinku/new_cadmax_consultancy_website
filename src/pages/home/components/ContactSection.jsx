@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { Mail, Phone } from 'lucide-react';
 import ctaBg from '../../../assets/Images/Other/cta-entrance.jpg';

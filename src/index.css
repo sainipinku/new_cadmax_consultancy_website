@@ -606,11 +606,12 @@ header .absolute.shadow-xl {
   to   { transform: scaleX(1); }
 }
 
-/* Home entrance after preloader: zoom + fade in, ending with NO transform
-   so it doesn't create a containing block that breaks GSAP ScrollTrigger pinning. */
+/* Home entrance after preloader: ZOOM only (no opacity fade, so no white flash).
+   Starts slightly zoomed-in and settles to scale(1). The class is removed on
+   animationend so no transform remains (keeps GSAP ScrollTrigger pinning intact). */
 @keyframes home-enter-anim {
-  0%   { opacity: 0; transform: scale(1.06); }
-  100% { opacity: 1; transform: scale(1); }
+  0%   { transform: scale(1.08); }
+  100% { transform: scale(1); }
 }
 
 .home-enter {

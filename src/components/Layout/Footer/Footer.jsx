@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
-import logo from "../../../assets/Images/cadmax-logo/footer-logo.png";
+// import logo from "../../../assets/Images/cadmax-logo/footer-logo.png";
 
 const Footer = () => {
   const columnsRef = useRef([]);
