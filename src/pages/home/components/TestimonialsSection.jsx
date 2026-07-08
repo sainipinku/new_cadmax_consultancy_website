@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
-import { Quote, Star } from 'lucide-react';
+import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,17 +37,15 @@ const TestimonialsSection = () => {
   const sectionRef = useRef(null);
   const headerRef = useScrollReveal({ start: 'top 80%' });
   const trackRef = useRef(null);
+  const scrollTriggerRef = useRef(null);
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
 
-    const cards = track.children;
-    if (!cards.length) return;
-
     const ctx = gsap.context(() => {
-      // Auto-scroll animation
-      gsap.to(track, {
+      // Scroll-driven horizontal slide (kept as requested)
+      const anim = gsap.to(track, {
         x: () => -(track.scrollWidth - window.innerWidth + 100),
         ease: 'none',
         scrollTrigger: {
@@ -58,10 +56,69 @@ const TestimonialsSection = () => {
           invalidateOnRefresh: true,
         },
       });
+      scrollTriggerRef.current = anim.scrollTrigger;
     });
 
     return () => ctx.revert();
   }, []);
+
+  // Number of unique cards (not counting the duplicated set)
+  const uniqueCount = testimonials.length;
+  // Card step (gap between consecutive cards)
+  let cachedStep = 0;
+
+  const getStep = () => {
+    if (cachedStep) return cachedStep;
+    const children = trackRef.current?.children;
+    if (!children || children.length < 2) return 0;
+    cachedStep = children[1].getBoundingClientRect().left - children[0].getBoundingClientRect().left;
+    return cachedStep;
+  };
+
+  // Move the track by one card width for prev/next buttons
+  const slide = (dir) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const children = track.children;
+    if (children.length < 2) return;
+
+    const step = getStep();
+    if (!step) return;
+
+    const currentX = Number(gsap.getProperty(track, 'x')) || 0;
+    // Clamp so we never scroll past the duplicated set
+    const minX = -(track.scrollWidth - window.innerWidth + 100);
+    let nextX = currentX - dir * step;
+
+    // Infinite loop: if going forward past the end, wrap to start
+    if (nextX < minX) {
+      scrollTriggerRef.current?.disable();
+      // Teleport to the beginning of the duplicate set so the animation feels infinite
+      const resetX = -(uniqueCount * step);
+      gsap.set(track, { x: resetX });
+      nextX = resetX - dir * step;
+    }
+    // If going backward past the start, wrap to near the end
+    if (nextX > 0) {
+      scrollTriggerRef.current?.disable();
+      const resetX = minX + uniqueCount * step;
+      gsap.set(track, { x: resetX });
+      nextX = resetX - dir * step;
+    }
+
+    nextX = Math.max(minX, Math.min(0, nextX));
+
+    // Disable the scroll-trigger while the button animation runs so they
+    // don't fight each other.
+    scrollTriggerRef.current?.disable();
+
+    gsap.to(track, {
+      x: nextX,
+      duration: 0.6,
+      ease: 'power2.out',
+      onComplete: () => scrollTriggerRef.current?.enable(),
+    });
+  };
 
   return (
     <section
@@ -84,11 +141,27 @@ const TestimonialsSection = () => {
             <h2 className="font-clash text-section text-[#151515] max-w-xl">
               What Our <span className="text-[#636363]">Clients Say</span>
             </h2>
-            <p className="text-[#636363] font-inter text-sm max-w-md">
-              Trusted by leading real estate and construction companies across India for precision, reliability, and excellence.
-            </p>
           </div>
         </div>
+      </div>
+       {/* Prev / Next controls — centered below the cards */}
+      <div className="flex justify-end items-center gap-2 mt-10 pb-4 px-6 md:px-16 lg:px-24">
+        <button
+          type="button"
+          aria-label="Previous testimonial"
+          onClick={() => slide(-1)}
+          className="group w-12 h-12 rounded-full border border-[#E8E4DD] bg-white flex items-center justify-center text-[#151515] shadow-sm hover:shadow-lg hover:shadow-[#CAAA79]/30 hover:bg-[#CAAA79] hover:text-white hover:border-[#CAAA79] transition-all duration-300"
+        >
+          <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5" />
+        </button>
+        <button
+          type="button"
+          aria-label="Next testimonial"
+          onClick={() => slide(1)}
+          className="group w-12 h-12 rounded-full border border-[#E8E4DD] bg-white flex items-center justify-center text-[#151515] shadow-sm hover:shadow-lg hover:shadow-[#CAAA79]/30 hover:bg-[#CAAA79] hover:text-white hover:border-[#CAAA79] transition-all duration-300"
+        >
+          <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5" />
+        </button>
       </div>
 
       {/* Horizontal scrolling testimonials */}
@@ -127,6 +200,8 @@ const TestimonialsSection = () => {
           ))}
         </div>
       </div>
+
+     
     </section>
   );
 };

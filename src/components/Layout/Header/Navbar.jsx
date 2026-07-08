@@ -215,7 +215,7 @@ const Navbar = () => {
             <Link
               to="/contact"
               onClick={() => setMenuOpen(false)}
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-[#171717] text-white text-lg font-semibold rounded-full hover:bg-[#0F2C59] transition-all duration-300 hover:shadow-xl hover:scale-105"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-[#CAAA79] text-white hover:bg-[#c09c66] text-lg font-semibold rounded-full hover:bg-[#0F2C59] transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <span>ENQUIRE TODAY</span>
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -287,10 +287,10 @@ const Navbar = () => {
             to="/projects"
             className={({ isActive }) =>
               `relative text-[14px] font-bold px-3 py-2 transition flex items-center gap-1
-              ${isActive ? "text-[#0F2C59] scale-110 font-extrabold" : "text-[#171717]"}
+              ${isActive ? "text-[#CAAA79] scale-110 font-extrabold" : "text-[#171717]"}
               
               after:content-[''] after:absolute after:left-0 after:bottom-[6px]
-              after:h-[2px] after:bg-[#1B3C73] after:w-0
+              after:h-[2px] after:bg-[#CAAA79] after:w-0
               hover:after:w-full after:transition-all`
             }
           >
