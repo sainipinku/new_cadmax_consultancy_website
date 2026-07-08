@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../../assets/Images/cadmax-logo/Cadmax-logo.png";
 
@@ -37,12 +38,204 @@ const Navbar = () => {
     { label: "CONTACT", path: "/contact" },
   ];
 
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
+
+  // Menu Component to be rendered via Portal
+  const MenuOverlay = () => {
+    if (!menuOpen) return null;
+
+    return createPortal(
+      <div className="
+        fixed inset-0
+        bg-[#F5F5F0] 
+        transition-all duration-700 ease-in-out
+        opacity-100 visible
+        overflow-y-auto
+        menu-overlay-portal
+      ">
+        {/* Menu Content */}
+        <div className="h-full flex flex-col">
+      {/* Close Button */}
+          <div className="flex justify-end p-6">
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="group flex items-center gap-2 text-[#171717] hover:text-[#0F2C59] transition-colors"
+            >
+              <span className="text-sm font-semibold tracking-wider uppercase">Close Menu</span>
+              <svg className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24">
+            <nav className="space-y-1">
+              {/* Simple Links */}
+              {simpleLinks.map((link, index) => (
+                <div
+                  key={link.path}
+                  className="overflow-hidden"
+                  style={{
+                    animation: `slideDown 0.6s ease-out ${index * 0.1}s forwards`,
+                    opacity: 0
+                  }}
+                >
+                  <NavLink
+                    to={link.path}
+                    end={link.path === "/"}
+                    onClick={() => setMenuOpen(false)}
+                    className={({ isActive }) =>
+                      `group block text-3xl md:text-4xl lg:text-5xl font-light text-[#171717] py-3 
+                      transition-all duration-300 hover:pl-4 relative
+                      ${isActive ? 'font-semibold' : ''}`
+                    }
+                  >
+                    <span className="relative inline-block">
+                      {link.label}
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#0F2C59] group-hover:w-full transition-all duration-300"></span>
+                    </span>
+                  </NavLink>
+                </div>
+              ))}
+
+              {/* Projects with Dropdown */}
+              <div
+                className="overflow-hidden"
+                style={{
+                  animation: `slideDown 0.6s ease-out ${simpleLinks.length * 0.1}s forwards`,
+                  opacity: 0
+                }}
+              >
+                <button
+                  onClick={() => setProjectsDropdown(!projectsDropdown)}
+                  className="group flex items-center justify-between w-full text-3xl md:text-4xl lg:text-5xl font-light text-[#171717] py-3 hover:pl-4 transition-all duration-300"
+                >
+                  <span className="relative inline-block">
+                    PROJECTS
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#0F2C59] group-hover:w-full transition-all duration-300"></span>
+                  </span>
+                  <svg 
+                    className={`w-6 h-6 md:w-8 md:h-8 transition-transform duration-300 ${projectsDropdown ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* Projects Dropdown */}
+                <div className={`ml-4 md:ml-8 mt-2 space-y-1 transition-all duration-500 ease-in-out ${projectsDropdown ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+                  {projectsMenu.items.map((item, index) => (
+                    <div
+                      key={item.path}
+                      className="overflow-hidden"
+                      style={{
+                        animation: projectsDropdown ? `slideDown 0.5s ease-out ${index * 0.08}s forwards` : 'none',
+                        opacity: projectsDropdown ? 0 : 1
+                      }}
+                    >
+                      {item.submenu ? (
+                        <div>
+                          <button
+                            onClick={() => setSurveyingDropdown(!surveyingDropdown)}
+                            className="flex items-center justify-between w-full text-xl md:text-2xl text-[#171717] py-2 hover:pl-2 transition-all duration-300"
+                          >
+                            <span>{item.label}</span>
+                            <svg 
+                              className={`w-5 h-5 transition-transform duration-300 ${surveyingDropdown ? 'rotate-180' : ''}`} 
+                              fill="none" 
+                              stroke="currentColor" 
+                              viewBox="0 0 24 24"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                          
+                          {/* Surveying Submenu */}
+                          <div className={`ml-4 md:ml-6 mt-1 space-y-1 transition-all duration-500 ease-in-out ${surveyingDropdown ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+                            {item.submenu.map((sub, subIndex) => (
+                              <Link
+                                key={sub.path}
+                                to={sub.path}
+                                onClick={() => {
+                                  setMenuOpen(false);
+                                  setProjectsDropdown(false);
+                                  setSurveyingDropdown(false);
+                                }}
+                                className="block text-base md:text-lg text-[#171717]/80 py-1.5 hover:pl-2 transition-all duration-300 hover:text-[#171717]"
+                                style={{
+                                  animation: surveyingDropdown ? `slideDown 0.4s ease-out ${subIndex * 0.05}s forwards` : 'none',
+                                  opacity: surveyingDropdown ? 0 : 1
+                                }}
+                              >
+                                {sub.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <Link
+                          to={item.path}
+                          onClick={() => {
+                            setMenuOpen(false);
+                            setProjectsDropdown(false);
+                          }}
+                          className="block text-xl md:text-2xl text-[#171717] py-2 hover:pl-2 transition-all duration-300"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          {/* Bottom CTA Button */}
+          <div 
+            className="p-8 md:p-16"
+            style={{
+              animation: `slideDown 0.6s ease-out ${(simpleLinks.length + 1) * 0.1}s forwards`,
+              opacity: 0
+            }}
+          >
+            <Link
+              to="/contact"
+              onClick={() => setMenuOpen(false)}
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-[#171717] text-white text-lg font-semibold rounded-full hover:bg-[#0F2C59] transition-all duration-300 hover:shadow-xl hover:scale-105"
+            >
+              <span>ENQUIRE TODAY</span>
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </div>,
+      document.body
+    );
+  };
+
   return (
     <header className="
       fixed top-0 left-0 w-full z-50
       h-[77px]
       flex items-center justify-between px-4 md:px-6
-      bg-white/20 backdrop-blur-[28px]
+      bg-white/90 backdrop-blur-md
+      border-b border-black/5
     ">
 
       {/* Logo */}
@@ -70,10 +263,10 @@ const Navbar = () => {
             end={link.path === "/"}
             className={({ isActive }) =>
               `relative text-[14px] font-bold px-3 py-2 transition
-              ${isActive ? "text-[#0F2C59] scale-110 font-extrabold" : "text-[#171717]"}
+              ${isActive ? "text-[#CAAA79] scale-110 font-extrabold" : "text-[#171717]"}
               
               after:content-[''] after:absolute after:left-0 after:bottom-[6px]
-              after:h-[2px] after:bg-[#1B3C73] after:w-0
+              after:h-[2px] after:bg-[#CAAA79] after:w-0
               hover:after:w-full after:transition-all`
             }
           >
@@ -168,194 +361,46 @@ const Navbar = () => {
         ENQUIRE TODAY
       </Link>
 
-      {/* Professional Hamburger Menu */}
+      {/* Elegant Hamburger Menu Button */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className={`
-          md:hidden relative w-10 h-10 flex flex-col justify-center items-center
-          bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl
-          shadow-lg hover:shadow-xl transition-all duration-300
-          hover:scale-105 active:scale-95 border border-gray-200
-          ${menuOpen ? "bg-gradient-to-br from-blue-50 to-indigo-50 shadow-blue-200" : ""}
-        `}
+        className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group"
       >
-        {/* Animated Hamburger Lines */}
-        <div className="relative w-6 h-5 flex flex-col justify-center">
-          <span className={`
-            absolute h-[3px] w-6 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full
-            transition-all duration-300 ease-in-out
-            ${menuOpen 
-              ? "top-2 rotate-45 bg-gradient-to-r from-blue-600 to-indigo-600" 
-              : "top-0"
-            }
-          `}></span>
-          <span className={`
-            absolute h-[3px] w-6 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full
-            transition-all duration-300 ease-in-out
-            ${menuOpen 
-              ? "top-2 opacity-0 scale-0" 
-              : "top-2"
-            }
-          `}></span>
-          <span className={`
-            absolute h-[3px] w-6 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full
-            transition-all duration-300 ease-in-out
-            ${menuOpen 
-              ? "top-2 -rotate-45 bg-gradient-to-r from-blue-600 to-indigo-600" 
-              : "top-4"
-            }
-          `}></span>
-        </div>
-        
-        {/* Subtle glow effect when open */}
-        {menuOpen && (
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-400/20 to-indigo-400/20 animate-pulse"></div>
-        )}
+        <span className={`block w-8 h-0.5 bg-[#0F2C59] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+        <span className={`block w-8 h-0.5 bg-[#0F2C59] transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`}></span>
+        <span className={`block w-8 h-0.5 bg-[#0F2C59] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
       </button>
 
-      {/* Professional Mobile Menu */}
-      <div className={`
-        md:hidden absolute top-[77px] left-0 w-full
-        bg-gradient-to-br from-white via-white to-gray-50/95
-        backdrop-blur-xl shadow-2xl border-t border-gray-100
-        flex flex-col px-6 py-6 gap-2
-        transition-all duration-500 ease-out
-        transform origin-top
-        ${menuOpen 
-          ? "opacity-100 visible translate-y-0 scale-100" 
-          : "opacity-0 invisible -translate-y-4 scale-95"
-        }
-      `}>
-        {/* Menu Header */}
-        <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-200">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Menu</span>
-          </div>
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-          >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
+      {/* Full Screen Menu Overlay - Rendered via Portal */}
+      <MenuOverlay />
 
-        {/* Simple Links with Professional Styling */}
-        <div className="space-y-1">
-          {simpleLinks.map((link, index) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              end={link.path === "/"}
-              onClick={() => setMenuOpen(false)}
-              className={({ isActive }) =>
-                `group relative px-4 py-3 rounded-xl transition-all duration-300 transform
-                ${isActive 
-                  ? "bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 font-bold shadow-md scale-[1.02]" 
-                  : "text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:scale-[1.01]"
-                }
-                hover:shadow-md`
-              }
-              style={{
-                animationDelay: `${index * 50}ms`,
-                animation: menuOpen ? "slideInLeft 0.4s ease-out forwards" : "none"
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{link.label}</span>
-              </div>
-            </NavLink>
-          ))}
-        </div>
-
-        {/* Professional Projects Menu */}
-        <div className="mt-4 pt-4 border-t border-gray-200">
-          <div className="flex items-center gap-2 mb-4 px-4">
-            <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
-            <span className="text-sm font-bold text-gray-800 uppercase tracking-wider">Projects</span>
-          </div>
-          
-          <div className="space-y-2 px-2">
-            {/* Main Project Categories */}
-            {[
-              { label: "All Projects", path: "/projects", icon: "📁" },
-              { label: "Engineering", path: "/projects/engineering", icon: "⚙️" },
-              { label: "Surveying", path: "/projects/surveying", icon: "📐" },
-              { label: "Planning", path: "/projects/planning", icon: "📋" },
-            ].map((item, index) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setMenuOpen(false)}
-                className="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
-                  bg-gradient-to-r from-gray-50 to-white hover:from-purple-50 hover:to-pink-50
-                  text-gray-700 hover:text-purple-700 hover:shadow-md hover:scale-[1.01]
-                  border border-gray-100 hover:border-purple-200"
-                style={{
-                  animationDelay: `${(index + 5) * 50}ms`,
-                  animation: menuOpen ? "slideInLeft 0.4s ease-out forwards" : "none"
-                }}
-              >
-                <span className="text-lg">{item.icon}</span>
-                <span className="font-medium">{item.label}</span>
-                <svg className="w-4 h-4 ml-auto text-gray-400 group-hover:text-purple-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </Link>
-            ))}
-
-            {/* Surveying Subcategories */}
-            <div className="ml-4 mt-3 space-y-1">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Surveying Specializations</p>
-              {[
-                { label: "Transportation", path: "/projects/surveying/transportation" },
-                { label: "Water Influence", path: "/projects/surveying/water-influence" },
-                { label: "Energy Sector", path: "/projects/surveying/energy-sector" },
-                { label: "Irrigation Sector", path: "/projects/surveying/irrigation-sector" },
-                { label: "City Survey", path: "/projects/surveying/city-survey" },
-                { label: "Real Estate Sector", path: "/projects/surveying/real-estate-sector" },
-              ].map((item, index) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setMenuOpen(false)}
-                  className="group flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200
-                    text-gray-600 hover:text-purple-600 hover:bg-purple-50
-                    text-sm"
-                  style={{
-                    animationDelay: `${(index + 9) * 30}ms`,
-                    animation: menuOpen ? "fadeIn 0.3s ease-out forwards" : "none"
-                  }}
-                >
-                  <div className="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-purple-400 transition-colors"></div>
-                  <span>{item.label}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile CTA Button */}
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <Link
-            to="/contact"
-            onClick={() => setMenuOpen(false)}
-            className="block w-full px-6 py-4 bg-gradient-to-r from-gray-900 to-black text-white
-              text-center font-bold rounded-xl shadow-lg
-              hover:from-gray-800 hover:to-gray-900 hover:shadow-xl
-              transform hover:scale-[1.02] transition-all duration-300
-              relative overflow-hidden group"
-          >
-            <span className="relative z-10">ENQUIRE TODAY</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </Link>
-        </div>
-      </div>
-
+      {/* Backdrop Overlay */}
+      {menuOpen && createPortal(
+        <div 
+          className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-700 opacity-100 menu-backdrop-portal"
+          onClick={() => setMenuOpen(false)}
+        ></div>,
+        document.body
+      )}
     </header>
   );
 };
+
+// Add custom animations
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = `
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+document.head.appendChild(styleSheet);
 
 export default Navbar;

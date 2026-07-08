@@ -25,6 +25,8 @@ const HeroSection = () => {
           scrub: 0.5,
           pin: true,
           anticipatePin: 1,
+          // Lower z-index when menu might be open
+          pinSpacing: true,
         },
         defaults: { ease: 'power2.out' },
       });
@@ -86,6 +88,7 @@ const HeroSection = () => {
     <section
       ref={sectionRef}
       className="relative w-full h-screen overflow-hidden bg-[#F8F7F4]"
+      style={{ zIndex: 1 }}
     >
       {/* Background image */}
       <div ref={imageRef} className="absolute inset-0 w-full h-full overflow-hidden">
@@ -108,9 +111,9 @@ const HeroSection = () => {
         {/* Badge */}
         <div
           ref={badgeRef}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 backdrop-blur-sm bg-white/10 text-white text-sm font-general mb-8 w-fit"
+          className="inline-flex items-center gap-2 px-4 py-2 mt-4 p-4 rounded-full border border-white/30 backdrop-blur-sm bg-white/10 text-white text-sm font-general mb-8 w-fit"
         >
-          <span className="w-2 h-2 rounded-full bg-[#CAAA79] animate-pulse" />
+          <span className="w-2 h-2  rounded-full bg-[#CAAA79] animate-pulse" />
           Surveying & Engineering
         </div>
 
@@ -132,7 +135,7 @@ const HeroSection = () => {
 
         {/* CTA */}
         <div ref={ctaRef} className="mt-10 flex items-center gap-6">
-          <button className="group inline-flex items-center gap-3 px-8 py-4 bg-[#151515] text-[#F8F5F1] rounded-full text-sm font-general font-semibold transition-all duration-300 hover:bg-[#2a2a2a] hover:gap-4 hover:shadow-xl hover:shadow-[#151515]/20">
+          <button className="group inline-flex items-center gap-3 px-8 py-3 bg-[#CAAA79] text-[#F8F5F1] rounded-full text-sm font-general font-semibold transition-all duration-300 hover:bg-[#c09c66] hover:gap-4 hover:shadow-xl hover:shadow-[#151515]/20">
             Explore Our Work
             <MoveRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </button>

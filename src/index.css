@@ -538,3 +538,83 @@ header .absolute.shadow-xl {
   }
 }
 
+/* ============================================
+   MOBILE MENU OVERLAY - FORCE ABOVE ALL
+   ============================================ */
+.menu-overlay-portal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  isolation: isolate !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  perspective: 1000px !important;
+  -webkit-perspective: 1000px !important;
+}
+
+.menu-backdrop-portal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99998 !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
+/* Ensure GSAP pinned elements don't interfere */
+.gsap-pinned {
+  z-index: 1 !important;
+}
+
+/* ============================================
+   PRELOADER ANIMATIONS
+   ============================================ */
+@keyframes cube-spin {
+  0%   { transform: rotateX(-22deg) rotateY(0deg); }
+  100% { transform: rotateX(-22deg) rotateY(360deg); }
+}
+
+@keyframes letter-rise {
+  0%   { opacity: 0; transform: translateY(110%) rotate(4deg); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes blueprint-in {
+  from { opacity: 0; }
+  to   { opacity: 0.32; }
+}
+
+@keyframes glow-pulse {
+  0%,100% { opacity: 0.55; }
+  50%     { opacity: 1; }
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes draw-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Home entrance after preloader: zoom + fade in, ending with NO transform
+   so it doesn't create a containing block that breaks GSAP ScrollTrigger pinning. */
+@keyframes home-enter-anim {
+  0%   { opacity: 0; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.home-enter {
+  animation: home-enter-anim 0.8s ease-out both;
+  transform-origin: center center;
+}
+
