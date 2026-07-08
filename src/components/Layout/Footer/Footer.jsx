@@ -27,7 +27,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-[#151515] w-full">
+    <footer className="bg-[#151515] w-full relative z-20" style={{ transformStyle: 'preserve-3d' }}>
       {/* Top hairline divider from page content */}
       <div className="w-full h-[1px] bg-[var(--color-border)]"></div>
 
@@ -61,20 +61,23 @@ const Footer = () => {
               <Link to="/about" className="footer-link-styled">ABOUT US</Link>
               <Link to="/contact" className="footer-link-styled">CONTACT US</Link>
               <Link to="/Services" className="footer-link-styled">SERVICES</Link>
+              <Link to="/careerpath" className="footer-link-styled">CAREER PATH</Link>
             </div>
           </div>
 
-          {/* Column 3 — Projects & Career */}
+          {/* Column 3 — Projects */}
           <div
             className="md:col-span-2 footer-col"
             ref={(el) => (columnsRef.current[2] = el)}
           >
             <h4 className="text-[12px] uppercase tracking-[0.15em] font-medium text-white/60 mb-5">
-              EXPLORE
+              PROJECTS
             </h4>
             <div className="flex flex-col gap-3">
-              <Link to="/projects" className="footer-link-styled">OUR PROJECTS</Link>
-              <Link to="/careerpath" className="footer-link-styled">CAREER PATH</Link>
+              <Link to="/projects" className="footer-link-styled">ALL PROJECTS</Link>
+              <Link to="/projects/engineering" className="footer-link-styled">ENGINEERING</Link>
+              <Link to="/projects/surveying" className="footer-link-styled">SURVEYING</Link>
+              <Link to="/projects/planning" className="footer-link-styled">PLANNING</Link>
             </div>
           </div>
 

@@ -90,7 +90,7 @@ const AmenitiesSection = () => {
   const scaled = progress * n;
 
   return (
-    <section className="bg-[#0e1210] text-neutral-100 font-inter">
+    <section className="bg-[#130d0d] text-neutral-100 font-inter">
       <div ref={trackRef} style={{ height: `${n * 100}vh` }} className="relative">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div className="mx-auto grid h-full max-w-[1400px] grid-cols-1 md:grid-cols-12 md:gap-6 px-4 py-8 md:px-12">

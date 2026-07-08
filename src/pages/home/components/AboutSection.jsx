@@ -9,13 +9,41 @@ gsap.registerPlugin(ScrollTrigger);
 const AboutSection = () => {
   const sectionRef = useRef(null);
   const textRef = useScrollReveal({ start: 'top 80%' });
-  const imageRef = useScrollReveal({ start: 'top 80%' });
+  const imageContainerRef = useRef(null);
+  const imageImgRef = useRef(null);
   const counterRefs = useRef([]);
   const statsRef = useRef(null);
 
+  // Image reveal: starts clipped from left, reveals to the right on scroll
+  useEffect(() => {
+    const container = imageContainerRef.current;
+    const img = imageImgRef.current;
+    if (!container || !img) return;
+
+    const ctx = gsap.context(() => {
+      // Start with image hidden (clipped from left)
+      gsap.set(img, { clipPath: 'inset(0 0 0 100%)' });
+      
+      // Reveal to the right smoothly on scroll
+      gsap.to(img, {
+        clipPath: 'inset(0 0 0 0%)',
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 85%',
+          end: 'top 30%',
+          scrub: 1.2,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   const stats = [
     { label: 'Projects Delivered', value: 500, suffix: '+' },
-    { label: 'Years Experience', value: 15, suffix: '+' },
+    { label: 'Years Experience', value: 20, suffix: '+' },
     { label: 'Happy Clients', value: 200, suffix: '+' },
     { label: 'Team Members', value: 80, suffix: '+' },
   ];
@@ -74,9 +102,10 @@ const AboutSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Left - Image */}
-          <div ref={imageRef} className="relative">
+          <div ref={imageContainerRef} className="relative">
             <div className="relative overflow-hidden rounded-2xl">
               <img
+                ref={imageImgRef}
                 src={accuracyImg}
                 alt="Cadmax Precision"
                 className="w-full h-[500px] object-cover"
@@ -84,14 +113,14 @@ const AboutSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
             {/* Floating card */}
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-elevated hidden md:block">
+            <div className="absolute -bottom-6 -right-6 bg-[#141111] rounded-2xl p-6 shadow-elevated hidden md:block">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-[#151515] flex items-center justify-center">
-                  <span className="text-white font-clash text-lg font-bold">15+</span>
+                <div className="w-12 h-12 rounded-full  bg-[#CAAA79] flex items-center justify-center">
+                  <span className="text-white font-clash text-lg font-bold">20+</span>
                 </div>
                 <div>
-                  <p className="text-sm font-general font-semibold text-[#151515]">Years of</p>
-                  <p className="text-sm font-general text-[#636363]">Excellence</p>
+                  <p className="text-sm font-general font-semibold text-white">Years of</p>
+                  <p className="text-sm font-general text-white">Excellence</p>
                 </div>
               </div>
             </div>

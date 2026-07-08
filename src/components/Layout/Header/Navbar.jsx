@@ -136,7 +136,7 @@ const Navbar = () => {
                 </button>
 
                 {/* Projects Dropdown */}
-                <div className={`ml-4 md:ml-8 mt-2 space-y-1 transition-all duration-500 ease-in-out ${projectsDropdown ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+                <div className={`ml-2 md:ml-4 mt-2 space-y-1 transition-all duration-500 ease-in-out ${projectsDropdown ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
                   {projectsMenu.items.map((item, index) => (
                     <div
                       key={item.path}
@@ -307,7 +307,7 @@ const Navbar = () => {
 
           {/* Projects Dropdown Menu */}
           {projectsDropdown && (
-            <div className="absolute top-full left-0 bg-white shadow-lg rounded-md py-2 min-w-[200px] border border-gray-100">
+            <div className="absolute top-full left-0 bg-[#F8F7F4]  shadow-lg rounded-md py-2 min-w-[150px] border border-gray-100">
               {projectsMenu.items.map((item) => (
                 <div
                   key={item.path}
@@ -317,7 +317,7 @@ const Navbar = () => {
                 >
                   <Link
                     to={item.path}
-                    className="flex items-center justify-between px-4 py-2 text-[13px] font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#0F2C59] transition"
+                    className="flex items-center gap-3 px-4 py-2 text-[13px] font-semibold text-black  hover:bg-[#e0cfb4] hover:text-[#c89a56] transition"
                   >
                     {item.label}
                     {item.submenu && (
@@ -334,12 +334,12 @@ const Navbar = () => {
 
                   {/* Surveying Submenu */}
                   {item.submenu && surveyingDropdown && (
-                    <div className="absolute top-0 left-full bg-white shadow-lg rounded-md py-2 min-w-[200px] border border-gray-100">
+                    <div className="absolute top-0 left-full bg-[#F8F7F4]  shadow-lg rounded-md py-2 min-w-[180px] border border-gray-100">
                       {item.submenu.map((sub) => (
                         <Link
                           key={sub.path}
                           to={sub.path}
-                          className="block px-4 py-2 text-[13px] font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#0F2C59] transition"
+                          className="block px-4 py-2 text-[13px] font-semibold text-black hover:bg-[#e0cfb4] hover:text-[#c89a56] transition"
                         >
                           {sub.label}
                         </Link>

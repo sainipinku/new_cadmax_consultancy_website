@@ -6,6 +6,7 @@ import AboutSection from './components/AboutSection';
 // import ServiceSection from './components/ServiceSection';
 import ProjectsShowcase from './components/ProjectsShowcase';
 import AmenitiesSection from './components/AmenitiesSection';
+import ProcessSection from './components/ProcessSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import ContactSection from './components/ContactSection';
 import Footer from '../../components/Layout/Footer/Footer';
@@ -54,6 +55,7 @@ function Home() {
         {/* <ServiceSection /> */}
         <AmenitiesSection />
         <ProjectsShowcase />
+        <ProcessSection />
         <TestimonialsSection />
         <ContactSection />
         <Footer />

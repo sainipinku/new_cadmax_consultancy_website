@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { Mail, Phone } from 'lucide-react';
 import ctaBg from '../../../assets/Images/Other/cta-entrance.jpg';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Contact details from contact page
 const CONTACT_EMAIL = 'cadmaxconsultancy@gmail.com';
@@ -9,33 +13,61 @@ const CONTACT_PHONE = '0141-411-3111';
 
 const ContactSection = () => {
   const sectionRef = useScrollReveal({ start: 'top 80%' });
+  const innerRef = useRef(null);
+
+  // 3D slide-over effect as Contact scrolls over sticky Testimonials
+  useEffect(() => {
+    const el = innerRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el,
+        { y: 80, rotateX: 6 },
+        {
+          y: 0,
+          rotateX: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            end: 'top 40%',
+            scrub: 1.2,
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen flex items-center overflow-hidden z-20" style={{ transformStyle: 'preserve-3d' }}>
       {/* Background Image */}
       <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${ctaBg})` }} />
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/70" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 relative z-10 py-24 md:py-32 w-full">
+      <div ref={innerRef} className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 relative z-10 py-24 md:py-32 w-full">
         {/* Eyebrow */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-start gap-4 mb-8">
           <div className="w-8 h-[1px] bg-[#CAAA79]" />
           <span className="text-xs font-general font-semibold text-[#CAAA79] uppercase tracking-[0.2em]">
-            Commission · 07
+            Start Your Project
           </span>
         </div>
 
         {/* Main Heading */}
         <h2 className="font-clash text-5xl md:text-7xl lg:text-8xl text-white mb-8 max-w-5xl leading-[1.1]">
-          Begin the <br />
-          <span className="italic text-[#CAAA79]">conversation.</span>
+          Let's Build <br />
+          <span className="italic text-[#CAAA79]">Something Great.</span>
         </h2>
 
         {/* Description */}
         <p className="text-white/70 font-inter text-base md:text-lg leading-relaxed max-w-2xl mb-16">
-          We accept a limited number of new commissions each year. Send a note — a partner will reply within two working days.
+          From precise land surveys to complete engineering solutions, we're here to transform your vision into reality. Whether you need DGPS mapping, topographical surveys, or infrastructure planning — our team delivers accuracy you can trust.
         </p>
 
         {/* CTA Buttons Row */}

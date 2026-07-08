@@ -363,7 +363,7 @@ const ServicesSection = () => {
     <section
       ref={sectionRef}
       className="relative overflow-hidden"
-      style={{ backgroundColor: '#0a0a0a' }}
+      style={{ backgroundColor: ' #e0cfb4' }}
     >
       {/* Subtle radial gradient background */}
       <div
