@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import heroImg from '../../../assets/Images/header/hero.jpg';
+import heroImg from '../../../assets/Images/header/hero-image.png';
 import { MoveRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,9 +14,14 @@ const HeroSection = () => {
   const imageRef = useRef(null);
   const overlayRef = useRef(null);
   const badgeRef = useRef(null);
+  const revealTitleRef = useRef(null);
+  const revealTitleInnerRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Set initial hidden state for reveal title
+      gsap.set(revealTitleRef.current, { opacity: 0, y: 100 });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -25,7 +30,6 @@ const HeroSection = () => {
           scrub: 0.5,
           pin: true,
           anticipatePin: 1,
-          // Lower z-index when menu might be open
           pinSpacing: true,
         },
         defaults: { ease: 'power2.out' },
@@ -65,17 +69,17 @@ const HeroSection = () => {
         1
       );
 
-      // Text fade out
+      // Text fade out (heading + cta + badge all hide)
       tl.to(
-        textRef.current,
+        [textRef.current, ctaRef.current, badgeRef.current],
         { opacity: 0, y: -80, duration: 0.8 },
         1.5
       );
 
-      // Final reveal - split and reveal new text
+      // Reveal CADMAX Consultancy title at bottom with 3D style
       tl.to(
-        '.hero-reveal-layer',
-        { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: 1.2, ease: 'power4.inOut' },
+        revealTitleRef.current,
+        { opacity: 1, y: 0, duration: 1, ease: 'power4.out' },
         2.2
       );
     }, sectionRef);
@@ -87,11 +91,11 @@ const HeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-screen overflow-hidden bg-[#F8F7F4]"
+      className="relative w-full h-screen overflow-hidden bg-[#f7f7f7]"
       style={{ zIndex: 1 }}
     >
-      {/* Background image */}
-      <div ref={imageRef} className="absolute inset-0 w-full h-full overflow-hidden">
+      {/* Background image - positioned on right */}
+      <div ref={imageRef} className="absolute   right-0 w-3/4 h-full overflow-hidden">
         <img
           src={heroImg}
           alt="Cadmax Hero"
@@ -103,7 +107,7 @@ const HeroSection = () => {
       {/* Overlay */}
       <div
         ref={overlayRef}
-        className="absolute inset-0 bg-black/40"
+        className="absolute inset-0 bg-black/10"
       />
 
       {/* Content */}
@@ -113,13 +117,13 @@ const HeroSection = () => {
           ref={badgeRef}
           className="inline-flex items-center gap-2 px-4 py-2 mt-4 p-4 rounded-full border border-white/30 backdrop-blur-sm bg-white/10 text-white text-sm font-general mb-8 w-fit"
         >
-          <span className="w-2 h-2  rounded-full bg-[#CAAA79] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#CAAA79] animate-pulse" />
           Surveying & Engineering
         </div>
 
         {/* Main heading */}
         <div ref={textRef} className="max-w-5xl">
-          <h1 className="font-clash text-hero text-white leading-[0.95] -tracking-[0.04em]">
+          <h1 className="font-clash text-hero text-[#F5F5F5] leading-[0.95] -tracking-[0.04em]">
             {['Precision', 'Engineering,', 'Built for', 'Excellence'].map((line, i) => (
               <span key={i} className="block overflow-hidden">
                 <span
@@ -150,6 +154,17 @@ const HeroSection = () => {
         </div>
       </div>
 
+      {/* Reveal Title - shows after text fades out on scroll */}
+      <div
+        ref={revealTitleRef}
+        className="absolute bottom-12 left-6 md:left-16 lg:left-24 z-20"
+      >
+        <h1 className="hero-title">
+          CADMAX
+          <span>Consultancy</span>
+        </h1>
+      </div>
+
       <style>{`
         @keyframes scrollDown {
           0% { transform: translateY(-100%); }
@@ -158,8 +173,26 @@ const HeroSection = () => {
         .animate-scroll-down {
           animation: scrollDown 1.5s ease-in-out infinite;
         }
-        .hero-reveal-layer {
-          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        .hero-title {
+          font-family: "Playfair Display", serif;
+          font-size: clamp(70px, 10vw, 180px);
+          font-weight: 700;
+          line-height: .9;
+          letter-spacing: -0.06em;
+          color: #F5F5F5;
+          text-transform: uppercase;
+          display: flex;
+          flex-direction: column;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.1);
+          transform: perspective(800px) rotateX(2deg);
+        }
+        .hero-title span {
+          display: block;
+          margin-left: 10%;
+          font-style: italic;
+          font-weight: 500;
+          color: #d7c4a5;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2);
         }
       `}</style>
     </section>

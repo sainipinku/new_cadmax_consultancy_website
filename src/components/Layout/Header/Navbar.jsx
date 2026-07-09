@@ -7,6 +7,8 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [projectsDropdown, setProjectsDropdown] = useState(false);
   const [surveyingDropdown, setSurveyingDropdown] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   // Projects menu structure
   const projectsMenu = {
@@ -49,6 +51,28 @@ const Navbar = () => {
       document.body.style.overflow = 'unset';
     };
   }, [menuOpen]);
+
+  // Track scroll for header background change
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setHasScrolled(scrollY > 50);
+      
+      // Also check for AmenitiesSection visibility
+      const amenitiesSection = document.querySelector('[data-section="amenities"]');
+      if (amenitiesSection) {
+        const rect = amenitiesSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const isInView = rect.top <= 0 && rect.bottom >= windowHeight;
+        setIsVisible(!isInView);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Check initial state
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Menu Component to be rendered via Portal
   const MenuOverlay = () => {
@@ -230,13 +254,17 @@ const Navbar = () => {
   };
 
   return (
-    <header className="
+    <header className={`
       fixed top-0 left-0 w-full z-50
       h-[77px]
       flex items-center justify-between px-4 md:px-6
-      bg-[#F8F7F4]/90 backdrop-blur-md
-      border-b border-black/5
-    ">
+      transition-all duration-300 ease-in-out
+      ${isVisible ? 'translate-y-0' : '-translate-y-full'}
+      ${hasScrolled 
+        ? 'bg-[#F8F7F4]/90 backdrop-blur-md border-b border-black/5' 
+        : 'bg-transparent'
+      }
+    `}>
 
       {/* Logo */}
       <Link to="/" className="flex items-center">
@@ -249,6 +277,8 @@ const Navbar = () => {
             md:h-[60px] 
             lg:h-[70px] 
             object-contain
+            transition-all duration-300
+            ${hasScrolled ? '' : 'brightness-0 invert-1'}
           "
         />
       </Link>
@@ -356,7 +386,7 @@ const Navbar = () => {
       {/* Desktop Button */}
       <Link
         to="/contact"
-        className="hidden lg:block bg-[#CAAA79] text-white hover:bg-[#c09c66] px-6 py-2 rounded-md text-[14px] font-bold"
+        className="hidden lg:block bg-[#CAAA79] text-white hover:bg-[#c09c66] px-6 py-2 rounded-md text-[14px] font-bold transition-all duration-300"
       >
         ENQUIRE TODAY
       </Link>
@@ -366,9 +396,9 @@ const Navbar = () => {
         onClick={() => setMenuOpen(!menuOpen)}
         className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group"
       >
-        <span className={`block w-8 h-0.5 bg-[#0F2C59] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-        <span className={`block w-8 h-0.5 bg-[#0F2C59] transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`}></span>
-        <span className={`block w-8 h-0.5 bg-[#0F2C59] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''} ${hasScrolled ? 'bg-[#0F2C59]' : 'bg-white'}`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''} ${hasScrolled ? 'bg-[#0F2C59]' : 'bg-white'}`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''} ${hasScrolled ? 'bg-[#0F2C59]' : 'bg-white'}`}></span>
       </button>
 
       {/* Full Screen Menu Overlay - Rendered via Portal */}
