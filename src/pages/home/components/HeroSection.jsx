@@ -15,7 +15,6 @@ const HeroSection = () => {
   const overlayRef = useRef(null);
   const badgeRef = useRef(null);
   const revealTitleRef = useRef(null);
-  const revealTitleInnerRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
