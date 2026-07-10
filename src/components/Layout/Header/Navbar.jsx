@@ -57,7 +57,7 @@ const Navbar = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setHasScrolled(scrollY > 50);
-      
+
       // Also check for AmenitiesSection visibility
       const amenitiesSection = document.querySelector('[data-section="amenities"]');
       if (amenitiesSection) {
@@ -89,7 +89,7 @@ const Navbar = () => {
       ">
         {/* Menu Content */}
         <div className="h-full flex flex-col">
-      {/* Close Button */}
+          {/* Close Button */}
           <div className="flex justify-end p-6">
             <button
               onClick={() => setMenuOpen(false)}
@@ -149,10 +149,10 @@ const Navbar = () => {
                     PROJECTS
                     <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#0F2C59] group-hover:w-full transition-all duration-300"></span>
                   </span>
-                  <svg 
-                    className={`w-6 h-6 md:w-8 md:h-8 transition-transform duration-300 ${projectsDropdown ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
+                  <svg
+                    className={`w-6 h-6 md:w-8 md:h-8 transition-transform duration-300 ${projectsDropdown ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -177,16 +177,16 @@ const Navbar = () => {
                             className="flex items-center justify-between w-full text-xl md:text-2xl text-[#171717] py-2 hover:pl-2 transition-all duration-300"
                           >
                             <span>{item.label}</span>
-                            <svg 
-                              className={`w-5 h-5 transition-transform duration-300 ${surveyingDropdown ? 'rotate-180' : ''}`} 
-                              fill="none" 
-                              stroke="currentColor" 
+                            <svg
+                              className={`w-5 h-5 transition-transform duration-300 ${surveyingDropdown ? 'rotate-180' : ''}`}
+                              fill="none"
+                              stroke="currentColor"
                               viewBox="0 0 24 24"
                             >
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                           </button>
-                          
+
                           {/* Surveying Submenu */}
                           <div className={`ml-4 md:ml-6 mt-1 space-y-1 transition-all duration-500 ease-in-out ${surveyingDropdown ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
                             {item.submenu.map((sub, subIndex) => (
@@ -229,7 +229,7 @@ const Navbar = () => {
           </div>
 
           {/* Bottom CTA Button */}
-          <div 
+          <div
             className="p-8 md:p-16"
             style={{
               animation: `slideDown 0.6s ease-out ${(simpleLinks.length + 1) * 0.1}s forwards`,
@@ -260,8 +260,8 @@ const Navbar = () => {
       flex items-center justify-between px-4 md:px-6
       transition-all duration-300 ease-in-out
       ${isVisible ? 'translate-y-0' : '-translate-y-full'}
-      ${hasScrolled 
-        ? 'bg-[#F8F7F4]/90 backdrop-blur-md border-b border-black/5' 
+      ${hasScrolled
+        ? 'bg-[#F8F7F4]/90 backdrop-blur-md border-b border-black/5'
         : 'bg-transparent'
       }
     `}>
@@ -271,15 +271,15 @@ const Navbar = () => {
         <img
           src={logo}
           alt="Logo"
-          className="
-            h-[45px] 
-            sm:h-[50px] 
-            md:h-[60px] 
-            lg:h-[70px] 
-            object-contain
-            transition-all duration-300
-            ${hasScrolled ? '' : 'brightness-0 invert-1'}
-          "
+          className={`
+    h-[45px]
+    sm:h-[50px]
+    md:h-[60px]
+    lg:h-[70px]
+    object-contain
+    transition-all duration-300
+    ${hasScrolled ? "" : "brightness-0 invert"}
+  `}
         />
       </Link>
 
@@ -406,7 +406,7 @@ const Navbar = () => {
 
       {/* Backdrop Overlay */}
       {menuOpen && createPortal(
-        <div 
+        <div
           className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-700 opacity-100 menu-backdrop-portal"
           onClick={() => setMenuOpen(false)}
         ></div>,
