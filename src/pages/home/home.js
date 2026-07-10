@@ -21,7 +21,7 @@ function Home() {
   const [loading, setLoading] = useState(!introPlayed);
   const contentRef = useRef(null);
   // True only on the very first page load (when the preloader will play).
-  const firstLoad = useRef(!introPlayed);
+  //const firstLoad = useRef(!introPlayed);
 
   useEffect(() => {
     // Lock body scroll during loading
