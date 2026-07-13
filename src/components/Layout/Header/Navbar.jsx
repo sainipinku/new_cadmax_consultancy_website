@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { NavLink, Link } from "react-router-dom";
-import logo from "../../../assets/Images/cadmax-logo/Cadmax-logo.png";
+// import logo from "../../../assets/Images/cadmax-logo/Cadmax-logo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -81,7 +81,7 @@ const Navbar = () => {
     return createPortal(
       <div className="
         fixed inset-0
-        bg-[#F5F5F0] 
+        bg-black 
         transition-all duration-700 ease-in-out
         opacity-100 visible
         overflow-y-auto
@@ -91,10 +91,10 @@ const Navbar = () => {
         <div className="h-full flex flex-col">
           {/* Close Button */}
           <div className="flex justify-end p-6">
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="group flex items-center gap-2 text-[#171717] hover:text-[#0F2C59] transition-colors"
-            >
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="group flex items-center gap-2 text-white hover:text-[#CAAA79] transition-colors"
+              >
               <span className="text-sm font-semibold tracking-wider uppercase">Close Menu</span>
               <svg className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -103,13 +103,13 @@ const Navbar = () => {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24">
-            <nav className="space-y-1">
+          <div className="flex-1 flex flex-col justify-center items-center px-8 md:px-16 lg:px-24">
+            <nav className="space-y-1 w-full max-w-2xl">
               {/* Simple Links */}
               {simpleLinks.map((link, index) => (
                 <div
                   key={link.path}
-                  className="overflow-hidden"
+                  className="overflow-hidden text-center"
                   style={{
                     animation: `slideDown 0.6s ease-out ${index * 0.1}s forwards`,
                     opacity: 0
@@ -120,14 +120,14 @@ const Navbar = () => {
                     end={link.path === "/"}
                     onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
-                      `group block text-3xl md:text-4xl lg:text-5xl font-light text-[#171717] py-3 
+                      `group block text-3xl md:text-4xl lg:text-5xl font-light text-white py-3 
                       transition-all duration-300 hover:pl-4 relative
                       ${isActive ? 'font-semibold' : ''}`
                     }
                   >
                     <span className="relative inline-block">
                       {link.label}
-                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#0F2C59] group-hover:w-full transition-all duration-300"></span>
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#CAAA79] group-hover:w-full transition-all duration-300"></span>
                     </span>
                   </NavLink>
                 </div>
@@ -135,7 +135,7 @@ const Navbar = () => {
 
               {/* Projects with Dropdown */}
               <div
-                className="overflow-hidden"
+                className="overflow-hidden text-center"
                 style={{
                   animation: `slideDown 0.6s ease-out ${simpleLinks.length * 0.1}s forwards`,
                   opacity: 0
@@ -143,11 +143,11 @@ const Navbar = () => {
               >
                 <button
                   onClick={() => setProjectsDropdown(!projectsDropdown)}
-                  className="group flex items-center justify-between w-full text-3xl md:text-4xl lg:text-5xl font-light text-[#171717] py-3 hover:pl-4 transition-all duration-300"
+                  className="group flex items-center justify-center w-full text-3xl md:text-4xl lg:text-5xl font-light text-white py-3 hover:pl-4 transition-all duration-300"
                 >
                   <span className="relative inline-block">
                     PROJECTS
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#0F2C59] group-hover:w-full transition-all duration-300"></span>
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#CAAA79] group-hover:w-full transition-all duration-300"></span>
                   </span>
                   <svg
                     className={`w-6 h-6 md:w-8 md:h-8 transition-transform duration-300 ${projectsDropdown ? 'rotate-180' : ''}`}
@@ -164,7 +164,7 @@ const Navbar = () => {
                   {projectsMenu.items.map((item, index) => (
                     <div
                       key={item.path}
-                      className="overflow-hidden"
+                      className="overflow-hidden text-center"
                       style={{
                         animation: projectsDropdown ? `slideDown 0.5s ease-out ${index * 0.08}s forwards` : 'none',
                         opacity: projectsDropdown ? 0 : 1
@@ -174,7 +174,7 @@ const Navbar = () => {
                         <div>
                           <button
                             onClick={() => setSurveyingDropdown(!surveyingDropdown)}
-                            className="flex items-center justify-between w-full text-xl md:text-2xl text-[#171717] py-2 hover:pl-2 transition-all duration-300"
+                            className="flex items-center justify-center w-full text-xl md:text-2xl text-white py-2 hover:pl-2 transition-all duration-300"
                           >
                             <span>{item.label}</span>
                             <svg
@@ -198,7 +198,7 @@ const Navbar = () => {
                                   setProjectsDropdown(false);
                                   setSurveyingDropdown(false);
                                 }}
-                                className="block text-base md:text-lg text-[#171717]/80 py-1.5 hover:pl-2 transition-all duration-300 hover:text-[#171717]"
+                                className="block text-center text-base md:text-lg text-white/80 py-1.5 hover:pl-2 transition-all duration-300 hover:text-white"
                                 style={{
                                   animation: surveyingDropdown ? `slideDown 0.4s ease-out ${subIndex * 0.05}s forwards` : 'none',
                                   opacity: surveyingDropdown ? 0 : 1
@@ -216,7 +216,7 @@ const Navbar = () => {
                             setMenuOpen(false);
                             setProjectsDropdown(false);
                           }}
-                          className="block text-xl md:text-2xl text-[#171717] py-2 hover:pl-2 transition-all duration-300"
+                          className="block text-center text-xl md:text-2xl text-white py-2 hover:pl-2 transition-all duration-300"
                         >
                           {item.label}
                         </Link>
@@ -230,7 +230,7 @@ const Navbar = () => {
 
           {/* Bottom CTA Button */}
           <div
-            className="p-8 md:p-16"
+            className="p-8 md:p-16 flex justify-center"
             style={{
               animation: `slideDown 0.6s ease-out ${(simpleLinks.length + 1) * 0.1}s forwards`,
               opacity: 0
@@ -239,12 +239,9 @@ const Navbar = () => {
             <Link
               to="/contact"
               onClick={() => setMenuOpen(false)}
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-[#CAAA79] text-white hover:bg-[#c09c66] text-lg font-semibold rounded-full hover:bg-[#0F2C59] transition-all duration-300 hover:shadow-xl hover:scale-105"
+              className="inline-flex items-center bg-white text-[#254441] hover:bg-gray-100 px-6 py-2 rounded-md text-[14px] font-bold transition-all duration-300"
             >
-              <span>ENQUIRE TODAY</span>
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-              </svg>
+              ENQUIRE TODAY
             </Link>
           </div>
         </div>
@@ -254,37 +251,34 @@ const Navbar = () => {
   };
 
   return (
-    <header className={`
+    <>
+    <header
+      className={`
       fixed top-0 left-0 w-full z-50
       h-[77px]
       flex items-center justify-between px-4 md:px-6
-      transition-all duration-300 ease-in-out
+      transition-all duration-500 ease-in-out
       ${isVisible ? 'translate-y-0' : '-translate-y-full'}
+      navbar-enter
       ${hasScrolled
-        ? 'bg-[#F8F7F4]/90 backdrop-blur-md border-b border-black/5'
+        ? 'bg-[#F8F7F4]/0 backdrop-blur-md'
         : 'bg-transparent'
       }
     `}>
 
       {/* Logo */}
-      <Link to="/" className="flex items-center">
-        <img
-          src={logo}
-          alt="Logo"
-          className={`
-    h-[45px]
-    sm:h-[50px]
-    md:h-[60px]
-    lg:h-[70px]
-    object-contain
-    transition-all duration-300
-    ${hasScrolled ? "" : "brightness-0 invert"}
-  `}
-        />
+      <Link to="/" className="flex items-center gap-3 group">
+        <span className="text-white text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight" style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
+          CADMAX
+        </span>
+        <span className="hidden sm:block w-[2px] h-6 md:h-8 bg-white transition-all duration-300 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)]"></span>
+        <span className="hidden sm:block text-white text-sm md:text-base lg:text-lg font-light tracking-[0.3em] uppercase" style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
+          Consultancy
+        </span>
       </Link>
 
       {/* Desktop Menu */}
-      <nav className="hidden md:flex items-center gap-5">
+      <nav className="hidden md:flex items-center gap-2 lg:gap-5">
         {/* Simple Links */}
         {simpleLinks.map((link) => (
           <NavLink
@@ -292,11 +286,11 @@ const Navbar = () => {
             to={link.path}
             end={link.path === "/"}
             className={({ isActive }) =>
-              `relative text-[14px] font-bold px-3 py-2 transition
-              ${isActive ? "text-[#CAAA79] scale-110 font-extrabold" : "text-[#171717]"}
+              `relative text-[14px] font-bold px-3 py-2 transition font-['Cormorant_Garamond'] tracking-wider
+              ${isActive ? "text-[#CAAA79] scale-110 font-extrabold" : "text-white"}
               
               after:content-[''] after:absolute after:left-0 after:bottom-[6px]
-              after:h-[2px] after:bg-[#CAAA79] after:w-0
+              after:h-[2px] after:bg-white after:w-0
               hover:after:w-full after:transition-all`
             }
           >
@@ -316,11 +310,11 @@ const Navbar = () => {
           <NavLink
             to="/projects"
             className={({ isActive }) =>
-              `relative text-[14px] font-bold px-3 py-2 transition flex items-center gap-1
-              ${isActive ? "text-[#CAAA79] scale-110 font-extrabold" : "text-[#171717]"}
+              `relative text-[14px] font-bold px-3 py-2 transition flex items-center gap-1 font-['Cormorant_Garamond'] tracking-wider
+              ${isActive ? "text-[#CAAA79] scale-110 font-extrabold" : "text-white"}
               
               after:content-[''] after:absolute after:left-0 after:bottom-[6px]
-              after:h-[2px] after:bg-[#CAAA79] after:w-0
+              after:h-[2px] after:bg-white after:w-0
               hover:after:w-full after:transition-all`
             }
           >
@@ -337,7 +331,7 @@ const Navbar = () => {
 
           {/* Projects Dropdown Menu */}
           {projectsDropdown && (
-            <div className="absolute top-full left-0 bg-[#F8F7F4]  shadow-lg rounded-md py-2 min-w-[150px] border border-gray-100">
+            <div className="absolute top-full left-0 bg-black shadow-lg rounded-md py-2 min-w-[150px] border border-white/20 z-[60]">
               {projectsMenu.items.map((item) => (
                 <div
                   key={item.path}
@@ -347,7 +341,7 @@ const Navbar = () => {
                 >
                   <Link
                     to={item.path}
-                    className="flex items-center gap-3 px-4 py-2 text-[13px] font-semibold text-black  hover:bg-[#e0cfb4] hover:text-[#c89a56] transition"
+                    className="flex items-center gap-3 px-4 py-2 text-[13px] font-semibold text-white hover:bg-white/10 hover:text-[#CAAA79] transition"
                   >
                     {item.label}
                     {item.submenu && (
@@ -364,12 +358,12 @@ const Navbar = () => {
 
                   {/* Surveying Submenu */}
                   {item.submenu && surveyingDropdown && (
-                    <div className="absolute top-0 left-full bg-[#F8F7F4]  shadow-lg rounded-md py-2 min-w-[180px] border border-gray-100">
+                    <div className="absolute top-0 left-full bg-black shadow-lg rounded-md py-2 min-w-[180px] border border-white/20">
                       {item.submenu.map((sub) => (
                         <Link
                           key={sub.path}
                           to={sub.path}
-                          className="block px-4 py-2 text-[13px] font-semibold text-black hover:bg-[#e0cfb4] hover:text-[#c89a56] transition"
+                          className="block px-4 py-2 text-[13px] font-semibold text-white hover:bg-white/10 hover:text-[#CAAA79] transition"
                         >
                           {sub.label}
                         </Link>
@@ -378,6 +372,8 @@ const Navbar = () => {
                   )}
                 </div>
               ))}
+              {/* White line below dropdown */}
+              <div className="h-[0.5px] bg-white w-[calc(100%-6vw)] max-w-[1400px] mx-auto mt-2"></div>
             </div>
           )}
         </div>
@@ -386,7 +382,7 @@ const Navbar = () => {
       {/* Desktop Button */}
       <Link
         to="/contact"
-        className="hidden lg:block bg-[#CAAA79] text-white hover:bg-[#c09c66] px-6 py-2 rounded-md text-[14px] font-bold transition-all duration-300"
+        className="hidden lg:block bg-white text-[#254441] hover:bg-gray-100 px-3 py-1 rounded-md text-[12px] font-bold transition-all duration-300"
       >
         ENQUIRE TODAY
       </Link>
@@ -396,9 +392,9 @@ const Navbar = () => {
         onClick={() => setMenuOpen(!menuOpen)}
         className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group"
       >
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''} ${hasScrolled ? 'bg-[#0F2C59]' : 'bg-white'}`}></span>
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''} ${hasScrolled ? 'bg-[#0F2C59]' : 'bg-white'}`}></span>
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''} ${hasScrolled ? 'bg-[#0F2C59]' : 'bg-white'}`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''} bg-white`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''} bg-white`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''} bg-white`}></span>
       </button>
 
       {/* Full Screen Menu Overlay - Rendered via Portal */}
@@ -413,6 +409,17 @@ const Navbar = () => {
         document.body
       )}
     </header>
+
+      {/* Separate white bottom line - centered, not touching edges, hides on scroll or when dropdown open */}
+      <div className="fixed top-[77px] left-0 w-full flex justify-center z-50 pointer-events-none">
+        <div
+          className={`nav-line-enter h-[0.5px] bg-white w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${
+            hasScrolled || projectsDropdown ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
+      </div>
+
+    </>
   );
 };
 
@@ -428,6 +435,46 @@ styleSheet.innerText = `
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  /* Navbar: hidden initially, slides down from top at 4s */
+  .navbar-enter {
+    opacity: 0;
+    transform: translateY(-100%);
+    animation: navbarSlideIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4s forwards;
+  }
+
+  @keyframes navbarSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* White line: scale from center outwards at 5s - slow & smooth */
+  .nav-line-enter {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    animation: lineGrow 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) 5s forwards;
+  }
+
+  @keyframes lineGrow {
+    0% {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: scaleX(1);
     }
   }
 `;

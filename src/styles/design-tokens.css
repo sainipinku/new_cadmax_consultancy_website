@@ -47,6 +47,9 @@
      TYPOGRAPHY TOKENS
      ============================================================ */
 
+  --font-serif: 'Fragment Serif', Arial, sans-serif;
+  --font-glare: 'Fragment Glare', Arial, sans-serif;
+  --font-inter: 'Inter 28 Pt', Arial, sans-serif;
   --font-hero: 'Clash Display', sans-serif;
   --font-heading: 'General Sans', sans-serif;
   --font-body: 'Inter', sans-serif;

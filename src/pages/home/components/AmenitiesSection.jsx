@@ -114,11 +114,11 @@ const AmenitiesSection = () => {
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div className="mx-auto grid h-full max-w-[1400px] grid-cols-1 md:grid-cols-12 md:gap-6 px-4 py-8 md:px-12">
             {/* LEFT: text */}
-            <div className="relative flex flex-col justify-center md:col-span-5">
+            <div className="relative flex flex-col justify-center md:col-span-5 lg:col-span-5">
               <div className="relative pl-5 md:pl-8">
                 <span className="absolute left-0 top-2 h-20 w-px bg-neutral-500/70 md:h-24" />
 
-                <div className="relative min-h-[200px] md:min-h-[320px]">
+                <div className="relative min-h-[180px] md:min-h-[320px]">
                   {SLIDES.map((s, i) => {
                     const textStart = i + 0.5;
                     const textEnd = i + 1.5;
@@ -214,10 +214,11 @@ const AmenitiesSection = () => {
             </div>
 
             {/* RIGHT: images */}
-            <div className="relative flex items-center justify-center md:col-span-7">
-              <div className="relative mx-auto h-[60vh] w-full max-w-[600px] md:h-[70vh]">
-                {/* BIG image — right side, 60% so no overlap with small image */}
-                <div className="absolute right-0 top-[-2rem] md:top-[-3.5rem] h-[70vh] md:h-[90vh] w-[85%] md:w-[80%] overflow-hidden rounded-sm bg-[#0e1210]">
+            <div className="relative flex items-center justify-center md:col-span-7 lg:col-span-7">
+              {/* Desktop Layout (lg and above) */}
+              <div className="hidden lg:block relative mx-auto h-[70vh] w-full max-w-[600px]">
+                {/* BIG image — right side, 80% width */}
+                <div className="absolute right-0 top-[-3.5rem] h-[90vh] w-[80%] overflow-hidden rounded-sm bg-[#0e1210]">
                   {SLIDES.map((s, i) => {
                     const local = Math.min(Math.max(scaled - i, 0), 1);
                     const isFirst = i === 0;
@@ -241,7 +242,7 @@ const AmenitiesSection = () => {
                   })}
                 </div>
 
-                {/* SMALL image — absolute positioned, no overflow */}
+                {/* SMALL image — left corner, overlapping big image */}
                 <div className="absolute bottom-[6%] left-0 z-20 h-[75%] w-[38%] overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-black/20 rounded-sm bg-[#0e1210]">
                   {SLIDES.map((s, i) => {
                     const local = Math.min(Math.max(scaled - i, 0), 1);
@@ -264,6 +265,118 @@ const AmenitiesSection = () => {
                       />
                     );
                   })}
+                </div>
+              </div>
+
+              {/* Tablet Layout (md to lg) - Collage style like mobile */}
+              <div className="hidden md:block lg:hidden relative w-full px-6">
+                {/* Collage layout for tablet */}
+                <div className="relative mx-auto w-full max-w-[600px]" style={{ height: '560px' }}>
+                  {/* BIG image — 105% width */}
+                  <div className="absolute -right-[5.5%] top-0 h-[520px] w-[105%] overflow-hidden rounded-sm shadow-2xl shadow-black/60 bg-[#0e1210]">
+                    {SLIDES.map((s, i) => {
+                      const local = Math.min(Math.max(scaled - i, 0), 1);
+                      const isFirst = i === 0;
+                      return (
+                        <img
+                          key={`big-tablet-${i}`}
+                          src={s.bigImage}
+                          alt={s.titleLines.join(' ')}
+                          loading={i === 0 ? 'eager' : 'lazy'}
+                          className="absolute inset-0 h-full w-full object-cover"
+                          style={{
+                            opacity: local > 0 ? 1 : 0,
+                            zIndex: i,
+                            WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
+                            maskImage: isFirst ? 'none' : stripeMask(local),
+                            WebkitMaskSize: '100% 100%',
+                            maskSize: '100% 100%',
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+
+                  {/* SMALL image — left corner, 55% width */}
+                  <div className="absolute bottom-[-80px] left-[-100px] z-20 h-[360px] w-[75%] overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-black/20 rounded-sm bg-[#0e1210]">
+                    {SLIDES.map((s, i) => {
+                      const local = Math.min(Math.max(scaled - i, 0), 1);
+                      const isFirst = i === 0;
+                      return (
+                        <img
+                          key={`small-tablet-${i}`}
+                          src={s.smallImage}
+                          alt={s.titleLines.join(' ')}
+                          loading="lazy"
+                          className="absolute inset-0 h-full w-full object-cover"
+                          style={{
+                            opacity: isFirst ? 1 : local > 0 ? 1 : 0,
+                            zIndex: i,
+                            WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
+                            maskImage: isFirst ? 'none' : stripeMask(local),
+                            WebkitMaskSize: '100% 100%',
+                            maskSize: '100% 100%',
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Layout (below md) - Collage style */}
+              <div className="md:hidden relative w-full px-4">
+                {/* Collage layout for mobile */}
+                <div className="relative mx-auto h-[45vh] w-full max-w-[400px]">
+                  {/* BIG image — 95% width */}
+                  <div className="absolute right-0 top-0 h-[42vh] w-[95%] overflow-hidden rounded-sm shadow-2xl shadow-black/60 bg-[#0e1210]">
+                    {SLIDES.map((s, i) => {
+                      const local = Math.min(Math.max(scaled - i, 0), 1);
+                      const isFirst = i === 0;
+                      return (
+                        <img
+                          key={`big-mobile-${i}`}
+                          src={s.bigImage}
+                          alt={s.titleLines.join(' ')}
+                          loading={i === 0 ? 'eager' : 'lazy'}
+                          className="absolute inset-0 h-full w-full object-cover"
+                          style={{
+                            opacity: local > 0 ? 1 : 0,
+                            zIndex: i,
+                            WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
+                            maskImage: isFirst ? 'none' : stripeMask(local),
+                            WebkitMaskSize: '100% 100%',
+                            maskSize: '100% 100%',
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+
+                  {/* SMALL image — left corner, 45% width */}
+                  <div className="absolute bottom-0 left-0 z-20 h-[48%] w-[45%] overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-black/20 rounded-sm bg-[#0e1210]">
+                    {SLIDES.map((s, i) => {
+                      const local = Math.min(Math.max(scaled - i, 0), 1);
+                      const isFirst = i === 0;
+                      return (
+                        <img
+                          key={`small-mobile-${i}`}
+                          src={s.smallImage}
+                          alt={s.titleLines.join(' ')}
+                          loading="lazy"
+                          className="absolute inset-0 h-full w-full object-cover"
+                          style={{
+                            opacity: isFirst ? 1 : local > 0 ? 1 : 0,
+                            zIndex: i,
+                            WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
+                            maskImage: isFirst ? 'none' : stripeMask(local),
+                            WebkitMaskSize: '100% 100%',
+                            maskSize: '100% 100%',
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
