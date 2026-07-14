@@ -10,6 +10,9 @@ module.exports = {
         clash: ["Clash Display", "sans-serif"],
         general: ["General Sans", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        'fragment-serif': ['"Fragment Serif"', 'Arial', 'sans-serif'],
+        'fragment-glare': ['"Fragment Glare"', 'Arial', 'sans-serif'],
+        'inter-28pt': ['"Inter 28 Pt"', 'Arial', 'sans-serif'],
       },
       colors: {
         primary: {

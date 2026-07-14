@@ -68,7 +68,7 @@ const ProcessSection = () => {
         );
 
         // Icon animation
-        const icon = card.querySelector('.process-icon');
+        const icon = card.querySelector('.process-icon-wrapper');
         if (icon) {
           gsap.fromTo(
             icon,
@@ -135,88 +135,321 @@ const ProcessSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-26 bg-[#F8F7F4] overflow-hidden"
+      className="relative py-16 md:py-20 lg:py-26 bg-[#F8F7F4] overflow-hidden"
     >
+      {/* Inline styles for envelope animation */}
+      <style>{`
+        .envelope-card {
+          position: relative;
+          transform-style: preserve-3d;
+          perspective: 800px;
+        }
+
+        .envelope-card .envelope-overlay {
+          position: absolute;
+          inset: 0;
+          border-radius: 1.5rem;
+          overflow: hidden;
+          pointer-events: none;
+          z-index: 5;
+        }
+
+        .envelope-card:hover .envelope-overlay {
+          pointer-events: auto;
+        }
+
+        /* Envelope flaps */
+        .envelope-card .flap {
+          position: absolute;
+          inset: 0;
+          transition: clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                      transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: clip-path, transform;
+        }
+
+        .envelope-card .flap-tp {
+          background: linear-gradient(135deg, #CAAA79 0%, #D4B383 40%, #B89450 100%);
+          clip-path: polygon(50% 50%, 100% 0, 0 0);
+          transform-origin: top center;
+          z-index: 4;
+        }
+
+        .envelope-card .flap-lft {
+          background: linear-gradient(180deg, #CAAA79 0%, #B89450 100%);
+          clip-path: polygon(50% 50%, 0 0, 0 100%);
+          transform-origin: left center;
+          z-index: 3;
+        }
+
+        .envelope-card .flap-rgt {
+          background: linear-gradient(180deg, #B89450 0%, #CAAA79 100%);
+          clip-path: polygon(50% 50%, 100% 0, 100% 100%);
+          transform-origin: right center;
+          z-index: 3;
+        }
+
+        .envelope-card .flap-btm {
+          background: linear-gradient(315deg, #B89450 0%, #CAAA79 50%, #D4B383 100%);
+          clip-path: polygon(50% 50%, 100% 100%, 0 100%);
+          transform-origin: bottom center;
+          z-index: 2;
+        }
+
+        /* Hover states - all flaps fully open */
+        .envelope-card:hover .flap-tp {
+          clip-path: polygon(50% 0%, 100% 0, 0 0);
+          transform: rotateX(15deg) translateY(-5px);
+        }
+
+        .envelope-card:hover .flap-lft {
+          clip-path: polygon(0% 0%, 0% 0%, 0% 100%);
+          transform: rotateY(-15deg) translateX(-5px);
+        }
+
+        .envelope-card:hover .flap-rgt {
+          clip-path: polygon(100% 0%, 100% 0%, 100% 100%);
+          transform: rotateY(15deg) translateX(5px);
+        }
+
+        .envelope-card:hover .flap-btm {
+          clip-path: polygon(50% 100%, 100% 100%, 0 100%);
+          transform: rotateX(-15deg) translateY(5px);
+        }
+
+        /* Envelope seal/stamp */
+        .envelope-card .seal {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 10;
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform, opacity;
+        }
+
+        .envelope-card:hover .seal {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0) rotate(180deg);
+        }
+
+        /* Envelope border/crease lines for 3D effect */
+        .envelope-card .envelope-overlay::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border: 2px solid rgba(202, 170, 121, 0.2);
+          border-radius: 1.5rem;
+          z-index: 6;
+          pointer-events: none;
+          transition: opacity 0.5s ease;
+        }
+
+        .envelope-card:hover .envelope-overlay::before {
+          opacity: 0;
+        }
+
+        /* Texture & crease lines hide on hover */
+        .envelope-card:hover .envelope-crease-h,
+        .envelope-card:hover .envelope-crease-v,
+        .envelope-card:hover .envelope-texture {
+          opacity: 0;
+        }
+
+        /* Card content hover enhancement */
+        .envelope-card .card-content {
+          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                      box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .envelope-card:hover .card-content {
+          transform: translateY(-4px);
+          box-shadow: 0 20px 60px rgba(202, 170, 121, 0.25);
+        }
+
+        /* Icon hover effect */
+        .envelope-card:hover .process-icon-wrapper {
+          background-color: #CAAA79;
+          transform: scale(1.1);
+        }
+
+        .envelope-card:hover .process-icon-wrapper svg {
+          color: white;
+        }
+
+        /* Title hover effect */
+        .envelope-card:hover .process-title {
+          color: #CAAA79;
+        }
+
+        /* Arrow indicator */
+        .envelope-card .arrow-indicator {
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .envelope-card:hover .arrow-indicator {
+          opacity: 1;
+        }
+
+        /* Stamp star shape */
+        .stamp-shape {
+          width: 70px;
+          height: 70px;
+          background: linear-gradient(135deg, #151515, #2d2d2d);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #CAAA79;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1px;
+          border: 3px solid #CAAA79;
+          clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(202, 170, 121, 0.2);
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Envelope texture lines */
+        .envelope-card .envelope-texture {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background-image: 
+            repeating-linear-gradient(
+              0deg,
+              transparent,
+              transparent 2px,
+              rgba(202, 170, 121, 0.04) 2px,
+              rgba(202, 170, 121, 0.04) 4px
+            );
+          pointer-events: none;
+          border-radius: 1.5rem;
+          transition: opacity 0.5s ease;
+        }
+
+        /* Delay each flap for a cascading effect */
+        .envelope-card .flap-tp { transition-delay: 0s; }
+        .envelope-card .flap-lft { transition-delay: 0.05s; }
+        .envelope-card .flap-rgt { transition-delay: 0.1s; }
+        .envelope-card .flap-btm { transition-delay: 0.15s; }
+        .envelope-card .seal { transition-delay: 0.2s; }
+
+        /* Reverse delay on hover out */
+        .envelope-card:not(:hover) .flap-tp { transition-delay: 0.2s; }
+        .envelope-card:not(:hover) .flap-lft { transition-delay: 0.15s; }
+        .envelope-card:not(:hover) .flap-rgt { transition-delay: 0.1s; }
+        .envelope-card:not(:hover) .flap-btm { transition-delay: 0.05s; }
+        .envelope-card:not(:hover) .seal { transition-delay: 0s; }
+      `}</style>
+
       {/* Background decorative elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#CAAA79]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#CAAA79]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 relative z-10">
+      <div className="max-w-8xl mx-auto px-6 md:px-10 lg:px-24 relative z-10">
         {/* Section header */}
-        <div ref={headerRef} className="mb-20 md:mb-32">
-          <div className="flex items-center gap-4 mb-6">
+        <div ref={headerRef} className="mb-12 md:mb-16 lg:mb-32">
+          <div className="flex items-center gap-4 mb-4 md:mb-6">
             <div className="w-8 h-[1px] bg-[#CAAA79]" />
             <span className="text-xs font-general font-semibold text-[#CAAA79] uppercase tracking-[0.2em]">
               How We Work
             </span>
           </div>
-          <h2 className="font-clash text-5xl md:text-6xl lg:text-7xl text-[#151515] max-w-4xl leading-[1.1]">
+          <h2 className="font-clash text-4xl md:text-5xl lg:text-7xl text-[#151515] max-w-4xl leading-[1.1]">
             From Vision to <span className="text-[#636363]">Reality</span>
           </h2>
-          <p className="text-[#636363] font-inter text-base md:text-lg leading-relaxed max-w-2xl mt-6">
+          <p className="text-[#636363] font-inter text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mt-4 md:mt-6">
             A proven three-step process that transforms your ideas into precision-engineered realities
           </p>
         </div>
 
-        {/* Process cards with 3D perspective */}
+        {/* Process cards with 3D envelope animation */}
         <div className="relative" style={{ perspective: '1200px' }}>
           {/* Connecting line */}
           <div className="process-line hidden lg:block absolute top-24 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#CAAA79]/30 to-transparent origin-left" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 lg:gap-16">
             {PROCESS_STEPS.map((step, i) => {
               const Icon = step.icon;
               return (
                 <div
                   key={step.number}
                   ref={(el) => (cardsRef.current[i] = el)}
-                  className="relative group"
-                  style={{ transformStyle: 'preserve-3d' }}
+                  className="envelope-card"
                 >
                   {/* Large background number */}
                   <div
-                    className="process-number absolute -top-8 -left-4 text-[120px] md:text-[150px] font-clash font-bold leading-none pointer-events-none select-none"
-                    style={{ color: step.color }}
+                    className="process-number absolute -top-6 md:-top-6 -left-2 md:-left-3 text-[100px] md:text-[110px] lg:text-[150px] font-clash font-bold leading-none pointer-events-none select-none z-0"
+                    style={{ color: step.color, opacity: 0.15 }}
                   >
                     {step.number}
                   </div>
 
-                  {/* Card content */}
-                  <div className="relative bg-white rounded-3xl p-8 md:p-10 border border-[#E8E4DD] hover:shadow-2xl hover:shadow-[#CAAA79]/20 transition-all duration-500 hover:-translate-y-2 h-full">
+                  {/* Card content (what's revealed when envelope opens) */}
+                  <div className="card-content relative bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 border border-[#E8E4DD] h-full z-[1]">
                     {/* Icon */}
-                    <div className="process-icon w-16 h-16 rounded-2xl bg-[#CAAA79]/10 flex items-center justify-center mb-6 group-hover:bg-[#CAAA79] group-hover:scale-110 transition-all duration-300">
-                      <Icon className="w-8 h-8 text-[#CAAA79] group-hover:text-white transition-colors duration-300" />
+                    <div className="process-icon-wrapper w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl md:rounded-2xl bg-[#CAAA79]/10 flex items-center justify-center mb-4 md:mb-5 lg:mb-6 transition-all duration-500">
+                      <Icon className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-[#CAAA79] transition-colors duration-500" />
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-clash text-3xl md:text-4xl text-[#151515] mb-2 group-hover:text-[#CAAA79] transition-colors duration-300">
+                    <h3 className="process-title font-clash text-2xl md:text-2xl lg:text-4xl text-[#151515] mb-1 md:mb-2 transition-colors duration-500">
                       {step.title}
                     </h3>
 
                     {/* Subtitle */}
-                    <p className="text-sm font-general font-semibold text-[#CAAA79] uppercase tracking-wider mb-4">
+                    <p className="text-xs md:text-sm font-general font-semibold text-[#CAAA79] uppercase tracking-wider mb-2 md:mb-4">
                       {step.subtitle}
                     </p>
 
                     {/* Description */}
-                    <p className="text-[#636363] font-inter text-sm leading-relaxed">
+                    <p className="text-[#636363] font-inter text-xs md:text-sm leading-relaxed">
                       {step.description}
                     </p>
 
                     {/* Arrow indicator */}
-                    <div className="mt-6 flex items-center gap-2 text-[#CAAA79] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-sm font-general font-semibold">Learn more</span>
-                      <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="arrow-indicator mt-4 md:mt-6 flex items-center gap-2 text-[#CAAA79] transition-opacity duration-300">
+                      <span className="text-xs md:text-sm font-general font-semibold">Learn more</span>
+                      <svg className="w-3 h-3 md:w-4 md:h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
                     </div>
                   </div>
 
+                  {/* Envelope Overlay */}
+                  <div className="envelope-overlay">
+                    {/* Envelope texture */}
+                    <div className="envelope-texture" />
+
+                    {/* Top flap */}
+                    <div className="flap flap-tp" />
+
+                    {/* Left flap */}
+                    <div className="flap flap-lft" />
+
+                    {/* Right flap */}
+                    <div className="flap flap-rgt" />
+
+                    {/* Bottom flap */}
+                    <div className="flap flap-btm" />
+
+                    {/* Center crease lines for realism - fade out on hover */}
+                    <div className="envelope-crease-h absolute top-1/2 left-0 right-0 h-[1px] bg-[#B89450]/30 z-[7] pointer-events-none transition-opacity duration-500" />
+                    <div className="envelope-crease-v absolute left-1/2 top-0 bottom-0 w-[1px] bg-[#B89450]/30 z-[7] pointer-events-none transition-opacity duration-500" />
+
+                    {/* Seal/Stamp */}
+                    <div className="seal">
+                      <div className="stamp-shape">
+                        CADMAX
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Step connector arrow (except last) */}
                   {i < PROCESS_STEPS.length - 1 && (
-                    <div className="hidden md:flex absolute top-1/2 -right-6 lg:-right-[54px] transform -translate-y-1/2 z-20">
-                      <div className="w-12 h-12 rounded-full bg-[#CAAA79] flex items-center justify-center shadow-lg">
-                        <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="hidden md:hidden lg:flex absolute top-1/2 -right-[54px] transform -translate-y-1/2 z-20">
+                      <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#CAAA79] flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
@@ -229,45 +462,21 @@ const ProcessSection = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-20 md:mt-32 text-center">
-          <p className="text-[#636363] font-inter text-base mb-6">
+        <div className="mt-12 md:mt-16 lg:mt-32 text-center">
+          <p className="text-[#636363] font-inter text-sm md:text-base mb-4 md:mb-6">
             Ready to start your project?
           </p>
-         <button
-  className="group relative overflow-hidden inline-flex items-center gap-3 px-8 py-4
-  rounded-full
-  bg-white/10
-  backdrop-blur-2xl
-  border border-white/40
-  text-[#151515]
-  text-sm font-semibold
-  shadow-xl shadow-black/10
-  transition-all duration-500
-  hover:bg-[#CAAA79]/90
-  hover:border-[#D4B383]
-  hover:text-white
-  hover:shadow-2xl hover:shadow-[#CAAA79]/40"
->
-  <span className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/10 to-transparent opacity-70"></span>
-
-  <span className="relative z-10 flex items-center gap-3 group-hover:gap-4 transition-all duration-500">
-    Schedule a Consultation
-
-    <svg
-      className="w-4 h-4 transition-all duration-500 group-hover:translate-x-1"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M17 8l4 4m0 0l-4 4m4-4H3"
-      />
-    </svg>
-  </span>
-</button>
+          <button
+            className="group relative overflow-hidden inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-full bg-white/10 backdrop-blur-2xl border border-white/40 text-[#151515] text-xs md:text-sm font-semibold shadow-xl shadow-black/10 transition-all duration-500 hover:bg-[#CAAA79]/90 hover:border-[#D4B383] hover:text-white hover:shadow-2xl hover:shadow-[#CAAA79]/40"
+          >
+            <span className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/10 to-transparent opacity-70"></span>
+            <span className="relative z-10 flex items-center gap-3 group-hover:gap-4 transition-all duration-500">
+              Schedule a Consultation
+              <svg className="w-3 h-3 md:w-4 md:h-4 transition-all duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
     </section>

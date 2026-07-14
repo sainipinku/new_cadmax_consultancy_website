@@ -183,7 +183,7 @@ const TestimonialsSection = () => {
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[400px] bg-white rounded-2xl p-8 border border-[#E8E4DD] hover:shadow-elevated transition-all duration-500 hover:-translate-y-1"
+              className="flex-shrink-0 w-[calc(100vw-3rem)] sm:w-[400px] bg-white rounded-2xl p-6 sm:p-8 border border-[#E8E4DD] hover:shadow-elevated transition-all duration-500 hover:-translate-y-1"
             >
               {/* Quote icon */}
               <Quote className="w-8 h-8 text-[#CAAA79]/20 mb-4" />
