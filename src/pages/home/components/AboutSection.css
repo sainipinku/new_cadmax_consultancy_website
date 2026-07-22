@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap');
+
+/* Stats Section - Premium Luxury Design */
+.about-stats-number {
+font-family: "Bodoni Moda", serif;
+  font-weight: 300;
+  font-size: clamp(4rem, 8vw, 8rem);
+  line-height: 0.9;
+  color: #f5f5f5;
+  display: inline;
+}
+
+.about-stats-unit {
+  font-family: "Bodoni Moda", serif;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-left: 0.35rem;
+  font-weight: 300;
+}
+
+.about-stats-text {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 180px;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  font-family: "Bodoni Moda", serif;
+  font-weight: 300;
+}
+
+.about-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem 0;
+}
+
+.about-stats-number-wrapper {
+  display: inline-block;
+  transform-origin: left center;
+}
+
+/* Hover effects */
+.about-stat-item:hover .about-stats-number-wrapper {
+  transform: scale(1.03);
+}
+
+.about-stat-item:hover .about-stats-text {
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.about-stat-item:hover .about-stats-number {
+  color: #ffffff;
+}
+
+.about-stat-item:hover .about-stats-unit {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Smooth transitions */
+.about-stats-number-wrapper {
+  transition: all 0.35s ease;
+}
+
+.about-stats-text {
+  transition: all 0.35s ease;
+}
+
+.about-stats-number {
+  transition: all 0.35s ease;
+}
+
+.about-stats-unit {
+  transition: all 0.35s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about-stats-number {
+    font-size: clamp(3rem, 10vw, 5rem);
+  }
+
+  .about-stats-unit {
+    font-size: 1rem;
+  }
+
+  .about-stats-text {
+    font-size: 0.68rem;
+    max-width: 150px;
+  }
+
+  .about-stat-item {
+    align-items: flex-start;
+    padding: 0.75rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-stats-number {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .about-stats-unit {
+    font-size: 0.9rem;
+  }
+
+  .about-stats-text {
+    font-size: 0.65rem;
+    max-width: 130px;
+    letter-spacing: 0.06em;
+  }
+
+  .about-stat-item {
+    align-items: flex-start;
+    padding: 0.5rem 0;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .about-stats-number {
+    font-size: clamp(3.5rem, 6vw, 6rem);
+  }
+
+  .about-stats-unit {
+    font-size: 1.1rem;
+  }
+
+  .about-stats-text {
+    font-size: 0.7rem;
+    max-width: 160px;
+  }
+}

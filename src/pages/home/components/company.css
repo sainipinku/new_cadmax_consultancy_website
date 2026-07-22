@@ -5,7 +5,7 @@
 /* ---------- SECTION CONTAINER ---------- */
 .company-showcase-section {
   width: 100%;
-  background: linear-gradient(135deg, #f5f3f0 0%, #e8e4df 100%);
+  background: #000000;
   padding: 40px 0;
     margin: 0;
   overflow: hidden;
@@ -45,7 +45,7 @@
 .company-label-content {
   padding: 26px 38px;
   border-left: 2px solid #A8916B;
-  background: rgba(255, 255, 255, 0.5);
+  background: #ffff;
   backdrop-filter: blur(10px);
 }
 

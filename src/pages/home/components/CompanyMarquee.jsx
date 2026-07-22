@@ -38,8 +38,8 @@ import img37 from "../../../assets/Images/company logo/Logo-Saffron-Group-Web.jp
 import img38 from "../../../assets/Images/company logo/mahimagroup_logoblue.png";
 import img39 from "../../../assets/Images/company logo/mircle group.png";
 import img40 from "../../../assets/Images/company logo/nirwana.webp";
-//import img41 from "../../../assets/Images/company logo/om logistic.png";
-import img42 from "../../../assets/Images/company logo/onerealty.webp";
+import img41 from "../../../assets/Images/company logo/om logistic.png";
+// import img42 from "../../../assets/Images/company logo/onerealty.webp";
 //import img43 from "../../../assets/Images/company logo/oswal group.png";
 //import img44 from "../../../assets/Images/company logo/patrika.png";
 //import img45 from "../../../assets/Images/company logo/Pragati_300x300_High Res copy 2.png";
