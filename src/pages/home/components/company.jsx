@@ -78,7 +78,7 @@ const CompanyShowcase = () => {
       className="company-showcase-section" 
       ref={sectionRef}
       style={{
-        background: 'linear-gradient(135deg, #f5f3f0 0%, #e8e4df 100%)',
+        background: 'black',
         padding: '40px 0'
       }}
     >

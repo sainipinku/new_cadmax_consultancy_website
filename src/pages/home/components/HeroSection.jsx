@@ -52,15 +52,13 @@ const HeroSection = () => {
       <div className="relative z-20 h-full w-full">
 
         {/* BIG TYPOGRAPHY */}
-        <div className="absolute bottom-2 left-0 w-full px-[3vw]">
+        <div className="absolute bottom-8 left-0 w-full px-[3vw]">
 
           <h1 className="hero-title" aria-label="CADMAX">
             {charReveal("CADMAX")}
           </h1>
 
-          <h2 className="hero-subtitle" aria-label="CONSULTANCY">
-            {charReveal("CONSULTANCY")}
-          </h2>
+         
 
         </div>
 

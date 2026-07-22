@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import accuracyImg from '../../../assets/Images/Other/accuracy-part.jpg.jpeg';
+import './AboutSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +44,7 @@ const AboutSection = () => {
 
   const stats = [
     { label: 'Projects Delivered', value: 500, suffix: '+' },
-    { label: 'Years Experience', value: 20, suffix: '+' },
+    { label: 'Years Experience', value: 26, suffix: '+' },
     { label: 'Happy Clients', value: 200, suffix: '+' },
     { label: 'Team Members', value: 80, suffix: '+' },
   ];
@@ -85,7 +86,7 @@ const AboutSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-[#F8F7F4] overflow-hidden"
+      className="relative py-24 md:py-32 bg-[black] overflow-hidden"
     >
       {/* Background decorative element */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#CAAA79]/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none" />
@@ -116,7 +117,7 @@ const AboutSection = () => {
             <div className="absolute -bottom-6 -right-6 bg-[#141111] rounded-2xl p-6 shadow-elevated hidden md:block">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full  bg-[#CAAA79] flex items-center justify-center">
-                  <span className="text-white font-clash text-lg font-bold">20+</span>
+                  <span className="text-white font-clash text-lg font-bold">26+</span>
                 </div>
                 <div>
                   <p className="text-sm font-general font-semibold text-white">Years of</p>
@@ -128,12 +129,12 @@ const AboutSection = () => {
 
           {/* Right - Content */}
           <div ref={textRef} className="space-y-8">
-            <h2 className="font-clash text-section text-[#151515]">
+            <h2 className="font-clash text-section text-[#ffffff]">
               How CADMAX <br />
-              <span className="text-[#636363]">Maintains Accuracy</span>
+              <span className="text-[#e6e5e5]">Maintains Accuracy</span>
             </h2>
 
-            <div className="space-y-4 text-[#636363] font-inter leading-relaxed">
+            <div className="space-y-4 text-[#ffffff] font-inter leading-relaxed">
               <p>
                 We build trust before we build structures. That's the CadMax difference. 
                 Customers choose CadMax because we turn complex ideas into precise, 
@@ -151,7 +152,7 @@ const AboutSection = () => {
               </p>
             </div>
 
-            <button className="group inline-flex items-center gap-3 px-6 py-3 bg-[#151515] text-[#F8F5F1] rounded-full text-sm font-general font-semibold transition-all duration-300 hover:bg-[#2a2a2a] hover:gap-4 hover:shadow-xl">
+            <button className="group inline-flex items-center gap-3 px-6 py-3 bg-[#151515] text-[#F8F5F1] rounded-full text-sm font-general font-semibold transition-all duration-300 hover:bg-[#181818] hover:gap-4 hover:shadow-xl">
               Learn More About Us
               <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -163,22 +164,83 @@ const AboutSection = () => {
         {/* Stats */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-16 border-t border-[#E8E4DD]"
+          className="mt-24 md:mt-32 pt-16 md:pt-24 relative"
         >
-          {stats.map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="text-4xl md:text-5xl font-clash font-bold text-[#151515] mb-2">
-                <span
-                  ref={(el) => (counterRefs.current[i] = el)}
-                  data-value={stat.value}
-                >
-                  0
-                </span>
-                <span className="text-[#CAAA79]">{stat.suffix}</span>
+          {/* Row 1: Stats 2 & 3 on top right */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-8 md:mb-12">
+            {/* Empty left space on desktop */}
+            <div className="hidden md:block"></div>
+            
+            {/* Stats 2 & 3 - Right side */}
+            <div className="grid grid-cols-2 gap-8 md:gap-12">
+              {/* Stat 2 */}
+              <div className="about-stat-item group">
+                <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
+                  <span className="about-stats-number">
+                    <span
+                      ref={(el) => (counterRefs.current[1] = el)}
+                      data-value={stats[1].value}
+                    >
+                      0
+                    </span>
+                    <span className="about-stats-unit">{stats[1].suffix}</span>
+                  </span>
+                </div>
+                <p className="about-stats-text">{stats[1].label}</p>
               </div>
-              <p className="text-sm font-general text-[#636363]">{stat.label}</p>
+
+              {/* Stat 3 */}
+              <div className="about-stat-item group">
+                <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
+                  <span className="about-stats-number">
+                    <span
+                      ref={(el) => (counterRefs.current[2] = el)}
+                      data-value={stats[2].value}
+                    >
+                      0
+                    </span>
+                    <span className="about-stats-unit">{stats[2].suffix}</span>
+                  </span>
+                </div>
+                <p className="about-stats-text">{stats[2].label}</p>
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* Row 2: Stat 1 (500+) middle left and Stat 4 bottom center */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+            {/* Stat 1 - Middle left */}
+            <div className="about-stat-item group">
+              <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
+                <span className="about-stats-number">
+                  <span
+                    ref={(el) => (counterRefs.current[0] = el)}
+                    data-value={stats[0].value}
+                  >
+                    0
+                  </span>
+                  <span className="about-stats-unit">{stats[0].suffix}</span>
+                </span>
+              </div>
+              <p className="about-stats-text">{stats[0].label}</p>
+            </div>
+
+            {/* Stat 4 - Bottom center */}
+            <div className="about-stat-item group md:pl-24">
+              <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
+                <span className="about-stats-number">
+                  <span
+                    ref={(el) => (counterRefs.current[3] = el)}
+                    data-value={stats[3].value}
+                  >
+                    0
+                  </span>
+                  <span className="about-stats-unit">{stats[3].suffix}</span>
+                </span>
+              </div>
+              <p className="about-stats-text">{stats[3].label}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
