@@ -58,7 +58,7 @@ const HeroSection = () => {
             {charReveal("CADMAX")}
           </h1>
 
-         
+          
 
         </div>
 

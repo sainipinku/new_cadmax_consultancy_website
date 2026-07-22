@@ -93,7 +93,7 @@ https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600
 .hero-right-caption {
     position: absolute;
     right: 2vw;
-    top: 65%;
+    top: 75%;
     transform: translateY(-50%);
     max-width: 320px;
     z-index: 10;

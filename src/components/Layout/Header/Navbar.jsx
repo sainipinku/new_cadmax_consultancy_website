@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { NavLink, Link } from "react-router-dom";
-// import logo from "../../../assets/Images/cadmax-logo/Cadmax-logo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,6 +8,7 @@ const Navbar = () => {
   const [surveyingDropdown, setSurveyingDropdown] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [textWhite, setTextWhite] = useState(true);
 
   // Projects menu structure
   const projectsMenu = {
@@ -52,13 +52,33 @@ const Navbar = () => {
     };
   }, [menuOpen]);
 
-  // Track scroll for header background change
+  // Track scroll for header bg, text color, and visibility
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      const vh = window.innerHeight;
       setHasScrolled(scrollY > 50);
 
-      // Also check for AmenitiesSection visibility
+      // Text color logic:
+      // White on Hero (first 100vh) + on ContactSection
+      // Dark (foreground) on everything else
+      const contactSection = document.querySelector('.contact-section-home');
+      let shouldBeWhite = false;
+
+      if (contactSection) {
+        const rect = contactSection.getBoundingClientRect();
+        const contactVisible = rect.top < vh - 100;
+        shouldBeWhite = contactVisible;
+      }
+
+      if (!shouldBeWhite) {
+        // White only on hero section (first ~100vh)
+        shouldBeWhite = scrollY < vh - 80;
+      }
+
+      setTextWhite(shouldBeWhite);
+
+      // Also check for AmenitiesSection visibility for navbar hide/show
       const amenitiesSection = document.querySelector('[data-section="amenities"]');
       if (amenitiesSection) {
         const rect = amenitiesSection.getBoundingClientRect();
@@ -69,10 +89,21 @@ const Navbar = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Check initial state
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Derived classes
+  const textColorClass = textWhite ? 'text-white' : 'text-[var(--foreground)]';
+  const logoDividerClass = textWhite ? 'bg-white' : 'bg-[var(--foreground)]';
+  const hamburgerClass = textWhite ? 'bg-white' : 'bg-[var(--foreground)]';
+  const underlineClass = textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]';
+  const headerBgClass = hasScrolled
+    ? textWhite
+      ? 'bg-black/20 backdrop-blur-md'
+      : 'bg-[var(--background)]/90 backdrop-blur-md'
+    : 'bg-transparent';
 
   // Menu Component to be rendered via Portal
   const MenuOverlay = () => {
@@ -81,7 +112,7 @@ const Navbar = () => {
     return createPortal(
       <div className="
         fixed inset-0
-        bg-black 
+        bg-[var(--background)]
         transition-all duration-700 ease-in-out
         opacity-100 visible
         overflow-y-auto
@@ -93,7 +124,7 @@ const Navbar = () => {
           <div className="flex justify-end p-6">
               <button
                 onClick={() => setMenuOpen(false)}
-                className="group flex items-center gap-2 text-white hover:text-[#CAAA79] transition-colors"
+                className="group flex items-center gap-2 text-[var(--foreground)] hover:text-[var(--accent)] transition-colors"
               >
               <span className="text-sm font-semibold tracking-wider uppercase">Close Menu</span>
               <svg className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,14 +151,14 @@ const Navbar = () => {
                     end={link.path === "/"}
                     onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
-                      `group block text-3xl md:text-4xl lg:text-5xl font-light text-white py-3 
+                      `group block text-3xl md:text-4xl lg:text-5xl font-light text-[var(--foreground)] py-3 
                       transition-all duration-300 hover:pl-4 relative
                       ${isActive ? 'font-semibold' : ''}`
                     }
                   >
                     <span className="relative inline-block">
                       {link.label}
-                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#CAAA79] group-hover:w-full transition-all duration-300"></span>
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[var(--accent)] group-hover:w-full transition-all duration-300"></span>
                     </span>
                   </NavLink>
                 </div>
@@ -143,11 +174,11 @@ const Navbar = () => {
               >
                 <button
                   onClick={() => setProjectsDropdown(!projectsDropdown)}
-                  className="group flex items-center justify-center w-full text-3xl md:text-4xl lg:text-5xl font-light text-white py-3 hover:pl-4 transition-all duration-300"
+                  className="group flex items-center justify-center w-full text-3xl md:text-4xl lg:text-5xl font-light text-[var(--foreground)] py-3 hover:pl-4 transition-all duration-300"
                 >
                   <span className="relative inline-block">
                     PROJECTS
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[#CAAA79] group-hover:w-full transition-all duration-300"></span>
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[var(--accent)] group-hover:w-full transition-all duration-300"></span>
                   </span>
                   <svg
                     className={`w-6 h-6 md:w-8 md:h-8 transition-transform duration-300 ${projectsDropdown ? 'rotate-180' : ''}`}
@@ -174,7 +205,7 @@ const Navbar = () => {
                         <div>
                           <button
                             onClick={() => setSurveyingDropdown(!surveyingDropdown)}
-                            className="flex items-center justify-center w-full text-xl md:text-2xl text-white py-2 hover:pl-2 transition-all duration-300"
+                            className="flex items-center justify-center w-full text-xl md:text-2xl text-[var(--foreground)] py-2 hover:pl-2 transition-all duration-300"
                           >
                             <span>{item.label}</span>
                             <svg
@@ -198,7 +229,7 @@ const Navbar = () => {
                                   setProjectsDropdown(false);
                                   setSurveyingDropdown(false);
                                 }}
-                                className="block text-center text-base md:text-lg text-white/80 py-1.5 hover:pl-2 transition-all duration-300 hover:text-white"
+                                className="block text-center text-base md:text-lg text-[var(--muted-foreground)] py-1.5 hover:pl-2 transition-all duration-300 hover:text-[var(--foreground)]"
                                 style={{
                                   animation: surveyingDropdown ? `slideDown 0.4s ease-out ${subIndex * 0.05}s forwards` : 'none',
                                   opacity: surveyingDropdown ? 0 : 1
@@ -216,7 +247,7 @@ const Navbar = () => {
                             setMenuOpen(false);
                             setProjectsDropdown(false);
                           }}
-                          className="block text-center text-xl md:text-2xl text-white py-2 hover:pl-2 transition-all duration-300"
+                          className="block text-center text-xl md:text-2xl text-[var(--foreground)] py-2 hover:pl-2 transition-all duration-300"
                         >
                           {item.label}
                         </Link>
@@ -239,7 +270,7 @@ const Navbar = () => {
             <Link
               to="/contact"
               onClick={() => setMenuOpen(false)}
-              className="inline-flex items-center bg-white text-[#254441] hover:bg-gray-100 px-6 py-2 rounded-md text-[14px] font-bold transition-all duration-300"
+              className="inline-flex items-center bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90 px-6 py-2 rounded-md text-[14px] font-bold transition-all duration-300"
             >
               ENQUIRE TODAY
             </Link>
@@ -260,19 +291,16 @@ const Navbar = () => {
       transition-all duration-500 ease-in-out
       ${isVisible ? 'translate-y-0' : '-translate-y-full'}
       navbar-enter
-      ${hasScrolled
-        ? 'bg-[#F8F7F4]/0 backdrop-blur-md'
-        : 'bg-transparent'
-      }
+      ${headerBgClass}
     `}>
 
       {/* Logo */}
       <Link to="/" className="flex items-center gap-3 group">
-        <span className="text-white text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight" style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
+        <span className={`${textColorClass} text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight transition-colors duration-300`} style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
           CADMAX
         </span>
-        <span className="hidden sm:block w-[2px] h-6 md:h-8 bg-white transition-all duration-300 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)]"></span>
-        <span className="hidden sm:block text-white text-sm md:text-base lg:text-lg font-light tracking-[0.3em] uppercase" style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
+        <span className={`hidden sm:block w-[2px] h-6 md:h-8 ${logoDividerClass} transition-all duration-300`}></span>
+        <span className={`hidden sm:block ${textColorClass} text-sm md:text-base lg:text-lg font-light tracking-[0.3em] uppercase transition-colors duration-300`} style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
           Consultancy
         </span>
       </Link>
@@ -287,10 +315,10 @@ const Navbar = () => {
             end={link.path === "/"}
             className={({ isActive }) =>
               `relative text-[14px] font-bold px-3 py-2 transition font-['Cormorant_Garamond'] tracking-wider
-              ${isActive ? "text-[#CAAA79] scale-110 font-extrabold" : "text-white"}
+              ${isActive ? "text-[var(--accent)] scale-110 font-extrabold" : textColorClass}
               
               after:content-[''] after:absolute after:left-0 after:bottom-[6px]
-              after:h-[2px] after:bg-white after:w-0
+              after:h-[2px] ${textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]'} after:w-0
               hover:after:w-full after:transition-all`
             }
           >
@@ -311,10 +339,10 @@ const Navbar = () => {
             to="/projects"
             className={({ isActive }) =>
               `relative text-[14px] font-bold px-3 py-2 transition flex items-center gap-1 font-['Cormorant_Garamond'] tracking-wider
-              ${isActive ? "text-[#CAAA79] scale-110 font-extrabold" : "text-white"}
+              ${isActive ? "text-[var(--accent)] scale-110 font-extrabold" : textColorClass}
               
               after:content-[''] after:absolute after:left-0 after:bottom-[6px]
-              after:h-[2px] after:bg-white after:w-0
+              after:h-[2px] ${textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]'} after:w-0
               hover:after:w-full after:transition-all`
             }
           >
@@ -331,7 +359,7 @@ const Navbar = () => {
 
           {/* Projects Dropdown Menu */}
           {projectsDropdown && (
-            <div className="absolute top-full left-0 bg-black shadow-lg rounded-md py-2 min-w-[150px] border border-white/20 z-[60]">
+            <div className="absolute top-full left-0 bg-[var(--card)] shadow-lg rounded-md py-2 min-w-[150px] border border-[var(--border)] z-[60]">
               {projectsMenu.items.map((item) => (
                 <div
                   key={item.path}
@@ -341,7 +369,7 @@ const Navbar = () => {
                 >
                   <Link
                     to={item.path}
-                    className="flex items-center gap-3 px-4 py-2 text-[13px] font-semibold text-white hover:bg-white/10 hover:text-[#CAAA79] transition"
+                    className="flex items-center gap-3 px-4 py-2 text-[13px] font-semibold text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--accent)] transition"
                   >
                     {item.label}
                     {item.submenu && (
@@ -358,12 +386,12 @@ const Navbar = () => {
 
                   {/* Surveying Submenu */}
                   {item.submenu && surveyingDropdown && (
-                    <div className="absolute top-0 left-full bg-black shadow-lg rounded-md py-2 min-w-[180px] border border-white/20">
+                    <div className="absolute top-0 left-full bg-[var(--card)] shadow-lg rounded-md py-2 min-w-[180px] border border-[var(--border)]">
                       {item.submenu.map((sub) => (
                         <Link
                           key={sub.path}
                           to={sub.path}
-                          className="block px-4 py-2 text-[13px] font-semibold text-white hover:bg-white/10 hover:text-[#CAAA79] transition"
+                          className="block px-4 py-2 text-[13px] font-semibold text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--accent)] transition"
                         >
                           {sub.label}
                         </Link>
@@ -372,8 +400,7 @@ const Navbar = () => {
                   )}
                 </div>
               ))}
-              {/* White line below dropdown */}
-              <div className="h-[0.5px] bg-white w-[calc(100%-6vw)] max-w-[1400px] mx-auto mt-2"></div>
+              <div className="h-[0.5px] bg-[var(--border)] w-[calc(100%-6vw)] max-w-[1400px] mx-auto mt-2"></div>
             </div>
           )}
         </div>
@@ -382,7 +409,7 @@ const Navbar = () => {
       {/* Desktop Button */}
       <Link
         to="/contact"
-        className="hidden lg:block bg-white text-[#254441] hover:bg-gray-100 px-3 py-1 rounded-md text-[12px] font-bold transition-all duration-300"
+        className={`hidden lg:block ${textWhite ? 'bg-white text-[#254441]' : 'bg-[var(--primary)] text-[var(--primary-foreground)]'} hover:opacity-90 px-3 py-1 rounded-md text-[12px] font-bold transition-all duration-300`}
       >
         ENQUIRE TODAY
       </Link>
@@ -390,11 +417,11 @@ const Navbar = () => {
       {/* Elegant Hamburger Menu Button */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group"
+        className={`md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group ${menuOpen ? 'fixed right-4 z-[100000]' : ''}`}
       >
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''} bg-white`}></span>
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''} bg-white`}></span>
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''} bg-white`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2 bg-[var(--foreground)]' : hamburgerClass}`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : hamburgerClass}`}></span>
+        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2 bg-[var(--foreground)]' : hamburgerClass}`}></span>
       </button>
 
       {/* Full Screen Menu Overlay - Rendered via Portal */}
@@ -403,17 +430,17 @@ const Navbar = () => {
       {/* Backdrop Overlay */}
       {menuOpen && createPortal(
         <div
-          className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-700 opacity-100 menu-backdrop-portal"
+          className="md:hidden fixed inset-0 bg-[var(--foreground)]/20 backdrop-blur-sm transition-opacity duration-700 opacity-100 menu-backdrop-portal"
           onClick={() => setMenuOpen(false)}
         ></div>,
         document.body
       )}
     </header>
 
-      {/* Separate white bottom line - centered, not touching edges, hides on scroll or when dropdown open */}
+      {/* Bottom line - hides on scroll or when dropdown open */}
       <div className="fixed top-[77px] left-0 w-full flex justify-center z-50 pointer-events-none">
         <div
-          className={`nav-line-enter h-[0.5px] bg-white w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${
+          className={`nav-line-enter h-[0.5px] ${textWhite ? 'bg-white' : 'bg-[var(--border)]'} w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${
             hasScrolled || projectsDropdown ? 'opacity-0' : 'opacity-100'
           }`}
         />
@@ -438,7 +465,6 @@ styleSheet.innerText = `
     }
   }
 
-  /* Navbar: hidden initially, slides down from top at 4s */
   .navbar-enter {
     opacity: 0;
     transform: translateY(-100%);
@@ -456,7 +482,6 @@ styleSheet.innerText = `
     }
   }
 
-  /* White line: scale from center outwards at 5s - slow & smooth */
   .nav-line-enter {
     opacity: 0;
     transform: scaleX(0);

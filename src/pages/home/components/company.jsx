@@ -160,7 +160,7 @@ const CompanyShowcase = () => {
       className="company-showcase-section"
       ref={sectionRef}
       style={{
-        background: 'white linear-gradient(to right, #f8f7f4, #f8f7f4)',
+        background: 'var(--background)',
         padding: '40px 0'
       }}
     >

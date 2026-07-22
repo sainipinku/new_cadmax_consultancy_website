@@ -114,25 +114,25 @@ const ProjectsShowcase = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-32 md:py-40 bg-white overflow-hidden"
+      className="relative py-32 md:py-40 bg-[var(--secondary)] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         {/* Section Header */}
         <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-20 md:mb-32">
           <div className="max-w-3xl">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-8 h-[1px] bg-[#CAAA79]" />
-              <span className="text-xs font-general font-semibold text-[#CAAA79] uppercase tracking-[0.3em]">
+              <div className="w-8 h-[1px] bg-[var(--accent)]" />
+              <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.3em]">
                 Featured Projects
               </span>
             </div>
-            <h2 className="font-clash text-5xl md:text-6xl lg:text-7xl text-[#151515] leading-[0.95]">
+            <h2 className="font-clash text-5xl md:text-6xl lg:text-7xl text-[var(--foreground)] leading-[0.95]">
               Projects that define
               <br />
-              <span className="text-[#636363]">spaces.</span>
+              <span className="text-[var(--muted-foreground)]">spaces.</span>
             </h2>
           </div>
-          <button className="group inline-flex items-center gap-3 text-sm font-general font-semibold text-[#636363] hover:text-[#CAAA79] transition-colors w-fit">
+          <button className="group inline-flex items-center gap-3 text-sm font-general font-semibold text-[var(--muted-foreground)] hover:text-[var(--accent)] transition-colors w-fit">
             <span className="uppercase tracking-wider">View All Projects</span>
             <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </button>

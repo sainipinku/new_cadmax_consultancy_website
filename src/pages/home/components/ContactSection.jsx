@@ -43,12 +43,12 @@ const ContactSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center overflow-hidden z-20" style={{ transformStyle: 'preserve-3d' }}>
+    <section ref={sectionRef} className="contact-section-home relative min-h-screen flex items-center overflow-hidden z-20" style={{ transformStyle: 'preserve-3d' }}>
       {/* Background Image */}
       <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${ctaBg})` }} />
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/70" />
+      <div className="absolute inset-0 bg-black/60" />
 
       <div ref={innerRef} className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 relative z-10 py-24 md:py-32 w-full">
         {/* Eyebrow */}

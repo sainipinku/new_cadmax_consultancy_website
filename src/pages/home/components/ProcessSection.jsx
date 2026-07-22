@@ -135,7 +135,7 @@ const ProcessSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-16 md:py-20 lg:py-26 bg-[#F8F7F4] overflow-hidden"
+      className="relative py-16 md:py-20 lg:py-26 bg-[var(--secondary)] overflow-hidden"
     >
       {/* Inline styles for envelope animation */}
       <style>{`
@@ -295,7 +295,7 @@ const ProcessSection = () => {
         .stamp-shape {
           width: 70px;
           height: 70px;
-          background: linear-gradient(135deg, #151515, #2d2d2d);
+          background: linear-gradient(135deg, var(--primary), #2d2d2d);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -343,22 +343,22 @@ const ProcessSection = () => {
       `}</style>
 
       {/* Background decorative elements */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#CAAA79]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#CAAA79]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-8xl mx-auto px-6 md:px-10 lg:px-24 relative z-10">
         {/* Section header */}
         <div ref={headerRef} className="mb-12 md:mb-16 lg:mb-32">
           <div className="flex items-center gap-4 mb-4 md:mb-6">
-            <div className="w-8 h-[1px] bg-[#CAAA79]" />
-            <span className="text-xs font-general font-semibold text-[#CAAA79] uppercase tracking-[0.2em]">
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+            <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
               How We Work
             </span>
           </div>
-          <h2 className="font-clash text-4xl md:text-5xl lg:text-7xl text-[#151515] max-w-4xl leading-[1.1]">
-            From Vision to <span className="text-[#636363]">Reality</span>
+          <h2 className="font-clash text-4xl md:text-5xl lg:text-7xl text-[var(--foreground)] max-w-4xl leading-[1.1]">
+            From Vision to <span className="text-[var(--muted-foreground)]">Reality</span>
           </h2>
-          <p className="text-[#636363] font-inter text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mt-4 md:mt-6">
+          <p className="text-[var(--muted-foreground)] font-inter text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mt-4 md:mt-6">
             A proven three-step process that transforms your ideas into precision-engineered realities
           </p>
         </div>
@@ -366,7 +366,7 @@ const ProcessSection = () => {
         {/* Process cards with 3D envelope animation */}
         <div className="relative" style={{ perspective: '1200px' }}>
           {/* Connecting line */}
-          <div className="process-line hidden lg:block absolute top-24 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#CAAA79]/30 to-transparent origin-left" />
+          <div className="process-line hidden lg:block absolute top-24 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--accent)]/30 to-transparent origin-left" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 lg:gap-16">
             {PROCESS_STEPS.map((step, i) => {
@@ -386,29 +386,29 @@ const ProcessSection = () => {
                   </div>
 
                   {/* Card content (what's revealed when envelope opens) */}
-                  <div className="card-content relative bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 border border-[#E8E4DD] h-full z-[1]">
+                  <div className="card-content relative bg-[var(--card)] rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 border border-[var(--border)] h-full z-[1]">
                     {/* Icon */}
-                    <div className="process-icon-wrapper w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl md:rounded-2xl bg-[#CAAA79]/10 flex items-center justify-center mb-4 md:mb-5 lg:mb-6 transition-all duration-500">
-                      <Icon className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-[#CAAA79] transition-colors duration-500" />
+                    <div className="process-icon-wrapper w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl md:rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center mb-4 md:mb-5 lg:mb-6 transition-all duration-500">
+                      <Icon className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-[var(--accent)] transition-colors duration-500" />
                     </div>
 
                     {/* Title */}
-                    <h3 className="process-title font-clash text-2xl md:text-2xl lg:text-4xl text-[#151515] mb-1 md:mb-2 transition-colors duration-500">
+                    <h3 className="process-title font-clash text-2xl md:text-2xl lg:text-4xl text-[var(--foreground)] mb-1 md:mb-2 transition-colors duration-500">
                       {step.title}
                     </h3>
 
                     {/* Subtitle */}
-                    <p className="text-xs md:text-sm font-general font-semibold text-[#CAAA79] uppercase tracking-wider mb-2 md:mb-4">
+                    <p className="text-xs md:text-sm font-general font-semibold text-[var(--accent)] uppercase tracking-wider mb-2 md:mb-4">
                       {step.subtitle}
                     </p>
 
                     {/* Description */}
-                    <p className="text-[#636363] font-inter text-xs md:text-sm leading-relaxed">
+                    <p className="text-[var(--muted-foreground)] font-inter text-xs md:text-sm leading-relaxed">
                       {step.description}
                     </p>
 
                     {/* Arrow indicator */}
-                    <div className="arrow-indicator mt-4 md:mt-6 flex items-center gap-2 text-[#CAAA79] transition-opacity duration-300">
+                    <div className="arrow-indicator mt-4 md:mt-6 flex items-center gap-2 text-[var(--accent)] transition-opacity duration-300">
                       <span className="text-xs md:text-sm font-general font-semibold">Learn more</span>
                       <svg className="w-3 h-3 md:w-4 md:h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -448,7 +448,7 @@ const ProcessSection = () => {
                   {/* Step connector arrow (except last) */}
                   {i < PROCESS_STEPS.length - 1 && (
                     <div className="hidden md:hidden lg:flex absolute top-1/2 -right-[54px] transform -translate-y-1/2 z-20">
-                      <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#CAAA79] flex items-center justify-center shadow-lg">
+                      <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[var(--accent)] flex items-center justify-center shadow-lg">
                         <svg className="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
@@ -463,20 +463,52 @@ const ProcessSection = () => {
 
         {/* Bottom CTA */}
         <div className="mt-12 md:mt-16 lg:mt-32 text-center">
-          <p className="text-[#636363] font-inter text-sm md:text-base mb-4 md:mb-6">
+          <p className="text-[var(--muted-foreground)] font-inter text-sm md:text-base mb-4 md:mb-6">
             Ready to start your project?
           </p>
-          <button
-            className="group relative overflow-hidden inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-full bg-white/10 backdrop-blur-2xl border border-white/40 text-[#151515] text-xs md:text-sm font-semibold shadow-xl shadow-black/10 transition-all duration-500 hover:bg-[#CAAA79]/90 hover:border-[#D4B383] hover:text-white hover:shadow-2xl hover:shadow-[#CAAA79]/40"
-          >
-            <span className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/10 to-transparent opacity-70"></span>
-            <span className="relative z-10 flex items-center gap-3 group-hover:gap-4 transition-all duration-500">
-              Schedule a Consultation
-              <svg className="w-3 h-3 md:w-4 md:h-4 transition-all duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-          </button>
+         <button
+  className="group relative inline-flex items-center gap-3 overflow-hidden
+  rounded-full border border-white/15
+  bg-black px-6 md:px-8 py-3 md:py-4
+  text-white font-semibold
+  transition-all duration-500 ease-out
+  hover:border-[#D4B383]
+  hover:bg-[#D4B383]
+  hover:text-black
+  hover:shadow-[0_15px_45px_rgba(212,179,131,0.45)]"
+>
+  {/* Animated Shine */}
+  <span
+    className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-full"
+  >
+    <span
+      className="absolute inset-y-0 -left-[120%] w-1/2
+      skew-x-[-20deg]
+      bg-gradient-to-r from-transparent via-white/40 to-transparent
+      transition-all duration-1000
+      group-hover:left-[130%]"
+    />
+  </span>
+
+  {/* Content */}
+  <span className="relative z-10 flex items-center gap-3 transition-all duration-300 group-hover:gap-4">
+    Schedule a Consultation
+
+    <svg
+      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M17 8l4 4m0 0l-4 4m4-4H3"
+      />
+    </svg>
+  </span>
+</button>
         </div>
       </div>
     </section>
