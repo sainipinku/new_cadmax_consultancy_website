@@ -13,6 +13,7 @@ module.exports = {
         'fragment-serif': ['"Fragment Serif"', 'Arial', 'sans-serif'],
         'fragment-glare': ['"Fragment Glare"', 'Arial', 'sans-serif'],
         'inter-28pt': ['"Inter 28 Pt"', 'Arial', 'sans-serif'],
+        'display': ['"Fragment Serif"', '"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
       },
       colors: {
         primary: {

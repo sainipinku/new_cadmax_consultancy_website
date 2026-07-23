@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../../components/Layout/Header/Navbar';
 import HeroSection from './components/HeroSection';
 import CompanyShowcase from './components/company';
+import EAIService from './components/EAIService';
 import AboutSection from './components/AboutSection';
 import ProjectsShowcase from './components/ProjectsShowcase';
 import AmenitiesSection from './components/AmenitiesSection';
@@ -20,9 +21,10 @@ function Home() {
       <ScrollProgress />
       <div className="min-h-screen bg-[var(--background)] font-inter">
         <Navbar />
-        <HeroSection />
-        <CompanyShowcase />
-        <AboutSection />
+      <HeroSection />
+      <CompanyShowcase />
+      <EAIService />
+      <AboutSection />
         <AmenitiesSection />
         <ProjectsShowcase />
         <ProcessSection />

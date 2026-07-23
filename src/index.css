@@ -95,7 +95,7 @@ h1, h2, h3, h4 {
   border: none;
 }
 
-/* ---------- OPTIONAL: Tailwind v4 theme mapping ----------
+/* ---------- Tailwind v4 theme mapping ---------- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -116,7 +116,6 @@ h1, h2, h3, h4 {
   --color-ring: var(--ring);
   --radius-lg: var(--radius);
 }
----------------------------------------------------------------------- */
 
 /* === EXISTING STYLES === */
 
@@ -567,6 +566,30 @@ header .absolute.shadow-xl {
 /* Ensure GSAP pinned elements don't interfere */
 .gsap-pinned {
   z-index: 1 !important;
+}
+
+/* ============================================
+   MARQUEE ANIMATION
+   ============================================ */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee-x 40s linear infinite;
+}
+
+/* ============================================
+   FLOAT Y ANIMATION
+   ============================================ */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float-y {
+  animation: float-y 6s ease-in-out infinite;
 }
 
 
