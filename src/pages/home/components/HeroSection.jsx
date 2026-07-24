@@ -69,7 +69,7 @@ const HeroSection = () => {
 
         {/* Right Caption */}
         <div 
-          className="absolute right-[2vw] top-[75%] -translate-y-1/2 max-w-[320px] z-10
+          className="absolute right-[2vw] top-[75%] -translate-y-1/2 max-w-[360px] z-10
                      max-lg:right-[3vw] max-lg:top-[55%] max-lg:max-w-[350px]
                      max-md:right-auto max-md:left-[5vw] max-md:top-[22%] max-md:-translate-y-0 max-md:max-w-[90%]
                      max-sm:top-[20%] max-sm:left-[4vw] max-sm:max-w-[92%]"
@@ -77,16 +77,17 @@ const HeroSection = () => {
           <h3 
             className="font-garamond text-white uppercase"
             style={{
-              fontSize: 'clamp(18px, 1.9vw, 34px)',
+              fontSize: 'clamp(16px, 1.7vw, 26px)',
               fontStyle: 'italic',
               lineHeight: '1.1'
             }}
-            aria-label="ENGINEERING EXCELLENCE WITH COMPLETE PRECISION"
+            aria-label="ENGINEERING EXCELLENCE. ARCHITECTURAL INNOVATION. GLOBAL IMPACT."
           >
             {lineReveal("ENGINEERING EXCELLENCE")}
             <br />
-            {lineReveal("WITH COMPLETE")}
-            {lineReveal("PRECISION")}
+            {lineReveal("ARCHITECTURAL INNOVATION")}
+            <br />
+            {lineReveal("GLOBAL IMPACT")}
           </h3>
 
           <p 
@@ -100,11 +101,7 @@ const HeroSection = () => {
               animation: 'heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 3.5s forwards'
             }}
           >
-            Cadmax Consultancy delivers premium land surveying,
-            engineering consultancy and geospatial solutions with
-            unmatched precision. From DGPS, topographical and engineering
-            surveys to GIS mapping and infrastructure planning, we provide
-            reliable insights that empower confident decisions.
+           For over 25 years, Cadmax Consultancy has delivered integrated solutions in engineering, architecture, urban planning, and infrastructure development—transforming ideas into sustainable, future-ready projects across India and around the world.
           </p>
         </div>
 
