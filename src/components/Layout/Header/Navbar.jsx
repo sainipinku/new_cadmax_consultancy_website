@@ -98,7 +98,7 @@ const Navbar = () => {
   const textColorClass = textWhite ? 'text-white' : 'text-[var(--foreground)]';
   const logoDividerClass = textWhite ? 'bg-white' : 'bg-[var(--foreground)]';
   const hamburgerClass = textWhite ? 'bg-white' : 'bg-[var(--foreground)]';
-  const underlineClass = textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]';
+  //const underlineClass = textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]';
   const headerBgClass = hasScrolled
     ? textWhite
       ? 'bg-black/20 backdrop-blur-md'
@@ -122,10 +122,10 @@ const Navbar = () => {
         <div className="h-full flex flex-col">
           {/* Close Button */}
           <div className="flex justify-end p-6">
-              <button
-                onClick={() => setMenuOpen(false)}
-                className="group flex items-center gap-2 text-[var(--foreground)] hover:text-[var(--accent)] transition-colors"
-              >
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="group flex items-center gap-2 text-[var(--foreground)] hover:text-[var(--accent)] transition-colors"
+            >
               <span className="text-sm font-semibold tracking-wider uppercase">Close Menu</span>
               <svg className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -283,8 +283,8 @@ const Navbar = () => {
 
   return (
     <>
-    <header
-      className={`
+      <header
+        className={`
       fixed top-0 left-0 w-full z-50
       h-[77px]
       flex items-center justify-between px-4 md:px-6
@@ -294,155 +294,154 @@ const Navbar = () => {
       ${headerBgClass}
     `}>
 
-      {/* Logo */}
-      <Link to="/" className="flex items-center gap-3 group">
-        <span className={`${textColorClass} text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight transition-colors duration-300`} style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
-          CADMAX
-        </span>
-        <span className={`hidden sm:block w-[2px] h-6 md:h-8 ${logoDividerClass} transition-all duration-300`}></span>
-        <span className={`hidden sm:block ${textColorClass} text-sm md:text-base lg:text-lg font-light tracking-[0.3em] uppercase transition-colors duration-300`} style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
-          Consultancy
-        </span>
-      </Link>
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3 group">
+          <span className={`${textColorClass} text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight transition-colors duration-300`} style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
+            CADMAX
+          </span>
+          <span className={`hidden sm:block w-[2px] h-6 md:h-8 ${logoDividerClass} transition-all duration-300`}></span>
+          <span className={`hidden sm:block ${textColorClass} text-sm md:text-base lg:text-lg font-light tracking-[0.3em] uppercase transition-colors duration-300`} style={{ fontFamily: 'Fragment Glare, Arial, sans-serif' }}>
+            Consultancy
+          </span>
+        </Link>
 
-      {/* Desktop Menu */}
-      <nav className="hidden md:flex items-center gap-2 lg:gap-5">
-        {/* Simple Links */}
-        {simpleLinks.map((link) => (
-          <NavLink
-            key={link.path}
-            to={link.path}
-            end={link.path === "/"}
-            className={({ isActive }) =>
-              `relative text-[14px] font-bold px-3 py-2 transition font-['Cormorant_Garamond'] tracking-wider
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex items-center gap-2 lg:gap-5">
+          {/* Simple Links */}
+          {simpleLinks.map((link) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              end={link.path === "/"}
+              className={({ isActive }) =>
+                `relative text-[14px] font-bold px-3 py-2 transition font-['Cormorant_Garamond'] tracking-wider
               ${isActive ? "text-[var(--accent)] scale-110 font-extrabold" : textColorClass}
               
               after:content-[''] after:absolute after:left-0 after:bottom-[6px]
               after:h-[2px] ${textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]'} after:w-0
               hover:after:w-full after:transition-all`
-            }
-          >
-            {link.label}
-          </NavLink>
-        ))}
-
-        {/* Projects Dropdown */}
-        <div
-          className="relative"
-          onMouseEnter={() => setProjectsDropdown(true)}
-          onMouseLeave={() => {
-            setProjectsDropdown(false);
-            setSurveyingDropdown(false);
-          }}
-        >
-          <NavLink
-            to="/projects"
-            className={({ isActive }) =>
-              `relative text-[14px] font-bold px-3 py-2 transition flex items-center gap-1 font-['Cormorant_Garamond'] tracking-wider
-              ${isActive ? "text-[var(--accent)] scale-110 font-extrabold" : textColorClass}
-              
-              after:content-[''] after:absolute after:left-0 after:bottom-[6px]
-              after:h-[2px] ${textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]'} after:w-0
-              hover:after:w-full after:transition-all`
-            }
-          >
-            PROJECTS
-            <svg
-              className={`w-4 h-4 transition-transform ${projectsDropdown ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+              }
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </NavLink>
+              {link.label}
+            </NavLink>
+          ))}
 
-          {/* Projects Dropdown Menu */}
-          {projectsDropdown && (
-            <div className="absolute top-full left-0 bg-[var(--card)] shadow-lg rounded-md py-2 min-w-[150px] border border-[var(--border)] z-[60]">
-              {projectsMenu.items.map((item) => (
-                <div
-                  key={item.path}
-                  className="relative"
-                  onMouseEnter={() => item.submenu && setSurveyingDropdown(true)}
-                  onMouseLeave={() => item.submenu && setSurveyingDropdown(false)}
-                >
-                  <Link
-                    to={item.path}
-                    className="flex items-center gap-3 px-4 py-2 text-[13px] font-semibold text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--accent)] transition"
+          {/* Projects Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setProjectsDropdown(true)}
+            onMouseLeave={() => {
+              setProjectsDropdown(false);
+              setSurveyingDropdown(false);
+            }}
+          >
+            <NavLink
+              to="/projects"
+              className={({ isActive }) =>
+                `relative text-[14px] font-bold px-3 py-2 transition flex items-center gap-1 font-['Cormorant_Garamond'] tracking-wider
+              ${isActive ? "text-[var(--accent)] scale-110 font-extrabold" : textColorClass}
+              
+              after:content-[''] after:absolute after:left-0 after:bottom-[6px]
+              after:h-[2px] ${textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]'} after:w-0
+              hover:after:w-full after:transition-all`
+              }
+            >
+              PROJECTS
+              <svg
+                className={`w-4 h-4 transition-transform ${projectsDropdown ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </NavLink>
+
+            {/* Projects Dropdown Menu */}
+            {projectsDropdown && (
+              <div className="absolute top-full left-0 bg-[var(--card)] shadow-lg rounded-md py-2 min-w-[150px] border border-[var(--border)] z-[60]">
+                {projectsMenu.items.map((item) => (
+                  <div
+                    key={item.path}
+                    className="relative"
+                    onMouseEnter={() => item.submenu && setSurveyingDropdown(true)}
+                    onMouseLeave={() => item.submenu && setSurveyingDropdown(false)}
                   >
-                    {item.label}
-                    {item.submenu && (
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    )}
-                  </Link>
-
-                  {/* Surveying Submenu */}
-                  {item.submenu && surveyingDropdown && (
-                    <div className="absolute top-0 left-full bg-[var(--card)] shadow-lg rounded-md py-2 min-w-[180px] border border-[var(--border)]">
-                      {item.submenu.map((sub) => (
-                        <Link
-                          key={sub.path}
-                          to={sub.path}
-                          className="block px-4 py-2 text-[13px] font-semibold text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--accent)] transition"
+                    <Link
+                      to={item.path}
+                      className="flex items-center gap-3 px-4 py-2 text-[13px] font-semibold text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--accent)] transition"
+                    >
+                      {item.label}
+                      {item.submenu && (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                         >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-              <div className="h-[0.5px] bg-[var(--border)] w-[calc(100%-6vw)] max-w-[1400px] mx-auto mt-2"></div>
-            </div>
-          )}
-        </div>
-      </nav>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      )}
+                    </Link>
 
-      {/* Desktop Button */}
-      <Link
-        to="/contact"
-        className={`hidden lg:block ${textWhite ? 'bg-white text-[#254441]' : 'bg-[var(--primary)] text-[var(--primary-foreground)]'} hover:opacity-90 px-3 py-1 rounded-md text-[12px] font-bold transition-all duration-300`}
-      >
-        ENQUIRE TODAY
-      </Link>
+                    {/* Surveying Submenu */}
+                    {item.submenu && surveyingDropdown && (
+                      <div className="absolute top-0 left-full bg-[var(--card)] shadow-lg rounded-md py-2 min-w-[180px] border border-[var(--border)]">
+                        {item.submenu.map((sub) => (
+                          <Link
+                            key={sub.path}
+                            to={sub.path}
+                            className="block px-4 py-2 text-[13px] font-semibold text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--accent)] transition"
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <div className="h-[0.5px] bg-[var(--border)] w-[calc(100%-6vw)] max-w-[1400px] mx-auto mt-2"></div>
+              </div>
+            )}
+          </div>
+        </nav>
 
-      {/* Elegant Hamburger Menu Button */}
-      <button
-        onClick={() => setMenuOpen(!menuOpen)}
-        className={`md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group ${menuOpen ? 'fixed right-4 z-[100000]' : ''}`}
-      >
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2 bg-[var(--foreground)]' : hamburgerClass}`}></span>
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : hamburgerClass}`}></span>
-        <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2 bg-[var(--foreground)]' : hamburgerClass}`}></span>
-      </button>
+        {/* Desktop Button */}
+        <Link
+          to="/contact"
+          className={`hidden lg:block ${textWhite ? 'bg-white text-[#254441]' : 'bg-[var(--primary)] text-[var(--primary-foreground)]'} hover:opacity-90 px-3 py-1 rounded-md text-[12px] font-bold transition-all duration-300`}
+        >
+          ENQUIRE TODAY
+        </Link>
 
-      {/* Full Screen Menu Overlay - Rendered via Portal */}
-      <MenuOverlay />
+        {/* Elegant Hamburger Menu Button */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className={`md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group ${menuOpen ? 'fixed right-4 z-[100000]' : ''}`}
+        >
+          <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2 bg-[var(--foreground)]' : hamburgerClass}`}></span>
+          <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : hamburgerClass}`}></span>
+          <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2 bg-[var(--foreground)]' : hamburgerClass}`}></span>
+        </button>
 
-      {/* Backdrop Overlay */}
-      {menuOpen && createPortal(
-        <div
-          className="md:hidden fixed inset-0 bg-[var(--foreground)]/20 backdrop-blur-sm transition-opacity duration-700 opacity-100 menu-backdrop-portal"
-          onClick={() => setMenuOpen(false)}
-        ></div>,
-        document.body
-      )}
-    </header>
+        {/* Full Screen Menu Overlay - Rendered via Portal */}
+        <MenuOverlay />
+
+        {/* Backdrop Overlay */}
+        {menuOpen && createPortal(
+          <div
+            className="md:hidden fixed inset-0 bg-[var(--foreground)]/20 backdrop-blur-sm transition-opacity duration-700 opacity-100 menu-backdrop-portal"
+            onClick={() => setMenuOpen(false)}
+          ></div>,
+          document.body
+        )}
+      </header>
 
       {/* Bottom line - hides on scroll or when dropdown open */}
       <div className="fixed top-[77px] left-0 w-full flex justify-center z-50 pointer-events-none">
         <div
-          className={`nav-line-enter h-[0.5px] ${textWhite ? 'bg-white' : 'bg-[var(--border)]'} w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${
-            hasScrolled || projectsDropdown ? 'opacity-0' : 'opacity-100'
-          }`}
+          className={`nav-line-enter h-[0.5px] ${textWhite ? 'bg-white' : 'bg-[var(--border)]'} w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${hasScrolled || projectsDropdown ? 'opacity-0' : 'opacity-100'
+            }`}
         />
       </div>
 
