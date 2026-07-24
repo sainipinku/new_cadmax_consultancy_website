@@ -1,383 +1,358 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "./AmenitiesSection.css";
 
-import dgpsbig from '../../../assets/AmenitiesSection/dgps-big.png';
-import dgpssmall from '../../../assets/AmenitiesSection/dgps-small.png';
-import topobig from '../../../assets/AmenitiesSection/TOPOGRAPHICAL-BIG.png';
-import toposmall from '../../../assets/AmenitiesSection/TOPOGRAPHICAL-SMALL.png';
-import engineeringbig from '../../../assets/AmenitiesSection/ENGINEERING-BIG.png';
-import engineeringsmall from '../../../assets/AmenitiesSection/ENGINEERING-SMALL.png';
-import landbig from '../../../assets/AmenitiesSection/LAND-BIG.png';
-import landsmall from '../../../assets/AmenitiesSection/LAND-SMALL.png';
-import mobilebig from '../../../assets/AmenitiesSection/MOBILE-MAPPING-BIG.png';
-import mobilesmall from '../../../assets/AmenitiesSection/MOBILE-MAPPING-SMALL.png';
-
-const STRIPES = 30;
-
-function stripeMask(local) {
-  const stops = [];
-  for (let i = 0; i < STRIPES; i++) {
-    const start = (i / STRIPES) * 100;
-    const end = ((i + 1) / STRIPES) * 100;
-    const stripeStart = i / STRIPES;
-    const stripeEnd = (i + 1) / STRIPES;
-    const t = Math.min(Math.max((local - stripeStart) / (stripeEnd - stripeStart), 0), 1);
-    const mid = start + (end - start) * t;
-    stops.push(`black ${start}% ${mid}%`);
-    stops.push(`transparent ${mid}% ${end}%`);
-  }
-  return `linear-gradient(0deg, ${stops.join(', ')})`;
-}
+gsap.registerPlugin(ScrollTrigger);
 
 const SLIDES = [
   {
-    titleLines: ['DGPS', 'Survey'],
-    tagline: 'Centimeter-Level Accuracy',
+    number: "01",
+    title: "DGPS Survey",
     description:
-      'High-precision DGPS surveying solutions for infrastructure, construction, highways, railways, mining, and land development projects. Delivering reliable geospatial data with unmatched field accuracy.',
-    bigImage: dgpsbig,
-    smallImage: dgpssmall,
+      "High-precision DGPS surveying delivering centimeter-level accuracy for highways, railways, infrastructure, mining and large-scale development projects.",
+    tagline: "Precision Positioning",
+    big: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=80",
+    smallTop: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80",
+    smallBottom: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
   },
+
   {
-    titleLines: ['Topographical', 'Survey'],
-    tagline: 'Detailed Terrain Mapping',
+    number: "02",
+    title: "Topographical Survey",
     description:
-      'Comprehensive topographical surveys capturing natural and man-made features, contours, elevations, and utilities for planning, engineering, and development projects.',
-    bigImage: topobig,
-    smallImage: toposmall,
+      "Comprehensive terrain mapping, contour generation, utility identification and elevation analysis for planning and engineering projects.",
+    tagline: "Terrain Intelligence",
+    big: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
+    smallTop: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=800&q=80",
+    smallBottom: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
   },
+
   {
-    titleLines: ['Engineering', 'Survey'],
-    tagline: 'Precision for Every Project',
+    number: "03",
+    title: "Engineering Survey",
     description:
-      'Accurate engineering survey services supporting roads, bridges, industrial plants, buildings, and infrastructure with precise layout, alignment, and construction control.',
-    bigImage: engineeringbig,
-    smallImage: engineeringsmall,
+      "Accurate engineering surveys supporting bridges, industrial plants, commercial developments and infrastructure execution.",
+    tagline: "Engineering Excellence",
+    big: "https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80",
+    smallTop: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80",
+    smallBottom: "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=800&q=80",
   },
+
   {
-    titleLines: ['Land', 'Surveying'],
-    tagline: 'Accurate Boundary Solutions',
+    number: "04",
+    title: "Land Surveying",
     description:
-      'Professional land surveying services including boundary determination, land subdivision, cadastral surveys, and site measurements to ensure legal and engineering accuracy.',
-    bigImage: landbig,
-    smallImage: landsmall,
+      "Professional land surveying for boundary demarcation, cadastral mapping, subdivision planning and legal land documentation.",
+    tagline: "Boundary Accuracy",
+    big: "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1600&q=80",
+    smallTop: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+    smallBottom: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80",
   },
+
   {
-    titleLines: ['Mobile Mapping', '& GIS'],
-    tagline: 'Smart Spatial Intelligence',
+    number: "05",
+    title: "Mobile Mapping & GIS",
     description:
-      'Advanced mobile mapping and GIS solutions for asset management, utility mapping, digital twins, corridor mapping, and intelligent geospatial data visualization.',
-    bigImage: mobilebig,
-    smallImage: mobilesmall,
+      "Smart geospatial solutions combining mobile mapping, GIS analysis and digital asset management for modern infrastructure projects.",
+    tagline: "Spatial Intelligence",
+    big: "https://unsplash.com/photos/bottom-view-shot-of-airplane-flying-above-high-rise-building-KxCJXXGsv9I",
+    smallTop: "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=800&q=80",
+    smallBottom: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
   },
 ];
-const AmenitiesSection = () => {
-  const trackRef = useRef(null);
-  const [progress, setProgress] = useState(0);
+const SLICES = 30;
 
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const el = trackRef.current;
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const total = rect.height - vh;
-        const scrolled = Math.min(Math.max(-rect.top, 0), total);
-        setProgress(total > 0 ? scrolled / total : 0);
+export default function AmenitiesSection() {
+  const rootRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    // Preload
+    SLIDES.forEach((s) => {
+      [s.big, s.smallTop, s.smallBottom].forEach((src) => {
+        const i = new Image();
+        i.src = src;
       });
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
+    });
+
+    const ctx = gsap.context(() => {
+      const section = root.querySelector(".am-section");
+      const pin = root.querySelector(".am-pin");
+
+      const numbers = gsap.utils.toArray(".am-number");
+      const blocks = gsap.utils.toArray(".am-block");
+      const bigLayers = gsap.utils.toArray(".am-big-layer");
+      const smallTopLayers = gsap.utils.toArray(".am-small-top .am-small-layer");
+      const smallBotLayers = gsap.utils.toArray(".am-small-bottom .am-small-layer");
+      const progressFill = root.querySelector(".am-progress-fill");
+      const counterCurrent = root.querySelector(".am-counter b");
+
+      // Init state
+      gsap.set(numbers, { yPercent: 100, opacity: 0 });
+      gsap.set(numbers[0], { yPercent: 0, opacity: 1 });
+
+      blocks.forEach((b, i) => {
+        const title = b.querySelector(".am-title");
+        const desc = b.querySelector(".am-desc");
+        const tag = b.querySelector(".am-tag");
+        const btn = b.querySelector(".am-btn");
+        if (i === 0) {
+          gsap.set(b, { opacity: 1 });
+          gsap.set([title, desc, tag, btn], { y: 0, opacity: 1 });
+        } else {
+          gsap.set(b, { opacity: 0 });
+          gsap.set(title, { y: 40, opacity: 1 });
+          gsap.set(desc, { y: 20, opacity: 0 });
+          gsap.set(tag, { opacity: 0 });
+          gsap.set(btn, { opacity: 0 });
+        }
+      });
+
+      // Big image slices — each slide has SLICES slice layers
+      bigLayers.forEach((layer, slideIdx) => {
+        const slices = layer.querySelectorAll(".am-slice");
+        slices.forEach((s) => {
+          if (slideIdx === 0) {
+            gsap.set(s, { clipPath: "inset(0% 0% 0% 0%)" });
+          } else {
+            gsap.set(s, { clipPath: "inset(100% 0% 0% 0%)" });
+          }
+        });
+        gsap.set(layer, { zIndex: slideIdx });
+      });
+
+      // Small images
+      [smallTopLayers, smallBotLayers].forEach((layers) => {
+        layers.forEach((l, i) => {
+          if (i === 0) gsap.set(l, { yPercent: 0 });
+          else gsap.set(l, { yPercent: 100 });
+        });
+      });
+
+      const total = SLIDES.length;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => "+=" + window.innerHeight * total,
+          pin: pin,
+          scrub: 0.6,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Progress line + counter
+      tl.to(
+        progressFill,
+        {
+          height: "100%",
+          ease: "none",
+          duration: total,
+        },
+        0
+      );
+
+      // Counter update via onUpdate
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: () => "+=" + window.innerHeight * total,
+        onUpdate: (self) => {
+          const idx = Math.min(total - 1, Math.floor(self.progress * total + 0.0001));
+          const label = String(idx + 1).padStart(2, "0");
+          if (counterCurrent.textContent !== label) counterCurrent.textContent = label;
+        },
+      });
+
+      // Per slide: hold 0-0.6, transition 0.6-1 (each slide occupies 1 unit)
+      for (let i = 0; i < total - 1; i++) {
+        const start = i + 0.6;
+        const dur = 0.4;
+        const next = i + 1;
+
+        // Number swap
+        tl.to(numbers[i], { yPercent: -100, opacity: 0, ease: "power2.inOut", duration: dur * 0.5 }, start);
+        tl.fromTo(
+          numbers[next],
+          { yPercent: 100, opacity: 0 },
+          { yPercent: 0, opacity: 1, ease: "power2.inOut", duration: dur * 0.5 },
+          start + dur * 0.5
+        );
+
+        // Text blocks — old exits fully first, new enters
+        const oldBlock = blocks[i];
+        const newBlock = blocks[next];
+        const oldTitle = oldBlock.querySelector(".am-title");
+        const oldDesc = oldBlock.querySelector(".am-desc");
+        const oldTag = oldBlock.querySelector(".am-tag");
+        const oldBtn = oldBlock.querySelector(".am-btn");
+        const nTitle = newBlock.querySelector(".am-title");
+        const nDesc = newBlock.querySelector(".am-desc");
+        const nTag = newBlock.querySelector(".am-tag");
+        const nBtn = newBlock.querySelector(".am-btn");
+
+        // Old exit (first half)
+        tl.to(oldTag, { opacity: 0, duration: dur * 0.2, ease: "power1.out" }, start);
+        tl.to(oldBtn, { opacity: 0, duration: dur * 0.2, ease: "power1.out" }, start);
+        tl.to(oldDesc, { opacity: 0, y: -20, duration: dur * 0.35, ease: "power2.in" }, start);
+        tl.to(oldTitle, { y: -40, duration: dur * 0.4, ease: "power2.in" }, start);
+        tl.set(oldBlock, { opacity: 0 }, start + dur * 0.45);
+        // reset old for potential replay
+        tl.set(oldTitle, { y: 40, opacity: 1 }, start + dur * 0.45);
+        tl.set(oldDesc, { y: 20, opacity: 0 }, start + dur * 0.45);
+
+        // New enter (second half)
+        tl.set(newBlock, { opacity: 1 }, start + dur * 0.5);
+        tl.fromTo(
+          nTitle,
+          { y: 40 },
+          { y: 0, duration: dur * 0.5, ease: "power3.out" },
+          start + dur * 0.5
+        );
+        tl.fromTo(
+          nDesc,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: dur * 0.5, ease: "power2.out" },
+          start + dur * 0.55
+        );
+        tl.fromTo(nTag, { opacity: 0 }, { opacity: 1, duration: dur * 0.3, ease: "power1.out" }, start + dur * 0.7);
+        tl.fromTo(nBtn, { opacity: 0 }, { opacity: 1, duration: dur * 0.3, ease: "power1.out" }, start + dur * 0.75);
+
+        // Big image slice reveal bottom -> top
+        const nextLayer = bigLayers[next];
+        const slices = nextLayer.querySelectorAll(".am-slice");
+        // reversed so bottom index reveals first
+        const orderedSlices = Array.from(slices).reverse();
+        tl.to(
+          orderedSlices,
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: dur * 0.7,
+            ease: "power2.inOut",
+            stagger: (dur * 0.7) / SLICES,
+          },
+          start + dur * 0.2
+        );
+
+        // Small images — old up, new up from bottom
+        tl.to(smallTopLayers[i], { yPercent: -100, duration: dur * 0.6, ease: "power3.inOut" }, start + dur * 0.25);
+        tl.fromTo(
+          smallTopLayers[next],
+          { yPercent: 100 },
+          { yPercent: 0, duration: dur * 0.6, ease: "power3.inOut" },
+          start + dur * 0.25
+        );
+        tl.to(smallBotLayers[i], { yPercent: -100, duration: dur * 0.6, ease: "power3.inOut" }, start + dur * 0.3);
+        tl.fromTo(
+          smallBotLayers[next],
+          { yPercent: 100 },
+          { yPercent: 0, duration: dur * 0.6, ease: "power3.inOut" },
+          start + dur * 0.3
+        );
+      }
+
+      // Final hold segment (last slide) — tiny tween to consume remaining duration
+      tl.to({}, { duration: 0.4 }, total - 0.4);
+    }, root);
+
+    return () => ctx.revert();
   }, []);
 
-  const n = SLIDES.length;
-  const scaled = progress * n;
+  const sliceStyle = (i) => {
+    const top = (i / SLICES) * 100;
+    const height = 100 / SLICES;
+    return {
+      top: top + "%",
+      height: "calc(" + height + "% + 0.6px)", // avoid subpixel gaps
+    };
+  };
 
   return (
-    <section data-section="amenities" className="bg-[var(--secondary)] text-[var(--foreground)] font-inter">
-      <div ref={trackRef} style={{ height: `${n * 100}vh` }} className="relative">
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <div className="mx-auto grid h-full max-w-[1400px] grid-cols-1 md:grid-cols-12 md:gap-6 px-4 py-8 md:px-12">
-            {/* LEFT: text */}
-            <div className="relative flex flex-col justify-center md:col-span-5 lg:col-span-5">
-              <div className="relative pl-5 md:pl-8">
-                <span className="absolute left-0 top-2 h-20 w-px bg-[var(--border)] md:h-24" />
-
-                <div className="relative min-h-[180px] md:min-h-[320px]">
-                  {SLIDES.map((s, i) => {
-                    const textStart = i + 0.5;
-                    const textEnd = i + 1.5;
-
-                    const visible = scaled >= textStart;
-                    const textLocal = i === 0 && scaled < textStart 
-                      ? 1
-                      : Math.min(Math.max((scaled - textStart) / 0.4, 0), 1);
-
-                    if (!visible && i !== 0) return null;
-                    if (i > 0 && scaled < textStart - 0.3) return null;
-
-                    let showOpacity = textLocal;
-                    let showTranslate = (1 - textLocal) * 110;
-                    let descOpacity = textLocal;
-                    let descTranslate = (1 - textLocal) * 14;
-
-                    if (i === 0 && scaled > textStart) {
-                      const fadeOut = Math.min(Math.max((scaled - textStart) / 0.3, 0), 1);
-                      showOpacity = 1 - fadeOut;
-                      showTranslate = fadeOut * 110;
-                      descOpacity = 1 - fadeOut;
-                      descTranslate = fadeOut * 14;
-                    }
-
-                    if (i > 0 && scaled > textEnd) {
-                      const fadeOut = Math.min(Math.max((scaled - textEnd) / 0.3, 0), 1);
-                      showOpacity = (1 - fadeOut) * textLocal;
-                      showTranslate = (1 - textLocal) * 110 + fadeOut * 110;
-                      descOpacity = (1 - fadeOut) * textLocal;
-                      descTranslate = (1 - textLocal) * 14 + fadeOut * 14;
-                    }
-
-                    return (
-                      <div key={s.titleLines.join(' ')} className="absolute inset-0" style={{ pointerEvents: showOpacity > 0.01 ? 'auto' : 'none' }}>
-                        <h2
-                          className="font-serif uppercase leading-tight tracking-tight text-[var(--foreground)]"
-                          style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontWeight: 500,
-                            fontSize: 'clamp(1.5rem, 3.5vw, 2.8rem)',
-                          }}
-                        >
-                          {s.titleLines.map((line, li) => (
-                            <span key={li} className="block overflow-hidden">
-                              <span
-                                className="block"
-                                style={{
-                                  transform: `translateY(${showTranslate}%)`,
-                                  transition: 'transform 0.1s linear',
-                                }}
-                              >
-                                {line}
-                              </span>
-                            </span>
-                          ))}
-                        </h2>
-
-                        <p
-                          className="mt-3 max-w-sm text-xs leading-relaxed text-[var(--muted-foreground)] md:mt-5 md:text-sm"
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            opacity: descOpacity,
-                            transform: `translateY(${descTranslate}px)`,
-                            transition: 'opacity 0.1s linear, transform 0.1s linear',
-                          }}
-                        >
-                          {s.description}
-                        </p>
-
-                        <p
-                          className="mt-2 text-[10px] uppercase tracking-[0.18em] text-[var(--accent)] md:mt-3"
-                          style={{ fontFamily: "'Inter', sans-serif", opacity: showOpacity }}
-                        >
-                          {s.tagline}
-                        </p>
-                      </div>
-                    );
-                  })}
+    <div ref={rootRef} className="am-root">
+      <section className="am-section" aria-label="Amenities">
+        <div className="am-pin">
+          <div className="am-grid">
+            {/* LEFT */}
+            <div className="am-left">
+              <div>
+                <div className="am-eyebrow">Amenities</div>
+                <div className="am-number-wrap">
+                  {SLIDES.map((s, i) => (
+                    <div className="am-number" key={i}>
+                      {s.number}
+                    </div>
+                  ))}
                 </div>
 
-                <div className="mt-5 flex items-center gap-3">
-                  <div className="h-px w-24 bg-[var(--border)] md:w-36">
-                    <div className="h-px bg-[var(--foreground)]" style={{ width: `${progress * 100}%` }} />
-                  </div>
-                  <span className="text-[10px] tracking-widest text-[var(--muted-foreground)]" style={{ fontFamily: "'Inter', sans-serif" }}>
-                    {String(Math.min(Math.floor(scaled) + 1, n)).padStart(2, '0')}
-                    <span className="mx-1 text-[var(--muted-foreground)]">/</span>
-                    {String(n).padStart(2, '0')}
-                  </span>
+                <div className="am-textblocks">
+                  {SLIDES.map((s, i) => (
+                    <div className={"am-block" + (i === 0 ? " is-active" : "")} key={i}>
+                      <h2 className="am-title">{s.title}</h2>
+                      <p className="am-desc">{s.description}</p>
+                      <div className="am-tag">{s.tagline}</div>
+                      <button className="am-btn" type="button">
+                        Explore <span className="arrow">→</span>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="am-footer-left">
+                <div className="am-progress">
+                  <div className="am-progress-fill" />
+                </div>
+                <div className="am-counter">
+                  <b>01</b> / {String(SLIDES.length).padStart(2, "0")}
                 </div>
               </div>
             </div>
 
-            {/* RIGHT: images */}
-            <div className="relative flex items-center justify-center md:col-span-7 lg:col-span-7">
-              {/* Desktop Layout (lg and above) */}
-              <div className="hidden lg:block relative mx-auto h-[70vh] w-full max-w-[600px]">
-                {/* BIG image — right side, 80% width */}
-                <div className="absolute right-0 top-[-3.5rem] h-[90vh] w-[80%] overflow-hidden rounded-sm bg-[var(--muted)]">
-                  {SLIDES.map((s, i) => {
-                    const local = Math.min(Math.max(scaled - i, 0), 1);
-                    const isFirst = i === 0;
-                    return (
-                      <img
-                        key={`big-${i}`}
-                        src={s.bigImage}
-                        alt={s.titleLines.join(' ')}
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                        className="absolute inset-0 h-full w-full border-1 border-gray-600 object-cover"
-                        style={{
-                          opacity: local > 0 ? 1 : 0,
-                          zIndex: i,
-                          WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
-                          maskImage: isFirst ? 'none' : stripeMask(local),
-                          WebkitMaskSize: '100% 100%',
-                          maskSize: '100% 100%',
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-
-                {/* SMALL image — left corner, overlapping big image */}
-                <div className="absolute bottom-[6%] left-0 z-20 h-[75%] w-[38%] overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-black/20 rounded-sm bg-[var(--muted)]">
-                  {SLIDES.map((s, i) => {
-                    const local = Math.min(Math.max(scaled - i, 0), 1);
-                    const isFirst = i === 0;
-                    return (
-                      <img
-                        key={`small-${i}`}
-                        src={s.smallImage}
-                        alt={s.titleLines.join(' ')}
-                        loading="lazy"
-                        className="absolute inset-0 h-full w-full border-1 border-gray-600 object-cover"
-                        style={{
-                          opacity: isFirst ? 1 : local > 0 ? 1 : 0,
-                          zIndex: i,
-                          WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
-                          maskImage: isFirst ? 'none' : stripeMask(local),
-                          WebkitMaskSize: '100% 100%',
-                          maskSize: '100% 100%',
-                        }}
-                      />
-                    );
-                  })}
-                </div>
+            {/* RIGHT */}
+            <div className="am-right">
+              <div className="am-big">
+                {SLIDES.map((s, idx) => (
+                  <div className="am-big-layer" key={idx} style={{ position: "absolute", inset: 0 }}>
+                    {Array.from({ length: SLICES }).map((_, i) => (
+                      <div className="am-slice" key={i} style={sliceStyle(i)}>
+                        <img
+                          src={s.big}
+                          alt={s.title}
+                          loading={idx === 0 ? "eager" : "lazy"}
+                          style={{ height: SLICES * 100 + "%", top: -(i * 100) + "%" }}
+                          draggable={false}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
 
-              {/* Tablet Layout (md to lg) - Collage style like mobile */}
-              <div className="hidden md:block lg:hidden relative w-full px-6">
-                {/* Collage layout for tablet */}
-                <div className="relative mx-auto w-full max-w-[600px]" style={{ height: '560px' }}>
-                  {/* BIG image — 105% width */}
-                  <div className="absolute -right-[5.5%] top-0 h-[520px] w-[105%] overflow-hidden rounded-sm shadow-2xl shadow-black/60 bg-[var(--muted)]">
-                    {SLIDES.map((s, i) => {
-                      const local = Math.min(Math.max(scaled - i, 0), 1);
-                      const isFirst = i === 0;
-                      return (
-                        <img
-                          key={`big-tablet-${i}`}
-                          src={s.bigImage}
-                          alt={s.titleLines.join(' ')}
-                          loading={i === 0 ? 'eager' : 'lazy'}
-                          className="absolute inset-0 h-full w-full object-cover"
-                          style={{
-                            opacity: local > 0 ? 1 : 0,
-                            zIndex: i,
-                            WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
-                            maskImage: isFirst ? 'none' : stripeMask(local),
-                            WebkitMaskSize: '100% 100%',
-                            maskSize: '100% 100%',
-                          }}
-                        />
-                      );
-                    })}
-                  </div>
-
-                  {/* SMALL image — left corner, 55% width */}
-                  <div className="absolute bottom-[-80px] left-[-100px] z-20 h-[360px] w-[75%] overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-black/20 rounded-sm bg-[var(--muted)]">
-                    {SLIDES.map((s, i) => {
-                      const local = Math.min(Math.max(scaled - i, 0), 1);
-                      const isFirst = i === 0;
-                      return (
-                        <img
-                          key={`small-tablet-${i}`}
-                          src={s.smallImage}
-                          alt={s.titleLines.join(' ')}
-                          loading="lazy"
-                          className="absolute inset-0 h-full w-full object-cover"
-                          style={{
-                            opacity: isFirst ? 1 : local > 0 ? 1 : 0,
-                            zIndex: i,
-                            WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
-                            maskImage: isFirst ? 'none' : stripeMask(local),
-                            WebkitMaskSize: '100% 100%',
-                            maskSize: '100% 100%',
-                          }}
-                        />
-                      );
-                    })}
-                  </div>
+              <div className="am-small-col">
+                <div className="am-small am-small-top">
+                  {SLIDES.map((s, i) => (
+                    <div className="am-small-layer" key={i}>
+                      <img src={s.smallTop} alt="" loading={i === 0 ? "eager" : "lazy"} draggable={false} />
+                    </div>
+                  ))}
                 </div>
-              </div>
-
-              {/* Mobile Layout (below md) - Collage style */}
-              <div className="md:hidden relative w-full px-4">
-                {/* Collage layout for mobile */}
-                <div className="relative mx-auto h-[45vh] w-full max-w-[400px]">
-                  {/* BIG image — 95% width */}
-                  <div className="absolute right-0 top-0 h-[42vh] w-[95%] overflow-hidden rounded-sm shadow-2xl shadow-black/60 bg-[var(--muted)]">
-                    {SLIDES.map((s, i) => {
-                      const local = Math.min(Math.max(scaled - i, 0), 1);
-                      const isFirst = i === 0;
-                      return (
-                        <img
-                          key={`big-mobile-${i}`}
-                          src={s.bigImage}
-                          alt={s.titleLines.join(' ')}
-                          loading={i === 0 ? 'eager' : 'lazy'}
-                          className="absolute inset-0 h-full w-full object-cover"
-                          style={{
-                            opacity: local > 0 ? 1 : 0,
-                            zIndex: i,
-                            WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
-                            maskImage: isFirst ? 'none' : stripeMask(local),
-                            WebkitMaskSize: '100% 100%',
-                            maskSize: '100% 100%',
-                          }}
-                        />
-                      );
-                    })}
-                  </div>
-
-                  {/* SMALL image — left corner, 45% width */}
-                  <div className="absolute bottom-0 left-0 z-20 h-[48%] w-[45%] overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-black/20 rounded-sm bg-[var(--muted)]">
-                    {SLIDES.map((s, i) => {
-                      const local = Math.min(Math.max(scaled - i, 0), 1);
-                      const isFirst = i === 0;
-                      return (
-                        <img
-                          key={`small-mobile-${i}`}
-                          src={s.smallImage}
-                          alt={s.titleLines.join(' ')}
-                          loading="lazy"
-                          className="absolute inset-0 h-full w-full object-cover"
-                          style={{
-                            opacity: isFirst ? 1 : local > 0 ? 1 : 0,
-                            zIndex: i,
-                            WebkitMaskImage: isFirst ? 'none' : stripeMask(local),
-                            maskImage: isFirst ? 'none' : stripeMask(local),
-                            WebkitMaskSize: '100% 100%',
-                            maskSize: '100% 100%',
-                          }}
-                        />
-                      );
-                    })}
-                  </div>
+                <div className="am-small am-small-bottom">
+                  {SLIDES.map((s, i) => (
+                    <div className="am-small-layer" key={i}>
+                      <img src={s.smallBottom} alt="" loading={i === 0 ? "eager" : "lazy"} draggable={false} />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
-};
-
-export default AmenitiesSection;
+}

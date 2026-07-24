@@ -164,16 +164,16 @@ const AboutSection = () => {
         {/* Stats */}
         <div
           ref={statsRef}
-          className="mt-24 md:mt-32 pt-16 md:pt-24 relative"
+          className="mt-12 md:mt-6 pt-16 md:pt-24 relative"
         >
           {/* Row 1: Stats 2 & 3 on top right */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6">
             {/* Empty left space on desktop */}
             <div className="hidden md:block"></div>
             
             {/* Stats 2 & 3 - Right side */}
-            <div className="grid grid-cols-2 gap-8 md:gap-12">
-              {/* Stat 2 */}
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
+              {/* Stat 2 - Years Experience */}
               <div className="about-stat-item group">
                 <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
                   <span className="about-stats-number">
@@ -183,13 +183,15 @@ const AboutSection = () => {
                     >
                       0
                     </span>
-                    <span className="about-stats-unit">{stats[1].suffix}</span>
+                    <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
                   </span>
                 </div>
                 <p className="about-stats-text">{stats[1].label}</p>
               </div>
 
-              {/* Stat 3 */}
+              {/* Stat 3 - Happy Clients */}
               <div className="about-stat-item group">
                 <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
                   <span className="about-stats-number">
@@ -199,7 +201,9 @@ const AboutSection = () => {
                     >
                       0
                     </span>
-                    <span className="about-stats-unit">{stats[2].suffix}</span>
+                    <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
                   </span>
                 </div>
                 <p className="about-stats-text">{stats[2].label}</p>
@@ -207,9 +211,8 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Row 2: Stat 1 (500+) middle left and Stat 4 bottom center */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
-            {/* Stat 1 - Middle left */}
+          {/* Row 2: Stat 1 (500+) centered */}
+          <div className="flex justify-center md:justify-start mb-4 md:mb-6">
             <div className="about-stat-item group">
               <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
                 <span className="about-stats-number">
@@ -219,14 +222,18 @@ const AboutSection = () => {
                   >
                     0
                   </span>
-                  <span className="about-stats-unit">{stats[0].suffix}</span>
+                  <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
                 </span>
               </div>
               <p className="about-stats-text">{stats[0].label}</p>
             </div>
+          </div>
 
-            {/* Stat 4 - Bottom center */}
-            <div className="about-stat-item group md:pl-24">
+          {/* Row 3: Stat 4 (80+ Team Members) centered below */}
+          <div className="flex justify-center">
+            <div className="about-stat-item group">
               <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
                 <span className="about-stats-number">
                   <span
@@ -235,7 +242,9 @@ const AboutSection = () => {
                   >
                     0
                   </span>
-                  <span className="about-stats-unit">{stats[3].suffix}</span>
+                  <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
                 </span>
               </div>
               <p className="about-stats-text">{stats[3].label}</p>
