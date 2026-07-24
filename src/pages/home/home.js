@@ -2,30 +2,37 @@ import React from 'react';
 import Navbar from '../../components/Layout/Header/Navbar';
 import HeroSection from './components/HeroSection';
 import CompanyShowcase from './components/company';
+import EAIService from './components/EAIService';
 import AboutSection from './components/AboutSection';
-// import ServiceSection from './components/ServiceSection';
 import ProjectsShowcase from './components/ProjectsShowcase';
 import AmenitiesSection from './components/AmenitiesSection';
 import ProcessSection from './components/ProcessSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import ContactSection from './components/ContactSection';
 import Footer from '../../components/Layout/Footer/Footer';
+import ScrollProgress from '../../components/ScrollProgress';
+import { useLenis } from '../../hooks/useLenis';
 
 function Home() {
+  useLenis();
+
   return (
-    <div className="min-h-screen bg-[#F8F7F4] font-inter">
-      <Navbar />
+    <>
+      <ScrollProgress />
+      <div className="min-h-screen bg-[var(--background)] font-inter">
+        <Navbar />
       <HeroSection />
       <CompanyShowcase />
+      <EAIService />
       <AboutSection />
-      {/* <ServiceSection /> */}
-      <AmenitiesSection />
-      <ProjectsShowcase />
-      <ProcessSection />
-      <TestimonialsSection />
-      <ContactSection />
-      <Footer />
-    </div>
+        <AmenitiesSection />
+        <ProjectsShowcase />
+        <ProcessSection />
+        <TestimonialsSection />
+        <ContactSection />
+        <Footer />
+      </div>
+    </>
   );
 }
 

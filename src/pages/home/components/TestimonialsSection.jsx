@@ -130,24 +130,24 @@ const TestimonialsSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#F8F7F4] overflow-hidden sticky top-0 z-10 h-screen flex flex-col"
+      className="relative bg-[var(--secondary)] overflow-hidden sticky top-0 z-10 h-screen flex flex-col"
       style={{ perspective: '1200px' }}
     >
       {/* Background decorative */}
-      <div className="absolute top-1/2 -left-32 w-96 h-96 bg-[#CAAA79]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -left-32 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 pt-12 md:pt-14">
         {/* Section header */}
         <div ref={headerRef} className="mb-3 md:mb-4">
           <div className="flex items-start gap-4 mb-3">
-            <div className="w-8 h-[1px] bg-[#CAAA79]" />
-            <span className="text-xs font-general font-semibold text-[#CAAA79] uppercase tracking-[0.2em]">
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+            <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
               Proof of Performance
             </span>
           </div>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2 className="font-clash text-section text-[#151515] max-w-xl">
-              What Our <span className="text-[#636363]">Clients Say</span>
+            <h2 className="font-clash text-section text-[var(--foreground)] max-w-xl">
+              What Our <span className="text-[var(--muted-foreground)]">Clients Say</span>
             </h2>
              {/* Prev / Next controls — centered below the cards */}
       <div className="flex justify-end items-center gap-2 mt-2 pb-4 px-6 md:px-16 lg:px-24">
@@ -155,7 +155,7 @@ const TestimonialsSection = () => {
           type="button"
           aria-label="Previous testimonial"
           onClick={() => slide(-1)}
-          className="group w-12 h-12 rounded-full border border-[#E8E4DD] bg-white hover:bg-[#CAAA79] flex items-center justify-center text-[#151515] shadow-sm hover:shadow-lg hover:shadow-[#CAAA79]/30  hover:text-white hover:border-[#CAAA79] transition-all duration-300"
+          className="group w-12 h-12 rounded-full border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--accent)] flex items-center justify-center text-[var(--foreground)] shadow-sm hover:shadow-lg hover:shadow-[var(--accent)]/30  hover:text-white hover:border-[var(--accent)] transition-all duration-300"
         >
           <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5" />
         </button>
@@ -163,7 +163,7 @@ const TestimonialsSection = () => {
           type="button"
           aria-label="Next testimonial"
           onClick={() => slide(1)}
-          className="group w-12 h-12 rounded-full border border-[#E8E4DD] bg-white flex items-center justify-center text-[#151515] shadow-sm hover:shadow-lg hover:shadow-[#CAAA79]/30 hover:bg-[#CAAA79] hover:text-white hover:border-[#CAAA79] transition-all duration-300"
+          className="group w-12 h-12 rounded-full border border-[var(--border)] bg-[var(--card)] flex items-center justify-center text-[var(--foreground)] shadow-sm hover:shadow-lg hover:shadow-[var(--accent)]/30 hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] transition-all duration-300"
         >
           <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5" />
         </button>
@@ -183,27 +183,27 @@ const TestimonialsSection = () => {
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[calc(100vw-3rem)] sm:w-[400px] bg-white rounded-2xl p-6 sm:p-8 border border-[#E8E4DD] hover:shadow-elevated transition-all duration-500 hover:-translate-y-1"
+              className="flex-shrink-0 w-[calc(100vw-3rem)] sm:w-[400px] bg-[var(--card)] rounded-2xl p-6 sm:p-8 border border-[var(--border)] hover:shadow-elevated transition-all duration-500 hover:-translate-y-1"
             >
               {/* Quote icon */}
-              <Quote className="w-8 h-8 text-[#CAAA79]/20 mb-4" />
+              <Quote className="w-8 h-8 text-[var(--accent)]/20 mb-4" />
 
               {/* Rating */}
               <div className="flex gap-1 mb-3">
                 {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-[#CAAA79] text-[#CAAA79]" />
+                  <Star key={j} className="w-4 h-4 fill-[var(--accent)] text-[var(--accent)]" />
                 ))}
               </div>
 
               {/* Text */}
-              <p className="text-[#636363] font-inter text-sm leading-relaxed mb-6 line-clamp-5">
+              <p className="text-[var(--muted-foreground)] font-inter text-sm leading-relaxed mb-6 line-clamp-5">
                 "{t.text}"
               </p>
 
               {/* Author */}
-              <div className="pt-3 border-t border-[#E8E4DD]">
-                <p className="font-general font-semibold text-[#151515]">{t.name}</p>
-                <p className="text-xs text-[#CAAA79] font-general tracking-wider">{t.role}</p>
+              <div className="pt-3 border-t border-[var(--border)]">
+                <p className="font-general font-semibold text-[var(--foreground)]">{t.name}</p>
+                <p className="text-xs text-[var(--accent)] font-general tracking-wider">{t.role}</p>
               </div>
             </div>
           ))}

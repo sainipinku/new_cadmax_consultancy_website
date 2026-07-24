@@ -5,7 +5,6 @@
 /* ---------- SECTION CONTAINER ---------- */
 .company-showcase-section {
   width: 100%;
-  background: #000000;
   padding: 40px 0;
     margin: 0;
   overflow: hidden;
@@ -44,8 +43,8 @@
 
 .company-label-content {
   padding: 26px 38px;
-  border-left: 2px solid #A8916B;
-  background: #ffff;
+  border-left: 2px solid var(--accent);
+  background: var(--card);
   backdrop-filter: blur(10px);
 }
 
@@ -54,7 +53,7 @@
   font-size: 18px;
   font-style: italic;
   font-weight: 400;
-  color: #4A4A4A;
+  color: var(--muted-foreground);
   letter-spacing: 0.02em;
   white-space: nowrap;
   margin: 0;
@@ -66,7 +65,7 @@
   overflow: hidden;
   opacity: 0;
   transform: translateX(30px);
-  transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
+  transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s;
 }
 
 .company-slider-container.visible {
@@ -78,7 +77,7 @@
 .company-slider-track {
   display: flex;
   gap: 60px;
-  animation: logoSlide 30s linear infinite;
+  animation: logoSlide 60s linear infinite;
   width: max-content;
   padding: 20px 0;
 }

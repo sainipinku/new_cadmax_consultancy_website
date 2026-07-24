@@ -86,17 +86,17 @@ const AboutSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-[black] overflow-hidden"
+      className="relative py-24 md:py-32 bg-[var(--secondary)] overflow-hidden"
     >
       {/* Background decorative element */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#CAAA79]/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#CAAA79]/5 rounded-full translate-y-1/2 -translate-x-1/4 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--accent)]/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[var(--accent)]/10 rounded-full translate-y-1/2 -translate-x-1/4 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24">
         {/* Section label */}
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-8 h-[1px] bg-[#CAAA79]" />
-          <span className="text-xs font-general font-semibold text-[#CAAA79] uppercase tracking-[0.2em]">
+          <div className="w-8 h-[1px] bg-[var(--accent)]" />
+          <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
             About Cadmax
           </span>
         </div>
@@ -114,14 +114,14 @@ const AboutSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
             {/* Floating card */}
-            <div className="absolute -bottom-6 -right-6 bg-[#141111] rounded-2xl p-6 shadow-elevated hidden md:block">
+            <div className="absolute -bottom-6 -right-6 bg-[var(--card)] rounded-2xl p-6 shadow-elevated hidden md:block border border-[var(--border)]">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full  bg-[#CAAA79] flex items-center justify-center">
-                  <span className="text-white font-clash text-lg font-bold">26+</span>
+                <div className="w-12 h-12 rounded-full bg-[var(--accent)] flex items-center justify-center">
+                  <span className="text-[var(--card-foreground)] font-clash text-lg font-bold">26+</span>
                 </div>
                 <div>
-                  <p className="text-sm font-general font-semibold text-white">Years of</p>
-                  <p className="text-sm font-general text-white">Excellence</p>
+                  <p className="text-sm font-general font-semibold text-[var(--card-foreground)]">Years of</p>
+                  <p className="text-sm font-general text-[var(--muted-foreground)]">Excellence</p>
                 </div>
               </div>
             </div>
@@ -129,12 +129,12 @@ const AboutSection = () => {
 
           {/* Right - Content */}
           <div ref={textRef} className="space-y-8">
-            <h2 className="font-clash text-section text-[#ffffff]">
+            <h2 className="font-clash text-section text-[var(--foreground)]">
               How CADMAX <br />
-              <span className="text-[#e6e5e5]">Maintains Accuracy</span>
+              <span className="text-[var(--muted-foreground)]">Maintains Accuracy</span>
             </h2>
 
-            <div className="space-y-4 text-[#ffffff] font-inter leading-relaxed">
+            <div className="space-y-4 text-[var(--muted-foreground)] font-inter leading-relaxed">
               <p>
                 We build trust before we build structures. That's the CadMax difference. 
                 Customers choose CadMax because we turn complex ideas into precise, 
@@ -152,7 +152,7 @@ const AboutSection = () => {
               </p>
             </div>
 
-            <button className="group inline-flex items-center gap-3 px-6 py-3 bg-[#151515] text-[#F8F5F1] rounded-full text-sm font-general font-semibold transition-all duration-300 hover:bg-[#181818] hover:gap-4 hover:shadow-xl">
+            <button className="group inline-flex items-center gap-3 px-6 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-full text-sm font-general font-semibold transition-all duration-300 hover:bg-[var(--primary)] hover:gap-4 hover:shadow-xl">
               Learn More About Us
               <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -164,16 +164,16 @@ const AboutSection = () => {
         {/* Stats */}
         <div
           ref={statsRef}
-          className="mt-24 md:mt-32 pt-16 md:pt-24 relative"
+          className="mt-12 md:mt-6 pt-16 md:pt-24 relative"
         >
           {/* Row 1: Stats 2 & 3 on top right */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6">
             {/* Empty left space on desktop */}
             <div className="hidden md:block"></div>
             
             {/* Stats 2 & 3 - Right side */}
-            <div className="grid grid-cols-2 gap-8 md:gap-12">
-              {/* Stat 2 */}
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
+              {/* Stat 2 - Years Experience */}
               <div className="about-stat-item group">
                 <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
                   <span className="about-stats-number">
@@ -183,13 +183,15 @@ const AboutSection = () => {
                     >
                       0
                     </span>
-                    <span className="about-stats-unit">{stats[1].suffix}</span>
+                    <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
                   </span>
                 </div>
                 <p className="about-stats-text">{stats[1].label}</p>
               </div>
 
-              {/* Stat 3 */}
+              {/* Stat 3 - Happy Clients */}
               <div className="about-stat-item group">
                 <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
                   <span className="about-stats-number">
@@ -199,7 +201,9 @@ const AboutSection = () => {
                     >
                       0
                     </span>
-                    <span className="about-stats-unit">{stats[2].suffix}</span>
+                    <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
                   </span>
                 </div>
                 <p className="about-stats-text">{stats[2].label}</p>
@@ -207,9 +211,8 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Row 2: Stat 1 (500+) middle left and Stat 4 bottom center */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
-            {/* Stat 1 - Middle left */}
+          {/* Row 2: Stat 1 (500+) centered */}
+          <div className="flex justify-center md:justify-start mb-4 md:mb-6">
             <div className="about-stat-item group">
               <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
                 <span className="about-stats-number">
@@ -219,14 +222,18 @@ const AboutSection = () => {
                   >
                     0
                   </span>
-                  <span className="about-stats-unit">{stats[0].suffix}</span>
+                  <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
                 </span>
               </div>
               <p className="about-stats-text">{stats[0].label}</p>
             </div>
+          </div>
 
-            {/* Stat 4 - Bottom center */}
-            <div className="about-stat-item group md:pl-24">
+          {/* Row 3: Stat 4 (80+ Team Members) centered below */}
+          <div className="flex justify-center">
+            <div className="about-stat-item group">
               <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
                 <span className="about-stats-number">
                   <span
@@ -235,7 +242,9 @@ const AboutSection = () => {
                   >
                     0
                   </span>
-                  <span className="about-stats-unit">{stats[3].suffix}</span>
+                  <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
                 </span>
               </div>
               <p className="about-stats-text">{stats[3].label}</p>

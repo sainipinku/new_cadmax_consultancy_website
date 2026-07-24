@@ -28,7 +28,7 @@ const ScrollProgress = () => {
     <div className="fixed top-0 left-0 w-full h-[3px] z-[9999] bg-transparent">
       <div
         ref={barRef}
-        className="h-full bg-[#0E5D30] origin-left"
+        className="h-full bg-[var(--accent)] origin-left"
         style={{ transform: 'scaleX(0)' }}
       />
     </div>

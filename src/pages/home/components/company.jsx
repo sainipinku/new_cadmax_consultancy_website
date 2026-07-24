@@ -144,7 +144,7 @@ const CompanyShowcase = () => {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.8 }
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
@@ -157,10 +157,9 @@ const CompanyShowcase = () => {
 
   return (
     <section
-      className="company-showcase-section"
+      className="company-showcase-section bg-[var(--secondary)]"
       ref={sectionRef}
       style={{
-        background: 'white linear-gradient(to right, #f8f7f4, #f8f7f4)',
         padding: '40px 0'
       }}
     >
