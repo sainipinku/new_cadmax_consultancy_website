@@ -8,6 +8,8 @@ import ProjectsShowcase from './components/ProjectsShowcase';
 import AmenitiesSection from './components/AmenitiesSection';
 import ProcessSection from './components/ProcessSection';
 import TestimonialsSection from './components/TestimonialsSection';
+// import Testimonial from './components/testimonial';
+import StatsSection from './components/StatsSection';
 import ContactSection from './components/ContactSection';
 import Footer from '../../components/Layout/Footer/Footer';
 import ScrollProgress from '../../components/ScrollProgress';
@@ -25,10 +27,12 @@ function Home() {
       <CompanyShowcase />
       <EAIService />
       <AboutSection />
+      <StatsSection />
         <AmenitiesSection />
         <ProjectsShowcase />
         <ProcessSection />
         <TestimonialsSection />
+        {/* <Testimonial /> */}
         <ContactSection />
         <Footer />
       </div>

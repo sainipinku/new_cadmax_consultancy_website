@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import engineeringImg from "../../../assets/Images/home_service/service-engineering.jpg";
-import architecturalImg from "../../../assets/Images/home_service/service-architectural.jpg";
-import infrastructureImg from "../../../assets/Images/home_service/service-infrastructure.jpg";
+
+// ===== Engineering images =====
+import engSlide1 from "../../../assets/Images/EAIService/engineering/slide-1.png";
+import engSlide2 from "../../../assets/Images/EAIService/engineering/slide-2.png";
+
+// ===== Architecture images =====
+
+import archSlide1 from "../../../assets/Images/EAIService/architecture/slide-1.png";
+import archSlide2 from "../../../assets/Images/EAIService/architecture/slide-2.jpeg";
+import archSlide3 from "../../../assets/Images/EAIService/architecture/slide-3.png";
+
+// ===== Infrastructure images =====
+import infraImg1 from "../../../assets/Images/EAIService/infrastructure/image 1_14 - Photo_11zon.jpg";
+import infraTopView from "../../../assets/Images/EAIService/infrastructure/top view 1_17 - Photo_11zon.jpg";
+import infraViewRender from "../../../assets/Images/EAIService/infrastructure/VIEW RENDER FILE_11zon.jpg";
 
 const services = [
   {
@@ -12,7 +24,7 @@ const services = [
     kicker: "Precision by design",
     description:
       "Structural, mechanical and systems engineering rooted in analysis, tolerance and buildable detail — from first calculation to last bolt.",
-    image: engineeringImg,
+    images: [engSlide1, engSlide2],
     subservices: ["M.E.P DESIGN", "ENGINEERING SURVEY", "DETAIL PROJECT REPORTS"],
   },
   {
@@ -22,7 +34,7 @@ const services = [
     kicker: "Form that holds meaning",
     description:
       "Considered architecture that reads a place before it speaks — quiet massing, honest materials, and light shaped into use.",
-    image: architecturalImg,
+    images: [archSlide1, archSlide2, archSlide3],
     subservices: ["URBAN MASTER PLANNING", "ARCHITECTURAL DESIGNING", "INTERIOR DESIGNING"],
   },
   {
@@ -32,7 +44,7 @@ const services = [
     kicker: "The systems beneath the skyline",
     description:
       "Roads, bridges, utilities and the civic backbone — planned for a century of service, built for the decade ahead.",
-    image: infrastructureImg,
+    images: [infraImg1, infraTopView, infraViewRender],
     subservices: [
       "BUILDING CONSTRUCTION",
       "ROAD CONSTRUCTION",
@@ -47,12 +59,33 @@ const ease = [0.22, 1, 0.36, 1];
 
 export default function EAIService() {
   const [active, setActive] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const intervalRef = useRef(null);
   const current = services[active];
+
+  // Reset slide index when service changes
+  useEffect(() => {
+    setSlideIndex(0);
+  }, [active]);
+
+  // Auto-slide every 2 seconds
+  useEffect(() => {
+    const images = current.images;
+    if (!images || images.length <= 1) return;
+
+    intervalRef.current = setInterval(() => {
+      setSlideIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(intervalRef.current);
+  }, [active, current.images]);
+
+  const currentImage = current.images?.[slideIndex] || current.images?.[0];
 
   return (
     <section id="services" className="relative bg-[var(--secondary)]">
       {/* marquee ribbon */}
-      <div className="overflow-hidden border-b border-[color:var(--hairline)] py-4">
+      {/* <div className="overflow-hidden border-b border-[color:var(--hairline)] py-4">
         <div className="flex w-max animate-marquee gap-16 whitespace-nowrap font-garamond text-2xl text-foreground/70">
           {Array.from({ length: 2 }).map((_, r) => (
             <div key={r} className="flex gap-16">
@@ -67,7 +100,7 @@ export default function EAIService() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-32 lg:px-10">
         {/* section header */}
         <div className="mb-16 flex flex-col gap-6 md:mb-24 md:flex-row md:items-end md:justify-between">
@@ -94,26 +127,29 @@ export default function EAIService() {
           {/* image column */}
           <div className="relative lg:col-span-7">
             <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-secondary md:aspect-[5/4]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={current.id}
-                  initial={{ scale: 1.08, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 1.02, opacity: 0 }}
-                  transition={{ duration: 0.9, ease }}
-                  className="absolute inset-0"
-                >
-                  <img
-                    src={current.image}
-                    alt={current.title}
-                    loading="lazy"
-                    width={1280}
-                    height={1600}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-charcoal/10 to-transparent" style={{ background: "linear-gradient(to top, oklch(19.8% 0 0 / 0.6), transparent 60%)" }} />
-                </motion.div>
-              </AnimatePresence>
+              <div className="relative h-full w-full overflow-hidden">
+                <AnimatePresence initial={false} custom={slideIndex}>
+                  <motion.div
+                    key={`${current.id}-${slideIndex}`}
+                    custom={slideIndex}
+                    initial={{ x: 300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -300, opacity: 0 }}
+                    transition={{ duration: 0.6, ease }}
+                    className="absolute inset-0"
+                  >
+                    <img
+                      src={currentImage}
+                      alt={`${current.title} - ${slideIndex + 1}`}
+                      loading="lazy"
+                      width={1280}
+                      height={1600}
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, oklch(19.8% 0 0 / 0.6), transparent 60%)" }} />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
               {/* framing corners */}
               <div className="pointer-events-none absolute inset-4 border border-white/20" />
               {/* floating index badge */}
@@ -123,10 +159,23 @@ export default function EAIService() {
                   {current.index} / 03
                 </span>
               </div>
+              {/* Slide indicators */}
+              {current.images?.length > 1 && (
+                <div className="absolute bottom-24 left-6 right-6 flex gap-2 z-10">
+                  {current.images.map((_, i) => (
+                    <span
+                      key={i}
+                      className={`h-1 rounded-full transition-all duration-300 ${
+                        i === slideIndex ? "w-8 bg-accent" : "w-2 bg-white/40"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
               {/* bottom caption */}
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={`cap-${current.id}`}
+                  key={`cap-${current.id}-${slideIndex}`}
                   initial={{ y: 24, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -12, opacity: 0 }}
@@ -271,24 +320,6 @@ export default function EAIService() {
                 );
               })}
             </ul>
-            {/* CTA */}
-            {/* <div className="mt-10 flex items-center gap-4">
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-transform duration-500 ease-out hover:-translate-y-0.5"
-              >
-                Start a project
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-accent text-accent-foreground transition-transform duration-500 ease-out group-hover:rotate-45">
-                  →
-                </span>
-              </a>
-              <a
-                href="#work"
-                className="text-sm tracking-wide text-foreground underline-offset-4 hover:underline"
-              >
-                See selected works
-              </a>
-            </div> */}
           </div>
         </div>
       </div>
