@@ -137,211 +137,6 @@ const ProcessSection = () => {
       ref={sectionRef}
       className="relative py-16 md:py-20 lg:py-26 bg-[var(--secondary)] overflow-hidden"
     >
-      {/* Inline styles for envelope animation */}
-      <style>{`
-        .envelope-card {
-          position: relative;
-          transform-style: preserve-3d;
-          perspective: 800px;
-        }
-
-        .envelope-card .envelope-overlay {
-          position: absolute;
-          inset: 0;
-          border-radius: 1.5rem;
-          overflow: hidden;
-          pointer-events: none;
-          z-index: 5;
-        }
-
-        .envelope-card:hover .envelope-overlay {
-          pointer-events: auto;
-        }
-
-        /* Envelope flaps */
-        .envelope-card .flap {
-          position: absolute;
-          inset: 0;
-          transition: clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                      transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-          will-change: clip-path, transform;
-        }
-
-        .envelope-card .flap-tp {
-          background: linear-gradient(135deg, #CAAA79 0%, #D4B383 40%, #B89450 100%);
-          clip-path: polygon(50% 50%, 100% 0, 0 0);
-          transform-origin: top center;
-          z-index: 4;
-        }
-
-        .envelope-card .flap-lft {
-          background: linear-gradient(180deg, #CAAA79 0%, #B89450 100%);
-          clip-path: polygon(50% 50%, 0 0, 0 100%);
-          transform-origin: left center;
-          z-index: 3;
-        }
-
-        .envelope-card .flap-rgt {
-          background: linear-gradient(180deg, #B89450 0%, #CAAA79 100%);
-          clip-path: polygon(50% 50%, 100% 0, 100% 100%);
-          transform-origin: right center;
-          z-index: 3;
-        }
-
-        .envelope-card .flap-btm {
-          background: linear-gradient(315deg, #B89450 0%, #CAAA79 50%, #D4B383 100%);
-          clip-path: polygon(50% 50%, 100% 100%, 0 100%);
-          transform-origin: bottom center;
-          z-index: 2;
-        }
-
-        /* Hover states - all flaps fully open */
-        .envelope-card:hover .flap-tp {
-          clip-path: polygon(50% 0%, 100% 0, 0 0);
-          transform: rotateX(15deg) translateY(-5px);
-        }
-
-        .envelope-card:hover .flap-lft {
-          clip-path: polygon(0% 0%, 0% 0%, 0% 100%);
-          transform: rotateY(-15deg) translateX(-5px);
-        }
-
-        .envelope-card:hover .flap-rgt {
-          clip-path: polygon(100% 0%, 100% 0%, 100% 100%);
-          transform: rotateY(15deg) translateX(5px);
-        }
-
-        .envelope-card:hover .flap-btm {
-          clip-path: polygon(50% 100%, 100% 100%, 0 100%);
-          transform: rotateX(-15deg) translateY(5px);
-        }
-
-        /* Envelope seal/stamp */
-        .envelope-card .seal {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 10;
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-          will-change: transform, opacity;
-        }
-
-        .envelope-card:hover .seal {
-          opacity: 0;
-          transform: translate(-50%, -50%) scale(0) rotate(180deg);
-        }
-
-        /* Envelope border/crease lines for 3D effect */
-        .envelope-card .envelope-overlay::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border: 2px solid rgba(202, 170, 121, 0.2);
-          border-radius: 1.5rem;
-          z-index: 6;
-          pointer-events: none;
-          transition: opacity 0.5s ease;
-        }
-
-        .envelope-card:hover .envelope-overlay::before {
-          opacity: 0;
-        }
-
-        /* Texture & crease lines hide on hover */
-        .envelope-card:hover .envelope-crease-h,
-        .envelope-card:hover .envelope-crease-v,
-        .envelope-card:hover .envelope-texture {
-          opacity: 0;
-        }
-
-        /* Card content hover enhancement */
-        .envelope-card .card-content {
-          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                      box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .envelope-card:hover .card-content {
-          transform: translateY(-4px);
-          box-shadow: 0 20px 60px rgba(202, 170, 121, 0.25);
-        }
-
-        /* Icon hover effect */
-        .envelope-card:hover .process-icon-wrapper {
-          background-color: #CAAA79;
-          transform: scale(1.1);
-        }
-
-        .envelope-card:hover .process-icon-wrapper svg {
-          color: white;
-        }
-
-        /* Title hover effect */
-        .envelope-card:hover .process-title {
-          color: #CAAA79;
-        }
-
-        /* Arrow indicator */
-        .envelope-card .arrow-indicator {
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .envelope-card:hover .arrow-indicator {
-          opacity: 1;
-        }
-
-        /* Stamp star shape */
-        .stamp-shape {
-          width: 70px;
-          height: 70px;
-          background: linear-gradient(135deg, var(--primary), #2d2d2d);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #CAAA79;
-          font-size: 9px;
-          font-weight: 800;
-          letter-spacing: 1px;
-          border: 3px solid #CAAA79;
-          clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(202, 170, 121, 0.2);
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Envelope texture lines */
-        .envelope-card .envelope-texture {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          background-image: 
-            repeating-linear-gradient(
-              0deg,
-              transparent,
-              transparent 2px,
-              rgba(202, 170, 121, 0.04) 2px,
-              rgba(202, 170, 121, 0.04) 4px
-            );
-          pointer-events: none;
-          border-radius: 1.5rem;
-          transition: opacity 0.5s ease;
-        }
-
-        /* Delay each flap for a cascading effect */
-        .envelope-card .flap-tp { transition-delay: 0s; }
-        .envelope-card .flap-lft { transition-delay: 0.05s; }
-        .envelope-card .flap-rgt { transition-delay: 0.1s; }
-        .envelope-card .flap-btm { transition-delay: 0.15s; }
-        .envelope-card .seal { transition-delay: 0.2s; }
-
-        /* Reverse delay on hover out */
-        .envelope-card:not(:hover) .flap-tp { transition-delay: 0.2s; }
-        .envelope-card:not(:hover) .flap-lft { transition-delay: 0.15s; }
-        .envelope-card:not(:hover) .flap-rgt { transition-delay: 0.1s; }
-        .envelope-card:not(:hover) .flap-btm { transition-delay: 0.05s; }
-        .envelope-card:not(:hover) .seal { transition-delay: 0s; }
-      `}</style>
-
       {/* Background decorative elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl pointer-events-none" />
@@ -363,7 +158,7 @@ const ProcessSection = () => {
           </p>
         </div>
 
-        {/* Process cards with 3D envelope animation */}
+        {/* Process cards */}
         <div className="relative" style={{ perspective: '1200px' }}>
           {/* Connecting line */}
           <div className="process-line hidden lg:block absolute top-24 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--accent)]/30 to-transparent origin-left" />
@@ -375,7 +170,7 @@ const ProcessSection = () => {
                 <div
                   key={step.number}
                   ref={(el) => (cardsRef.current[i] = el)}
-                  className="envelope-card"
+                  className="relative"
                 >
                   {/* Large background number */}
                   <div
@@ -385,15 +180,15 @@ const ProcessSection = () => {
                     {step.number}
                   </div>
 
-                  {/* Card content (what's revealed when envelope opens) */}
-                  <div className="card-content relative bg-[var(--card)] rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 border border-[var(--border)] h-full z-[1]">
+                  {/* Card content */}
+                  <div className="relative bg-[var(--card)] rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 border border-[var(--border)] h-full z-[1]">
                     {/* Icon */}
-                    <div className="process-icon-wrapper w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl md:rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center mb-4 md:mb-5 lg:mb-6 transition-all duration-500">
-                      <Icon className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-[var(--accent)] transition-colors duration-500" />
+                    <div className="process-icon-wrapper w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl md:rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center mb-4 md:mb-5 lg:mb-6">
+                      <Icon className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-[var(--accent)]" />
                     </div>
 
                     {/* Title */}
-                    <h3 className="process-title font-clash text-2xl md:text-2xl lg:text-4xl text-[var(--foreground)] mb-1 md:mb-2 transition-colors duration-500">
+                    <h3 className="font-clash text-2xl md:text-2xl lg:text-4xl text-[var(--foreground)] mb-1 md:mb-2">
                       {step.title}
                     </h3>
 
@@ -406,43 +201,6 @@ const ProcessSection = () => {
                     <p className="text-[var(--muted-foreground)] font-inter text-xs md:text-sm leading-relaxed">
                       {step.description}
                     </p>
-
-                    {/* Arrow indicator */}
-                    <div className="arrow-indicator mt-4 md:mt-6 flex items-center gap-2 text-[var(--accent)] transition-opacity duration-300">
-                      <span className="text-xs md:text-sm font-general font-semibold">Learn more</span>
-                      <svg className="w-3 h-3 md:w-4 md:h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Envelope Overlay */}
-                  <div className="envelope-overlay">
-                    {/* Envelope texture */}
-                    <div className="envelope-texture" />
-
-                    {/* Top flap */}
-                    <div className="flap flap-tp" />
-
-                    {/* Left flap */}
-                    <div className="flap flap-lft" />
-
-                    {/* Right flap */}
-                    <div className="flap flap-rgt" />
-
-                    {/* Bottom flap */}
-                    <div className="flap flap-btm" />
-
-                    {/* Center crease lines for realism - fade out on hover */}
-                    <div className="envelope-crease-h absolute top-1/2 left-0 right-0 h-[1px] bg-[#B89450]/30 z-[7] pointer-events-none transition-opacity duration-500" />
-                    <div className="envelope-crease-v absolute left-1/2 top-0 bottom-0 w-[1px] bg-[#B89450]/30 z-[7] pointer-events-none transition-opacity duration-500" />
-
-                    {/* Seal/Stamp */}
-                    <div className="seal">
-                      <div className="stamp-shape">
-                        CADMAX
-                      </div>
-                    </div>
                   </div>
 
                   {/* Step connector arrow (except last) */}

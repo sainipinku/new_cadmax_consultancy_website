@@ -12,8 +12,6 @@ const AboutSection = () => {
   const textRef = useScrollReveal({ start: 'top 80%' });
   const imageContainerRef = useRef(null);
   const imageImgRef = useRef(null);
-  const counterRefs = useRef([]);
-  const statsRef = useRef(null);
 
   // Image reveal: starts clipped from left, reveals to the right on scroll
   useEffect(() => {
@@ -42,47 +40,6 @@ const AboutSection = () => {
     return () => ctx.revert();
   }, []);
 
-  const stats = [
-    { label: 'Projects Delivered', value: 500, suffix: '+' },
-    { label: 'Years Experience', value: 26, suffix: '+' },
-    { label: 'Happy Clients', value: 200, suffix: '+' },
-    { label: 'Team Members', value: 80, suffix: '+' },
-  ];
-
-  useEffect(() => {
-    const counters = counterRefs.current.filter(Boolean);
-    if (!counters.length || !statsRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: statsRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      counters.forEach((counter) => {
-        const target = parseInt(counter.dataset.value, 10);
-        const obj = { val: 0 };
-        tl.to(
-          obj,
-          {
-            val: target,
-            duration: 2,
-            ease: 'power2.out',
-            onUpdate: () => {
-              counter.textContent = Math.round(obj.val).toLocaleString();
-            },
-          },
-          0
-        );
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       ref={sectionRef}
@@ -101,15 +58,15 @@ const AboutSection = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Left - Image */}
-          <div ref={imageContainerRef} className="relative">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24 items-center">
+          {/* Left - Image (3/5 width) */}
+          <div ref={imageContainerRef} className="relative lg:col-span-3">
             <div className="relative overflow-hidden rounded-2xl">
               <img
                 ref={imageImgRef}
                 src={accuracyImg}
                 alt="Cadmax Precision"
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[500px] lg:h-[550px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
@@ -127,8 +84,8 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Right - Content */}
-          <div ref={textRef} className="space-y-8">
+          {/* Right - Content (2/5 width) */}
+          <div ref={textRef} className="space-y-8 lg:col-span-2">
             <h2 className="font-clash text-section text-[var(--foreground)]">
               How CADMAX <br />
               <span className="text-[var(--muted-foreground)]">Maintains Accuracy</span>
@@ -158,97 +115,6 @@ const AboutSection = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div
-          ref={statsRef}
-          className="mt-12 md:mt-6 pt-16 md:pt-24 relative"
-        >
-          {/* Row 1: Stats 2 & 3 on top right */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6">
-            {/* Empty left space on desktop */}
-            <div className="hidden md:block"></div>
-            
-            {/* Stats 2 & 3 - Right side */}
-            <div className="grid grid-cols-2 gap-4 md:gap-6">
-              {/* Stat 2 - Years Experience */}
-              <div className="about-stat-item group">
-                <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
-                  <span className="about-stats-number">
-                    <span
-                      ref={(el) => (counterRefs.current[1] = el)}
-                      data-value={stats[1].value}
-                    >
-                      0
-                    </span>
-                    <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                    </svg>
-                  </span>
-                </div>
-                <p className="about-stats-text">{stats[1].label}</p>
-              </div>
-
-              {/* Stat 3 - Happy Clients */}
-              <div className="about-stat-item group">
-                <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
-                  <span className="about-stats-number">
-                    <span
-                      ref={(el) => (counterRefs.current[2] = el)}
-                      data-value={stats[2].value}
-                    >
-                      0
-                    </span>
-                    <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                    </svg>
-                  </span>
-                </div>
-                <p className="about-stats-text">{stats[2].label}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Row 2: Stat 1 (500+) centered */}
-          <div className="flex justify-center md:justify-start mb-4 md:mb-6">
-            <div className="about-stat-item group">
-              <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
-                <span className="about-stats-number">
-                  <span
-                    ref={(el) => (counterRefs.current[0] = el)}
-                    data-value={stats[0].value}
-                  >
-                    0
-                  </span>
-                  <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                  </svg>
-                </span>
-              </div>
-              <p className="about-stats-text">{stats[0].label}</p>
-            </div>
-          </div>
-
-          {/* Row 3: Stat 4 (80+ Team Members) centered below */}
-          <div className="flex justify-center">
-            <div className="about-stat-item group">
-              <div className="about-stats-number-wrapper transition-all duration-350 ease-out group-hover:scale-[1.03]">
-                <span className="about-stats-number">
-                  <span
-                    ref={(el) => (counterRefs.current[3] = el)}
-                    data-value={stats[3].value}
-                  >
-                    0
-                  </span>
-                  <svg className="about-stats-suffix-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                  </svg>
-                </span>
-              </div>
-              <p className="about-stats-text">{stats[3].label}</p>
-            </div>
           </div>
         </div>
       </div>
