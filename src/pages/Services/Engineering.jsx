@@ -34,97 +34,94 @@ const Engineering = () => {
     <>
       <Navbar />
 
-   
      <div
   className="service1-hero relative"
   style={{ backgroundImage: `url(${heroBG})` }}
 >
   {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/10"></div>
+  <div className="absolute inset-0 bg-black/40"></div>
 
   {/* Content */}
-
-  <div className="hero-overlay relative z-10 text-white flex items-end justify-center h-full pb-4">
-  <h1 className="text-5xl font-bold">URBAN PLANNING</h1>
-</div>
-  
-</div>
-  
-
-  
-      <div className="black-box">
-        <p>An architectural and engineering company plays a vital role in planning and designing essential infrastructure such as water supply systems, road networks, and electricity distribution. Engineers in the company analyze site conditions, safety standards, and community needs to design reliable water supply systems that ensure clean and efficient delivery. They also plan and develop road networks that support smooth transportation, proper drainage, and long-term durability. In addition, electrical engineers design and coordinate electricity layouts to ensure safe, efficient, and sustainable power distribution. Together, these services contribute to well-organized, functional, and sustainable built environments.</p>
+  <div className="hero-overlay relative z-10 text-white flex items-end justify-center h-full pb-16">
+    {/* Eyebrow */}
+    <div className="text-center">
+      <div className="flex items-center justify-center gap-4 mb-6">
+        <div className="w-8 h-[1px] bg-[var(--accent)]" />
+        <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+          Our Service
+        </span>
+        <div className="w-8 h-[1px] bg-[var(--accent)]" />
       </div>
-
-      
-      {/* <div className="overlap-img-box">
-        <img src={overlapImg} alt="" />
-      </div> */}
-
-      <div className="max-w-7xl mx-auto px-6 py-12">
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-
-    {collageImages.map((item, index) => (
-      <div key={index} className="group">
-
-        {/* Image */}
-        <div className="relative overflow-hidden rounded-xl">
-          <img
-            src={item.img}
-            alt=""
-            className="w-full h-[320px] object-cover transition duration-700 group-hover:scale-105"
-          />
-
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black/50 group-hover:bg-black/0 transition duration-500"></div>
-        </div>
-
-        {/* Title BELOW */}
-        <h3 className="mt-4 text-lg font-semibold text-gray-800 uppercase tracking-wide">
-          {item.title}
-        </h3>
-
-      </div>
-    ))}
-
+      <h1 className="font-clash text-5xl md:text-7xl font-semibold">
+        URBAN <span className="italic text-[var(--accent)]">PLANNING</span>
+      </h1>
+    </div>
   </div>
 </div>
-      
-      {/* <div className="collage-wrapper">
 
-        
-        <Link to="/Services/maingate" className="collage-item item-1">
-          <img src={collageImages[0].img} alt="" />
-          <h2>{collageImages[0].title}</h2>
-        </Link>
+      {/* BLACK BOX — dark overview section matching Home theme */}
+      <div className="relative bg-[var(--foreground)] overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--accent)]/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none" />
+        <div className="relative max-w-7xl mx-auto px-6 py-20">
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+            <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+              Overview
+            </span>
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+          </div>
+          <p className="max-w-5xl mx-auto text-center font-inter text-white/85 text-base md:text-lg leading-relaxed">
+            An architectural and engineering company plays a vital role in planning and designing essential infrastructure such as water supply systems, road networks, and electricity distribution. Engineers in the company analyze site conditions, safety standards, and community needs to design reliable water supply systems that ensure clean and efficient delivery. They also plan and develop road networks that support smooth transportation, proper drainage, and long-term durability. In addition, electrical engineers design and coordinate electricity layouts to ensure safe, efficient, and sustainable power distribution. Together, these services contribute to well-organized, functional, and sustainable built environments.
+          </p>
+        </div>
+      </div>
 
-        
-        <Link to="/Services/roadNetwork" className="collage-item item-2">
-          <img src={collageImages[1].img} alt="" />
-          <h2>{collageImages[1].title}</h2>
-        </Link>
+      {/* Projects Collage — FULL WIDTH BACKGROUND */}
+      <div className="w-full bg-[var(--background)]">
+        <div className="w-full max-w-7xl mx-auto px-6 py-20">
+          {/* Section header */}
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-8 h-[1px] bg-[var(--accent)]" />
+              <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+                Our Projects
+              </span>
+              <div className="w-8 h-[1px] bg-[var(--accent)]" />
+            </div>
+            <h2 className="font-clash text-4xl md:text-5xl lg:text-6xl text-[var(--foreground)]">
+              Featured <span className="italic text-[var(--accent)]">Work</span>
+            </h2>
+          </div>
 
-        
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {collageImages.map((item, index) => (
+              <div key={index} className="group">
+                {/* Image */}
+                <div className="relative overflow-hidden rounded-2xl border border-[var(--border)] shadow-elevated">
+                  <img
+                    src={item.img}
+                    alt=""
+                    className="w-full h-[320px] object-cover transition duration-700 group-hover:scale-105"
+                  />
 
-        
-        <Link to="/Services/waterSupply" className="collage-item item-3">
-          <img src={collageImages[2].img} alt="" />
-          <h2>{collageImages[2].title}</h2>
-        </Link>
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-[var(--foreground)]/50 group-hover:bg-[var(--foreground)]/10 transition duration-500"></div>
 
-        
-        <Link to="/Services/electricity" className="collage-item item-4">
-          <img src={collageImages[3].img} alt="" />
-          <h2>{collageImages[3].title}</h2>
-        </Link>
+                  {/* Index number */}
+                  <span className="absolute top-4 left-4 font-garamond text-sm text-[var(--accent)] tracking-[0.3em]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
 
-        <Link to="/Services/Sewer" className="collage-item item-4">
-          <img src={collageImages[4].img} alt="" />
-          <h2>{collageImages[4].title}</h2>
-        </Link>
-
-      </div> */}
-
+                {/* Title BELOW */}
+                <h3 className="mt-4 font-general font-semibold text-base md:text-lg text-[var(--foreground)] uppercase tracking-wide">
+                  {item.title}
+                </h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <Footer />
     </>
@@ -132,124 +129,3 @@ const Engineering = () => {
 };
 
 export default Engineering;
-
-
-
-
-
-// dynamic page here ===>
-
-
-
-// import { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
-// import API from "../../api/axios";
-
-// import Navbar from "../../components/Layout/Header/Navbar";
-// import Footer from "../../components/Layout/Footer/Footer";
-// import "./Engineering.css";
-
-// const Engineering = () => {
-//   const [hero, setHero] = useState(null);
-//   const [overlap, setOverlap] = useState(null);
-//   const [collage, setCollage] = useState([]);
-
-
-//    const collageLinks = [
-//     "/Services/maingate",
-//     "/Services/roadNetwork",
-//     "/Services/waterSupply",
-//     "/Services/electricity",
-//     "/Services/Sewer",
-
-//   ];
-
-//   const loadData = async () => {
-//     try {
-//       const res = await API.get(
-//         "/subcategories?service=engineering&status=true"
-//       );
-
-//       const data = res.data.data; // ⚠️ important
-
-//       setHero(data.find((i) => i.sectionType === "hero"));
-//       setOverlap(data.find((i) => i.sectionType === "overlap"));
-//       setCollage(data.filter((i) => i.sectionType === "collage"));
-//     } catch (err) {
-//       console.error("ENGINEERING LOAD ERROR:", err);
-//     }
-//   };
-
-//   useEffect(() => {
-//     loadData();
-//   }, []);
-
-//   return (
-//     <>
-//       <Navbar />
-
-//       {/* HERO IMAGE (DYNAMIC) */}
-//       {hero && (
-//         <div
-//           className="service1-hero"
-//           style={{ backgroundImage: `url(${hero.image.url})` }}
-//         />
-//       )}
-
-//       {/* STATIC TEXT */}
-//       <div className="black-box">
-//         <h2>Where imagination meets structure</h2>
-//         <p>
-//           Turning concepts into concrete reality, our engineering team works hand
-//           in hand with architectural vision to design, plan, and build spaces
-//           that are strong, functional, and timeless. Every detail reflects
-//           precision, collaboration, and a commitment to quality that shapes
-//           structures built to serve generations.
-//         </p>
-//       </div>
-
-//       {/* OVERLAP IMAGE (DYNAMIC) */}
-//       {overlap && (
-//         <div className="overlap-img-box">
-//           <img src={overlap.image.url} alt="" />
-//         </div>
-//       )}
-
-//       {/* STATIC TEXT */}
-//       <div className="flex-section">
-//         <h2>What We Offer</h2>
-//         <p>
-//           An architectural and engineering company plays a vital role in planning
-//           and designing essential infrastructure such as water supply systems,
-//           road networks, and electricity distribution. Engineers in the company
-//           analyze site conditions, safety standards, and community needs to
-//           design reliable water supply systems that ensure clean and efficient
-//           delivery. They also plan and develop road networks that support smooth
-//           transportation, proper drainage, and long-term durability. In addition,
-//           electrical engineers design and coordinate electricity layouts to
-//           ensure safe, efficient, and sustainable power distribution. Together,
-//           these services contribute to well-organized, functional, and
-//           sustainable built environments.
-//         </p>
-//       </div>
-
-//       {/* COLLAGE (DYNAMIC) */}
-//       <div className="collage-wrapper">
-//         {collage.map((item, index) => (
-//           <Link
-//             key={item._id}
-//             to={collageLinks[index]}   // ✅ STATIC LINK
-//             className={`collage-item item-${index + 1}`}
-//           >
-//             <img src={item.image.url} alt={item.title} />
-//             <h2>{item.title}</h2>
-//           </Link>
-//         ))}
-//       </div>
-
-//       <Footer />
-//     </>
-//   );
-// };
-
-// export default Engineering;

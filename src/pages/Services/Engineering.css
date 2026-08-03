@@ -12,24 +12,11 @@
 }
 
 .hero-overlay h1 {
-  font-family: "Playfair Display", serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
-  /* thin look */
-  letter-spacing: 2px;
-  /* wide spacing like screenshot */
+  font-family: 'Clash Display', 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: #ffffff;
-}
-
-/* BLACK BOX */
-.black-box {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 40px 40px ;
-  position: relative;
-  z-index: 1;
+  text-shadow: 0 4px 32px rgba(0, 0, 0, 0.35);
 }
 
 /* OVERLAP IMAGE */

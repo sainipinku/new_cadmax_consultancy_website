@@ -55,6 +55,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.22",
     "baseline-browser-mapping": "^2.9.19",
+    "eslint-plugin-jest": "^25.7.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18"
   }

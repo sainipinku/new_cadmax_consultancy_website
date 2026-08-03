@@ -20,28 +20,44 @@ const Infrastructure = () => {
   style={{ backgroundImage: `url(${heroBG})` }}
 >
   {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/30"></div>
+  <div className="absolute inset-0 bg-black/40"></div>
 
   {/* Text */}
   <div className="relative z-10 text-center">
-    <h1 className="text-white font-['Playfair_Display'] font-bold tracking-[3px] text-4xl md:text-6xl">
+    {/* Eyebrow */}
+    <div className="flex items-center justify-center gap-4 mb-6">
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+      <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+        Our Service
+      </span>
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+    </div>
+    <h1 className="font-clash text-white font-semibold tracking-[3px] text-4xl md:text-6xl">
       INFRASTRUCTURE
     </h1>
   </div>
 </div>
 
 
- <section className="py-12  md:py-15 bg-white">
+ <section className="py-16 bg-[var(--background)]">
   <div className="max-w-full mx-auto px-4 md:px-6">
 
     {/* Heading */}
-   <div className="text-center mb-10 md:mb-15 overflow-hidden">
-  <h1 className="text-3xl md:text-5xl font-light tracking-[6px] text-gray-900 rtl-animate">
-    WHAT WE OFFER
-  </h1>
+   <div className="text-center mb-12 overflow-hidden">
+    {/* Eyebrow */}
+    <div className="flex items-center justify-center gap-4 mb-6">
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+      <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+        Our Services
+      </span>
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+    </div>
+    <h1 className="font-clash text-4xl md:text-6xl text-[var(--foreground)] rtl-animate">
+      WHAT WE <span className="italic text-[var(--accent)]">OFFER</span>
+    </h1>
 
-  <div className="w-24 h-[2px] bg-gray-900 mx-auto mt-4 rtl-animate-delay"></div>
-</div>
+    <div className="w-24 h-[2px] bg-[var(--accent)] mx-auto mt-4 rtl-animate-delay"></div>
+  </div>
 
 
     {/* Grid */}
@@ -56,7 +72,7 @@ const Infrastructure = () => {
       ].map((item, index) => (
         <div
           key={index}
-          className={`${item.span} relative rounded-xl overflow-hidden group cursor-pointer h-[260px] md:h-auto`}
+          className={`${item.span} relative rounded-xl overflow-hidden group cursor-pointer h-[260px] md:h-auto border border-[var(--border)]`}
         >
 
           {/* Image */}
@@ -67,18 +83,18 @@ const Infrastructure = () => {
           />
 
           {/* Overlay */}
-          <div className="absolute inset-0 bg-black/50 transition-opacity duration-500 group-hover:opacity-0"></div>
+          <div className="absolute inset-0 bg-[var(--foreground)]/60 transition-opacity duration-500 group-hover:opacity-0"></div>
 
           {/* Text */}
           <div className="absolute bottom-0 left-0 p-6 z-10">
 
             <div className="transition-all duration-500 group-hover:-translate-y-2">
 
-              <h2 className="text-white text-sm md:text-lg font-semibold tracking-wide mb-2 drop-shadow-lg">
+              <h2 className="font-clash text-white text-sm md:text-lg font-semibold tracking-wide mb-2 drop-shadow-lg">
                 {item.title}
               </h2>
 
-              <div className="w-12 h-[2px] bg-white transition-all duration-500 group-hover:w-20"></div>
+              <div className="w-12 h-[2px] bg-[var(--accent)] transition-all duration-500 group-hover:w-20"></div>
 
             </div>
 

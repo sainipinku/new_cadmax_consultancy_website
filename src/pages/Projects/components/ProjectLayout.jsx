@@ -132,26 +132,52 @@ const ProjectLayout = ({
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-black/30"></div>
-      </div>
+        <div className="absolute inset-0 bg-black/40"></div>
 
-      {/* Title Section - Below Hero */}
-      <div className="py-12 px-4 md:px-8 lg:px-16 bg-white">
-        <div className="max-w-6xl mx-auto text-center pt-8">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F2C59] mb-3">
+        {/* Hero Content Overlay */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+            <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+              {sector || "Projects"}
+            </span>
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+          </div>
+          <h1 className="font-clash text-white text-4xl md:text-6xl font-semibold leading-[1.05]">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-base md:text-lg font-medium text-gray-600">{subtitle}</p>
+            <p className="font-inter text-white/80 text-base md:text-lg mt-4">{subtitle}</p>
+          )}
+        </div>
+      </div>
+
+      {/* Title Section */}
+      <div className="py-12 px-4 md:px-8 lg:px-16 bg-[var(--background)]">
+        <div className="max-w-6xl mx-auto text-center pt-8">
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+            <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+              Overview
+            </span>
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+          </div>
+          <h1 className="font-clash text-3xl md:text-4xl lg:text-5xl text-[var(--foreground)] font-semibold mb-3">
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="font-inter text-base md:text-lg text-[var(--muted-foreground)]">{subtitle}</p>
           )}
         </div>
       </div>
 
       {/* Description - Optional (only shows if provided) */}
       {description && (
-        <div className="py-2 px-4 md:px-8 lg:px-16 bg-gray-50 border-y border-gray-100">
+        <div className="py-2 px-4 md:px-8 lg:px-16 bg-[var(--secondary)] border-y border-[var(--border)]">
           <div className="max-w-5xl mx-auto">
-            <p className="text-base text-gray-700 leading-relaxed text-center">
+            <p className="font-inter text-base text-[var(--muted-foreground)] leading-relaxed text-center">
               {description}
             </p>
           </div>
@@ -160,14 +186,14 @@ const ProjectLayout = ({
 
       {/* Projects Grid Section */}
       {showProjectList && (
-        <div className="py-4 px-4 md:px-8 lg:px-16 pt-2">
+        <div className="py-4 px-4 md:px-8 lg:px-16 pt-2 bg-[var(--background)]">
           <div className="max-w-7xl mx-auto">
             
 
             {loading ? (
               <div className="text-center py-12">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#0F2C59] border-t-transparent"></div>
-                <p className="mt-4 text-gray-600">Loading projects...</p>
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[var(--accent)] border-t-transparent"></div>
+                <p className="mt-4 font-inter text-[var(--muted-foreground)]">Loading projects...</p>
               </div>
             ) : (
               <>
@@ -182,9 +208,9 @@ const ProjectLayout = ({
                           style={{ animationDelay: `${index * 100}ms` }}
                           onClick={() => setSelectedProject(project)}
                         >
-                          <div className="relative overflow-hidden group">
+                          <div className="relative overflow-hidden group rounded-2xl border border-[var(--border)] bg-[var(--card)] shadow-elevated hover:border-[var(--accent)] transition-all duration-300">
                             {/* Project Image */}
-                            <div className="relative h-64">
+                            <div className="relative h-64 overflow-hidden">
                               <img
                                 src={project.image ? resolveFileUrl(project.image?.url || project.image) : noImagePlaceholder}
                                 alt={project.title}
@@ -195,21 +221,21 @@ const ProjectLayout = ({
                               />
                               {/* Status Badge on Image */}
                               <div className="absolute top-4 left-4">
-                                <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-gray-700 border border-gray-200">
+                                <span className="bg-[var(--card)]/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-general font-semibold text-[var(--foreground)] border border-[var(--border)]">
                                   PROJECT
                                 </span>
                               </div>
                             </div>
                             
                             {/* Content Below Image */}
-                            <div className="p-4 bg-white">
+                            <div className="p-4 bg-[var(--card)]">
                               {/* Title and Location */}
-                              <h3 className="text-gray-900 text-lg font-bold mb-2">
+                              <h3 className="font-clash text-[var(--foreground)] text-lg font-semibold mb-2">
                                 {project.title}
                               </h3>
                               
                               {project.location && (
-                                <div className="flex items-center text-gray-600 text-sm">
+                                <div className="flex items-center font-inter text-[var(--muted-foreground)] text-sm">
                                  
                                   {project.location}
                                 </div>
@@ -226,32 +252,34 @@ const ProjectLayout = ({
                 {/* PROJECT LIST SECTION */}
                 {listProjects.length > 0 && (
                   <div>
-                    <h2 className="text-xl md:text-2xl font-bold text-[#0F2C59] mb-6 text-center">Project List</h2>
+                    <h2 className="font-clash text-xl md:text-2xl font-semibold text-[var(--foreground)] mb-6 text-center">
+                      Project <span className="italic text-[var(--accent)]">List</span>
+                    </h2>
                     <div className="overflow-x-auto animate-fadeIn">
-                      <table className="w-full border-collapse bg-white rounded-xl shadow-lg overflow-hidden">
+                      <table className="w-full border-collapse bg-[var(--card)] rounded-2xl shadow-lg overflow-hidden border border-[var(--border)]">
                         <thead>
-                          <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-                            <th className="text-left py-4 px-6 font-semibold">No.</th>
-                            <th className="text-left py-4 px-6 font-semibold">Project Name</th>
-                            <th className="text-left py-4 px-6 font-semibold">Location</th>
-                            <th className="text-left py-4 px-6 font-semibold">Area</th>
-                            <th className="text-left py-4 px-6 font-semibold">File</th>
+                          <tr className="bg-[var(--foreground)] text-[var(--card)]">
+                            <th className="text-left py-4 px-6 font-general font-semibold">No.</th>
+                            <th className="text-left py-4 px-6 font-general font-semibold">Project Name</th>
+                            <th className="text-left py-4 px-6 font-general font-semibold">Location</th>
+                            <th className="text-left py-4 px-6 font-general font-semibold">Area</th>
+                            <th className="text-left py-4 px-6 font-general font-semibold">File</th>
                           </tr>
                         </thead>
                         <tbody>
                           {listProjects.map((project, index) => (
-                            <tr key={project._id} className="border-b border-gray-100 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-200 animate-slideInLeft" style={{ animationDelay: `${index * 50}ms` }}>
-                              <td className="py-4 px-6 text-gray-600 font-medium">{index + 1}.</td>
+                            <tr key={project._id} className="border-b border-[var(--border)] hover:bg-[var(--secondary)] transition-all duration-200 animate-slideInLeft" style={{ animationDelay: `${index * 50}ms` }}>
+                              <td className="py-4 px-6 font-inter text-[var(--muted-foreground)] font-medium">{index + 1}.</td>
                               <td className="py-4 px-6">
                                 <span
-                                  className="text-blue-600 hover:text-blue-800 cursor-pointer font-medium hover:underline transition-all duration-200"
+                                  className="font-inter text-[var(--accent)] hover:text-[var(--foreground)] cursor-pointer font-medium hover:underline transition-all duration-200"
                                   onClick={() => setSelectedProject(project)}
                                 >
                                   {project.title}
                                 </span>
                               </td>
-                              <td className="py-4 px-6 text-gray-600">{project.location || "—"}</td>
-                              <td className="py-4 px-6 text-gray-600">{project.area || "—"}</td>
+                              <td className="py-4 px-6 font-inter text-[var(--muted-foreground)]">{project.location || "—"}</td>
+                              <td className="py-4 px-6 font-inter text-[var(--muted-foreground)]">{project.area || "—"}</td>
                               <td className="py-4 px-6">
                                 {(project.file || project.image) ? (
                                   <button
@@ -262,7 +290,7 @@ const ProjectLayout = ({
                                         project.fileName || project.title || 'download'
                                       );
                                     }}
-                                    className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 transform hover:scale-105 shadow-md"
+                                    className="inline-flex items-center px-4 py-2 bg-[var(--foreground)] text-[var(--card)] rounded-lg hover:bg-[var(--accent)] hover:text-[var(--foreground)] transition-all duration-200 transform hover:scale-105 shadow-md font-general font-semibold"
                                   >
                                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -270,7 +298,7 @@ const ProjectLayout = ({
                                     DOWNLOAD
                                   </button>
                                 ) : (
-                                  <span className="text-gray-400 font-medium">—</span>
+                                  <span className="text-[var(--muted-foreground)] font-medium">—</span>
                                 )}
                               </td>
                             </tr>
@@ -285,7 +313,7 @@ const ProjectLayout = ({
                 {cardProjects.length === 0 && listProjects.length === 0 && (
                   <div className="py-12">
                     {noProjectContent || (
-                      <p className="text-xl text-gray-600 text-center">No projects found.</p>
+                      <p className="font-inter text-xl text-[var(--muted-foreground)] text-center">No projects found.</p>
                     )}
                   </div>
                 )}
@@ -302,10 +330,10 @@ const ProjectLayout = ({
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl transform transition-all duration-300 scale-100 animate-fadeInUp"
+            className="bg-[var(--card)] rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl transform transition-all duration-300 scale-100 animate-fadeInUp border border-[var(--border)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative h-80 md:h-96 bg-gradient-to-br from-gray-100 to-gray-200">
+            <div className="relative h-80 md:h-96 bg-gradient-to-br from-[var(--secondary)] to-[var(--background)]">
               <img
                 src={selectedProject.image ? resolveFileUrl(selectedProject.image?.url || selectedProject.image) : noImagePlaceholderLarge}
                 alt={selectedProject.title}
@@ -317,10 +345,10 @@ const ProjectLayout = ({
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
+                className="absolute top-4 right-4 bg-[var(--card)]/90 backdrop-blur-sm rounded-full p-3 shadow-xl hover:bg-[var(--card)] hover:scale-110 transition-all duration-200"
               >
                 <svg
-                  className="w-6 h-6 text-gray-800"
+                  className="w-6 h-6 text-[var(--foreground)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -334,13 +362,13 @@ const ProjectLayout = ({
                 </svg>
               </button>
             </div>
-            <div className="p-8 bg-gradient-to-br from-white to-gray-50 overflow-y-auto">
-              <h3 className="text-3xl font-bold text-[#0F2C59] mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <div className="p-8 bg-[var(--card)] overflow-y-auto">
+              <h3 className="font-clash text-3xl font-semibold text-[var(--foreground)] mb-4">
                 {selectedProject.title}
               </h3>
               {selectedProject.location && (
-                <div className="flex items-center text-gray-600 mb-4 bg-blue-50 px-4 py-2 rounded-lg">
-                  <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center font-inter text-[var(--muted-foreground)] mb-4 bg-[var(--secondary)] px-4 py-2 rounded-lg">
+                  <svg className="w-5 h-5 mr-2 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
@@ -348,8 +376,8 @@ const ProjectLayout = ({
                 </div>
               )}
               {selectedProject.description && (
-                <div className="mt-6 p-4 bg-gray-50 rounded-lg border-l-4 border-blue-500">
-                  <p className="text-gray-700 leading-relaxed">
+                <div className="mt-6 p-4 bg-[var(--secondary)] rounded-lg border-l-4 border-[var(--accent)]">
+                  <p className="font-inter text-[var(--muted-foreground)] leading-relaxed">
                     {selectedProject.description}
                   </p>
                 </div>
