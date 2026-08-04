@@ -40,12 +40,25 @@ const Project = () => {
         className="project-hero"
         style={{ backgroundImage: `url(${heroBG})` }}
       >
-        <h1>PROJECT</h1>
+        <div className="text-center">
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+            <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+              Our Work
+            </span>
+            <div className="w-8 h-[1px] bg-[var(--accent)]" />
+          </div>
+        
+        </div>
       </div>
 
       <div className="project-wrapper">
+        <div className="project-wrapper-inner">
        
-        <h2 className="project-title uppercase">Projects That Inspire</h2>
+        <h2 className="project-title uppercase">
+          Projects That <span className="italic text-[var(--accent)]">Inspire</span>
+        </h2>
 
        
         <div className="project-tabs">
@@ -105,6 +118,7 @@ const Project = () => {
             LOAD MORE
           </button>
         )}
+        </div>
       </div>
 
       <Footer />

@@ -16,7 +16,6 @@ import img7 from "../../assets/Images/urbanmax/dipendra-ji-goner.jpg";
 
 
 
-
 export const InteriorDesign = () => {
   return (
    <>
@@ -26,81 +25,100 @@ export const InteriorDesign = () => {
   style={{ backgroundImage: `url(${heroBG})` }}
 >
   {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/10"></div>
+  <div className="absolute inset-0 bg-black/40"></div>
 
   {/* Text */}
   <div className="relative z-10 text-center">
-    <h1 className="text-white font-['Playfair_Display'] font-bold tracking-[3px] text-4xl md:text-6xl">
+    {/* Eyebrow */}
+    <div className="flex items-center justify-center gap-4 mb-6">
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+      <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+        Our Service
+      </span>
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+    </div>
+    <h1 className="font-clash text-white font-semibold tracking-[3px] text-4xl md:text-6xl">
       INTERIOR DESIGN
     </h1>
   </div>
 </div>
-<div className="max-w-7xl mx-auto px-6 py-16">
- <h3 className="
-  text-black
-  uppercase
-  text-2xl sm:text-3xl md:text-4xl lg:text-5xl
-  font-extrabold
-  tracking-wide
-  text-center
-  px-4
-  pb-4 md:pb-5
-  font-['Playfair_Display']
-  drop-shadow-lg
-  leading-tight
-">
-  Inspired Interiors
-</h3>
+<div className="w-full bg-[var(--background)]">
+  <div className="w-full max-w-7xl mx-auto px-6 py-16">
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {/* Eyebrow */}
+    <div className="flex items-center justify-center gap-4 mb-6">
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+      <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+        Our Portfolio
+      </span>
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+    </div>
 
-    {/* Card 1 */}
-    <Link to="/cadmax-consultancy" className="relative group overflow-hidden h-[400px] block rounded-xl">
-      <img
-        src={img5}
-        alt="service"
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/0 transition duration-500"></div>
-      <div className="absolute inset-0 flex items-center justify-center">
-        
-      </div>
-    </Link>
+    <h3 className="
+      font-clash
+      text-[var(--foreground)]
+      uppercase
+      text-2xl sm:text-3xl md:text-4xl lg:text-5xl
+      font-semibold
+      tracking-wide
+      text-center
+      px-4
+      pb-4 md:pb-5
+      leading-tight
+    ">
+      Inspired <span className="italic text-[var(--accent)]">Interiors</span>
+    </h3>
 
-    {/* Card 2 */}
-    <Link to="/cadmax-projects" className="relative group overflow-hidden h-[400px] block rounded-xl">
-      <img
-        src={img6}
-        alt="service"
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/0 transition duration-500"></div>
-      <div className="absolute inset-0 flex items-center justify-center">
-        {/* <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
-          CADMAX PROJECTS
-        </h3> */}
-      </div>
-    </Link>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-    {/* Card 3 */}
-    <Link to="/dipendra-ji-goner-site" className="relative group overflow-hidden h-[400px] block rounded-xl">
-      <img
-        src={img7}
-        alt="service"
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/0 transition duration-500"></div>
-      <div className="absolute inset-0 flex items-center justify-center">
-        {/* <h3 className="text-white text-xl font-extrabold tracking-wide text-center px-4 drop-shadow-lg">
-          DIPENDRA JI GONER SITE
-        </h3> */}
-      </div>
-    </Link>
+      {/* Card 1 */}
+      <Link to="/cadmax-consultancy" className="relative group overflow-hidden h-[400px] block rounded-2xl border border-[var(--border)] shadow-elevated">
+        <img
+          src={img5}
+          alt="service"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-[var(--foreground)]/50 group-hover:bg-[var(--foreground)]/0 transition duration-500"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h3 className="font-clash text-white text-xl font-semibold tracking-wide text-center px-4 drop-shadow-lg">
+            CADMAX CONSULTANCY
+          </h3>
+        </div>
+      </Link>
 
+      {/* Card 2 */}
+      <Link to="/cadmax-projects" className="relative group overflow-hidden h-[400px] block rounded-2xl border border-[var(--border)] shadow-elevated">
+        <img
+          src={img6}
+          alt="service"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-[var(--foreground)]/50 group-hover:bg-[var(--foreground)]/0 transition duration-500"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h3 className="font-clash text-white text-xl font-semibold tracking-wide text-center px-4 drop-shadow-lg">
+            CADMAX PROJECTS
+          </h3>
+        </div>
+      </Link>
+
+      {/* Card 3 */}
+      <Link to="/dipendra-ji-goner-site" className="relative group overflow-hidden h-[400px] block rounded-2xl border border-[var(--border)] shadow-elevated">
+        <img
+          src={img7}
+          alt="service"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-[var(--foreground)]/50 group-hover:bg-[var(--foreground)]/0 transition duration-500"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h3 className="font-clash text-white text-xl font-semibold tracking-wide text-center px-4 drop-shadow-lg">
+            DIPENDRA JI GONER SITE
+          </h3>
+        </div>
+      </Link>
+
+    </div>
   </div>
 </div>
-
-
 
 
       {/* <div className='py-10'>
@@ -115,11 +133,12 @@ export const InteriorDesign = () => {
   
 
 
+
       ]}
     />
 </div> */}
     
-   
+    
    <Footer/>
    
    </>

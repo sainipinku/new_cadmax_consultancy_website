@@ -26,109 +26,49 @@ const Architecture = () => {
   style={{ backgroundImage: `url(${heroBG})` }}
 >
   {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/10"></div>
+  <div className="absolute inset-0 bg-black/40"></div>
 
   {/* Text */}
   <div className="relative z-10 text-center">
-    <h1 className="text-white font-['Playfair_Display'] font-bold tracking-[3px] text-4xl md:text-6xl">
+    {/* Eyebrow */}
+    <div className="flex items-center justify-center gap-4 mb-6">
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+      <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+        Our Service
+      </span>
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+    </div>
+    <h1 className="font-clash text-white font-semibold tracking-[3px] text-4xl md:text-6xl">
       ARCHITECTURAL
     </h1>
   </div>
 </div>
 
 
-    {/* <div className="max-w-6xl mx-auto px-4 py-14">
-     
-      <div className="mb-10 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-          Our Architectural Projects
-        </h2>
-        <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
-          A glimpse of our premium residential and commercial architecture
-          designs crafted with precision and creativity.
-        </p>
-      </div>
-
-     
-      <div className="grid grid-rows-2 gap-4">
-
-        
-        <div className="relative w-full h-[260px] md:h-[360px] rounded-2xl overflow-hidden shadow-lg group">
-          <img
-            src={img1}
-            alt="Modern Villa"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-black/30"></div>
-
-          
-          <div className="absolute bottom-5 left-5 text-white">
-            <h3 className="text-xl md:text-2xl font-semibold">
-              URBAN PLANNING 
-            </h3>
-            
-          </div>
-        </div>
-
-       
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-          
-          <div className="relative w-full h-[220px] md:h-[280px] rounded-2xl overflow-hidden shadow-lg group">
-            <img
-              src={img2}
-              alt="Commercial Building"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-black/30"></div>
-
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-lg md:text-xl font-semibold">
-               ARCHITECHURAL
-              </h3>
-              
-            </div>
-          </div>
-
-         
-          <div className="relative w-full h-[220px] md:h-[280px] rounded-2xl overflow-hidden shadow-lg group">
-            <img
-              src={img3}
-              alt="Interior Design"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-black/30"></div>
-
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-lg md:text-xl font-semibold">
-                INTERIOR
-              </h3>
-              
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div> */}
-
-    
-   <div className="relative py-10 bg-gradient-to-b from-white to-gray-100">
+   <div className="relative py-16 bg-[var(--background)]">
 
   <div className="max-w-6xl mx-auto px-6 text-center">
 
     {/* Heading */}
-    <h2 className="text-3xl md:text-5xl font-light tracking-wide text-gray-800 leading-snug">
+    <div className="flex items-center justify-center gap-4 mb-6">
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+      <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+        Our Philosophy
+      </span>
+      <div className="w-8 h-[1px] bg-[var(--accent)]" />
+    </div>
+    <h2 className="font-clash text-3xl md:text-5xl text-[var(--foreground)] leading-snug">
       An architect who transforms the old into 
-      <span className="block font-semibold text-gray-900 mt-2">
+      <span className="block italic text-[var(--accent)] mt-2">
         timeless new designs
       </span>
     </h2>
 
     {/* Decorative Line */}
-    <div className="w-24 h-[2px] bg-gray-900 mx-auto mt-6 mb-12"></div>
+    <div className="w-24 h-[2px] bg-[var(--accent)] mx-auto mt-6 mb-12"></div>
 
     {/* Image Card */}
-    <div className="relative group overflow-hidden rounded-2xl shadow-2xl">
+    <div className="relative group overflow-hidden rounded-2xl shadow-elevated border border-[var(--border)]">
 
       <img 
         src={img4} 
@@ -137,25 +77,34 @@ const Architecture = () => {
       />
 
       {/* Soft Overlay */}
-      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition duration-500"></div>
+      <div className="absolute inset-0 bg-[var(--foreground)]/40 group-hover:bg-[var(--foreground)]/0 transition duration-500"></div>
 
     </div>
 
   </div>
 
 </div>
-<section className="relative py-24 ">
+<section className="relative py-24 bg-[var(--secondary)]">
 
   <div className="max-w-7xl mx-auto px-6">
 
     {/* Header */}
     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
 
-      <h1 className="text-3xl md:text-5xl font-light tracking-wide text-gray-900">
-        WHAT WE OFFER
-      </h1>
+      <div>
+        {/* Eyebrow */}
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-8 h-[1px] bg-[var(--accent)]" />
+          <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+            Our Services
+          </span>
+        </div>
+        <h2 className="font-clash text-4xl md:text-6xl text-[var(--foreground)] leading-[1.05]">
+          WHAT WE <span className="italic text-[var(--accent)]">OFFER</span>
+        </h2>
+      </div>
 
-      <p className="mt-6 md:mt-0 text-sm md:text-base tracking-[3px] text-gray-500 uppercase">
+      <p className="mt-6 md:mt-0 font-general text-sm md:text-base tracking-[3px] text-[var(--muted-foreground)] uppercase">
         Residential • Commercial • Industrial Planning
       </p>
 
@@ -165,7 +114,7 @@ const Architecture = () => {
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[250px]">
 
       {/* Large Left Image */}
-      <div className="relative md:col-span-2 md:row-span-2 group overflow-hidden rounded-2xl">
+      <div className="relative md:col-span-2 md:row-span-2 group overflow-hidden rounded-2xl border border-[var(--border)]">
 
         <img
           src={img8}
@@ -174,18 +123,19 @@ const Architecture = () => {
         />
 
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition duration-500"></div>
+        <div className="absolute inset-0 bg-[var(--foreground)]/40 group-hover:bg-[var(--foreground)]/0 transition duration-500"></div>
 
         {/* Text */}
         <div className="absolute bottom-6 left-6 z-10">
-          <h3 className="text-2xl md:text-3xl text-white font-light tracking-wide">
+          <div className="w-8 h-[1px] bg-[var(--accent)] mb-3" />
+          <h3 className="font-clash text-2xl md:text-3xl text-white font-semibold tracking-wide">
             Cadmax
           </h3>
         </div>
       </div>
 
       {/* Top Right */}
-      <div className="relative group overflow-hidden rounded-2xl">
+      <div className="relative group overflow-hidden rounded-2xl border border-[var(--border)]">
 
         <img
           src={img6}
@@ -193,17 +143,18 @@ const Architecture = () => {
           className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
         />
 
-        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition duration-500"></div>
+        <div className="absolute inset-0 bg-[var(--foreground)]/40 group-hover:bg-[var(--foreground)]/0 transition duration-500"></div>
 
         <div className="absolute bottom-6 left-6 z-10">
-          <h3 className="text-lg md:text-xl text-white font-light tracking-wide">
+          <div className="w-8 h-[1px] bg-[var(--accent)] mb-3" />
+          <h3 className="font-clash text-lg md:text-xl text-white font-semibold tracking-wide">
             Turnkey Construction
           </h3>
         </div>
       </div>
 
       {/* Bottom Right */}
-      <div className="relative group overflow-hidden rounded-2xl">
+      <div className="relative group overflow-hidden rounded-2xl border border-[var(--border)]">
 
         <img
           src={img7}
@@ -211,17 +162,18 @@ const Architecture = () => {
           className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
         />
 
-        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition duration-500"></div>
+        <div className="absolute inset-0 bg-[var(--foreground)]/40 group-hover:bg-[var(--foreground)]/0 transition duration-500"></div>
 
         <div className="absolute bottom-6 left-6 z-10">
-          <h3 className="text-lg md:text-xl text-white font-light tracking-wide">
+          <div className="w-8 h-[1px] bg-[var(--accent)] mb-3" />
+          <h3 className="font-clash text-lg md:text-xl text-white font-semibold tracking-wide">
             Renovation
           </h3>
         </div>
       </div>
 
       {/* Bottom Wide */}
-      <div className="relative md:col-span-2 group overflow-hidden rounded-2xl">
+      <div className="relative md:col-span-2 group overflow-hidden rounded-2xl border border-[var(--border)]">
 
         <img
           src={img5}
@@ -229,10 +181,11 @@ const Architecture = () => {
           className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
         />
 
-        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition duration-500"></div>
+        <div className="absolute inset-0 bg-[var(--foreground)]/40 group-hover:bg-[var(--foreground)]/0 transition duration-500"></div>
 
         <div className="absolute bottom-6 left-6 z-10">
-          <h3 className="text-xl md:text-2xl text-white font-light tracking-wide">
+          <div className="w-8 h-[1px] bg-[var(--accent)] mb-3" />
+          <h3 className="font-clash text-xl md:text-2xl text-white font-semibold tracking-wide">
             3D Elevation
           </h3>
         </div>
@@ -243,8 +196,6 @@ const Architecture = () => {
   </div>
 
 </section>
-
-
 
 
 
