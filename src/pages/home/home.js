@@ -2,7 +2,8 @@ import React from 'react';
 import Navbar from '../../components/Layout/Header/Navbar';
 import HeroSection from './components/HeroSection';
 import CompanyShowcase from './components/company';
-import EAIService from './components/EAIService';
+import ServiceSlider from './components/ServiceSlider';
+// import EAIService from './components/EAIService';
 import AboutSection from './components/AboutSection';
 import ProjectsShowcase from './components/ProjectsShowcase';
 import AmenitiesSection from './components/AmenitiesSection';
@@ -13,6 +14,7 @@ import StatsSection from './components/StatsSection';
 import ContactSection from './components/ContactSection';
 import Footer from '../../components/Layout/Footer/Footer';
 import ScrollProgress from '../../components/ScrollProgress';
+
 import { useLenis } from '../../hooks/useLenis';
 
 function Home() {
@@ -25,7 +27,9 @@ function Home() {
         <Navbar />
       <HeroSection />
       <CompanyShowcase />
-      <EAIService />
+      <ServiceSlider />
+      
+      {/* <EAIService /> */}
       <AboutSection />
       <StatsSection />
         <AmenitiesSection />
