@@ -61,44 +61,31 @@ const AboutSlider = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="text-center mb-4"
+        className="text-center mb-12"
       >
-        {/* Eyebrow */}
-        <div className="flex items-center justify-center gap-4 mb-6">
-          <div className="w-8 h-[1px] bg-[var(--accent)]" />
-          <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
-            Our Reach
-          </span>
-          <div className="w-8 h-[1px] bg-[var(--accent)]" />
-        </div>
-        <h2 className="font-clash text-4xl md:text-5xl lg:text-6xl text-[var(--foreground)]">
+        <p className="text-xs text-left px-5 uppercase tracking-[0.35em] text-accent mb-4">
+          Our Global Presence
+        </p>
+        <h2 className="font-display text-4xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-6xl">
           Where We <span className="italic text-[var(--accent)]">Build & Design</span>
         </h2>
+        <p className="mt-5 text-sm leading-relaxed text-muted-foreground max-w-3xl mx-auto">
+          From concept to construction, Cadmax Consultancy serves multiple states and cities
+          with expert architectural planning and infrastructure solutions—shaping
+          sustainable, future-ready environments wherever we build.
+        </p>
       </motion.div>
 
-      {/* Subtitle line */}
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-        viewport={{ once: true }}
-        className="text-center max-w-4xl mx-auto text-base md:text-lg text-[var(--muted-foreground)] font-inter mb-14 leading-relaxed"
-      >
-        From concept to construction, Cadmax Consultancy serves multiple states and cities
-        with expert architectural planning and infrastructure solutions—shaping
-        sustainable, future-ready environments wherever we build.
-      </motion.p>
-
-      <div className="relative flex items-center">
+      <div className="relative">
         {/* Images */}
         <div
           ref={sliderRef}
-          className="flex gap-8 overflow-x-scroll scroll-smooth scrollbar-hide w-full"
+          className="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide w-full pb-6"
         >
           {loopImages.map((img, index) => (
             <motion.div
               key={index}
-              className="min-w-[220px] md:min-w-[320px] xl:min-w-[380px] 2xl:min-w-[420px] flex-shrink-0"
+              className="min-w-[260px] md:min-w-[300px] lg:min-w-[340px] flex-shrink-0 group"
               initial={{ opacity: 0, y: 30, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
@@ -107,24 +94,23 @@ const AboutSlider = () => {
                 ease: "easeOut",
               }}
               viewport={{ once: false }}
-              whileHover={{ scale: 1.02, y: -4 }}
             >
-              <motion.img
-                src={img.url}
-                alt={img.title}
-                className="w-full h-[260px] object-cover rounded-md shadow-lg border border-[var(--border)]"
-                whileHover={{ scale: 1.04 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-              />
-
-              <motion.h4
-                className="mt-4 text-xl md:text-2xl font-clash font-semibold tracking-wide text-[var(--foreground)]"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                {img.title}
-              </motion.h4>
+              <div className="relative overflow-hidden rounded-2xl border border-border/70 surface-3d transition-all duration-500 hover:-translate-y-2 hover:surface-3d-lift">
+                <div className="overflow-hidden bg-secondary/50">
+                  <img
+                    src={img.url}
+                    alt={img.title}
+                    loading="lazy"
+                    className="w-full h-72 object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4 bg-[var(--card)]">
+                  <h4 className="text-lg font-bold uppercase tracking-[0.15em] text-foreground">
+                    {img.title}
+                  </h4>
+                  <div className="h-[2px] bg-accent mt-2 w-0 transition-all duration-500 group-hover:w-16" />
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
