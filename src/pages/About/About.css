@@ -20,6 +20,41 @@
 }
 
 /* ================================
+        HERO — GLASSMORPHISM
+================================ */
+/* Dark veil overlay over hero image for text readability */
+/* .bg-hero-veil {
+  background: linear-gradient(
+    to right,
+    rgba(21, 21, 21, 0.72) 0%,
+    rgba(21, 21, 21, 0.45) 45%,
+    rgba(21, 21, 21, 0.15) 100%
+  );
+} */
+
+/* Subtle white overlay on top of hero image */
+/* .bg-hero-white-overlay {
+  background: rgba(255, 255, 255, 0.879);
+} */
+
+/* 3D surface card effect */
+/* .surface-3d {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateZ(0);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.surface-3d:hover {
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+} */ */
+
+/* ================================
         COMPANY OVERVIEW / STORY
 ================================ */
 .about-story-section {
@@ -369,6 +404,190 @@
   align-items: center;
 }
 
+/* ============================================
+   GLASSMORPHISM CORE VALUES — 3D + Framer Motion
+   ============================================ */
+.glass-values-section {
+  background: var(--secondary);
+  position: relative;
+}
+
+/* Ambient gradient orbs */
+.glass-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-orb-1 {
+  width: 420px;
+  height: 420px;
+  top: -80px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(202, 170, 121, 0.35), transparent 70%);
+}
+
+.glass-orb-2 {
+  width: 500px;
+  height: 500px;
+  bottom: -120px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(202, 170, 121, 0.28), transparent 70%);
+}
+
+.glass-orb-3 {
+  width: 300px;
+  height: 300px;
+  top: 40%;
+  left: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent 70%);
+}
+
+/* Subtle grid overlay */
+.glass-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(21, 21, 21, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 21, 21, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grid */
+.glass-values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Glass Card */
+.glass-value-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 22px;
+  padding: 40px 28px 36px;
+  min-height: 340px;
+  overflow: hidden;
+  box-shadow:
+    0 8px 32px rgba(31, 38, 135, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.glass-value-card:hover {
+  box-shadow:
+    0 20px 60px rgba(31, 38, 135, 0.15),
+    0 0 50px rgba(202, 170, 121, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-color: rgba(202, 170, 121, 0.55);
+}
+
+/* Glow orb inside card */
+.glass-value-orb {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(202, 170, 121, 0.3), transparent 70%);
+  pointer-events: none;
+  transition: transform 0.5s ease;
+}
+
+.glass-value-card:hover .glass-value-orb {
+  transform: scale(1.4);
+}
+
+/* Icon wrapper */
+.glass-value-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 4px 20px rgba(202, 170, 121, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  margin-bottom: 22px;
+  transform-style: preserve-3d;
+}
+
+.glass-value-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(202, 170, 121, 0.25));
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.glass-value-card:hover .glass-value-icon {
+  filter: drop-shadow(0 4px 12px rgba(202, 170, 121, 0.45));
+  transform: scale(1.08);
+}
+
+/* Title */
+.glass-value-card h5 {
+  font-family: 'General Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--foreground);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  transform-style: preserve-3d;
+}
+
+/* Accent line */
+.glass-value-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), rgba(202, 170, 121, 0.1));
+  border-radius: 2px;
+  margin-bottom: 18px;
+  transform-origin: left;
+}
+
+/* Description */
+.glass-value-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  text-transform: none;
+  margin: 0;
+  transform-style: preserve-3d;
+}
+
+/* Index number watermark */
+.glass-value-index {
+  position: absolute;
+  bottom: 10px;
+  right: 18px;
+  font-family: 'Clash Display', 'Cormorant Garamond', serif;
+  font-size: 44px;
+  font-weight: 700;
+  color: rgba(21, 21, 21, 0.07);
+  pointer-events: none;
+  line-height: 1;
+}
+
 .values-left h2 {
   font-family: 'Clash Display', 'Cormorant Garamond', serif;
   font-size: 30px;
@@ -484,6 +703,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .glass-values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .cap-item h3 {
     font-size: 13px;
   }
@@ -520,6 +743,16 @@
 
   .values-grid {
     grid-template-columns: 1fr;
+  }
+
+  .glass-values-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .glass-value-card {
+    min-height: auto;
+    padding: 32px 22px 30px;
   }
 
   .value-texts {

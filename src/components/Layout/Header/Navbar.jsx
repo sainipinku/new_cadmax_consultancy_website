@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [projectsDropdown, setProjectsDropdown] = useState(false);
   const [surveyingDropdown, setSurveyingDropdown] = useState(false);
@@ -290,7 +293,7 @@ const Navbar = () => {
       flex items-center justify-between px-4 md:px-6
       transition-all duration-500 ease-in-out
       ${isVisible ? 'translate-y-0' : '-translate-y-full'}
-      navbar-enter
+      ${isHome ? 'navbar-enter' : ''}
       ${headerBgClass}
     `}>
 
@@ -440,7 +443,7 @@ const Navbar = () => {
       {/* Bottom line - hides on scroll or when dropdown open */}
       <div className="fixed top-[77px] left-0 w-full flex justify-center z-50 pointer-events-none">
         <div
-          className={`nav-line-enter h-[0.5px] ${textWhite ? 'bg-white' : 'bg-[var(--border)]'} w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${hasScrolled || projectsDropdown ? 'opacity-0' : 'opacity-100'
+          className={`${isHome ? 'nav-line-enter' : ''} h-[0.5px] ${textWhite ? 'bg-white' : 'bg-[var(--border)]'} w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${hasScrolled || projectsDropdown ? 'opacity-0' : 'opacity-100'
             }`}
         />
       </div>

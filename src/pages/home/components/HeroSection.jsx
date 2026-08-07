@@ -51,21 +51,28 @@ const HeroSection = () => {
       <div className="relative z-20 h-full w-full">
 
         {/* BIG TYPOGRAPHY */}
-        <div className="absolute bottom-8 left-0 w-full px-[3vw]">
-          <h1 
-            className="font-garamond text-white uppercase"
-            style={{
-              fontSize: 'clamp(80px, 16vw, 310px)',
-              fontWeight: '500',
-              lineHeight: '0.75',
-              letterSpacing: '-8px',
-              textShadow: '0 5px 40px rgba(0, 0, 0, 0.35)'
-            }}
-            aria-label="CADMAX"
-          >
-            {charReveal("CADMAX")}
-          </h1>
-        </div>
+        <div className="absolute bottom-8 left-0 w-full px-[1vw]">
+  <h1
+    className="
+      w-full
+      text-left
+      font-garamond
+      uppercase
+    text-[clamp(50px,16vw,200px)]
+      font-medium
+      leading-[0.78]
+      tracking-[0.02em]
+      text-transparent
+      [-webkit-text-stroke:2px_white]
+      drop-shadow-[0_5px_40px_rgba(0,0,0,0.35)]
+      select-none
+      pointer-events-none
+    "
+    aria-label="CADMAX"
+  >
+    {charReveal("CADMAX")}
+  </h1>
+</div>
 
         {/* Right Caption */}
         <div 

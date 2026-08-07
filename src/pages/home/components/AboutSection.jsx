@@ -71,14 +71,14 @@ const AboutSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
             {/* Floating card */}
-            <div className="absolute -bottom-6 -right-6 bg-[var(--card)] rounded-2xl p-6 shadow-elevated hidden md:block border border-[var(--border)]">
+            <div className="absolute -bottom-6 -right-6   bg-[var(--card-foreground)] rounded-2xl p-6 shadow-elevated hidden md:block border border-[var(--border)]">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-[var(--accent)] flex items-center justify-center">
                   <span className="text-[var(--card-foreground)] font-clash text-lg font-bold">26+</span>
                 </div>
                 <div>
-                  <p className="text-sm font-general font-semibold text-[var(--card-foreground)]">Years of</p>
-                  <p className="text-sm font-general text-[var(--muted-foreground)]">Excellence</p>
+                  <p className="text-sm font-general font-semibold text-[var(--card)] ">Years of</p>
+                  <p className="text-sm font-general text-[var(--card)]">Excellence</p>
                 </div>
               </div>
             </div>
@@ -91,22 +91,14 @@ const AboutSection = () => {
               <span className="text-[var(--muted-foreground)]">Maintains Accuracy</span>
             </h2>
 
-            <div className="space-y-4 text-[var(--muted-foreground)] font-inter leading-relaxed">
+            <div className="space-y-2 text-[var(--muted-foreground)] font-inter leading-relaxed">
               <p>
-                We build trust before we build structures. That's the CadMax difference. 
-                Customers choose CadMax because we turn complex ideas into precise, 
-                buildable designs on time, every time.
+                Established in 2000, Cadmax Consultancy has built a legacy of over 25 years in engineering, planning, and design consultancy. What began with specialized services in MEP Engineering Design, Engineering Surveys, Detailed Project Reports (DPRs), and Urban Planning has evolved into a multidisciplinary practice offering Architecture and Infrastructure Development solutions.
               </p>
               <p>
-                CadMax is where accuracy meets creativity and is trusted by clients who 
-                value quality, innovation and flawless execution. We don't just design 
-                spaces, CadMax designs solutions.
+               Recognized as a leading urban planning consultancy in Rajasthan, Cadmax combines technical expertise, innovation, and precision to deliver integrated solutions for projects of every scale. Today, we proudly serve clients across India and internationally, providing sustainable, future-ready engineering and design services that transform ideas into resilient infrastructure and inspiring built environments. Our commitment to quality, integrity, and excellence continues to define every project we undertake.
               </p>
-              <p>
-                From 2D to 3D perfection, customers choose CadMax for designs that are 
-                accurate, clear and construction-ready because CadMax delivers plans that 
-                save time, reduce errors and cut construction costs.
-              </p>
+             
             </div>
 
             <button className="group inline-flex items-center gap-3 px-6 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-full text-sm font-general font-semibold transition-all duration-300 hover:bg-[var(--primary)] hover:gap-4 hover:shadow-xl">
