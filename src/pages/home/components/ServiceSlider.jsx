@@ -138,7 +138,7 @@ function ServiceSlider() {
   className="flex min-h-screen w-full flex-col items-center overflow-x-hidden py-24 max-sm:py-16"
   style={{ background: "bg-[var(--secondary)]" }}
 >
-   <div className="mb-16 flex flex-col gap-6 md:mb-24 md:flex-row md:items-end md:justify-between">
+   {/* <div className="mb-16 flex flex-col gap-6 md:mb-24 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
              <div className="flex items-center gap-4 mb-6">
           <div className="w-8 h-[1px] bg-[var(--accent)]" />
@@ -156,7 +156,7 @@ function ServiceSlider() {
             We hold engineering, architecture and infrastructure inside a single studio — so ideas
             survive the walk from sketch to site.
           </p>
-        </div>
+        </div> */}
  <div className="relative w-full overflow-visible">
 
     {/* ===== Title Overlay ===== */}
