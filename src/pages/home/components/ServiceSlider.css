@@ -63,9 +63,15 @@
 
 .service-heading {
   display: block;
-  color: #413f3f;
-  font-size: clamp(2.6rem,5vw,4.8rem);
+  color: #F8F5EF;
+
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
   line-height: 1.05;
+  text-transform: uppercase;
+
+  text-shadow:
+    1px 1px 0 rgba(202, 170, 121, 0.45),
+    0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -103,7 +109,7 @@
 .service-card--left-to-out-left,
 .service-card--left-to-center,
 .service-card--out-left-to-left {
-  transform: translate3d(calc(-50% - var(--step)),0,0) scale(.88);
+  transform: translate3d(calc(-50% - var(--step)),0,0) scale(.92);
   opacity:.75;
   z-index:2;
 }
@@ -111,7 +117,7 @@
 .service-card--center,
 .service-card--center-to-left,
 .service-card--center-to-right {
-  transform: translate3d(-50%,0,0) scale(1);
+  transform: translate3d(-50%,0,0) scale(1.1);
   opacity:1;
   z-index:3;
 }
@@ -120,47 +126,47 @@
 .service-card--right-to-center,
 .service-card--right-to-out-right,
 .service-card--out-right-to-right {
-  transform: translate3d(calc(-50% + var(--step)),0,0) scale(.88);
+  transform: translate3d(calc(-50% + var(--step)),0,0) scale(.92);
   opacity:.75;
   z-index:2;
 }
 
 .service-card--out-left-to-left{
-  transform:translate3d(calc(-50% - (2 * var(--step))),0,0) scale(.88);
+  transform:translate3d(calc(-50% - (2 * var(--step))),0,0) scale(.92);
   opacity:0;
 }
 
 .service-card--out-right-to-right{
-  transform:translate3d(calc(-50% + (2 * var(--step))),0,0) scale(.88);
+  transform:translate3d(calc(-50% + (2 * var(--step))),0,0) scale(.82);
   opacity:0;
 }
 
 .service-track.is-moving .service-card--left-to-out-left{
-  transform:translate3d(calc(-50% - (2 * var(--step))),0,0) scale(.88);
+  transform:translate3d(calc(-50% - (2 * var(--step))),0,0) scale(.92);
   opacity:0;
 }
 
 .service-track.is-moving .service-card--center-to-left,
 .service-track.is-moving .service-card--out-left-to-left{
-  transform:translate3d(calc(-50% - var(--step)),0,0) scale(.88);
+  transform:translate3d(calc(-50% - var(--step)),0,0) scale(.92);
   opacity:.75;
 }
 
 .service-track.is-moving .service-card--right-to-center,
 .service-track.is-moving .service-card--left-to-center{
-  transform:translate3d(-50%,0,0) scale(1);
+  transform:translate3d(-50%,0,0) scale(1.1);
   opacity:1;
   z-index:3;
 }
 
 .service-track.is-moving .service-card--center-to-right,
 .service-track.is-moving .service-card--out-right-to-right{
-  transform:translate3d(calc(-50% + var(--step)),0,0) scale(.88);
+  transform:translate3d(calc(-50% + var(--step)),0,0) scale(.92);
   opacity:.75;
 }
 
 .service-track.is-moving .service-card--right-to-out-right{
-  transform:translate3d(calc(-50% + (2 * var(--step))),0,0) scale(.88);
+  transform:translate3d(calc(-50% + (2 * var(--step))),0,0) scale(.92);
   opacity:0;
 }
 
