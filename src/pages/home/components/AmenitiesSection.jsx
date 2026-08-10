@@ -280,7 +280,8 @@ export default function AmenitiesSection() {
             {/* LEFT */}
             <div className="am-left">
               <div>
-                <div className="am-eyebrow">Amenities</div>
+                
+                <div className="am-eyebrow text-lg font-bold tracking-[0.2em] text-[var(--accent)] uppercase">Amenities</div>
                 <div className="am-number-wrap">
                   {SLIDES.map((s, i) => (
                     <div className="am-number" key={i}>

@@ -43,19 +43,16 @@ function ServiceSlider() {
   const frameRef = useRef(null);
   const timerRef = useRef(null);
 
-  /*
-   * ==========================================================
-   * SLIDER NAVIGATION
-   * ==========================================================
-   */
+  /* ======================================================
+     SLIDER NAVIGATION
+  ====================================================== */
 
   const goTo = useCallback(
     (direction) => {
       if (motion) return;
 
       const target = wrap(
-        centerIndex +
-          (direction === "next" ? 1 : -1)
+        centerIndex + (direction === "next" ? 1 : -1)
       );
 
       setMotion({
@@ -80,11 +77,9 @@ function ServiceSlider() {
     [centerIndex, motion]
   );
 
-  /*
-   * ==========================================================
-   * CLEANUP
-   * ==========================================================
-   */
+  /* ======================================================
+     CLEANUP
+  ====================================================== */
 
   useEffect(() => {
     return () => {
@@ -98,16 +93,12 @@ function ServiceSlider() {
     };
   }, []);
 
-  /*
-   * ==========================================================
-   * GSAP TITLE REVEAL
-   * ==========================================================
-   *
-   * IMPORTANT:
-   * Do NOT transform the complete section.
-   *
-   * Only title wrapper gets reveal animation.
-   */
+  /* ======================================================
+     TITLE REVEAL ONLY
+     
+     IMPORTANT:
+     Never transform the complete section.
+  ====================================================== */
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -116,9 +107,7 @@ function ServiceSlider() {
 
     const ctx = gsap.context(() => {
       const titleWrapper =
-        section.querySelector(
-          ".service-title-wrapper"
-        );
+        section.querySelector(".service-title-wrapper");
 
       if (titleWrapper) {
         createReveal([titleWrapper], {
@@ -134,11 +123,9 @@ function ServiceSlider() {
     return () => ctx.revert();
   }, []);
 
-  /*
-   * ==========================================================
-   * CURRENT CARD POSITIONS
-   * ==========================================================
-   */
+  /* ======================================================
+     CARD POSITIONS
+  ====================================================== */
 
   const leftIndex = wrap(centerIndex - 1);
   const rightIndex = wrap(centerIndex + 1);
@@ -207,9 +194,9 @@ function ServiceSlider() {
       ref={sectionRef}
       className="service-slider-section"
     >
-      {/* ======================================================
+      {/* ==================================================
           MOBILE NAVIGATION
-      ====================================================== */}
+      ================================================== */}
 
       <div className="service-mobile-nav">
         <button
@@ -257,9 +244,9 @@ function ServiceSlider() {
         </button>
       </div>
 
-      {/* ======================================================
+      {/* ==================================================
           TITLE
-      ====================================================== */}
+      ================================================== */}
 
       <div className="service-title-wrapper">
         {slides.map((slide, index) => (
@@ -283,15 +270,11 @@ function ServiceSlider() {
         ))}
       </div>
 
-      {/* ======================================================
-          VIEWPORT
-      ====================================================== */}
+      {/* ==================================================
+          SLIDER VIEWPORT
+      ================================================== */}
 
       <div className="service-slider-viewport">
-        {/* ====================================================
-            TRACK
-        ==================================================== */}
-
         <div
           className={`service-track ${
             moving ? "is-moving" : ""

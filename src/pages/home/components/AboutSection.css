@@ -1,164 +1,594 @@
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+/* =========================================================
+   ABOUT SECTION
+========================================================= */
 
-/* Stats Section - Premium Luxury Design */
-.about-stats-number {
-     font-family: 'Cormorant Garamond', serif;
-         font-size: clamp(6rem,11vw,12rem);
-    font-weight:300;
-    line-height:.85;
-    letter-spacing:-2px;
-    position: relative;
-    display: inline-block;                                
+.about-section-home {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: clamp(70px, 8vw, 140px) 0;
+  background: var(--secondary);
 }
 
-.about-stats-suffix-icon {
-  width: 6rem;
-  height: 6rem;
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.about-container {
+  position: relative;
+  width: 100%;
+  margin-inline: auto;
+}
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.about-eyebrow {
+  position: relative;
+}
+
+.about-eyebrow-line {
+  flex-shrink: 0;
+}
+
+.about-eyebrow-text {
+  display: block;
   color: var(--accent);
-  position: absolute;
-  top: -1rem;
-  right: -5rem;
+
+  font-family: var(--font-general, Arial, sans-serif);
   font-weight: 700;
+
+  font-size: clamp(
+    0.72rem,
+    0.22vw + 0.62rem,
+    1rem
+  );
+
   line-height: 1;
-  /* filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25)); */
-  
-  stroke-width: 3;
-}
+  letter-spacing: clamp(
+    0.14em,
+    0.12vw + 0.12em,
+    0.24em
+  );
 
-.about-stats-text {
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  color: var(--muted-foreground);
-  max-width: 220px;
-  line-height: 1.5;
-  margin-top: 1.5rem;
   text-transform: uppercase;
-  font-family: "Bodoni Moda", serif;
-  font-weight: 400;
-  min-height: 3rem;
+  white-space: nowrap;
 }
 
-.about-stat-item {
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.about-grid {
+  column-gap: clamp(35px, 5vw, 100px);
+  row-gap: 60px;
+}
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.about-image-column {
+  min-width: 0;
+  perspective: 1200px;
+}
+
+.about-image-wrapper {
+  position: relative;
+  width: 100%;
+  background: var(--card);
+}
+
+.about-main-image {
+  display: block;
+  width: 100%;
+
+  height: clamp(
+    360px,
+    38vw,
+    620px
+  );
+
+  object-fit: cover;
+
+  will-change: transform, clip-path;
+  transform-origin: center center;
+}
+
+/* =========================================================
+   FLOATING EXPERIENCE CARD
+========================================================= */
+
+.about-experience-card {
+  right: clamp(-18px, -1.5vw, -30px);
+  bottom: clamp(-18px, -1.5vw, -30px);
+
+  padding: clamp(
+    14px,
+    1vw,
+    24px
+  );
+
+  min-width: clamp(
+    165px,
+    13vw,
+    230px
+  );
+}
+
+.about-experience-number {
+  width: clamp(
+    42px,
+    3.2vw,
+    58px
+  );
+
+  height: clamp(
+    42px,
+    3.2vw,
+    58px
+  );
+}
+
+.about-experience-number span {
+  font-size: clamp(
+    0.95rem,
+    0.45vw + 0.65rem,
+    1.35rem
+  );
+}
+
+.about-experience-label {
+  font-size: clamp(
+    0.7rem,
+    0.22vw + 0.55rem,
+    0.95rem
+  );
+
+  line-height: 1.3;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.about-content {
+  min-width: 0;
+  width: 100%;
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.about-heading {
+  margin: 0;
+
+  font-size: clamp(
+    2.35rem,
+    3.2vw,
+    5rem
+  );
+
+  line-height: 0.98;
+  font-weight: 600;
+
+  letter-spacing: -0.025em;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.about-description {
+  margin-top: clamp(
+    20px,
+    2vw,
+    36px
+  );
+
   display: flex;
-   font-family: 'Live Content', sans-serif;  
   flex-direction: column;
-  align-items: flex-start;
-  padding: 5px 0;
+
+  gap: clamp(
+    12px,
+    1.2vw,
+    22px
+  );
+
+  font-size: clamp(
+    0.95rem,
+    0.3vw + 0.78rem,
+    1.2rem
+  );
+
+  line-height: 1.65;
+
+  max-width: 62ch;
 }
 
-.about-stats-number-wrapper {
-  display: inline-block;
-  transform-origin: left center;
+.about-description p {
+  margin: 0;
 }
 
-/* Hover effects */
-.about-stat-item:hover .about-stats-number-wrapper {
-  transform: scale(1.03);
+/* =========================================================
+   CTA
+========================================================= */
+
+.about-cta {
+  margin-top: clamp(
+    22px,
+    2.5vw,
+    38px
+  );
+
+  padding: clamp(
+    10px 18px,
+    0.8vw 1.5vw,
+    15px 28px
+  );
+
+  font-size: clamp(
+    0.72rem,
+    0.18vw + 0.62rem,
+    0.95rem
+  );
+
+  letter-spacing: 0.02em;
 }
 
-.about-stat-item:hover .about-stats-text {
-  opacity: 1;
-  color: var(--foreground);
-}
+/* =========================================================
+   LARGE DESKTOP
+   1600px+
+========================================================= */
 
-.about-stat-item:hover .about-stats-number {
-  color: var(--accent);
-}
+@media (min-width: 1600px) {
 
-.about-stat-item:hover .about-stats-unit {
-  color: var(--foreground);
-}
-
-/* Smooth transitions */
-.about-stats-number-wrapper {
-  transition: all 0.35s ease;
-}
-
-.about-stats-text {
-  transition: all 0.35s ease;
-}
-
-.about-stats-number {
-  transition: all 0.35s ease;
-}
-
-.about-stats-unit {
-  transition: all 0.35s ease;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .about-stats-number {
-    font-size: clamp(3.5rem, 12vw, 6rem);
+  .about-section-home {
+    padding-top: 120px;
+    padding-bottom: 160px;
   }
 
-  .about-stats-suffix-icon {
-    width: 4rem;
-    height: 4rem;
-    top: -1rem;
-    right: -1rem;
-    transform: rotate(15deg);
-    stroke-width: 3;
+  .about-eyebrow-text {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.23em;
   }
 
-  .about-stats-text {
-    font-size: 0.85rem;
-    max-width: 180px;
-    margin-top: 1.2rem;
+  .about-eyebrow-line {
+    width: 46px;
   }
 
-  .about-stat-item {
-    align-items: flex-start;
-    padding: 0.75rem 0;
+  .about-grid {
+    column-gap: 90px;
+  }
+
+  .about-heading {
+    font-size: clamp(4rem, 3.3vw, 5.5rem);
+    font-weight: 600;
+  }
+
+  .about-description {
+    font-size: 1.18rem;
+    line-height: 1.7;
+  }
+
+  .about-cta {
+    font-size: 0.95rem;
+    padding: 15px 28px;
   }
 }
+
+/* =========================================================
+   EXTRA LARGE DESKTOP
+   1920px+
+========================================================= */
+
+@media (min-width: 1920px) {
+
+  .about-container {
+    max-width: 1700px;
+  }
+
+  .about-eyebrow-text {
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+  }
+
+  .about-eyebrow-line {
+    width: 52px;
+  }
+
+  .about-heading {
+    font-size: 5.2rem;
+    line-height: 0.96;
+  }
+
+  .about-description {
+    font-size: 1.25rem;
+    max-width: 64ch;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+   1025px - 1399px
+========================================================= */
+
+@media (min-width: 1025px) and (max-width: 1399px) {
+
+  .about-section-home {
+    padding: 90px 0;
+  }
+
+  .about-grid {
+    column-gap: 55px;
+  }
+
+  .about-main-image {
+    height: 480px;
+  }
+
+  .about-heading {
+    font-size: clamp(
+      2.8rem,
+      3.2vw,
+      3.8rem
+    );
+  }
+
+  .about-description {
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .about-eyebrow-text {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+  }
+
+  .about-cta {
+    padding: 11px 20px;
+    font-size: 0.78rem;
+  }
+}
+
+/* =========================================================
+   TABLET
+   768px - 1024px
+========================================================= */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .about-section-home {
+    padding: 75px 0;
+  }
+
+  .about-grid {
+    column-gap: 30px;
+  }
+
+  .about-main-image {
+    height: 400px;
+  }
+
+  .about-heading {
+    font-size: clamp(
+      2.2rem,
+      4vw,
+      3.2rem
+    );
+  }
+
+  .about-description {
+    margin-top: 20px;
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+
+  .about-eyebrow-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
+
+  .about-experience-card {
+    right: -12px;
+    bottom: -12px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   <= 767px
+========================================================= */
+
+@media (max-width: 767px) {
+
+  .about-section-home {
+    padding: 65px 0 80px;
+  }
+
+  .about-grid {
+    row-gap: 48px;
+  }
+
+  .about-eyebrow {
+    margin-bottom: 22px;
+  }
+
+  .about-eyebrow-text {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  .about-eyebrow-line {
+    width: 25px;
+  }
+
+  .about-main-image {
+    height: clamp(
+      280px,
+      72vw,
+      420px
+    );
+
+    border-radius: 14px;
+  }
+
+  .about-experience-card {
+    right: 10px;
+    bottom: -18px;
+
+    padding: 12px 14px;
+
+    min-width: 145px;
+
+    border-radius: 14px;
+  }
+
+  .about-experience-number {
+    width: 42px;
+    height: 42px;
+  }
+
+  .about-experience-number span {
+    font-size: 0.9rem;
+  }
+
+  .about-experience-label {
+    font-size: 0.68rem;
+  }
+
+  .about-heading {
+    font-size: clamp(
+      2.15rem,
+      9vw,
+      3rem
+    );
+
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .about-description {
+    margin-top: 20px;
+
+    font-size: clamp(
+      0.92rem,
+      3.8vw,
+      1.05rem
+    );
+
+    line-height: 1.65;
+
+    gap: 14px;
+  }
+
+  .about-cta {
+    margin-top: 24px;
+
+    width: auto;
+    min-height: 44px;
+
+    padding: 11px 18px;
+
+    font-size: 0.72rem;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   <= 480px
+========================================================= */
 
 @media (max-width: 480px) {
-  .about-stats-number {
-    font-size: clamp(2.8rem, 14vw, 4.5rem);
+
+  .about-section-home {
+    padding: 55px 0 70px;
   }
 
-  .about-stats-suffix-icon {
-    width: 3.5rem;
-    height: 3.5rem;
-    top: -0.8rem;
-    right: -0.8rem;
-    transform: rotate(15deg);
-    stroke-width: 3;
+  .about-eyebrow-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
   }
 
-  .about-stats-text {
-    font-size: 0.75rem;
-    max-width: 150px;
-    letter-spacing: 0.06em;
-    margin-top: 1rem;
+  .about-heading {
+    font-size: clamp(
+      2rem,
+      10vw,
+      2.55rem
+    );
   }
 
-  .about-stat-item {
-    align-items: flex-start;
-    padding: 0.5rem 0;
+  .about-description {
+    font-size: 0.93rem;
+    line-height: 1.62;
+  }
+
+  .about-main-image {
+    height: 290px;
+  }
+
+  .about-experience-card {
+    right: 7px;
+    bottom: -15px;
+    padding: 10px 12px;
+    min-width: 135px;
+  }
+
+  .about-experience-number {
+    width: 38px;
+    height: 38px;
+  }
+
+  .about-experience-number span {
+    font-size: 0.82rem;
+  }
+
+  .about-experience-label {
+    font-size: 0.62rem;
+  }
+
+  .about-cta {
+    width: 100%;
+    justify-content: center;
   }
 }
 
-/* Tablet adjustments */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .about-stats-number {
-    font-size: clamp(4rem, 7vw, 7rem);
+/* =========================================================
+   VERY SMALL DEVICES
+   <= 360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .about-section-home {
+    padding-top: 48px;
   }
 
-  .about-stats-suffix-icon {
-    width: 4rem;
-    height: 4rem;
-    top: -1rem;
-    right: -1rem;
-    transform: rotate(15deg);
-    stroke-width: 3;
+  .about-heading {
+    font-size: 1.9rem;
   }
 
-  .about-stats-text {
-    font-size: 0.9rem;
-    max-width: 190px;
-    margin-top: 1.3rem;
+  .about-description {
+    font-size: 0.88rem;
+  }
+
+  .about-eyebrow-text {
+    font-size: 0.58rem;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .about-main-image {
+    transform: none !important;
+    transition: none !important;
   }
 }
