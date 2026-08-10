@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
+import { createCardStagger, createImageParallax } from '../../../animations/scrollMotion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,48 +61,32 @@ const ProjectsShowcase = () => {
         }
       );
 
-      // Cards staggered reveal with alternating directions
-      cardsRef.current.forEach((card, i) => {
+      // Use reusable card stagger animation
+      const cards = cardsRef.current.filter(Boolean);
+      if (cards.length) {
+        createCardStagger(cards, {
+          y: 80,
+          opacity: true,
+          scale: true,
+          rotateX: 2,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: 'power3.out',
+          start: 'top 85%',
+          intensity: 0.8,
+        });
+      }
+
+      // Add parallax to each project image
+      cards.forEach((card, i) => {
         if (!card) return;
-
-        const isEven = i % 2 === 0;
-        const xOffset = isEven ? -100 : 100;
-
-        gsap.fromTo(
-          card,
-          {
-            opacity: 0,
-            x: xOffset,
-            y: 80,
-            scale: 0.95,
-          },
-          {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            duration: 1.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-
-        // Parallax effect on image
         const image = card.querySelector('.project-image');
         if (image) {
-          gsap.to(image, {
-            yPercent: -15,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1,
-            },
+          createImageParallax(image, card, {
+            yPercent: 12,
+            scale: 1.08,
+            scrub: 1.2,
+            intensity: 0.7,
           });
         }
       });
@@ -114,11 +99,11 @@ const ProjectsShowcase = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-32 md:py-40 bg-[var(--secondary)] overflow-hidden"
+      className="relative py-20 md:py-28 lg:py-32 bg-[var(--secondary)] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         {/* Section Header */}
-        <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-20 md:mb-32">
+        <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 md:gap-8 mb-12 md:mb-20">
           <div className="max-w-3xl">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-8 h-[1px] bg-[var(--accent)]" />
@@ -126,7 +111,7 @@ const ProjectsShowcase = () => {
                 Featured Projects
               </span>
             </div>
-            <h2 className="font-clash text-5xl md:text-6xl lg:text-7xl text-[var(--foreground)] leading-[0.95]">
+            <h2 className="font-garamond text-5xl md:text-6xl lg:text-7xl text-[var(--foreground)] leading-[0.95]">
               Projects that define
               <br />
               <span className="text-[var(--muted-foreground)]">spaces.</span>
@@ -143,7 +128,7 @@ const ProjectsShowcase = () => {
           {projects.map((project, i) => {
             const isLarge = project.size === 'large';
             const colSpan = isLarge ? 'lg:col-span-7' : 'lg:col-span-5';
-            const height = isLarge ? 'h-[600px] md:h-[700px]' : 'h-[500px] md:h-[600px]';
+            const height = isLarge ? 'h-[400px] md:h-[450px] lg:h-[650px]' : 'h-[350px] md:h-[400px] lg:h-[550px]';
 
             return (
               <div
@@ -171,12 +156,12 @@ const ProjectsShowcase = () => {
                   </div>
 
                   {/* Project Name */}
-                  <h3 className="font-clash text-3xl md:text-4xl lg:text-5xl text-white font-semibold mb-3 leading-tight">
+                  <h3 className="font-garamond text-3xl md:text-4xl lg:text-5xl text-white font-semibold mb-3 leading-tight">
                     {project.title}
                   </h3>
 
                   {/* Location */}
-                  <p className="text-white/75 font-inter text-sm md:text-base mb-6">
+                  <p className="text-white/75 font-garamond text-sm md:text-base mb-6">
                     {project.location}
                   </p>
 

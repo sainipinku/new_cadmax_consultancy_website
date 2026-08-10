@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
+import { createCardStagger, createDepthMotion } from '../../../animations/scrollMotion';
 import { MessageSquare, PenTool, Rocket } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -40,34 +41,25 @@ const ProcessSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Cards 3D reveal animation
-      cardsRef.current.forEach((card, i) => {
+      // Use reusable card stagger animation
+      const cards = cardsRef.current.filter(Boolean);
+      if (cards.length) {
+        createCardStagger(cards, {
+          y: 100,
+          opacity: true,
+          scale: true,
+          rotateX: 3,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: 'power3.out',
+          start: 'top 85%',
+          intensity: 0.8,
+        });
+      }
+
+      // Icon animation for each card
+      cards.forEach((card) => {
         if (!card) return;
-
-        gsap.fromTo(
-          card,
-          {
-            opacity: 0,
-            y: 100,
-            rotateX: 15,
-            scale: 0.9,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            scale: 1,
-            duration: 1.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-
-        // Icon animation
         const icon = card.querySelector('.process-icon-wrapper');
         if (icon) {
           gsap.fromTo(
@@ -78,26 +70,6 @@ const ProcessSection = () => {
               rotation: 0,
               duration: 0.8,
               ease: 'back.out(1.7)',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 85%',
-                toggleActions: 'play none none reverse',
-              },
-            }
-          );
-        }
-
-        // Number counter animation
-        const number = card.querySelector('.process-number');
-        if (number) {
-          gsap.fromTo(
-            number,
-            { opacity: 0, x: -50 },
-            {
-              opacity: 0.15,
-              x: 0,
-              duration: 1,
-              ease: 'power2.out',
               scrollTrigger: {
                 trigger: card,
                 start: 'top 85%',
@@ -126,6 +98,21 @@ const ProcessSection = () => {
           }
         );
       }
+
+      // Add subtle depth motion to cards container
+      const cardsContainer = sectionRef.current.querySelector('.grid');
+      if (cardsContainer) {
+        createDepthMotion(cardsContainer, sectionRef.current, {
+          rotateX: 1,
+          rotateY: 1,
+          translateZ: 10,
+          scale: 1.01,
+          scrub: 1.5,
+          intensity: 0.5,
+        });
+      }
+
+      // Note: Removed blend effect from section to prevent scroll conflicts
     }, sectionRef);
 
     ScrollTrigger.refresh();
@@ -135,7 +122,7 @@ const ProcessSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-16 md:py-20 lg:py-26 bg-[var(--secondary)] overflow-hidden"
+      className="relative py-16 md:py-20 lg:py-24 bg-[var(--secondary)] overflow-hidden"
     >
       {/* Background decorative elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl pointer-events-none" />
@@ -143,17 +130,17 @@ const ProcessSection = () => {
 
       <div className="max-w-8xl mx-auto px-6 md:px-10 lg:px-24 relative z-10">
         {/* Section header */}
-        <div ref={headerRef} className="mb-12 md:mb-16 lg:mb-32">
+        <div ref={headerRef} className="mb-10 md:mb-14 lg:mb-20">
           <div className="flex items-center gap-4 mb-4 md:mb-6">
             <div className="w-8 h-[1px] bg-[var(--accent)]" />
             <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
               How We Work
             </span>
           </div>
-          <h2 className="font-clash text-4xl md:text-5xl lg:text-7xl text-[var(--foreground)] max-w-4xl leading-[1.1]">
+          <h2 className="font-garamond text-4xl md:text-5xl lg:text-7xl text-[var(--foreground)] max-w-4xl leading-[1.1]">
             From Vision to <span className="text-[var(--muted-foreground)]">Reality</span>
           </h2>
-          <p className="text-[var(--muted-foreground)] font-inter text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mt-4 md:mt-6">
+          <p className="text-[var(--muted-foreground)] font-garamond text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mt-4 md:mt-6">
             A proven three-step process that transforms your ideas into precision-engineered realities
           </p>
         </div>
@@ -188,7 +175,7 @@ const ProcessSection = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-clash text-2xl md:text-2xl lg:text-4xl text-[var(--foreground)] mb-1 md:mb-2">
+                    <h3 className="font-garamond text-2xl md:text-2xl lg:text-4xl text-[var(--foreground)] mb-1 md:mb-2">
                       {step.title}
                     </h3>
 
@@ -198,7 +185,7 @@ const ProcessSection = () => {
                     </p>
 
                     {/* Description */}
-                    <p className="text-[var(--muted-foreground)] font-inter text-xs md:text-sm leading-relaxed">
+                    <p className="text-[var(--muted-foreground)] font-garamond text-xs md:text-sm leading-relaxed">
                       {step.description}
                     </p>
                   </div>
@@ -220,8 +207,8 @@ const ProcessSection = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-12 md:mt-16 lg:mt-32 text-center">
-          <p className="text-[var(--muted-foreground)] font-inter text-sm md:text-base mb-4 md:mb-6">
+        <div className="mt-12 md:mt-16 lg:mt-20 text-center">
+          <p className="text-[var(--muted-foreground)] font-garamond text-sm md:text-base mb-4 md:mb-6">
             Ready to start your project?
           </p>
          <button

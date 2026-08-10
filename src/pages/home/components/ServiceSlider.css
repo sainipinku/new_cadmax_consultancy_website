@@ -1,199 +1,902 @@
-/* =========================
-   TITLE OVERLAY
-========================= */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap");
+
+/* =========================================================
+   ROOT
+   ========================================================= */
+
+.service-slider-section {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  isolation: isolate;
+  box-sizing: border-box;
+  padding: clamp(90px, 10vw, 140px) 0;
+}
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+.service-mobile-nav {
+  display: none;
+}
+
+.service-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(202, 170, 121, 0.4);
+
+  background: rgba(255, 255, 255, 0.08);
+  color: #caaa79;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.service-nav-btn:hover:not(:disabled) {
+  background: rgba(202, 170, 121, 0.2);
+  border-color: #caaa79;
+  transform: scale(1.05);
+}
+
+.service-nav-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* =========================================================
+   TITLE WRAPPER
+   ========================================================= */
 
 .service-title-wrapper {
   position: absolute;
+
   left: 50%;
-  top: 20px;          /* Negative mat do */
+  top: clamp(18px, 2vw, 32px);
+
   transform: translateX(-50%);
 
-  width: 800px;
-  height: 120px;
+  width: min(1000px, 88%);
+  max-width: 88%;
 
-  z-index: 999;
+  height: clamp(110px, 10vw, 145px);
+
+  z-index: 20;
+
   pointer-events: none;
-  overflow: visible;
+  overflow: hidden;
+
+  box-sizing: border-box;
 }
+
+/* =========================================================
+   TITLE
+   ========================================================= */
 
 .service-title {
   position: absolute;
+
   left: 50%;
   top: 0;
+
   width: 100%;
- text-transform: uppercase;
-  transform: translateX(-50%);
+
+  margin: 0;
+  padding: 0;
+
   text-align: center;
+  text-transform: uppercase;
+
+  transform: translateX(-50%);
+
+  opacity: 0;
+
+  transition: opacity 0.45s ease;
+
+  box-sizing: border-box;
+}
+
+.service-title.is-active {
+  opacity: 1;
+}
+
+/* =========================================================
+   NUMBER
+   ========================================================= */
+
+.service-number {
+  display: block;
+
+  margin-bottom: clamp(8px, 0.7vw, 12px);
+
+  color: #caaa79;
+
+  font-family: Arial, sans-serif;
+
+  font-size: clamp(
+    0.8rem,
+    1vw,
+    1.15rem
+  );
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  letter-spacing: 0.35em;
+}
+
+/* =========================================================
+   MAIN HEADING
+   ========================================================= */
+
+.service-heading {
+  display: block;
+  color: #000000;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-weight: 600;
+  font-size: clamp(2.6rem, 4.3vw, 5rem);
+  line-height: 1.02;
+  text-transform: uppercase;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* =========================================================
+   SLIDER VIEWPORT
+   ========================================================= */
+
+.service-slider-viewport {
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   SLIDER TRACK
+   ========================================================= */
+
+.service-track {
+  /*
+    Desktop:
+    Card becomes larger on bigger screens,
+    but never exceeds 620px.
+  */
+
+  --slide-w: min(31vw, 620px);
+
+  /*
+    Distance between cards.
+  */
+  --gap: clamp(
+    45px,
+    5vw,
+    120px
+  );
+
+  --step: calc(
+    var(--slide-w) + (2 * var(--gap))
+  );
+
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+
+  height: min(
+    calc(
+      var(--slide-w) * 1176 / 897
+    ),
+    78vh
+  );
+
+  min-height: 430px;
+
+  /*
+    IMPORTANT:
+    Keep viewport clipping controlled by
+    .service-slider-viewport.
+  */
+  overflow: visible;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.service-card {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: var(--slide-w);
+  height: 100%;
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  border-radius: 2px;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  will-change:
+    transform,
+    opacity;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.9s cubic-bezier(
+      0.22,
+      0.68,
+      0.1,
+      1
+    ),
+    opacity 0.8s ease;
+}
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.service-card-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 100%;
+
+  object-fit: cover;
+
+  user-select: none;
+  pointer-events: none;
+
+  -webkit-user-drag: none;
+}
+
+/* =========================================================
+   IDLE POSITIONS
+   ========================================================= */
+
+.service-card--left {
+  transform:
+    translate3d(
+      calc(-50% - var(--step)),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+  z-index: 2;
+}
+
+.service-card--center {
+  transform:
+    translate3d(
+      -50%,
+      0,
+      0
+    )
+    scale(1.1);
+
+  opacity: 1;
+  z-index: 3;
+}
+
+.service-card--right {
+  transform:
+    translate3d(
+      calc(-50% + var(--step)),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+  z-index: 2;
+}
+
+/* =========================================================
+   NEXT MOTION — INITIAL
+   ========================================================= */
+
+.service-card--left-to-out-left {
+  transform:
+    translate3d(
+      calc(-50% - var(--step)),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0;
+  z-index: 1;
+}
+
+.service-card--center-to-left {
+  transform:
+    translate3d(
+      -50%,
+      0,
+      0
+    )
+    scale(1.1);
+
+  opacity: 1;
+  z-index: 3;
+}
+
+.service-card--right-to-center {
+  transform:
+    translate3d(
+      calc(-50% + var(--step)),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+  z-index: 2;
+}
+
+.service-card--out-right-to-right {
+  transform:
+    translate3d(
+      calc(-50% + (2 * var(--step))),
+      0,
+      0
+    )
+    scale(0.82);
+
+  opacity: 0;
+  z-index: 1;
+}
+
+/* =========================================================
+   PREVIOUS MOTION — INITIAL
+   ========================================================= */
+
+.service-card--out-left-to-left {
+  transform:
+    translate3d(
+      calc(-50% - (2 * var(--step))),
+      0,
+      0
+    )
+    scale(0.82);
+
+  opacity: 0;
+  z-index: 1;
+}
+
+.service-card--left-to-center {
+  transform:
+    translate3d(
+      calc(-50% - var(--step)),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+  z-index: 2;
+}
+
+.service-card--center-to-right {
+  transform:
+    translate3d(
+      -50%,
+      0,
+      0
+    )
+    scale(1.1);
+
+  opacity: 1;
+  z-index: 3;
+}
+
+.service-card--right-to-out-right {
+  transform:
+    translate3d(
+      calc(-50% + var(--step)),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+  z-index: 2;
+}
+
+/* =========================================================
+   ACTIVE MOTION
+   ========================================================= */
+
+.service-track.is-moving
+.service-card--left-to-out-left {
+  transform:
+    translate3d(
+      calc(-50% - (2 * var(--step))),
+      0,
+      0
+    )
+    scale(0.92);
 
   opacity: 0;
 }
 
-.service-title.is-active {
-  opacity: 1;
-}
-
-.service-title.is-active {
-  opacity: 1;
-}
-
-/* Reveal */
-
-.title-mask {
-  display: block;
-  overflow: hidden;
-}
-
-.title-content {
-  display: block;
-  transform: translateY(120%);
-  transition: transform .9s cubic-bezier(.22,.68,.1,1);
-}
-
-.service-title.is-active .title-content {
-  transform: translateY(0);
-}
-
-.service-number {
-  display: block;
-  margin-bottom: 12px;
-  color: #CAAA79;
-  font-size: clamp(.95rem,1.3vw,1.2rem);
-  letter-spacing: .35em;
-}
-
-.service-heading {
-  display: block;
-  color: #F8F5EF;
-
-  font-size: clamp(2.6rem, 5vw, 4.8rem);
-  line-height: 1.05;
-  text-transform: uppercase;
-
-  text-shadow:
-    1px 1px 0 rgba(202, 170, 121, 0.45),
-    0 4px 14px rgba(0, 0, 0, 0.2);
-}
-
-
-.service-track {
-  --slide-w: min(31.2vw, 600px);
-  --gap: clamp(50px, 6.7vw, 130px);
-  --step: calc(var(--slide-w) + (2 * var(--gap)));
-
-  position: relative;
-  width: 100%;
-  height: min(calc(var(--slide-w) * 1176 / 897), 82vh);
-}
-
-.service-card {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: var(--slide-w);
-  height: 100%;
-
-  overflow: hidden;
-  border-radius: 2px;
-  cursor: pointer;
-
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-
-  transition:
-    transform .9s cubic-bezier(.22,.68,.1,1),
-    opacity .8s ease;
-}
-
-.service-card--left,
-.service-card--left-to-out-left,
-.service-card--left-to-center,
-.service-card--out-left-to-left {
-  transform: translate3d(calc(-50% - var(--step)),0,0) scale(.92);
-  opacity:.75;
-  z-index:2;
-}
-
-.service-card--center,
+.service-track.is-moving
 .service-card--center-to-left,
-.service-card--center-to-right {
-  transform: translate3d(-50%,0,0) scale(1.1);
-  opacity:1;
-  z-index:3;
+.service-track.is-moving
+.service-card--out-left-to-left {
+  transform:
+    translate3d(
+      calc(-50% - var(--step)),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
 }
 
-.service-card--right,
+.service-track.is-moving
 .service-card--right-to-center,
-.service-card--right-to-out-right,
+.service-track.is-moving
+.service-card--left-to-center {
+  transform:
+    translate3d(
+      -50%,
+      0,
+      0
+    )
+    scale(1.1);
+
+  opacity: 1;
+  z-index: 3;
+}
+
+.service-track.is-moving
+.service-card--center-to-right,
+.service-track.is-moving
 .service-card--out-right-to-right {
-  transform: translate3d(calc(-50% + var(--step)),0,0) scale(.92);
-  opacity:.75;
-  z-index:2;
+  transform:
+    translate3d(
+      calc(-50% + var(--step)),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
 }
 
-.service-card--out-left-to-left{
-  transform:translate3d(calc(-50% - (2 * var(--step))),0,0) scale(.92);
-  opacity:0;
+.service-track.is-moving
+.service-card--right-to-out-right {
+  transform:
+    translate3d(
+      calc(-50% + (2 * var(--step))),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0;
 }
 
-.service-card--out-right-to-right{
-  transform:translate3d(calc(-50% + (2 * var(--step))),0,0) scale(.82);
-  opacity:0;
+/* =========================================================
+   LARGE DESKTOP
+   1440px+
+   ========================================================= */
+
+@media (min-width: 1440px) {
+
+  .service-title-wrapper {
+    width: min(1150px, 82%);
+    height: 155px;
+    top: 28px;
+  }
+
+  .service-number {
+    font-size: 1.15rem;
+  }
+
+  .service-heading {
+    font-size: clamp(
+      4rem,
+      4.4vw,
+      5.5rem
+    );
+    font-weight: 600;
+  }
+
+  .service-track {
+    --slide-w: min(30vw, 680px);
+    --gap: clamp(
+      60px,
+      5vw,
+      135px
+    );
+
+    height: min(
+      calc(
+        var(--slide-w) * 1176 / 897
+      ),
+      80vh
+    );
+
+    min-height: 500px;
+  }
 }
 
-.service-track.is-moving .service-card--left-to-out-left{
-  transform:translate3d(calc(-50% - (2 * var(--step))),0,0) scale(.92);
-  opacity:0;
+/* =========================================================
+   LAPTOP
+   1025px — 1439px
+   ========================================================= */
+
+@media (min-width: 1025px) and (max-width: 1439px) {
+
+  .service-title-wrapper {
+    width: 88%;
+    max-width: 1000px;
+    height: 130px;
+  }
+
+  .service-heading {
+    font-size: clamp(
+      3rem,
+      4vw,
+      4.6rem
+    );
+  }
+
+  .service-track {
+    --slide-w: min(31vw, 600px);
+
+    --gap: clamp(
+      45px,
+      5vw,
+      100px
+    );
+
+    height: min(
+      calc(
+        var(--slide-w) * 1176 / 897
+      ),
+      78vh
+    );
+
+    min-height: 430px;
+  }
 }
 
-.service-track.is-moving .service-card--center-to-left,
-.service-track.is-moving .service-card--out-left-to-left{
-  transform:translate3d(calc(-50% - var(--step)),0,0) scale(.92);
-  opacity:.75;
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) and (min-width: 641px) {
+
+  .service-title-wrapper {
+    width: 90%;
+    max-width: 90%;
+
+    top: 12px;
+
+    height: 90px;
+  }
+
+  .service-number {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+
+  .service-heading {
+    font-size: clamp(
+      2rem,
+      4vw,
+      3.2rem
+    );
+
+    line-height: 1.04;
+  }
+
+  .service-track {
+    --slide-w: min(
+      48vw,
+      470px
+    );
+
+    --gap: clamp(
+      20px,
+      3vw,
+      55px
+    );
+
+    height: min(
+      calc(
+        var(--slide-w) * 1176 / 897
+      ),
+      58vh
+    );
+
+    min-height: 350px;
+  }
 }
 
-.service-track.is-moving .service-card--right-to-center,
-.service-track.is-moving .service-card--left-to-center{
-  transform:translate3d(-50%,0,0) scale(1.1);
-  opacity:1;
-  z-index:3;
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  .service-slider-section {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* -------------------------
+     MOBILE NAV
+     ------------------------- */
+
+  .service-mobile-nav {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 0.75rem;
+
+    padding-right: 1rem;
+
+    position: absolute;
+
+    top: 18px;
+    right: 0;
+
+    z-index: 50;
+  }
+
+  .service-nav-btn {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  /* -------------------------
+     MOBILE TITLE
+     ------------------------- */
+
+  .service-title-wrapper {
+    position: relative;
+
+    left: auto;
+    top: auto;
+
+    transform: none;
+
+    width: 100%;
+    max-width: 100%;
+
+    margin: 90px auto 18px;
+
+    height: auto;
+
+    min-height: 65px;
+
+    padding: 0 1rem;
+
+    box-sizing: border-box;
+  }
+
+  .service-title {
+    position: relative;
+
+    left: auto;
+    top: auto;
+
+    transform: none;
+
+    width: 100%;
+  }
+
+  .service-number {
+    font-size: 0.75rem;
+    margin-bottom: 7px;
+    letter-spacing: 0.28em;
+  }
+
+  .service-heading {
+    font-size: clamp(
+      1.75rem,
+      7vw,
+      2.5rem
+    );
+
+    line-height: 1.05;
+
+    padding: 0 0.5rem;
+  }
+
+  /* -------------------------
+     MOBILE VIEWPORT
+     ------------------------- */
+
+  .service-slider-viewport {
+    width: 100%;
+    max-width: 100%;
+
+    overflow: hidden;
+  }
+
+  /* -------------------------
+     MOBILE TRACK
+     ------------------------- */
+
+  .service-track {
+    --slide-w: 100%;
+    --gap: 0px;
+    --step: 100%;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: 60vh;
+
+    min-height: 350px;
+
+    margin-top: 0;
+
+    overflow: hidden;
+  }
+
+  /* -------------------------
+     HIDE SIDE CARDS
+     ------------------------- */
+
+  .service-card--left,
+  .service-card--right,
+  .service-card--left-to-out-left,
+  .service-card--right-to-out-right,
+  .service-card--out-left-to-left,
+  .service-card--out-right-to-right {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+
+  /* -------------------------
+     CENTER CARD
+     ------------------------- */
+
+  .service-card--center,
+  .service-card--center-to-left,
+  .service-card--center-to-right,
+  .service-card--left-to-center,
+  .service-card--right-to-center {
+
+    left: 50% !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: 100% !important;
+
+    transform:
+      translate3d(
+        -50%,
+        0,
+        0
+      )
+      scale(1) !important;
+
+    opacity: 1 !important;
+
+    z-index: 3;
+  }
+
+  /* -------------------------
+     MOBILE MOTION
+     ------------------------- */
+
+  .service-track.is-moving
+  .service-card--center-to-left,
+
+  .service-track.is-moving
+  .service-card--center-to-right,
+
+  .service-track.is-moving
+  .service-card--left-to-center,
+
+  .service-track.is-moving
+  .service-card--right-to-center {
+
+    transform:
+      translate3d(
+        -50%,
+        0,
+        0
+      )
+      scale(1) !important;
+
+    opacity: 1 !important;
+  }
 }
 
-.service-track.is-moving .service-card--center-to-right,
-.service-track.is-moving .service-card--out-right-to-right{
-  transform:translate3d(calc(-50% + var(--step)),0,0) scale(.92);
-  opacity:.75;
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .service-title-wrapper {
+    margin-top: 82px;
+  }
+
+  .service-heading {
+    font-size: 1.65rem;
+  }
+
+  .service-number {
+    font-size: 0.7rem;
+  }
+
+  .service-track {
+    height: 55vh;
+    min-height: 310px;
+  }
+
+  .service-nav-btn {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
 }
 
-.service-track.is-moving .service-card--right-to-out-right{
-  transform:translate3d(calc(-50% + (2 * var(--step))),0,0) scale(.92);
-  opacity:0;
-}
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
 
-@media (max-width:640px){
+@media (prefers-reduced-motion: reduce) {
 
-.service-title-wrapper{
-    width:66vw;
-    top:10px;
-}
-
-.service-heading{
-    font-size:clamp(2rem,7vw,3rem);
-}
-
-.service-track{
-    --slide-w:66vw;
-    --gap:1rem;
-}
-
-}
-
-@media(prefers-reduced-motion:reduce){
-
-.service-card,
-.service-title,
-.title-content{
-    transition-duration:.01ms;
-}
-
+  .service-card,
+  .service-title {
+    transition-duration: 0.01ms !important;
+  }
 }

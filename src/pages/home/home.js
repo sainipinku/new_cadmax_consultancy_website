@@ -23,7 +23,7 @@ function Home() {
   return (
     <>
       <ScrollProgress />
-      <div className="min-h-screen bg-[var(--background)] font-inter">
+      <div className="min-h-screen bg-[var(--background)] font-garamond">
         <Navbar />
       <HeroSection />
       <CompanyShowcase />

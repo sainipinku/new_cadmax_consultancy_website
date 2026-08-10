@@ -117,7 +117,7 @@ const About = () => {
       <Navbar />
 
       {/* HERO — Full Tailwind Glassmorphism */}
-      <div className="relative min-h-[85vh] overflow-hidden">
+      <div className="relative min-h-[85vh] overflow-hidden font-garamond">
         <img
           src={heroBG}
           alt="Bright CADMAX architecture studio with drafting tables and building models"
@@ -129,10 +129,10 @@ const About = () => {
         <section className="relative flex min-h-[85vh] flex-col justify-between px-6 py-20 md:px-22 md:py-21 mt-10 ">
           <div className="max-w-2xl rounded-3xl border border-border/50 surface-3d p-8 backdrop-blur-sm md:p-10">
             <p className="text-xs uppercase tracking-[0.35em] text-accent">About Cadmax</p>
-            <h1 className="mt-5 font-display text-4xl uppercase leading-[1.02] tracking-[0.02em] text-foreground md:text-6xl">
+            <h1 className="mt-5 font-garamond text-4xl uppercase leading-[1.02] tracking-[0.02em] text-foreground md:text-6xl">
               At CADMAX Consultancy
             </h1>
-            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-5 text-sm font-bold leading-relaxed text-muted-foreground font-garamond">
             we specialize in architectural design, planning, and consultancy services for residential,
              commercial, and industrial projects. Our experienced team combines advanced CAD technology
               with thoughtful design to bring ideas to life. We build trust before we build structures.
@@ -152,7 +152,7 @@ const About = () => {
                   key={s.label}
                   className="rounded-2xl border border-border/60 surface-3d px-4 py-4"
                 >
-                  <dt className="font-display text-2xl text-foreground">{s.value}</dt>
+                <dt className="font-garamond text-2xl text-foreground">{s.value}</dt>
                   <dd className="mt-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                     {s.label}
                   </dd>
@@ -206,16 +206,16 @@ const About = () => {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-accent">
+            <p className="text-xs uppercase tracking-[0.35em] text-[var(--accent)]">
                Our Leadership
             </p>
-            <h2 className="mt-5 font-display text-3xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-4xl">
+            <h2 className="mt-5 font-garamond text-3xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-4xl">
               Inspiring Leadership, Remarkable Achievements
             </h2>
-            <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground font-garamond">
               “It is truly commendable that Mr. Hanuman Sahay Sharma, chairman of Cadmax, has achieved numerous milestones through his dedication, perseverance, and visionary approach. His consistent efforts and leadership have played a key role in the growth and success of the organization. With a strong commitment to excellence and innovation, he has inspired many professionals and students alike. His achievements reflect not only personal success but also his positive impact on the industry, making him a respected and motivating leader.”
             </p>
-            <p className="mt-4 text-sm text-bold leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-lg text-bold leading-relaxed text-muted-foreground">
              A Journey of Vision, Dedication, and Success
 Driven by innovation, guided by experience, and built on trust..
             </p>
@@ -289,12 +289,12 @@ Driven by innovation, guided by experience, and built on trust..
       <AboutSlider />
 
 
-       {/* Leadership: chairman + HR */}
+      {/* Leadership: chairman + HR */}
       <section className="px-6 py-24 bg-[var(--background)] md:px-12 md:py-18">
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-accent">Leadership</p>
-            <h2 className="mt-5 font-display text-4xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-6xl mb-10">
+            <p className="text-xs uppercase tracking-[0.35em] text-[var(--accent)]">Leadership</p>
+            <h2 className="mt-5 font-garamond text-4xl uppercase leading-[1.05] tracking-[0.02em] text-forground md:text-6xl mb-10">
               OUR CREATIVE LEADERS
             </h2>
           </div>
@@ -314,7 +314,7 @@ Driven by innovation, guided by experience, and built on trust..
               </div>
 
               <div className="text-center py-5 px-4 bg-[var(--card)]">
-                <h3 className="font-clash text-lg font-semibold text-[var(--foreground)] tracking-wide whitespace-normal break-words">
+                <h3 className="font-garamond text-lg font-semibold text-[var(--foreground)] tracking-wide whitespace-normal break-words">
                   {member.name}
                 </h3>
 
@@ -328,13 +328,13 @@ Driven by innovation, guided by experience, and built on trust..
         </div>
       </section>
 
-{/* team section  */}
+      {/* team section  */}
       <section className="border-t border-border/60 bg-[var(--background)] px-6 py-20 md:px-12 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-xl">
-              <p className="text-xs uppercase tracking-[0.35em] text-accent">Our team</p>
-              <h2 className="mt-5 font-display text-4xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-6xl">
+              <p className="text-xs uppercase tracking-[0.35em] text-[var(--accent)]">Our team</p>
+              <h2 className="mt-5 font-garamond text-4xl uppercase leading-[1.05] tracking-[0.02em] text-forground md:text-6xl">
                 Behind every drawing
               </h2>
             </div>
@@ -378,7 +378,7 @@ Driven by innovation, guided by experience, and built on trust..
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground">
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground font-garamond">
                     {member.name}
                   </h3>
                   <p className="text-[10px] tracking-[0.1em] text-muted-foreground mt-1.5">
@@ -498,8 +498,8 @@ Driven by innovation, guided by experience, and built on trust..
 
         <div className="max-w-6xl  mx-auto py-5 px-6 text-left">
           <div className="max-w-2xl  pb-5">
-            <p className="text-xs uppercase tracking-[0.35em] text-accent">The People Behind</p>
-            <h2 className="mt-5 font-display text-4xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-6xl">
+            <p className="text-xs uppercase tracking-[0.35em] text-[var(--accent)]">The People Behind</p>
+            <h2 className="mt-5 font-garamond text-4xl uppercase leading-[1.05] tracking-[0.02em] text-forground md:text-6xl">
               Our core TEAM
             </h2>
             
@@ -528,11 +528,11 @@ Driven by innovation, guided by experience, and built on trust..
       >
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-accent">What drives us</p>
-            <h2 className="mt-5 font-display text-4xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-6xl">
+            <p className="text-xs uppercase tracking-[0.35em] text-[var(--accent)]">What drives us</p>
+            <h2 className="mt-5 font-garamond text-4xl uppercase leading-[1.05] tracking-[0.02em] text-forground md:text-6xl">
               Our core values
             </h2>
-            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-5 text-lg  leading-relaxed text-muted-foreground font-garamond">
               The principles behind every masterplan, elevation and delivered
               square foot we put our name on.
             </p>
@@ -549,10 +549,10 @@ Driven by innovation, guided by experience, and built on trust..
                 </span>
 
                 <img src={value.img} alt={value.title} className="h-11 w-11 object-contain" />
-                <h3 className="relative mt-6 text-lg font-semibold uppercase tracking-[0.2em] text-foreground">
+                <h3 className="relative mt-6 text-lg font-semibold uppercase tracking-[0.2em] text-foreground font-garamond">
                   {value.title}
                 </h3>
-                <p className="relative mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+                <p className="relative mt-4 max-w-md text-lg leading-relaxed text-muted-foreground font-garamond">
                   {value.body}
                 </p>
                 <span className="relative mt-8 block h-[3px] w-12 rounded-full bg-accent transition-all duration-500 group-hover:w-24" />

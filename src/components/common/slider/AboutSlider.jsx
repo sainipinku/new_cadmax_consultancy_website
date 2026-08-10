@@ -63,13 +63,13 @@ const AboutSlider = () => {
         viewport={{ once: true }}
         className="text-center mb-12"
       >
-        <p className="text-xs text-left px-5 uppercase tracking-[0.35em] text-accent mb-4">
+        <p className="text-xs text-left px-5 uppercase tracking-[0.35em] text-[var(--accent)] mb-4">
           Our Global Presence
         </p>
-        <h2 className="font-display text-4xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-6xl">
+        <h2 className="font-garamond text-4xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-6xl">
           Where We <span className="italic text-[var(--accent)]">Build & Design</span>
         </h2>
-        <p className="mt-5 text-sm leading-relaxed text-muted-foreground max-w-3xl mx-auto">
+        <p className="mt-5 text-lg leading-relaxed text-muted-foreground font-garamond max-w-4xl mx-auto">
           From concept to construction, Cadmax Consultancy serves multiple states and cities
           with expert architectural planning and infrastructure solutions—shaping
           sustainable, future-ready environments wherever we build.
@@ -105,7 +105,7 @@ const AboutSlider = () => {
                   />
                 </div>
                 <div className="p-4 bg-[var(--card)]">
-                  <h4 className="text-lg font-bold uppercase tracking-[0.15em] text-foreground">
+                  <h4 className="text-lg font-bold uppercase tracking-[0.15em] text-foreground font-garamond">
                     {img.title}
                   </h4>
                   <div className="h-[2px] bg-accent mt-2 w-0 transition-all duration-500 group-hover:w-16" />

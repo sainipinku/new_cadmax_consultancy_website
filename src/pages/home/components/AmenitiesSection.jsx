@@ -137,7 +137,7 @@ export default function AmenitiesSection() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: "top top",
+          start: "center center",
           end: () => "+=" + window.innerHeight * total,
           pin: pin,
           scrub: 0.6,
@@ -160,7 +160,7 @@ export default function AmenitiesSection() {
       // Counter update via onUpdate
       ScrollTrigger.create({
         trigger: section,
-        start: "top top",
+        start: "center center",
         end: () => "+=" + window.innerHeight * total,
         onUpdate: (self) => {
           const idx = Math.min(total - 1, Math.floor(self.progress * total + 0.0001));
@@ -280,7 +280,8 @@ export default function AmenitiesSection() {
             {/* LEFT */}
             <div className="am-left">
               <div>
-                <div className="am-eyebrow">Amenities</div>
+                
+                <div className="am-eyebrow text-lg font-bold tracking-[0.2em] text-[var(--accent)] uppercase">Amenities</div>
                 <div className="am-number-wrap">
                   {SLIDES.map((s, i) => (
                     <div className="am-number" key={i}>

@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import { gsap } from 'gsap';
+import { createReveal } from '../../../animations/scrollMotion';
 import "./company.css";
 
 // Company logo imports
@@ -130,6 +132,7 @@ const images = [
 
 const CompanyShowcase = () => {
   const sectionRef = useRef(null);
+  const labelRef = useRef(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -152,6 +155,23 @@ const CompanyShowcase = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Add reveal animation to label
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (labelRef.current) {
+        createReveal([labelRef.current], {
+          y: 30,
+          opacity: true,
+          duration: 1,
+          ease: 'power3.out',
+          start: 'top 85%',
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   // Duplicate images for infinite marquee
   const marqueeImages = [...images, ...images];
 
@@ -167,7 +187,7 @@ const CompanyShowcase = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
           {/* LEFT SIDE - Label Box */}
-          <div className={`company-label-box ${visible ? "visible" : ""}`}>
+          <div ref={labelRef} className={`company-label-box ${visible ? "visible" : ""}`}>
             <div className="company-label-content">
               <p className="company-label-text">Clients who inspire us</p>
             </div>

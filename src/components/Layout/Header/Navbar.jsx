@@ -308,8 +308,8 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-2 lg:gap-5">
+        {/* Desktop Menu - Only show on large screens */}
+        <nav className="hidden lg:flex items-center gap-2 lg:gap-5">
           {/* Simple Links */}
           {simpleLinks.map((link) => (
             <NavLink
@@ -417,10 +417,10 @@ const Navbar = () => {
           ENQUIRE TODAY
         </Link>
 
-        {/* Elegant Hamburger Menu Button */}
+        {/* Elegant Hamburger Menu Button - Show on tablet and mobile */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group ${menuOpen ? 'fixed right-4 z-[100000]' : ''}`}
+          className={`lg:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group ${menuOpen ? 'fixed right-4 z-[100000]' : ''}`}
         >
           <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2 bg-[var(--foreground)]' : hamburgerClass}`}></span>
           <span className={`block w-8 h-0.5 transition-all duration-300 ${menuOpen ? 'opacity-0' : hamburgerClass}`}></span>
