@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
-import { createCardStagger, createDepthMotion, createTextParallax } from '../../../animations/scrollMotion';
+import { createCardStagger, createDepthMotion } from '../../../animations/scrollMotion';
 import { MessageSquare, PenTool, Rocket } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);

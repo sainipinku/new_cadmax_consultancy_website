@@ -100,7 +100,6 @@ export const createTextParallax = (element, section, options = {}) => {
     scrub = 1,
     start = 'top 85%',
     end = 'center center',
-    intensity = 1,
     blendOnScroll = false,
   } = options;
 
@@ -247,14 +246,12 @@ export const createCardStagger = (cards, options = {}) => {
 
   const {
     y = 60,
-    opacity = true,
     scale = true,
     rotateX = 3,
     stagger = 0.1,
     duration = 1,
     ease = 'power3.out',
     start = 'top 85%',
-    intensity = 1,
   } = options;
 
   const actualY = y * getParallaxIntensity();
@@ -394,7 +391,7 @@ export const cleanupAnimations = (context) => {
   }
 };
 
-export default {
+const scrollMotion = {
   prefersReducedMotion,
   getParallaxIntensity,
   createImageParallax,
@@ -406,3 +403,5 @@ export default {
   createSectionPin,
   cleanupAnimations,
 };
+
+export default scrollMotion;

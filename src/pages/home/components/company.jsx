@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createReveal } from '../../../animations/scrollMotion';
 import "./company.css";
 

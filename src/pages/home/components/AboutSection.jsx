@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
-import { createImageParallax, createTextParallax, createDepthMotion } from '../../../animations/scrollMotion';
+import { createImageParallax, createDepthMotion } from '../../../animations/scrollMotion';
 import accuracyImg from '../../../assets/Images/Other/accuracy-part.jpg.jpeg';
 import './AboutSection.css';
 
