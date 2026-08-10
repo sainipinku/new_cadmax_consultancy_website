@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { createHeroCinematic } from '../../../animations/scrollMotion';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
+  const sectionRef = useRef(null);
 
   // Helper: split text into characters wrapped in mask divs
   const charReveal = (text) => {
@@ -24,8 +30,21 @@ const HeroSection = () => {
     ));
   };
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      createHeroCinematic(sectionRef.current, {
+        backgroundSelector: 'video',
+        headingSelector: '[data-hero-heading]',
+        subtitleSelector: '[data-hero-subtitle]',
+        ctaSelector: '[data-hero-cta]',
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
+    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden bg-black">
 
       {/* Background Video */}
       <video
@@ -53,6 +72,7 @@ const HeroSection = () => {
         {/* BIG TYPOGRAPHY */}
         <div className="absolute bottom-8 left-0 w-full px-[1vw]">
   <h1
+    data-hero-heading
     className="
       w-full
       text-left
@@ -76,10 +96,11 @@ const HeroSection = () => {
 
         {/* Right Caption */}
         <div 
-          className="absolute right-[2vw] top-[75%] -translate-y-1/2 max-w-[360px] z-10
+          data-hero-subtitle
+          className="absolute right-[2vw] top-[68%] -translate-y-1/2 max-w-[360px] z-10
                      max-lg:right-[3vw] max-lg:top-[55%] max-lg:max-w-[350px]
-                     max-md:right-auto max-md:left-[5vw] max-md:top-[22%] max-md:-translate-y-0 max-md:max-w-[90%]
-                     max-sm:top-[20%] max-sm:left-[4vw] max-sm:max-w-[92%]"
+                     max-md:right-auto max-md:left-[5vw] max-md:top-[45%] max-md:-translate-y-0 max-md:max-w-[90%]
+                     max-sm:top-[40%] max-sm:left-[4vw] max-sm:max-w-[92%]"
         >
           <h3 
             className="font-garamond text-white uppercase"

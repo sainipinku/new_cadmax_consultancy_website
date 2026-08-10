@@ -49,10 +49,10 @@
 }
 
 .company-label-text {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: "Cormorant Garamond", Georgia, 'Times New Roman', serif;
   font-size: 18px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--muted-foreground);
   letter-spacing: 0.02em;
   white-space: nowrap;

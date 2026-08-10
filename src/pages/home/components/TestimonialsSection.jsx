@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useScrollReveal } from '../../../hooks/useScrollReveal';
-import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import {
+  Quote,
+  Star,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 
 const testimonials = [
   {
@@ -34,183 +35,396 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
-  const sectionRef = useRef(null);
-  const headerRef = useScrollReveal({ start: 'top 80%' });
   const trackRef = useRef(null);
-  const scrollTriggerRef = useRef(null);
+  const currentIndexRef = useRef(0);
 
-  useEffect(() => {
+  /*
+   * We duplicate the testimonials so the track has enough
+   * content for smooth navigation.
+   */
+  const cards = [...testimonials, ...testimonials];
+
+  /*
+   * Move exactly one card.
+   *
+   * IMPORTANT:
+   * We calculate the actual card position from the DOM.
+   * No window.innerWidth.
+   * No 100vw.
+   * No ScrollTrigger.
+   * No page-level scroll manipulation.
+   */
+  const slide = (direction) => {
     const track = trackRef.current;
+
     if (!track) return;
 
-    const ctx = gsap.context(() => {
-      // Scroll-driven horizontal slide (kept as requested)
-      const anim = gsap.to(track, {
-        x: () => -(track.scrollWidth - window.innerWidth + 100),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 20%',
-          end: 'bottom top',
-          scrub: 1.5,
-          invalidateOnRefresh: true,
-        },
-      });
-      scrollTriggerRef.current = anim.scrollTrigger;
-    });
+    const card = track.children[0];
 
-    return () => ctx.revert();
-  }, []);
+    if (!card) return;
 
-  // Number of unique cards (not counting the duplicated set)
-  const uniqueCount = testimonials.length;
-  // Card step (gap between consecutive cards)
-  let cachedStep = 0;
+    const cardWidth = card.getBoundingClientRect().width;
 
-  const getStep = () => {
-    if (cachedStep) return cachedStep;
-    const children = trackRef.current?.children;
-    if (!children || children.length < 2) return 0;
-    cachedStep = children[1].getBoundingClientRect().left - children[0].getBoundingClientRect().left;
-    return cachedStep;
-  };
+    const computedStyle = window.getComputedStyle(track);
+    const gap =
+      parseFloat(computedStyle.columnGap) ||
+      parseFloat(computedStyle.gap) ||
+      0;
 
-  // Move the track by one card width for prev/next buttons
-  const slide = (dir) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const children = track.children;
-    if (children.length < 2) return;
+    const step = cardWidth + gap;
 
-    const step = getStep();
-    if (!step) return;
+    const total = testimonials.length;
 
-    const currentX = Number(gsap.getProperty(track, 'x')) || 0;
-    // Clamp so we never scroll past the duplicated set
-    const minX = -(track.scrollWidth - window.innerWidth + 100);
-    let nextX = currentX - dir * step;
+    let nextIndex =
+      currentIndexRef.current + direction;
 
-    // Infinite loop: if going forward past the end, wrap to start
-    if (nextX < minX) {
-      scrollTriggerRef.current?.disable();
-      // Teleport to the beginning of the duplicate set so the animation feels infinite
-      const resetX = -(uniqueCount * step);
-      gsap.set(track, { x: resetX });
-      nextX = resetX - dir * step;
-    }
-    // If going backward past the start, wrap to near the end
-    if (nextX > 0) {
-      scrollTriggerRef.current?.disable();
-      const resetX = minX + uniqueCount * step;
-      gsap.set(track, { x: resetX });
-      nextX = resetX - dir * step;
+    /*
+     * Infinite loop.
+     */
+    if (nextIndex >= total) {
+      nextIndex = 0;
     }
 
-    nextX = Math.max(minX, Math.min(0, nextX));
+    if (nextIndex < 0) {
+      nextIndex = total - 1;
+    }
 
-    // Disable the scroll-trigger so the button animation doesn't fight it.
-    scrollTriggerRef.current?.disable();
+    currentIndexRef.current = nextIndex;
+
+    const nextX = -(nextIndex * step);
 
     gsap.to(track, {
       x: nextX,
-      duration: 0.6,
-      ease: 'power2.out',
-      overwrite: 'auto',
+      duration: 0.7,
+      ease: 'power3.out',
+      overwrite: true,
     });
-
-    // Re-enable the scroll-trigger only when the user starts scrolling again
-    // (not on animation end, which would snap back immediately).
-    const onScroll = () => {
-      scrollTriggerRef.current?.enable();
-      window.removeEventListener('scroll', onScroll);
-    };
-    window.addEventListener('scroll', onScroll, { once: true });
   };
 
   return (
     <section
-      ref={sectionRef}
-      className="relative bg-[var(--secondary)] overflow-hidden sticky top-0 z-10 h-screen flex flex-col"
-      style={{ perspective: '1200px' }}
+      className="
+        relative
+        min-h-[200vh]
+        bg-[var(--secondary)]
+      "
     >
-      {/* Background decorative */}
-      <div className="absolute top-1/2 -left-32 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl pointer-events-none" />
+      {/*
+        =====================================================
+        STICKY VIEWPORT
+        =====================================================
 
-      <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 pt-12 md:pt-14">
-        {/* Section header */}
-        <div ref={headerRef} className="mb-3 md:mb-4">
+        This is the important part.
+
+        The testimonial section stays visually fixed while
+        the next section continues to scroll over it.
+
+        There is NO vertical overflow here.
+      */}
+      <div
+        className="
+          sticky
+          top-0
+          h-screen
+          w-full
+          max-w-full
+          overflow-hidden
+          flex
+          flex-col
+          justify-center
+          bg-[var(--secondary)]
+        "
+      >
+        {/* =================================================
+            HEADER
+        ================================================= */}
+
+        <div
+          className="
+            w-full
+            max-w-7xl
+            mx-auto
+            px-6
+            md:px-16
+            lg:px-24
+            pt-8
+            md:pt-14
+            pb-6
+            shrink-0
+          "
+        >
+          {/* Small label */}
           <div className="flex items-start gap-4 mb-3">
-            <div className="w-8 h-[1px] bg-[var(--accent)]" />
-            <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
+            <div className="w-8 h-[1px] bg-[var(--accent)] shrink-0 mt-[7px]" />
+
+            <span
+              className="
+                text-xs
+                font-general
+                font-semibold
+                text-[var(--accent)]
+                uppercase
+                tracking-[0.2em]
+              "
+            >
               Proof of Performance
             </span>
           </div>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2 className="font-clash text-section text-[var(--foreground)] max-w-xl">
-              What Our <span className="text-[var(--muted-foreground)]">Clients Say</span>
+
+          {/* Heading + controls */}
+          <div
+            className="
+              flex
+              flex-col
+              md:flex-row
+              md:items-end
+              md:justify-between
+              gap-6
+            "
+          >
+            <h2
+              className="
+                font-garamond
+                text-section
+                text-[var(--foreground)]
+                max-w-xl
+              "
+            >
+              What Our{' '}
+              <span className="text-[var(--muted-foreground)]">
+                Clients Say
+              </span>
             </h2>
-             {/* Prev / Next controls — centered below the cards */}
-      <div className="flex justify-end items-center gap-2 mt-2 pb-4 px-6 md:px-16 lg:px-24">
-        <button
-          type="button"
-          aria-label="Previous testimonial"
-          onClick={() => slide(-1)}
-          className="group w-12 h-12 rounded-full border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--accent)] flex items-center justify-center text-[var(--foreground)] shadow-sm hover:shadow-lg hover:shadow-[var(--accent)]/30  hover:text-white hover:border-[var(--accent)] transition-all duration-300"
-        >
-          <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5" />
-        </button>
-        <button
-          type="button"
-          aria-label="Next testimonial"
-          onClick={() => slide(1)}
-          className="group w-12 h-12 rounded-full border border-[var(--border)] bg-[var(--card)] flex items-center justify-center text-[var(--foreground)] shadow-sm hover:shadow-lg hover:shadow-[var(--accent)]/30 hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] transition-all duration-300"
-        >
-          <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5" />
-        </button>
-      </div>
+
+            {/* Navigation */}
+            <div
+              className="
+                flex
+                justify-end
+                items-center
+                gap-2
+                shrink-0
+              "
+            >
+              {/* Previous */}
+              <button
+                type="button"
+                aria-label="Previous testimonial"
+                onClick={() => slide(-1)}
+                className="
+                  group
+                  w-12
+                  h-12
+                  rounded-full
+                  border
+                  border-[var(--border)]
+                  bg-[var(--card)]
+                  flex
+                  items-center
+                  justify-center
+                  text-[var(--foreground)]
+                  shadow-sm
+                  hover:bg-[var(--accent)]
+                  hover:text-white
+                  hover:border-[var(--accent)]
+                  hover:shadow-lg
+                  hover:shadow-[var(--accent)]/30
+                  transition-all
+                  duration-300
+                  shrink-0
+                "
+              >
+                <ChevronLeft
+                  className="
+                    w-5
+                    h-5
+                    transition-transform
+                    duration-300
+                    group-hover:-translate-x-0.5
+                  "
+                />
+              </button>
+
+              {/* Next */}
+              <button
+                type="button"
+                aria-label="Next testimonial"
+                onClick={() => slide(1)}
+                className="
+                  group
+                  w-12
+                  h-12
+                  rounded-full
+                  border
+                  border-[var(--border)]
+                  bg-[var(--card)]
+                  flex
+                  items-center
+                  justify-center
+                  text-[var(--foreground)]
+                  shadow-sm
+                  hover:bg-[var(--accent)]
+                  hover:text-white
+                  hover:border-[var(--accent)]
+                  hover:shadow-lg
+                  hover:shadow-[var(--accent)]/30
+                  transition-all
+                  duration-300
+                  shrink-0
+                "
+              >
+                <ChevronRight
+                  className="
+                    w-5
+                    h-5
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-0.5
+                  "
+                />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      
 
-      {/* Horizontal scrolling testimonials */}
-      <div className="overflow-hidden cursor-grab active:cursor-grabbing">
+        {/* =================================================
+            TESTIMONIAL VIEWPORT
+        =================================================
+
+        IMPORTANT:
+
+        This viewport clips the wide track.
+
+        The track can be wider than the viewport,
+        but the page itself will NOT become horizontally
+        scrollable.
+        */}
+
         <div
-          ref={trackRef}
-          className="flex gap-6 px-6 md:px-16 lg:px-24"
-          style={{ width: 'max-content' }}
+          className="
+            relative
+            w-full
+            max-w-full
+            min-w-0
+            overflow-hidden
+            shrink-0
+          "
         >
-          {[...testimonials, ...testimonials].map((t, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 w-[calc(100vw-3rem)] sm:w-[400px] bg-[var(--card)] rounded-2xl p-6 sm:p-8 border border-[var(--border)] hover:shadow-elevated transition-all duration-500 hover:-translate-y-1"
-            >
-              {/* Quote icon */}
-              <Quote className="w-8 h-8 text-[var(--accent)]/20 mb-4" />
+          {/* =================================================
+              TESTIMONIAL TRACK
+          ================================================= */}
 
-              {/* Rating */}
-              <div className="flex gap-1 mb-3">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-[var(--accent)] text-[var(--accent)]" />
-                ))}
-              </div>
+          <div
+            ref={trackRef}
+            className="
+              flex
+              gap-6
+              w-max
+              max-w-none
+              min-w-0
+              px-6
+              md:px-0
+              will-change-transform
+            "
+          >
+            {cards.map((testimonial, index) => (
+              <article
+                key={`${testimonial.name}-${index}`}
+                className="
+                  group
+                  flex-shrink-0
+                  w-[calc(100vw_-_3rem)]
+                  sm:w-[400px]
+                  bg-[var(--card)]
+                  rounded-2xl
+                  p-6
+                  sm:p-8
+                  border
+                  border-[var(--border)]
+                  hover:shadow-elevated
+                  transition-shadow
+                  duration-500
+                  overflow-hidden
+                "
+              >
+                {/* Quote */}
+                <Quote
+                  className="
+                    w-8
+                    h-8
+                    text-[var(--accent)]/20
+                    mb-4
+                  "
+                />
 
-              {/* Text */}
-              <p className="text-[var(--muted-foreground)] font-inter text-sm leading-relaxed mb-6 line-clamp-5">
-                "{t.text}"
-              </p>
+                {/* Rating */}
+                <div className="flex gap-1 mb-3">
+                  {Array.from({
+                    length: testimonial.rating,
+                  }).map((_, starIndex) => (
+                    <Star
+                      key={starIndex}
+                      className="
+                        w-4
+                        h-4
+                        fill-[var(--accent)]
+                        text-[var(--accent)]
+                      "
+                    />
+                  ))}
+                </div>
 
-              {/* Author */}
-              <div className="pt-3 border-t border-[var(--border)]">
-                <p className="font-general font-semibold text-[var(--foreground)]">{t.name}</p>
-                <p className="text-xs text-[var(--accent)] font-general tracking-wider">{t.role}</p>
-              </div>
-            </div>
-          ))}
+                {/* Text */}
+                <p
+                  className="
+                    text-[var(--muted-foreground)]
+                    font-garamond
+                    text-sm
+                    leading-relaxed
+                    mb-6
+                    line-clamp-5
+                  "
+                >
+                  "{testimonial.text}"
+                </p>
+
+                {/* Author */}
+                <div
+                  className="
+                    pt-3
+                    border-t
+                    border-[var(--border)]
+                  "
+                >
+                  <p
+                    className="
+                      font-general
+                      font-semibold
+                      text-[var(--foreground)]
+                    "
+                  >
+                    {testimonial.name}
+                  </p>
+
+                  <p
+                    className="
+                      text-xs
+                      text-[var(--accent)]
+                      font-general
+                      tracking-wider
+                    "
+                  >
+                    {testimonial.role}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
 
-     
+        {/* Small bottom breathing space */}
+        <div className="h-8 md:h-12 shrink-0" />
+      </div>
     </section>
   );
 };

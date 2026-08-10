@@ -1,199 +1,806 @@
-/* =========================
-   TITLE OVERLAY
-========================= */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap");
+
+
+/* ==========================================================
+   ROOT SECTION
+   ========================================================== */
+
+.service-slider-section {
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   MOBILE NAVIGATION
+   ========================================================== */
+
+.service-mobile-nav {
+  display: none;
+}
+
+.service-nav-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  flex: 0 0 44px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(202, 170, 121, 0.4);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #caaa79;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.service-nav-btn:hover:not(:disabled) {
+  background: rgba(202, 170, 121, 0.2);
+  border-color: #caaa79;
+  transform: scale(1.05);
+}
+
+.service-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+
+/* ==========================================================
+   TITLE
+   ========================================================== */
 
 .service-title-wrapper {
   position: absolute;
+
   left: 50%;
-  top: 20px;          /* Negative mat do */
+  top: 20px;
+
   transform: translateX(-50%);
 
-  width: 800px;
+  width: min(800px, 90%);
+
+  max-width: 90%;
+
   height: 120px;
 
-  z-index: 999;
+  z-index: 20;
+
   pointer-events: none;
-  overflow: visible;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
 }
 
 .service-title {
   position: absolute;
+
   left: 50%;
   top: 0;
+
   width: 100%;
- text-transform: uppercase;
-  transform: translateX(-50%);
+
+  margin: 0;
+  padding: 0;
+
   text-align: center;
 
+  text-transform: uppercase;
+
+  transform: translateX(-50%);
+
   opacity: 0;
+
+  transition:
+    opacity 0.45s ease;
+
+  box-sizing: border-box;
 }
 
 .service-title.is-active {
   opacity: 1;
 }
 
-.service-title.is-active {
-  opacity: 1;
-}
 
-/* Reveal */
-
-.title-mask {
-  display: block;
-  overflow: hidden;
-}
-
-.title-content {
-  display: block;
-  transform: translateY(120%);
-  transition: transform .9s cubic-bezier(.22,.68,.1,1);
-}
-
-.service-title.is-active .title-content {
-  transform: translateY(0);
-}
+/* ==========================================================
+   TITLE NUMBER
+   ========================================================== */
 
 .service-number {
   display: block;
-  margin-bottom: 12px;
-  color: #CAAA79;
-  font-size: clamp(.95rem,1.3vw,1.2rem);
-  letter-spacing: .35em;
+
+  margin-bottom: 10px;
+
+  color: #caaa79;
+
+  font-family: Arial, sans-serif;
+
+  font-size: clamp(
+    0.8rem,
+    1.2vw,
+    1.1rem
+  );
+
+  line-height: 1;
+
+  letter-spacing: 0.35em;
 }
+
+
+/* ==========================================================
+   MAIN TITLE
+   ========================================================== */
 
 .service-heading {
   display: block;
-  color: #F8F5EF;
 
-  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  color: #f8f5ef;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-weight: 600;
+
+  font-size:
+    clamp(
+      2.6rem,
+      5vw,
+      4.8rem
+    );
+
   line-height: 1.05;
+
   text-transform: uppercase;
 
+  white-space: normal;
+
+  overflow-wrap: break-word;
+
   text-shadow:
-    1px 1px 0 rgba(202, 170, 121, 0.45),
-    0 4px 14px rgba(0, 0, 0, 0.2);
+    1px 1px 0
+      rgba(202, 170, 121, 0.45),
+    0 4px 14px
+      rgba(0, 0, 0, 0.2);
 }
 
+
+/* ==========================================================
+   SLIDER VIEWPORT
+   ========================================================== */
+
+.service-slider-viewport {
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   SLIDER TRACK
+   ========================================================== */
 
 .service-track {
   --slide-w: min(31.2vw, 600px);
   --gap: clamp(50px, 6.7vw, 130px);
-  --step: calc(var(--slide-w) + (2 * var(--gap)));
+  --step: calc(
+    var(--slide-w) + (2 * var(--gap))
+  );
 
   position: relative;
+
   width: 100%;
-  height: min(calc(var(--slide-w) * 1176 / 897), 82vh);
+  max-width: 100%;
+
+  height:
+    min(
+      calc(
+        var(--slide-w) * 1176 / 897
+      ),
+      82vh
+    );
+
+  min-height: 420px;
+
+  overflow: visible;
+
+  box-sizing: border-box;
 }
+
+
+/* ==========================================================
+   CARD
+   ========================================================== */
 
 .service-card {
   position: absolute;
+
   top: 0;
   left: 50%;
+
   width: var(--slide-w);
   height: 100%;
 
+  max-width: 100%;
+
   overflow: hidden;
+
   border-radius: 2px;
+
   cursor: pointer;
 
-  will-change: transform, opacity;
+  box-sizing: border-box;
+
+  will-change:
+    transform,
+    opacity;
+
   backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
+
   transform-style: preserve-3d;
 
   transition:
-    transform .9s cubic-bezier(.22,.68,.1,1),
-    opacity .8s ease;
+    transform 0.9s
+      cubic-bezier(
+        0.22,
+        0.68,
+        0.1,
+        1
+      ),
+    opacity 0.8s ease;
 }
 
-.service-card--left,
-.service-card--left-to-out-left,
-.service-card--left-to-center,
-.service-card--out-left-to-left {
-  transform: translate3d(calc(-50% - var(--step)),0,0) scale(.92);
-  opacity:.75;
-  z-index:2;
+
+/* ==========================================================
+   IMAGE
+   ========================================================== */
+
+.service-card-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 100%;
+
+  object-fit: cover;
+
+  user-select: none;
+
+  pointer-events: none;
+
+  -webkit-user-drag: none;
 }
 
-.service-card--center,
-.service-card--center-to-left,
-.service-card--center-to-right {
-  transform: translate3d(-50%,0,0) scale(1.1);
-  opacity:1;
-  z-index:3;
+
+/* ==========================================================
+   IDLE POSITIONS
+   ========================================================== */
+
+.service-card--left {
+  transform:
+    translate3d(
+      calc(
+        -50% - var(--step)
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+
+  z-index: 2;
 }
 
-.service-card--right,
-.service-card--right-to-center,
-.service-card--right-to-out-right,
+.service-card--center {
+  transform:
+    translate3d(
+      -50%,
+      0,
+      0
+    )
+    scale(1.1);
+
+  opacity: 1;
+
+  z-index: 3;
+}
+
+.service-card--right {
+  transform:
+    translate3d(
+      calc(
+        -50% + var(--step)
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+
+  z-index: 2;
+}
+
+
+/* ==========================================================
+   NEXT MOTION - INITIAL POSITIONS
+   ========================================================== */
+
+.service-card--left-to-out-left {
+  transform:
+    translate3d(
+      calc(
+        -50% - var(--step)
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0;
+
+  z-index: 1;
+}
+
+.service-card--center-to-left {
+  transform:
+    translate3d(
+      -50%,
+      0,
+      0
+    )
+    scale(1.1);
+
+  opacity: 1;
+
+  z-index: 3;
+}
+
+.service-card--right-to-center {
+  transform:
+    translate3d(
+      calc(
+        -50% + var(--step)
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+
+  z-index: 2;
+}
+
 .service-card--out-right-to-right {
-  transform: translate3d(calc(-50% + var(--step)),0,0) scale(.92);
-  opacity:.75;
-  z-index:2;
+  transform:
+    translate3d(
+      calc(
+        -50% + (2 * var(--step))
+      ),
+      0,
+      0
+    )
+    scale(0.82);
+
+  opacity: 0;
+
+  z-index: 1;
 }
 
-.service-card--out-left-to-left{
-  transform:translate3d(calc(-50% - (2 * var(--step))),0,0) scale(.92);
-  opacity:0;
+
+/* ==========================================================
+   PREV MOTION - INITIAL POSITIONS
+   ========================================================== */
+
+.service-card--out-left-to-left {
+  transform:
+    translate3d(
+      calc(
+        -50% - (2 * var(--step))
+      ),
+      0,
+      0
+    )
+    scale(0.82);
+
+  opacity: 0;
+
+  z-index: 1;
 }
 
-.service-card--out-right-to-right{
-  transform:translate3d(calc(-50% + (2 * var(--step))),0,0) scale(.82);
-  opacity:0;
+.service-card--left-to-center {
+  transform:
+    translate3d(
+      calc(
+        -50% - var(--step)
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+
+  z-index: 2;
 }
 
-.service-track.is-moving .service-card--left-to-out-left{
-  transform:translate3d(calc(-50% - (2 * var(--step))),0,0) scale(.92);
-  opacity:0;
+.service-card--center-to-right {
+  transform:
+    translate3d(
+      -50%,
+      0,
+      0
+    )
+    scale(1.1);
+
+  opacity: 1;
+
+  z-index: 3;
 }
 
-.service-track.is-moving .service-card--center-to-left,
-.service-track.is-moving .service-card--out-left-to-left{
-  transform:translate3d(calc(-50% - var(--step)),0,0) scale(.92);
-  opacity:.75;
+.service-card--right-to-out-right {
+  transform:
+    translate3d(
+      calc(
+        -50% + var(--step)
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
+
+  z-index: 2;
 }
 
-.service-track.is-moving .service-card--right-to-center,
-.service-track.is-moving .service-card--left-to-center{
-  transform:translate3d(-50%,0,0) scale(1.1);
-  opacity:1;
-  z-index:3;
+
+/* ==========================================================
+   ACTIVE MOTION
+   ========================================================== */
+
+.service-track.is-moving
+.service-card--left-to-out-left {
+  transform:
+    translate3d(
+      calc(
+        -50% - (2 * var(--step))
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0;
 }
 
-.service-track.is-moving .service-card--center-to-right,
-.service-track.is-moving .service-card--out-right-to-right{
-  transform:translate3d(calc(-50% + var(--step)),0,0) scale(.92);
-  opacity:.75;
+.service-track.is-moving
+.service-card--center-to-left,
+.service-track.is-moving
+.service-card--out-left-to-left {
+  transform:
+    translate3d(
+      calc(
+        -50% - var(--step)
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0.75;
 }
 
-.service-track.is-moving .service-card--right-to-out-right{
-  transform:translate3d(calc(-50% + (2 * var(--step))),0,0) scale(.92);
-  opacity:0;
+.service-track.is-moving
+.service-card--right-to-center,
+.service-track.is-moving
+.service-card--left-to-center {
+  transform:
+    translate3d(
+      -50%,
+      0,
+      0
+    )
+    scale(1.1);
+
+  opacity: 1;
+
+  z-index: 3;
 }
 
-@media (max-width:640px){
+.service-track.is-moving
+.service-card--center-to-right,
+.service-track.is-moving
+.service-card--out-right-to-right {
+  transform:
+    translate3d(
+      calc(
+        -50% + var(--step)
+      ),
+      0,
+      0
+    )
+    scale(0.92);
 
-.service-title-wrapper{
-    width:66vw;
-    top:10px;
+  opacity: 0.75;
 }
 
-.service-heading{
-    font-size:clamp(2rem,7vw,3rem);
+.service-track.is-moving
+.service-card--right-to-out-right {
+  transform:
+    translate3d(
+      calc(
+        -50% + (2 * var(--step))
+      ),
+      0,
+      0
+    )
+    scale(0.92);
+
+  opacity: 0;
 }
 
-.service-track{
-    --slide-w:66vw;
-    --gap:1rem;
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 1024px) and (min-width: 641px) {
+  .service-title-wrapper {
+    width: 90%;
+    max-width: 90%;
+
+    top: 10px;
+
+    height: 70px;
+  }
+
+  .service-heading {
+    font-size:
+      clamp(
+        1.8rem,
+        4vw,
+        3rem
+      );
+  }
+
+  .service-track {
+    --slide-w: min(50vw, 450px);
+
+    --gap:
+      clamp(
+        20px,
+        3vw,
+        60px
+      );
+
+    height:
+      min(
+        calc(
+          var(--slide-w) * 1176 / 897
+        ),
+        55vh
+      );
+
+    min-height: 360px;
+  }
 }
 
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 640px) {
+  .service-slider-section {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .service-mobile-nav {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 0.75rem;
+
+    padding-right: 1rem;
+
+    position: absolute;
+
+    top: 20px;
+    right: 0;
+
+    z-index: 50;
+  }
+
+  .service-title-wrapper {
+    position: relative;
+
+    left: auto;
+    top: auto;
+
+    transform: none;
+
+    width: 100%;
+    max-width: 100%;
+
+    margin:
+      100px auto
+      20px;
+
+    height: auto;
+
+    min-height: 60px;
+
+    padding:
+      0 1rem;
+
+    box-sizing: border-box;
+  }
+
+  .service-title {
+    position: relative;
+
+    left: auto;
+    top: auto;
+
+    transform: none;
+
+    width: 100%;
+  }
+
+  .service-number {
+    font-size: 0.8rem;
+
+    margin-bottom: 8px;
+  }
+
+  .service-heading {
+    font-size:
+      clamp(
+        1.8rem,
+        6vw,
+        2.4rem
+      );
+
+    line-height: 1.05;
+  }
+
+  .service-slider-viewport {
+    width: 100%;
+    max-width: 100%;
+
+    overflow: hidden;
+  }
+
+  .service-track {
+    --slide-w: 100%;
+    --gap: 0px;
+    --step: 100%;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: 60vh;
+
+    min-height: 360px;
+
+    margin-top: 0;
+
+    overflow: hidden;
+  }
+
+  /*
+   * Mobile:
+   * only center card is visible.
+   */
+
+  .service-card--left,
+  .service-card--right,
+  .service-card--left-to-out-left,
+  .service-card--right-to-out-right,
+  .service-card--out-left-to-left,
+  .service-card--out-right-to-right {
+    opacity: 0 !important;
+
+    pointer-events: none;
+  }
+
+  .service-card--center,
+  .service-card--center-to-left,
+  .service-card--center-to-right,
+  .service-card--left-to-center,
+  .service-card--right-to-center {
+    left: 50% !important;
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    height: 100% !important;
+
+    transform:
+      translate3d(
+        -50%,
+        0,
+        0
+      )
+      scale(1) !important;
+
+    opacity: 1 !important;
+
+    z-index: 3;
+  }
+
+  /*
+   * Disable side-card movement on mobile.
+   * Navigation still changes the active image.
+   */
+
+  .service-track.is-moving
+  .service-card--center-to-left,
+  .service-track.is-moving
+  .service-card--center-to-right,
+  .service-track.is-moving
+  .service-card--left-to-center,
+  .service-track.is-moving
+  .service-card--right-to-center {
+    transform:
+      translate3d(
+        -50%,
+        0,
+        0
+      )
+      scale(1) !important;
+  }
 }
 
-@media(prefers-reduced-motion:reduce){
 
-.service-card,
-.service-title,
-.title-content{
-    transition-duration:.01ms;
-}
+/* ==========================================================
+   REDUCED MOTION
+   ========================================================== */
 
+@media (prefers-reduced-motion: reduce) {
+  .service-card,
+  .service-title {
+    transition-duration: 0.01ms !important;
+  }
 }

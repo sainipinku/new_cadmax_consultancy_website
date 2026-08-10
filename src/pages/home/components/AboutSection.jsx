@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
+import { createImageParallax, createTextParallax, createDepthMotion } from '../../../animations/scrollMotion';
 import accuracyImg from '../../../assets/Images/Other/accuracy-part.jpg.jpeg';
 import './AboutSection.css';
 
@@ -35,6 +36,24 @@ const AboutSection = () => {
           scrub: 1.2,
         },
       });
+
+      // Add cinematic parallax to image
+      createImageParallax(img, container, {
+        yPercent: 10,
+        scale: 1.05,
+        scrub: 1.5,
+        intensity: 0.7,
+      });
+
+      // Add subtle depth motion to image container
+      createDepthMotion(container, sectionRef.current, {
+        rotateX: 1.5,
+        rotateY: 1.5,
+        translateZ: 15,
+        scale: 1.02,
+        scrub: 1.5,
+        intensity: 0.6,
+      });
     });
 
     return () => ctx.revert();
@@ -43,30 +62,30 @@ const AboutSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-[var(--secondary)] overflow-hidden"
+      className="relative py-8 md:py-12 lg:py-32 bg-[var(--secondary)] overflow-hidden"
     >
       {/* Background decorative element */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--accent)]/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[var(--accent)]/10 rounded-full translate-y-1/2 -translate-x-1/4 blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-24">
         {/* Section label */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-4 mb-4 md:mb-6">
           <div className="w-8 h-[1px] bg-[var(--accent)]" />
           <span className="text-xs font-general font-semibold text-[var(--accent)] uppercase tracking-[0.2em]">
             About Cadmax
           </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8 lg:gap-24 items-center">
           {/* Left - Image (3/5 width) */}
           <div ref={imageContainerRef} className="relative lg:col-span-3">
-            <div className="relative overflow-hidden rounded-2xl">
+            <div className="relative overflow-hidden rounded-2xl max-md:mb-4">
               <img
                 ref={imageImgRef}
                 src={accuracyImg}
                 alt="Cadmax Precision"
-                className="w-full h-[500px] lg:h-[550px] object-cover"
+              className="w-full h-[300px] md:h-[350px] lg:h-[550px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
@@ -85,13 +104,13 @@ const AboutSection = () => {
           </div>
 
           {/* Right - Content (2/5 width) */}
-          <div ref={textRef} className="space-y-8 lg:col-span-2">
-            <h2 className="font-clash text-section text-[var(--foreground)]">
+          <div ref={textRef} className="space-y-4 md:space-y-6 lg:space-y-8 lg:col-span-2" data-motion="text">
+            <h2 className="font-garamond text-section text-[var(--foreground)]">
               How CADMAX <br />
               <span className="text-[var(--muted-foreground)]">Maintains Accuracy</span>
             </h2>
 
-            <div className="space-y-2 text-[var(--muted-foreground)] font-inter leading-relaxed">
+            <div className="space-y-2 text-[var(--muted-foreground)] font-garamond leading-relaxed">
               <p>
                 Established in 2000, Cadmax Consultancy has built a legacy of over 25 years in engineering, planning, and design consultancy. What began with specialized services in MEP Engineering Design, Engineering Surveys, Detailed Project Reports (DPRs), and Urban Planning has evolved into a multidisciplinary practice offering Architecture and Infrastructure Development solutions.
               </p>

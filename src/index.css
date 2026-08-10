@@ -11,6 +11,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @import url('https://fonts.cdnfonts.com/css/live-content');
+
 :root {
   /* ---------- corner radius ---------- */
   --radius: 0.5rem;
@@ -20,10 +21,10 @@
   --foreground:      oklch(19.5% 0    0);     /* #151515  near-black text */
   --stone-warm:       oklch(93.8% 0.012 82);  /* #EEEAE2  warm light beige */
   --charcoal:          oklch(19.8% 0    0);    /* #161616  near-black (buttons) */
-  --champagne:          oklch(75.5% 0.075 78);  /* #CAAA79  warm gold accent */
-  --champagne-soft:      oklch(86%   0.05  82);  /* #E2CEAD  lighter gold */
+  --champagne:          oklch(55.5% 0.075 78);  /* #CAAA79  warm gold accent */
+  --champagne-soft:      oklch(66%   0.05  82);  /* #E2CEAD  lighter gold */
   --ink:                  oklch(19.5% 0    0);    /* #151515  = foreground */
-  --ink-soft:              oklch(50%   0    0);    /* #636363  muted text */
+  --ink-soft:              oklch(30%   0    0);    /* #5A5A5A  muted text (darker for better visibility) */
   --hairline:              oklch(0%    0    0 / 0.08); /* black @ 8%, subtle border */
 
   /* ---------- semantic tokens ---------- */
@@ -52,9 +53,9 @@
   --ring:    var(--champagne);
 
   /* ---------- fonts ---------- */
-  --font-sans:  "Inter 28 Pt", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Fragment Serif", "Cormorant Garamond", "Playfair Display", Georgia, serif;
-  --font-glare: "Fragment Glare", Arial, sans-serif;
+  --font-sans:  "Cormorant Garamond", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", "Fragment Serif", "Playfair Display", Georgia, serif;
+  --font-glare: "Cormorant Garamond", Arial, sans-serif;
   --font-mono:  ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
