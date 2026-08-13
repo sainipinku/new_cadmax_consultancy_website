@@ -30,22 +30,22 @@ import svg4 from "../../../src/assets/Images/about/Frame-38.png";
 
 const leader = [
   { img: m1, name: "Mr. HANUMAN SAHAY SHARMA", role: "CHAIRMAN" },
-  { img: m2, name: "Mrs. KAMLA DEVI SHARMA", role: "DIRECTOR" },
+  { img: m2, name: "Ms. KIRAN SHARMA", role: "DIRECTOR" },
 ];
 
 
 const members = [
 
- { img: m3, name: "Mr. RAMDAYAL SHARMA ", role: "ADMIN MANAGER " },
- { img: m4, name: "Mr. BABU LAL SHARMA ", role: "C.E.O " },
- { img: m5, name: "Mr. MUKESH SAINI", role: "PLANNING MANAGER" },
- { img: m6, name: "Mr. KUNDAN SHARMA ", role: "SURVEY MANAGER" },
- { img: m7, name: "Mr. NITESH SHARMA ", role: "ENGINEERING MANAGER" },
- { img: m8, name: "Mr. RICHHPAL SINGH ", role: "DRAWING MANAGER" },
- { img: m9, name: "Mr. RAMCHARAN SHARMA ", role: "ACCOUNTS MANAGER" },
- { img: m10, name:"Mr. RAKESH GUPTA ", role: "LEGAL ADVISIOR" },
- { img: m11, name:"Mr. JAGDISH MATHUR ", role: "LEGAL ADVISIOR" }
-]; 
+  { img: m3, name: "Mr. RAMDAYAL SHARMA ", role: "ADMIN MANAGER " },
+  { img: m4, name: "Mr. BABU LAL SHARMA ", role: "C.E.O " },
+  { img: m5, name: "Mr. MUKESH SAINI", role: "PLANNING MANAGER" },
+  { img: m6, name: "Mr. KUNDAN SHARMA ", role: "SURVEY MANAGER" },
+  { img: m7, name: "Mr. NITESH SHARMA ", role: "ENGINEERING MANAGER" },
+  { img: m8, name: "Mr. RICHHPAL SINGH ", role: "DRAWING MANAGER" },
+  { img: m9, name: "Mr. RAMCHARAN SHARMA ", role: "ACCOUNTS MANAGER" },
+  { img: m10, name: "Mr. RAKESH GUPTA ", role: "LEGAL ADVISIOR" },
+  { img: m11, name: "Mr. JAGDISH MATHUR ", role: "LEGAL ADVISIOR" }
+];
 
 
 
@@ -59,17 +59,17 @@ const stats = [
 
 // const value = [
 //   {
-    
+
 //     title: "INNOVATION",
 //     desc: "Innovation drives the architectural vision of CADMAX Consultancy. We integrate creative design thinking with advanced architectural technologies to produce functional, sustainable, and visually striking spaces",
 //   },
 //   {
-    
+
 //     title: "EXCELLENCE",
 //     desc: "Excellence is reflected in every stage of our architectural process—from concept development to project completion..",
 //   },
 //   {
-   
+
 //     title: "INTEGRITY",
 //     desc: "CADMAX Consultancy maintains clear communication, realistic commitments, and compliance with all regulatory standards. We build lasting relationships with clients, consultants, and contractors based on trust and mutual respect.",
 //   },
@@ -133,17 +133,17 @@ const About = () => {
               At CADMAX Consultancy
             </h1>
             <p className="mt-5 text-sm font-bold leading-relaxed text-muted-foreground font-garamond">
-            we specialize in architectural design, planning, and consultancy services for residential,
-             commercial, and industrial projects. Our experienced team combines advanced CAD technology
+              we specialize in architectural design, planning, and consultancy services for residential,
+              commercial, and industrial projects. Our experienced team combines advanced CAD technology
               with thoughtful design to bring ideas to life. We build trust before we build structures.
-               That's the CadMax difference.Customers choose CadMax because we turn complex ideas into
-                precise, buildable designs—on time, every time.CadMax: Where accuracy meets creativity.
-                 Trusted by clients who value quality, innovation, and flawless execution.We don't just
-                  design spaces—CadMax designs solutions. That's why clients trust us to deliver 
-                  excellence from concept to completion.CadMax stands out for our attention to detail, 
-                  advanced CAD technology, and commitment to client satisfaction.From 2D to 3D 
-                  perfection—customers choose CadMax for designs that are accurate, clear, and 
-                  construction-ready.
+              That's the CadMax difference.Customers choose CadMax because we turn complex ideas into
+              precise, buildable designs—on time, every time.CadMax: Where accuracy meets creativity.
+              Trusted by clients who value quality, innovation, and flawless execution.We don't just
+              design spaces—CadMax designs solutions. That's why clients trust us to deliver
+              excellence from concept to completion.CadMax stands out for our attention to detail,
+              advanced CAD technology, and commitment to client satisfaction.From 2D to 3D
+              perfection—customers choose CadMax for designs that are accurate, clear, and
+              construction-ready.
             </p>
 
             <dl className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -152,7 +152,7 @@ const About = () => {
                   key={s.label}
                   className="rounded-2xl border border-border/60 surface-3d px-4 py-4"
                 >
-                <dt className="font-garamond text-2xl text-foreground">{s.value}</dt>
+                  <dt className="font-garamond text-2xl text-foreground">{s.value}</dt>
                   <dd className="mt-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                     {s.label}
                   </dd>
@@ -207,7 +207,7 @@ const About = () => {
 
           <div>
             <p className="text-xs uppercase tracking-[0.35em] text-[var(--accent)]">
-               Our Leadership
+              Our Leadership
             </p>
             <h2 className="mt-5 font-garamond text-3xl uppercase leading-[1.05] tracking-[0.02em] text-foreground md:text-4xl">
               Inspiring Leadership, Remarkable Achievements
@@ -216,8 +216,8 @@ const About = () => {
               “It is truly commendable that Mr. Hanuman Sahay Sharma, chairman of Cadmax, has achieved numerous milestones through his dedication, perseverance, and visionary approach. His consistent efforts and leadership have played a key role in the growth and success of the organization. With a strong commitment to excellence and innovation, he has inspired many professionals and students alike. His achievements reflect not only personal success but also his positive impact on the industry, making him a respected and motivating leader.”
             </p>
             <p className="mt-4 text-lg text-bold leading-relaxed text-muted-foreground">
-             A Journey of Vision, Dedication, and Success
-Driven by innovation, guided by experience, and built on trust..
+              A Journey of Vision, Dedication, and Success
+              Driven by innovation, guided by experience, and built on trust..
             </p>
 
             <div className="mt-6 flex items-center gap-4 rounded-3xl bg-[#fffcfc] border border-border/70 surface-3d p-4">
@@ -299,32 +299,32 @@ Driven by innovation, guided by experience, and built on trust..
             </h2>
           </div>
 
-         <div className="max-w-[900px] mx-auto px-5 mb-20 grid grid-cols-1 sm:grid-cols-2 gap-8 justify-center">
-          {leader.map((member, index) => (
-            <div
-              key={index}
-              className="bg-[var(--card)] rounded-2xl overflow-hidden shadow-elevated border border-[var(--border)] group transition duration-500 hover:-translate-y-2 hover:border-[var(--accent)]/50"
-            >
-              <div className="h-[360px] overflow-hidden">
-                <img
-                  src={member.img}
-                  alt={member.name}
-                  className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
-                />
-              </div>
+          <div className="max-w-[900px] mx-auto px-5 mb-20 grid grid-cols-1 sm:grid-cols-2 gap-8 justify-center">
+            {leader.map((member, index) => (
+              <div
+                key={index}
+                className="bg-[var(--card)] rounded-2xl overflow-hidden shadow-elevated border border-[var(--border)] group transition duration-500 hover:-translate-y-2 hover:border-[var(--accent)]/50"
+              >
+                <div className="h-[360px] overflow-hidden">
+                  <img
+                    src={member.img}
+                    alt={member.name}
+                    className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                  />
+                </div>
 
-              <div className="text-center py-5 px-4 bg-[var(--card)]">
-                <h3 className="font-garamond text-lg font-semibold text-[var(--foreground)] tracking-wide whitespace-normal break-words">
-                  {member.name}
-                </h3>
+                <div className="text-center py-5 px-4 bg-[var(--card)]">
+                  <h3 className="font-garamond text-lg font-semibold text-[var(--foreground)] tracking-wide whitespace-normal break-words">
+                    {member.name}
+                  </h3>
 
-                <p className="font-general text-sm font-semibold text-[var(--accent)] mt-1 tracking-wider uppercase whitespace-normal break-words">
-                  {member.role}
-                </p>
+                  <p className="font-general text-sm font-semibold text-[var(--accent)] mt-1 tracking-wider uppercase whitespace-normal break-words">
+                    {member.role}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -395,7 +395,7 @@ Driven by innovation, guided by experience, and built on trust..
 
       {/* TOP LEADERS */}
       {/* <div className="relative py-10 bg-[var(--background)]"> */}
-        {/* <div className="text-center my-16">
+      {/* <div className="text-center my-16">
           
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="w-8 h-[1px] bg-[var(--accent)]" />
@@ -411,7 +411,7 @@ Driven by innovation, guided by experience, and built on trust..
           <div className="w-[80px] h-[2px] bg-[var(--accent)] mx-auto mt-6"></div>
         </div> */}
 
-        {/* <div className="max-w-[900px] mx-auto px-5 mb-20 grid grid-cols-1 sm:grid-cols-2 gap-8 justify-center">
+      {/* <div className="max-w-[900px] mx-auto px-5 mb-20 grid grid-cols-1 sm:grid-cols-2 gap-8 justify-center">
           {members.slice(0, 2).map((member, index) => (
             <div
               key={index}
@@ -438,8 +438,8 @@ Driven by innovation, guided by experience, and built on trust..
           ))}
         </div> */}
 
-        {/* Team Member Slider */}
-        {/* <div className="w-full py-10 bg-[var(--background)] overflow-hidden">
+      {/* Team Member Slider */}
+      {/* <div className="w-full py-10 bg-[var(--background)] overflow-hidden">
           <div
             ref={sliderRef}
             className="
@@ -502,14 +502,14 @@ Driven by innovation, guided by experience, and built on trust..
             <h2 className="mt-5 font-garamond text-4xl uppercase leading-[1.05] tracking-[0.02em] text-forground md:text-6xl">
               Our core TEAM
             </h2>
-            
+
           </div>
-         
+
 
           {/* Image Card */}
           <div className="relative group overflow-hidden rounded-2xl shadow-elevated border border-[var(--border)]">
-            <img 
-              src={img4} 
+            <img
+              src={img4}
               alt="mahadev market"
               className="w-full h-[500px] object-cover transform group-hover:scale-105 transition duration-700 ease-in-out"
             />
@@ -520,7 +520,7 @@ Driven by innovation, guided by experience, and built on trust..
 
 
 
-   
+
 
       <section
         id="studio"
