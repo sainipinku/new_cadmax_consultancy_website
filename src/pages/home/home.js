@@ -2,8 +2,8 @@ import React from 'react';
 import Navbar from '../../components/Layout/Header/Navbar';
 import HeroSection from './components/HeroSection';
 import CompanyShowcase from './components/company';
-import ServiceSlider from './components/ServiceSlider';
-// import EAIService from './components/EAIService';
+// import ServiceSlider from './components/ServiceSlider';
+import EAIService from './components/EAIService';
 import AboutSection from './components/AboutSection';
 import ProjectsShowcase from './components/ProjectsShowcase';
 import AmenitiesSection from './components/AmenitiesSection';
@@ -27,9 +27,9 @@ function Home() {
         <Navbar />
       <HeroSection />
       <CompanyShowcase />
-      <ServiceSlider />
+      {/* <ServiceSlider /> */}
       
-      {/* <EAIService /> */}
+      <EAIService />
       <AboutSection />
       <StatsSection />
         <AmenitiesSection />
