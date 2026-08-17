@@ -2,17 +2,17 @@ import { useState } from "react";
 
 // ===== Engineering images =====
 import engSlide1 from "../../../assets/Images/EAIService/engineering/slide-1.png";
-import engSlide2 from "../../../assets/Images/EAIService/engineering/slide-2.png";
+// import engSlide2 from "../../../assets/Images/EAIService/engineering/slide-2.png";
 
 // ===== Architecture images =====
 import archSlide1 from "../../../assets/Images/EAIService/architecture/slide-1.png";
-import archSlide2 from "../../../assets/Images/EAIService/architecture/slide-2.jpeg";
-import archSlide3 from "../../../assets/Images/EAIService/architecture/slide-3.png";
+// import archSlide2 from "../../../assets/Images/EAIService/architecture/slide-2.jpeg";
+// import archSlide3 from "../../../assets/Images/EAIService/architecture/slide-3.png";
 
 // ===== Infrastructure images =====
 import infraImg1 from "../../../assets/Images/EAIService/infrastructure/image 1_14 - Photo_11zon.jpg";
-import infraTopView from "../../../assets/Images/EAIService/infrastructure/top view 1_17 - Photo_11zon.jpg";
-import infraViewRender from "../../../assets/Images/EAIService/infrastructure/VIEW RENDER FILE_11zon.jpg";
+// import infraTopView from "../../../assets/Images/EAIService/infrastructure/top view 1_17 - Photo_11zon.jpg";
+// import infraViewRender from "../../../assets/Images/EAIService/infrastructure/VIEW RENDER FILE_11zon.jpg";
 
 const services = [
   {
