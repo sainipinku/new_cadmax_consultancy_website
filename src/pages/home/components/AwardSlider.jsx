@@ -170,9 +170,6 @@ function AwardSlider() {
                     draggable={false}
                   />
 
-                  <span className="award-card-number">{slide.number}</span>
-                  <i className="award-corner" />
-
                   <div className="award-card-overlay">
                     <span className="award-card-year">{slide.year}</span>
                     <h3 className="award-card-title">{slide.title}</h3>
