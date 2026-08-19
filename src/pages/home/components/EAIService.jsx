@@ -59,7 +59,7 @@ export default function EAIService() {
 
   return (
     <section id="services" className="relative bg-[var(--secondary)]">
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-32 lg:px-10">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-32 lg:px-10 xl:max-w-[88rem] 2xl:max-w-[96rem] 2xl:px-14">
         {/* section header */}
         {/* <div className="mb-16 flex flex-col gap-6 md:mb-24 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
@@ -82,10 +82,10 @@ export default function EAIService() {
         </div> */}
 
         {/* main showcase */}
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14 xl:gap-20 2xl:gap-24">
           {/* image column */}
-          <div className="relative lg:col-span-7">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-secondary md:aspect-[5/4]">
+          <div className="relative lg:col-span-7 xl:col-span-8">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-secondary md:aspect-[5/4] xl:aspect-[16/10] 2xl:aspect-[16/9]">
               <div className="relative h-full w-full overflow-hidden">
                 <img
                   src={current.image}
@@ -107,7 +107,7 @@ export default function EAIService() {
                 </span>
               </div>
               {/* bottom caption */}
-              <div className="absolute bottom-6 left-6 right-6 text-white">
+              <div className="absolute bottom-6 left-6 right-6 text-white xl:bottom-8 xl:left-8 xl:right-8 2xl:bottom-10 2xl:left-10 2xl:right-10">
                 <div className="text-[11px] uppercase tracking-[0.3em] text-accent">
                   {current.kicker}
                 </div>
@@ -128,7 +128,7 @@ export default function EAIService() {
           </div>
 
           {/* content column */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 xl:col-span-4">
             <ul className="divide-y divide-[color:var(--hairline)] border-y border-[color:var(--hairline)]">
               {services.map((s, i) => {
                 const isActive = i === active;
