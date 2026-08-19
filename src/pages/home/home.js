@@ -8,6 +8,7 @@ import AboutSection from './components/AboutSection';
 import ProjectsShowcase from './components/ProjectsShowcase';
 import AmenitiesSection from './components/AmenitiesSection';
 import ProcessSection from './components/ProcessSection';
+import AwardSlider from './components/AwardSlider';
 import TestimonialsSection from './components/TestimonialsSection';
 // import Testimonial from './components/testimonial';
 import StatsSection from './components/StatsSection';
@@ -35,10 +36,11 @@ function Home() {
         <AmenitiesSection />
         <ProjectsShowcase />
         <ProcessSection />
+        <AwardSlider />
         <TestimonialsSection />
-        {/* <Testimonial /> */}
         <ContactSection />
         <Footer />
+        {/* <Testimonial /> */}
       </div>
     </>
   );
