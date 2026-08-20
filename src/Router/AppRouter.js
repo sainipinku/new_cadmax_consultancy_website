@@ -10,11 +10,15 @@ import Home from "../pages/home/home";
 import About from "../pages/About/About";
 
 // services
-import Services from "../pages/Services/Services";
-import Engineering from "../pages/Services/Engineering";
-import Architecture from "../pages/Services/Architecture";
-import InteriorDesign from "../pages/Services/InteriorDesign";
-import Infrastructure from "../pages/Services/Infrastructure";
+// OLD SERVICES IMPORTS (commented - not deleted)
+// import Services from "../pages/Services/Services";
+// import Engineering from "../pages/Services/Engineering";
+// import Architecture from "../pages/Services/Architecture";
+// import InteriorDesign from "../pages/Services/InteriorDesign";
+// import Infrastructure from "../pages/Services/Infrastructure";
+
+// NEW SERVICES - CadmaxServices folder
+import Services from "../pages/CadmaxServices/ServicesPage";
 
 // engineering sub-pages
 import Maingate from "../pages/Services/Engineering-subpage/maingate";
@@ -63,11 +67,15 @@ export default function AppRouter() {
         {/* ===== PUBLIC ROUTES ===== */}
         <Route path="/" element={<Home />} />
 
+        {/* OLD SERVICES ROUTES (commented - not deleted) */}
+        {/* <Route path="/services" element={<Services />} /> */}
+        {/* <Route path="/services/engineering" element={<Engineering />} /> */}
+        {/* <Route path="/services/Architecture" element={<Architecture />} /> */}
+        {/* <Route path="/services/InteriorDesign" element={<InteriorDesign />} /> */}
+        {/* <Route path="/services/Infrastructure" element={<Infrastructure />} /> */}
+
+        {/* NEW SERVICES ROUTE - CadmaxServices folder */}
         <Route path="/services" element={<Services />} />
-        <Route path="/services/engineering" element={<Engineering />} />
-        <Route path="/services/Architecture" element={<Architecture />} />
-        <Route path="/services/InteriorDesign" element={<InteriorDesign />} />
-        <Route path="/services/Infrastructure" element={<Infrastructure />} />
 
 
 

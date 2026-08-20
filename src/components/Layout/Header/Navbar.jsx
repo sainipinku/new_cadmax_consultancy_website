@@ -38,7 +38,10 @@ const Navbar = () => {
   const simpleLinks = [
     { label: "HOME", path: "/" },
     { label: "ABOUT", path: "/about" },
-    { label: "SERVICES", path: "/Services" },
+    // OLD SERVICES LINK (commented - not deleted)
+    // { label: "SERVICES", path: "/Services" },
+    // NEW SERVICES LINK - CadmaxServices folder
+    { label: "SERVICES", path: "/services" },
     { label: "CAREER", path: "/careerpath" },
     { label: "CONTACT", path: "/contact" },
   ];
