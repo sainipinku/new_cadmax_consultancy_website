@@ -6,7 +6,7 @@ import CompanyShowcase from './components/company';
 import EAIService from './components/EAIService';
 import AboutSection from './components/AboutSection';
 import ProjectsShowcase from './components/ProjectsShowcase';
-import AmenitiesSection from './components/AmenitiesSection';
+// import AmenitiesSection from './components/AmenitiesSection';
 import ProcessSection from './components/ProcessSection';
 import AwardSlider from './components/AwardSlider';
 import TestimonialsSection from './components/TestimonialsSection';
@@ -33,7 +33,7 @@ function Home() {
       <EAIService />
       <AboutSection />
       <StatsSection />
-        <AmenitiesSection />
+        {/* <AmenitiesSection /> */}
         <ProjectsShowcase />
         <ProcessSection />
         <AwardSlider />
