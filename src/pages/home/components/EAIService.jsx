@@ -20,8 +20,6 @@ const services = [
     index: "01",
     title: "Engineering",
     kicker: "Precision by design",
-    description:
-      "Structural, mechanical and systems engineering rooted in analysis, tolerance and buildable detail — from first calculation to final bolt.",
     image: engSlide1,
     subservices: ["M.E.P DESIGN", "ENGINEERING SURVEY", "DETAIL PROJECT REPORTS"],
   },
@@ -30,8 +28,6 @@ const services = [
     index: "02",
     title: "Architectural",
     kicker: "Form that holds meaning",
-    description:
-      "Considered architecture that reads a place before it speaks — quiet massing, honest materials, and light shaped into use.",
     image: archSlide1,
     subservices: ["URBAN MASTER PLANNING", "ARCHITECTURAL DESIGNING", "INTERIOR DESIGNING"],
   },
@@ -40,8 +36,6 @@ const services = [
     index: "03",
     title: "Infrastructure Development",
     kicker: "The systems beneath the skyline",
-    description:
-      "Roads, bridges, utilities and the civic backbone — planned for a century of service, built for the decade ahead.",
     image: infraImg1,
     subservices: [
       "BUILDING CONSTRUCTION",
@@ -85,7 +79,7 @@ export default function EAIService() {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14 xl:gap-20 2xl:gap-24">
           {/* image column */}
           <div className="relative lg:col-span-7 xl:col-span-8">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-secondary md:aspect-[5/4] xl:aspect-[16/10] 2xl:aspect-[16/9]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-secondary md:aspect-[5/4] xl:aspect-[16/10] 2xl:aspect-[3/2]">
               <div className="relative h-full w-full overflow-hidden">
                 <img
                   src={current.image}
@@ -144,9 +138,9 @@ export default function EAIService() {
                         {s.index}
                       </span>
                       <div className="flex-1">
-                        <div className="flex items-baseline justify-between gap-4">
+                        <div className="flex items-baseline justify-between gap-3">
                           <h3
-                            className="font-garamond text-3xl md:text-4xl"
+                            className="font-garamond text-2xl md:text-3xl xl:text-[1.75rem]"
                             style={{
                               color: isActive ? "#B8A284" : "#1A1A1A",
                               transform: isActive ? "translateX(6px)" : "translateX(0)",
@@ -161,28 +155,25 @@ export default function EAIService() {
                               rotate: isActive ? "45deg" : "0deg",
                               opacity: isActive ? 1 : 0.35,
                             }}
-                            className="text-2xl leading-none text-foreground"
+                            className="text-xl leading-none text-foreground"
                           >
                             +
                           </span>
                         </div>
                         {isActive && (
                           <div className="overflow-hidden">
-                            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-muted-foreground">
-                              {s.description}
-                            </p>
-                            <ul className="mt-5 grid grid-cols-2 gap-2.5 max-w-2xl">
+                            <ul className="mt-3 grid grid-cols-2 gap-2 max-w-2xl">
                               {s.subservices.map((sub, si) => (
                                 <li
                                   key={sub}
-                                  className="relative overflow-hidden flex items-center justify-center rounded-lg border border-[#D4B383]/30 bg-[#171717] px-3 py-2 min-h-[42px] transition-all duration-300 hover:bg-[#D4B383] hover:border-[#D4B383]"
+                                  className="relative overflow-hidden flex items-center justify-center rounded-md border border-[#D4B383]/30 bg-[#171717] px-2.5 py-1.5 min-h-[36px] transition-all duration-300 hover:bg-[#D4B383] hover:border-[#D4B383]"
                                 >
                                   {/* shine */}
-                                  <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-lg">
+                                  <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-md">
                                     <span className="absolute inset-y-0 -left-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-700 hover:left-[140%]" />
                                   </span>
                                   <span
-                                    className="relative z-10 text-center text-[11px] md:text-xs font-medium tracking-[0.08em]"
+                                    className="relative z-10 text-center text-[10px] md:text-[11px] font-medium tracking-[0.06em]"
                                     style={{ color: "#F5E7C4" }}
                                     onMouseEnter={(e) => { e.currentTarget.style.color = "#000"; }}
                                     onMouseLeave={(e) => { e.currentTarget.style.color = "#F5E7C4"; }}

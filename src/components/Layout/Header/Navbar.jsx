@@ -38,7 +38,10 @@ const Navbar = () => {
   const simpleLinks = [
     { label: "HOME", path: "/" },
     { label: "ABOUT", path: "/about" },
-    { label: "SERVICES", path: "/Services" },
+    // OLD SERVICES LINK (commented - not deleted)
+    // { label: "SERVICES", path: "/Services" },
+    // NEW SERVICES LINK - CadmaxServices folder
+    { label: "SERVICES", path: "/services" },
     { label: "CAREER", path: "/careerpath" },
     { label: "CONTACT", path: "/contact" },
   ];
@@ -63,15 +66,32 @@ const Navbar = () => {
       setHasScrolled(scrollY > 50);
 
       // Text color logic:
-      // White on Hero (first 100vh) + on ContactSection
+      // White on Hero (first 100vh) + on ContactSection + on service page CTA sections (above footer)
       // Dark (foreground) on everything else
       const contactSection = document.querySelector('.contact-section-home');
+      const servicesCta = document.querySelector('.sv-cta');
+      const engineeringCta = document.querySelector('.eng-cta');
+      const architecturalCta = document.querySelector('.arch-cta');
       let shouldBeWhite = false;
 
       if (contactSection) {
         const rect = contactSection.getBoundingClientRect();
         const contactVisible = rect.top < vh - 100;
         shouldBeWhite = contactVisible;
+      }
+
+      // Also turn header text white when reaching CTA sections right above the footer
+      // on Services, Engineering, and Architectural pages (dark backgrounds)
+      if (!shouldBeWhite) {
+        const ctaSections = [servicesCta, engineeringCta, architecturalCta].filter(Boolean);
+        for (const cta of ctaSections) {
+          const rect = cta.getBoundingClientRect();
+          const ctaVisible = rect.top < vh - 100;
+          if (ctaVisible) {
+            shouldBeWhite = true;
+            break;
+          }
+        }
       }
 
       if (!shouldBeWhite) {
