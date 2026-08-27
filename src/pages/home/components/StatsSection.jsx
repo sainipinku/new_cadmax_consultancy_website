@@ -8,10 +8,10 @@ import './StatsSection.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { label: 'Projects Delivered', value: 500, suffix: '+' },
+  { label: 'Projects Delivered', value: 3500, suffix: '+' },
   { label: 'Years Experience', value: 26, suffix: '+' },
-  { label: 'Happy Clients', value: 200, suffix: '+' },
-  { label: 'Client Rating', value: 4.9, suffix: '/5' },
+  { label: 'Happy Clients', value: 1500, suffix: '+' },
+  { label: 'Client Rating', value: 4.8, suffix: '/5' },
 ];
 
 const StatsSection = () => {
