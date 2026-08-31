@@ -21,6 +21,7 @@ import About from "../pages/About/About";
 import Services from "../pages/CadmaxServices/ServicesPage";
 import Engineering from "../pages/CadmaxServices/ENGINEERING/Engineering";
 import Architectural from "../pages/CadmaxServices/ARCHITECTURAL/Architectural";
+import InfrastructureDevelopment from "../pages/CadmaxServices/NFRASTRUCTURE/InfrastructureDevelopment";
 
 
 // engineering sub-pages
@@ -81,6 +82,8 @@ export default function AppRouter() {
         <Route path="/services" element={<Services />} />
         <Route path="/services/engineering" element={<Engineering />} />
         <Route path="/services/architectural" element={<Architectural />} />
+        <Route path="/services/infrastructure-development" element={<InfrastructureDevelopment />} />
+      
 
 
 
