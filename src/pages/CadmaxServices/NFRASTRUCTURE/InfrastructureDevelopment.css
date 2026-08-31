@@ -1,0 +1,231 @@
+.idp-page {
+  --idp-ink: #171817;
+  --idp-night: #121312;
+  --idp-paper: #f4f1eb;
+  --idp-stone: #ece6dc;
+  --idp-gold: #c9a56a;
+  width: 100%;
+  overflow-x: clip;
+  font-family: "Manrope", sans-serif;
+}
+
+.idp-serif {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+}
+
+.idp-page a:focus-visible {
+  outline: 2px solid var(--idp-gold);
+  outline-offset: 5px;
+}
+
+.idp-blueprint {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: clamp(52px, 7vw, 112px) clamp(52px, 7vw, 112px);
+  mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
+  pointer-events: none;
+}
+
+.idp-hero-media {
+  transform-origin: center;
+  will-change: clip-path, transform;
+}
+
+.idp-hero-img {
+  transform: translate3d(var(--pointer-x, 0), calc(-6% + var(--pointer-y, 0)), 0);
+  transition: transform 0.8s cubic-bezier(0.2, 0.75, 0.2, 1);
+  will-change: transform;
+}
+
+.idp-image-frame {
+  position: absolute;
+  z-index: 4;
+  inset: clamp(12px, 1.45vw, 23px);
+  border: 1px solid rgba(255, 255, 255, 0.57);
+  pointer-events: none;
+}
+
+.idp-hero-index {
+  transform: translateZ(0);
+  user-select: none;
+}
+
+.idp-structural-grid {
+  background-image:
+    linear-gradient(rgba(23, 24, 23, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 24, 23, 0.075) 1px, transparent 1px);
+  background-size: clamp(60px, 8vw, 132px) clamp(60px, 8vw, 132px);
+  mask-image: radial-gradient(circle at 78% 50%, black, transparent 70%);
+  pointer-events: none;
+}
+
+.idp-building > div {
+  perspective: 1500px;
+}
+
+.idp-building-frame {
+  clip-path: polygon(8% 0, 100% 0, 100% 93%, 91% 100%, 0 100%, 0 8%);
+  transform: perspective(1500px) rotateY(-2.2deg) rotateX(0.7deg);
+  box-shadow: 42px 42px 0 rgba(201, 165, 106, 0.14);
+  transform-style: preserve-3d;
+  will-change: clip-path, transform;
+}
+
+.idp-building-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), transparent 38%, rgba(11, 12, 11, 0.28));
+  pointer-events: none;
+}
+
+.idp-building-img,
+.idp-road-img,
+.idp-water-img,
+.idp-public-img,
+.idp-cta-img {
+  will-change: transform;
+}
+
+.idp-road-window {
+  clip-path: polygon(0 0, 94% 0, 100% 16%, 100% 100%, 6% 100%, 0 84%);
+  box-shadow: 0 28px 85px rgba(28, 24, 19, 0.13);
+}
+
+.idp-road-window::before {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.75) 0 42px, transparent 42px 76px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.idp-water-frame {
+  transform: perspective(1400px) rotateY(1.8deg);
+  transform-origin: right center;
+  box-shadow: -35px 36px 0 rgba(201, 165, 106, 0.09);
+}
+
+.idp-pipe-ring {
+  display: block;
+  box-shadow: inset 0 0 0 8px rgba(0, 0, 0, 0.14);
+}
+
+.idp-electrical {
+  isolation: isolate;
+}
+
+.idp-electric-frame {
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%, 0 14%);
+  box-shadow: -34px 34px 0 rgba(23, 24, 23, 0.08);
+  transform: perspective(1500px) rotateY(2deg);
+}
+
+.idp-electric-frame::before {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(201, 165, 106, 0.14), transparent 34%, rgba(0, 0, 0, 0.2));
+  pointer-events: none;
+}
+
+.idp-wire {
+  stroke-linecap: round;
+}
+
+.idp-public::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image:
+    linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
+  background-size: clamp(70px, 10vw, 165px) clamp(70px, 10vw, 165px);
+  mask-image: linear-gradient(90deg, black, transparent 72%);
+  pointer-events: none;
+}
+
+.idp-cta-img {
+  transform-origin: center;
+}
+
+@media (max-width: 1023px) {
+  .idp-hero-media {
+    opacity: 0.76;
+  }
+
+  .idp-building-frame,
+  .idp-water-frame,
+  .idp-electric-frame {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .idp-building-frame,
+  .idp-electric-frame {
+    clip-path: polygon(0 0, 100% 0, 100% 94%, 94% 100%, 0 100%);
+  }
+
+  .idp-road-window {
+    clip-path: polygon(0 0, 95% 0, 100% 9%, 100% 100%, 5% 100%, 0 91%);
+  }
+}
+
+@media (max-width: 639px) {
+  .idp-hero-media {
+    width: 100%;
+  }
+
+  .idp-image-frame {
+    inset: 12px;
+  }
+
+  .idp-building-frame,
+  .idp-road-window,
+  .idp-electric-frame {
+    clip-path: none;
+  }
+
+  .idp-road-window::before {
+    display: none;
+  }
+
+  .idp-public::after {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .idp-page *,
+  .idp-page *::before,
+  .idp-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .idp-hero-word > span,
+  .idp-hero-fade,
+  [data-idp-reveal],
+  [data-idp-image],
+  .idp-building-img,
+  .idp-road-img,
+  .idp-water-img,
+  .idp-public-img,
+  .idp-cta-img {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
