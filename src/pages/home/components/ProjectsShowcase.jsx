@@ -3,36 +3,39 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import { createCardStagger, createImageParallax } from '../../../animations/scrollMotion';
-
+import CongoAfricaImage from "../../../assets/Images/home/congo_africa.png";
+import DravyavatiRevierImage from "../../../assets/Images/home/dravyavati_revier.png";
+import RingRoadImage from "../../../assets/Images/home/ring_road.png";
+import VatikaImage from "../../../assets/Images/home/vatika_city.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: 'Shyamashish Brij Vatika',
-    location: 'Kalwar Road, Jaipur',
-    category: 'Township',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+    title: 'Congo africa',
+    location: 'Congo, Africa',
+    category: 'engineering survey,  master planing, architecture , structure.',
+    image: CongoAfricaImage,
     size: 'large', // spans 7 columns
   },
   {
-    title: 'Club House',
-    location: 'Bichpadi, Ajmer Road, Jaipur',
-    category: 'Architecture',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+    title: 'Dravyavati River',
+    location: 'Jaipur, Rajasthan',
+    category: ' initial mapping, land planning, and engineering survey',
+    image: DravyavatiRevierImage,
     size: 'medium', // spans 5 columns
   },
   {
-    title: 'Dipendra Ji House',
-    location: 'Goner Road, Jaipur',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80',
+    title: 'engineering survey',
+    location: 'Jaipur, Rajasthan',
+    category: 'engineering survey',
+    image: RingRoadImage,
     size: 'medium', // spans 5 columns
   },
   {
-    title: 'Sandeep Saraswat Ji',
-    location: 'Beelwa Tonk Road, Jaipur',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80',
+    title: 'Vatika infotech',
+    location: 'Jaipur, Rajasthan',
+    category: 'engineering survey, master planning',
+    image: VatikaImage,
     size: 'large', // spans 7 columns
   },
 ];
