@@ -65,6 +65,9 @@ import logoUb from "../../../assets/Images/company logo/UB-logo.png";
 import logoUrbanGaon from "../../../assets/Images/company logo/urban-gaon.png";
 import logoVardhman from "../../../assets/Images/company logo/vardhman.png";
 import logoVidhyasharam from "../../../assets/Images/company logo/vidhyasharam.png";
+import logoEmiratesRealty from "../../../assets/Images/company logo/emirates-realty.png";
+import logoMordenConstration from "../../../assets/Images/company logo/morden_constration.png";
+import logoTataRealty from "../../../assets/Images/company logo/tata_realty.png";
 
 const images = [
   logoAai,
@@ -128,6 +131,9 @@ const images = [
   logoUrbanGaon,
   logoVardhman,
   logoVidhyasharam,
+  logoEmiratesRealty,
+  logoMordenConstration,
+  logoTataRealty,
 ];
 
 const CompanyShowcase = () => {
