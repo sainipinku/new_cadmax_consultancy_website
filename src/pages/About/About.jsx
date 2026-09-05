@@ -29,7 +29,7 @@ import svg3 from "../../../src/assets/Images/about/Frame-37.png";
 import svg4 from "../../../src/assets/Images/about/Frame-38.png";
 
 const leader = [
-  { img: m1, name: "Mr. HANUMAN SAHAY SHARMA", role: "CHAIRMAN" },
+  { img: m1, name: "Mr. HANUMAN SAHAI SHARMA", role: "CHAIRMAN" },
   { img: m2, name: "Ms. KIRAN SHARMA", role: "DIRECTOR" },
 ];
 
@@ -116,50 +116,166 @@ const About = () => {
     <>
       <Navbar />
 
-      {/* HERO — Full Tailwind Glassmorphism */}
-      <div className="relative min-h-[85vh] overflow-hidden font-garamond">
+      {/* HERO — Dark Luxury Architectural Theme */}
+      <div className="relative min-h-screen overflow-hidden font-garamond">
+
+        {/* Background */}
         <img
           src={heroBG}
-          alt="Bright CADMAX architecture studio with drafting tables and building models"
-          width={1920}
-          height={1080}
+          alt="CADMAX Consultancy architecture and urban planning"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-hero-veil" />
-        <section className="relative flex min-h-[85vh] flex-col justify-between px-6 py-20 md:px-22 md:py-21 mt-10 ">
-          <div className="max-w-2xl rounded-3xl border border-border/50 surface-3d p-8 backdrop-blur-sm md:p-10">
-            <p className="text-xs uppercase tracking-[0.35em] text-accent">About Cadmax</p>
-            <h1 className="mt-5 font-garamond text-4xl uppercase leading-[1.02] tracking-[0.02em] text-foreground md:text-6xl">
-              At CADMAX Consultancy
-            </h1>
-            <p className="mt-5 text-sm font-bold leading-relaxed text-muted-foreground font-garamond">
-              we specialize in architectural design, planning, and consultancy services for residential,
-              commercial, and industrial projects. Our experienced team combines advanced CAD technology
-              with thoughtful design to bring ideas to life. We build trust before we build structures.
-              That's the CadMax difference.Customers choose CadMax because we turn complex ideas into
-              precise, buildable designs—on time, every time.CadMax: Where accuracy meets creativity.
-              Trusted by clients who value quality, innovation, and flawless execution.We don't just
-              design spaces—CadMax designs solutions. That's why clients trust us to deliver
-              excellence from concept to completion.CadMax stands out for our attention to detail,
-              advanced CAD technology, and commitment to client satisfaction.From 2D to 3D
-              perfection—customers choose CadMax for designs that are accurate, clear, and
-              construction-ready.
-            </p>
 
-            <dl className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl border border-border/60 surface-3d px-4 py-4"
-                >
-                  <dt className="font-garamond text-2xl text-foreground">{s.value}</dt>
-                  <dd className="mt-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                    {s.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+        {/* Dark Cinematic Overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+
+        {/* Left warm gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/55" />
+
+        {/* Bottom depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
+
+        <section className="relative z-10 flex min-h-screen flex-col px-6 pb-10 pt-28 md:px-12 lg:px-20 lg:pt-32">
+
+          {/* Top small label */}
+          <div className="flex items-center gap-4">
+            <span className="h-px w-10 bg-[var(--accent)]" />
+
+            <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-white/70 md:text-xs">
+              ABOUT CADMAX / VISION • EXPERIENCE • EXCELLENCE
+            </p>
           </div>
+
+          {/* Main Content */}
+          <div className="grid flex-1 items-end gap-12 pb-14 pt-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
+
+            {/* Left Heading */}
+            <div>
+              <h1
+                className="
+            max-w-[850px]
+            text-[56px]
+            font-normal
+            uppercase
+            leading-[0.88]
+            tracking-[-0.035em]
+            text-[#f4efe5]
+            sm:text-[72px]
+            md:text-[90px]
+            lg:text-[115px]
+            xl:text-[135px]
+          "
+              >
+                BUILDING
+                <br />
+                VISION
+                <br />
+                INTO
+
+                <span
+                  className="
+              mt-2
+              block
+              normal-case
+              italic
+              text-[var(--accent)]
+            "
+                >
+                  Reality.
+                </span>
+              </h1>
+            </div>
+
+            {/* Right Content */}
+            <div className="max-w-xl self-end lg:pb-10">
+
+              {/* Divider */}
+              <div className="mb-8 h-px w-full bg-white/20" />
+
+              <p className="text-sm leading-7 text-white/75 md:text-base md:leading-8">
+                At CADMAX Consultancy, we combine architectural vision,
+                engineering precision and strategic planning to create
+                environments that perform, inspire and endure.
+              </p>
+
+              <p className="mt-5 text-sm leading-7 text-white/60 md:text-base">
+                From residential and commercial architecture to urban planning
+                and infrastructure, our approach transforms complex ideas into
+                clear, accurate and construction-ready solutions.
+              </p>
+
+              {/* CTA */}
+              <a
+                href="#studio"
+                className="
+            mt-8
+            inline-flex
+            items-center
+            gap-7
+            rounded-full
+            bg-[var(--accent)]
+            px-8
+            py-4
+            text-[10px]
+            font-semibold
+            uppercase
+            tracking-[0.23em]
+            text-black
+            transition-all
+            duration-300
+            hover:-translate-y-1
+            hover:brightness-110
+            md:text-xs
+          "
+              >
+                Discover Our Story
+
+                <span className="text-lg font-normal">
+                  →
+                </span>
+              </a>
+
+            </div>
+          </div>
+
+          {/* Bottom Information */}
+          <div className="border-t border-white/20 pt-6">
+
+            <div className="flex flex-col justify-between gap-7 md:flex-row md:items-center">
+
+              {/* Stats */}
+              <dl className="grid grid-cols-2 gap-x-10 gap-y-5 sm:grid-cols-4">
+
+                {stats.map((s) => (
+                  <div key={s.label}>
+
+                    <dt className="text-xl font-normal text-[#f4efe5] md:text-2xl">
+                      {s.value}
+                    </dt>
+
+                    <dd className="mt-1 text-[9px] uppercase tracking-[0.18em] text-white/50 md:text-[10px]">
+                      {s.label}
+                    </dd>
+
+                  </div>
+                ))}
+
+              </dl>
+
+              {/* Scroll Indicator */}
+              <div className="flex items-center gap-4">
+
+                <span className="h-9 w-px bg-white/30" />
+
+                <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-white/55">
+                  Scroll to discover
+                </span>
+
+              </div>
+
+            </div>
+          </div>
+
         </section>
       </div>
 
@@ -213,7 +329,7 @@ const About = () => {
               Inspiring Leadership, Remarkable Achievements
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground font-garamond">
-              “It is truly commendable that Mr. Hanuman Sahay Sharma, chairman of Cadmax, has achieved numerous milestones through his dedication, perseverance, and visionary approach. His consistent efforts and leadership have played a key role in the growth and success of the organization. With a strong commitment to excellence and innovation, he has inspired many professionals and students alike. His achievements reflect not only personal success but also his positive impact on the industry, making him a respected and motivating leader.”
+              “It is truly commendable that Mr. Hanuman Sahai Sharma, chairman of Cadmax, has achieved numerous milestones through his dedication, perseverance, and visionary approach. His consistent efforts and leadership have played a key role in the growth and success of the organization. With a strong commitment to excellence and innovation, he has inspired many professionals and students alike. His achievements reflect not only personal success but also his positive impact on the industry, making him a respected and motivating leader.”
             </p>
             <p className="mt-4 text-lg text-bold leading-relaxed text-muted-foreground">
               A Journey of Vision, Dedication, and Success
@@ -223,14 +339,14 @@ const About = () => {
             <div className="mt-6 flex items-center gap-4 rounded-3xl bg-[#fffcfc] border border-border/70 surface-3d p-4">
               <img
                 src={awardimg}
-                alt="Mr. Hanuman Sahay Sharma, Chairman of CADMAX Consultancy"
+                alt="Mr. Hanuman Sahai Sharma, Chairman of CADMAX Consultancy"
                 width={900}
                 height={1100}
                 loading="lazy"
                 className="h-16 w-16 rounded-2xl object-cover object-top"
               />
               <div>
-                <p className="text-sm font-semibold text-foreground">Mr. Hanuman Sahay Sharma</p>
+                <p className="text-sm font-semibold text-foreground">Mr. Hanuman Sahai Sharma</p>
                 <p className="text-xs uppercase mt-0 tracking-[0.2em] text-muted-foreground">
                   chairman of Cadmax
                 </p>
@@ -263,7 +379,7 @@ const About = () => {
             </h2>
 
             <p className="text-[var(--muted-foreground)] font-inter text-base leading-relaxed mb-3">
-              It is truly commendable that Mr. Hanuman Sahay Sharma, chairman of  Cadmax, has achieved numerous milestones through his dedication, perseverance, and visionary approach. His consistent efforts and leadership have played a key role in the growth and success of the organization. With a strong commitment to excellence and innovation, he has inspired many professionals and students alike. His achievements reflect not only personal success but also his positive impact on the industry, making him a respected and motivating leader.
+              It is truly commendable that Mr. Hanuman Sahai Sharma, chairman of  Cadmax, has achieved numerous milestones through his dedication, perseverance, and visionary approach. His consistent efforts and leadership have played a key role in the growth and success of the organization. With a strong commitment to excellence and innovation, he has inspired many professionals and students alike. His achievements reflect not only personal success but also his positive impact on the industry, making him a respected and motivating leader.
             </p>
 
             <p className="font-general font-semibold text-[var(--foreground)]">
