@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { createHeroCinematic } from "../../../animations/scrollMotion";
-
+import heroImage from "../../../assets/Hero-video/home_bg_img.jpeg";
 gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
@@ -59,7 +59,7 @@ const HeroSection = () => {
       className="relative h-screen w-full overflow-hidden bg-[#0d0d0c]"
     >
       {/* Background Video */}
-      <video
+      {/* <video
         autoPlay
         muted
         playsInline
@@ -70,8 +70,13 @@ const HeroSection = () => {
           src={require("../../../assets/Hero-video/Hero-video.mp4")}
           type="video/mp4"
         />
-      </video>
-
+      </video> */}
+      {/* Background Image */}
+      <img
+        src={heroImage}
+        alt="CADMAX Consultancy"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/25" />
 
