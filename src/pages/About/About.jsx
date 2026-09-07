@@ -4,7 +4,7 @@ import AboutSlider from "../../components/common/slider/AboutSlider";
 import Navbar from '../../components/Layout/Header/Navbar';
 import Footer from '../../components/Layout/Footer/Footer';
 
-import heroBG from "../../../src/assets/Images/about/hero-cadmax-light.jpg";
+import heroBG from "../../../src/assets/Images/about/about_img.jpeg";
 // import storyImage from "../../../src/assets/Images/about/ourstory-img.jpg";
 import awardimg from "../../assets/Images/about/md-sir-image.jpeg"
 
