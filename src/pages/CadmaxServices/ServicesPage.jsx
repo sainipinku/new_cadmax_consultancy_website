@@ -8,7 +8,7 @@ import Footer from "../../components/Layout/Footer/Footer";
 
 // Images — replace these imports with your own local assets any time.
 import heroImg from "../../assets/Images/CadmaxServices/hero-development.jpg";
-import engImg from "../../assets/Images/CadmaxServices/service-engineering.jpg";
+import engImg from "../../assets/Images/CadmaxServices/service-engineering.png";
 import archImg from "../../assets/Images/CadmaxServices/service-architectural.jpg";
 import infraImg from "../../assets/Images/CadmaxServices/service-infrastructure.jpg";
 import ctaImg from "../../assets/Images/CadmaxServices/cta-architecture.jpg";
@@ -50,7 +50,7 @@ const SERVICES = [
       "PLANING",
       "Architectural Designing",
       "Interior Designing",
-      
+
     ],
     to: "/services/architectural", // route
     image: archImg, // image url
@@ -275,200 +275,200 @@ export default function ServicesPage() {
     <>
       <Navbar />
       <main className="sv-page" ref={root}>
-      {/* ================= 1. CINEMATIC HERO ================= */}
-      <section className="sv-hero" aria-labelledby="sv-hero-title">
-        {/* Hero image — replace src with your own asset */}
-        <div className="sv-hero-media">
-          <img src={heroImg} alt="Master-planned luxury residential development at dusk" width={1600} height={1008} />
-        </div>
-
-        <div className="sv-hero-top">
-          <span className="sv-eyebrow">Our Expertise / Built for the Future</span>
-          <div className="sv-hero-panel sv-hero-reveal">
-            <span className="num">03</span>
-            <span className="sv-eyebrow" style={{ marginLeft: "0.6rem" }}>
-              Core SERVICES
-            </span>
-            <ul>
-              <li>Engineering</li>
-              <li>Architecture</li>
-              <li>Infrastructure</li>
-            </ul>
+        {/* ================= 1. CINEMATIC HERO ================= */}
+        <section className="sv-hero" aria-labelledby="sv-hero-title">
+          {/* Hero image — replace src with your own asset */}
+          <div className="sv-hero-media">
+            <img src={heroImg} alt="Master-planned luxury residential development at dusk" width={1600} height={1008} />
           </div>
-        </div>
 
-        <div className="sv-hero-grid">
-          <h1 id="sv-hero-title">
-            <span className="sv-mask sv-hero-line">
-              <span>Designing</span>
-            </span>
-            <span className="sv-mask sv-hero-line">
-              <span>What Comes</span>
-            </span>
-            <span className="sv-mask sv-hero-line">
-              <span>
-                <em>Next.</em>
+          <div className="sv-hero-top">
+            <span className="sv-eyebrow">Our Expertise / Built for the Future</span>
+            <div className="sv-hero-panel sv-hero-reveal">
+              <span className="num">03</span>
+              <span className="sv-eyebrow" style={{ marginLeft: "0.6rem" }}>
+                Core SERVICES
               </span>
-            </span>
-          </h1>
-
-          <div className="sv-hero-side">
-            <div className="sv-rule sv-hero-reveal" />
-            <p className="sv-body sv-hero-reveal">
-              From technical precision to architectural vision and large-scale infrastructure, we
-              create environments that perform, inspire and endure.
-            </p>
-            <div className="sv-hero-reveal">
-              <a className="sv-btn" href="#services-showcase">
-                Explore Our Services <ArrowRight size={15} strokeWidth={1.5} aria-hidden="true" />
-              </a>
-            </div>
-            <div className="sv-scroll sv-hero-reveal">
-              <div className="sv-scroll-track" aria-hidden="true">
-                <span />
-              </div>
-              <span className="sv-eyebrow">Scroll to Discover</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= 2. INTRODUCTORY STATEMENT ================= */}
-      <section className="sv-intro" aria-labelledby="sv-intro-title">
-        <div className="sv-rule sv-rule-anim" />
-        <div className="sv-intro-grid">
-          <span className="sv-eyebrow gold sv-fade">01 / The Practice</span>
-          <h2 id="sv-intro-title">
-            <span className="sv-mask sv-line">
-              <span>One integrated vision.</span>
-            </span>
-            <span className="sv-mask sv-line">
-              <span>
-                <em>Three disciplines</em> shaping
-              </span>
-            </span>
-            <span className="sv-mask sv-line">
-              <span>the built environment.</span>
-            </span>
-          </h2>
-          <p className="sv-body sv-fade">
-            We combine technical intelligence, human-centred design and development expertise to
-            deliver spaces and infrastructure that remain relevant far beyond completion.
-          </p>
-        </div>
-      </section>
-
-      {/* ================= 3. IMMERSIVE SERVICES SHOWCASE ================= */}
-      <div className="sv-services" id="services-showcase">
-        {SERVICES.map((s) => (
-          <section
-            key={s.num}
-            className={`sv-panel${s.reverse ? " reverse" : ""}`}
-            aria-labelledby={`sv-service-${s.num}`}
-          >
-            <span className="sv-panel-num" aria-hidden="true">
-              {s.num}
-            </span>
-
-            <div className="sv-panel-content">
-              <div className="sv-panel-label sv-fade">
-                <span className="idx">{s.num}</span>
-                <span className="sv-eyebrow">{s.label}</span>
-              </div>
-
-              <a href={s.to} className="sv-panel-title-link">
-                <h3 id={`sv-service-${s.num}`} className="sv-mask sv-line">
-                  <span>{s.title}</span>
-                </h3>
-              </a>
-
-              <div className="sv-underline" aria-hidden="true" />
-
-              <p className="sv-body sv-fade">{s.description}</p>
-
-              <ul className="sv-pills sv-fade">
-                {s.capabilities.map((c) => (
-                  <li key={c}>{c}</li>
-                ))}
+              <ul>
+                <li>Engineering</li>
+                <li>Architecture</li>
+                <li>Infrastructure</li>
               </ul>
-
-              <div className="sv-fade">
-                <a
-                  href={s.to}
-                  className="sv-explore"
-                  aria-label={`Explore our ${s.title.toLowerCase()} service`}
-                >
-                  Explore Service <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden="true" />
-                </a>
-              </div>
             </div>
-
-            <div className="sv-panel-media">
-              <div className="sv-media-stack">
-                <span className="sv-media-frame" aria-hidden="true" />
-                <span className="sv-media-line" aria-hidden="true" />
-                <a
-                  href={s.to}
-                  className="sv-media-main"
-                  aria-label={`View ${s.title.toLowerCase()} service`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = s.to;
-                  }}
-                >
-                  <img src={s.image} alt={s.alt} loading="lazy" width={1408} height={1008} />
-                  <span className="sv-shade" />
-                  <span className="sv-glow" />
-                </a>
-                <span className="sv-media-detail" aria-hidden="true">
-                  <img src={s.image} alt="" loading="lazy" />
-                </span>
-              </div>
-              <div className="sv-caption sv-fade">
-                <span aria-hidden="true" />
-                <span className="sv-eyebrow">{s.caption}</span>
-              </div>
-            </div>
-          </section>
-        ))}
-      </div>
-
-      {/* ================= 4. CAPABILITIES MARQUEE ================= */}
-      <section className="sv-marquee-section" aria-label="Our capabilities">
-        <MarqueeRow variant="filled" rtl={false} />
-        <MarqueeRow variant="outline" rtl={true} />
-      </section>
-
-      {/* ================= 5. FINAL CTA ================= */}
-      <section className="sv-cta" aria-labelledby="sv-cta-title">
-        {/* CTA background image — replace src with your own asset */}
-        <div className="sv-cta-bg">
-          <img src={ctaImg} alt="Sunlit concrete colonnade casting long architectural shadows" loading="lazy" width={1600} height={912} />
-        </div>
-        <span className="sv-cta-frame" aria-hidden="true" />
-        <div className="sv-cta-inner">
-          <span className="sv-eyebrow gold sv-fade">Start a Conversation</span>
-          <h2 id="sv-cta-title" className="sv-mask sv-line">
-            <span>Have a project that demands</span>
-            <span>
-              more than <em>the expected?</em>
-            </span>
-          </h2>
-          <p className="sv-fade">
-            Let's bring engineering intelligence, architectural clarity and development expertise
-            together.
-          </p>
-          <div className="sv-cta-actions sv-fade">
-            {/* CTA route */}
-            <a className="sv-btn" href="/contact">
-              Discuss Your Project <ArrowUpRight size={15} strokeWidth={1.5} aria-hidden="true" />
-            </a>
-            <a className="sv-btn ghost" href="#services-showcase">
-              View All Services
-            </a>
           </div>
+
+          <div className="sv-hero-grid">
+            <h1 id="sv-hero-title">
+              <span className="sv-mask sv-hero-line">
+                <span>Designing</span>
+              </span>
+              <span className="sv-mask sv-hero-line">
+                <span>What Comes</span>
+              </span>
+              <span className="sv-mask sv-hero-line">
+                <span>
+                  <em>Next.</em>
+                </span>
+              </span>
+            </h1>
+
+            <div className="sv-hero-side">
+              <div className="sv-rule sv-hero-reveal" />
+              <p className="sv-body sv-hero-reveal">
+                From technical precision to architectural vision and large-scale infrastructure, we
+                create environments that perform, inspire and endure.
+              </p>
+              <div className="sv-hero-reveal">
+                <a className="sv-btn" href="#services-showcase">
+                  Explore Our Services <ArrowRight size={15} strokeWidth={1.5} aria-hidden="true" />
+                </a>
+              </div>
+              <div className="sv-scroll sv-hero-reveal">
+                <div className="sv-scroll-track" aria-hidden="true">
+                  <span />
+                </div>
+                <span className="sv-eyebrow">Scroll to Discover</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================= 2. INTRODUCTORY STATEMENT ================= */}
+        <section className="sv-intro" aria-labelledby="sv-intro-title">
+          <div className="sv-rule sv-rule-anim" />
+          <div className="sv-intro-grid">
+            <span className="sv-eyebrow gold sv-fade">01 / The Practice</span>
+            <h2 id="sv-intro-title">
+              <span className="sv-mask sv-line">
+                <span>One integrated vision.</span>
+              </span>
+              <span className="sv-mask sv-line">
+                <span>
+                  <em>Three disciplines</em> shaping
+                </span>
+              </span>
+              <span className="sv-mask sv-line">
+                <span>the built environment.</span>
+              </span>
+            </h2>
+            <p className="sv-body sv-fade">
+              We combine technical intelligence, human-centred design and development expertise to
+              deliver spaces and infrastructure that remain relevant far beyond completion.
+            </p>
+          </div>
+        </section>
+
+        {/* ================= 3. IMMERSIVE SERVICES SHOWCASE ================= */}
+        <div className="sv-services" id="services-showcase">
+          {SERVICES.map((s) => (
+            <section
+              key={s.num}
+              className={`sv-panel${s.reverse ? " reverse" : ""}`}
+              aria-labelledby={`sv-service-${s.num}`}
+            >
+              <span className="sv-panel-num" aria-hidden="true">
+                {s.num}
+              </span>
+
+              <div className="sv-panel-content">
+                <div className="sv-panel-label sv-fade">
+                  <span className="idx">{s.num}</span>
+                  <span className="sv-eyebrow">{s.label}</span>
+                </div>
+
+                <a href={s.to} className="sv-panel-title-link">
+                  <h3 id={`sv-service-${s.num}`} className="sv-mask sv-line">
+                    <span>{s.title}</span>
+                  </h3>
+                </a>
+
+                <div className="sv-underline" aria-hidden="true" />
+
+                <p className="sv-body sv-fade">{s.description}</p>
+
+                <ul className="sv-pills sv-fade">
+                  {s.capabilities.map((c) => (
+                    <li key={c}>{c}</li>
+                  ))}
+                </ul>
+
+                <div className="sv-fade">
+                  <a
+                    href={s.to}
+                    className="sv-explore"
+                    aria-label={`Explore our ${s.title.toLowerCase()} service`}
+                  >
+                    Explore Service <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden="true" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="sv-panel-media">
+                <div className="sv-media-stack">
+                  <span className="sv-media-frame" aria-hidden="true" />
+                  <span className="sv-media-line" aria-hidden="true" />
+                  <a
+                    href={s.to}
+                    className="sv-media-main"
+                    aria-label={`View ${s.title.toLowerCase()} service`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.href = s.to;
+                    }}
+                  >
+                    <img src={s.image} alt={s.alt} loading="lazy" width={1408} height={1008} />
+                    <span className="sv-shade" />
+                    <span className="sv-glow" />
+                  </a>
+                  <span className="sv-media-detail" aria-hidden="true">
+                    <img src={s.image} alt="" loading="lazy" />
+                  </span>
+                </div>
+                <div className="sv-caption sv-fade">
+                  <span aria-hidden="true" />
+                  <span className="sv-eyebrow">{s.caption}</span>
+                </div>
+              </div>
+            </section>
+          ))}
         </div>
-      </section>
+
+        {/* ================= 4. CAPABILITIES MARQUEE ================= */}
+        <section className="sv-marquee-section" aria-label="Our capabilities">
+          <MarqueeRow variant="filled" rtl={false} />
+          <MarqueeRow variant="outline" rtl={true} />
+        </section>
+
+        {/* ================= 5. FINAL CTA ================= */}
+        <section className="sv-cta" aria-labelledby="sv-cta-title">
+          {/* CTA background image — replace src with your own asset */}
+          <div className="sv-cta-bg">
+            <img src={ctaImg} alt="Sunlit concrete colonnade casting long architectural shadows" loading="lazy" width={1600} height={912} />
+          </div>
+          <span className="sv-cta-frame" aria-hidden="true" />
+          <div className="sv-cta-inner">
+            <span className="sv-eyebrow gold sv-fade">Start a Conversation</span>
+            <h2 id="sv-cta-title" className="sv-mask sv-line">
+              <span>Have a project that demands</span>
+              <span>
+                more than <em>the expected?</em>
+              </span>
+            </h2>
+            <p className="sv-fade">
+              Let's bring engineering intelligence, architectural clarity and development expertise
+              together.
+            </p>
+            <div className="sv-cta-actions sv-fade">
+              {/* CTA route */}
+              <a className="sv-btn" href="/contact">
+                Discuss Your Project <ArrowUpRight size={15} strokeWidth={1.5} aria-hidden="true" />
+              </a>
+              <a className="sv-btn ghost" href="#services-showcase">
+                View All Services
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

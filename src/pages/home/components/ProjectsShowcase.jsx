@@ -25,7 +25,7 @@ const projects = [
     size: 'medium', // spans 5 columns
   },
   {
-    title: 'engineering survey',
+    title: 'Ring Road South Extension',
     location: 'Jaipur, Rajasthan',
     category: 'engineering survey',
     image: RingRoadImage,

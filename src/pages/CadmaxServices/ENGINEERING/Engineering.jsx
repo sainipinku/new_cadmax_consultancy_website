@@ -7,7 +7,7 @@ import Navbar from "../../../components/Layout/Header/Navbar";
 import Footer from "../../../components/Layout/Footer/Footer";
 
 import engHeroImg from "../../../assets/Images/CadmaxServices/ENGINEERING/ENG-hero.png";
-import mepImg from "../../../assets/Images/CadmaxServices/ENGINEERING/eng-mep.jpg";
+import mepImg from "../../../assets/Images/CadmaxServices/ENGINEERING/eng-mep.png";
 import gisImg from "../../../assets/Images/CadmaxServices/ENGINEERING/eng-gis.jpg";
 import geodeticImg from "../../../assets/Images/CadmaxServices/ENGINEERING/eng-geodetic.jpg";
 import surveyingImg from "../../../assets/Images/CadmaxServices/ENGINEERING/eng-surveying.jpg";
@@ -530,106 +530,106 @@ export default function Engineering() {
     <>
       <Navbar />
       <div ref={pageRef} className="eng-page">
-      <style>{CSS}</style>
+        <style>{CSS}</style>
 
-      {/* ------------------------------------------------------------ hero */}
-      <section className="eng-hero" aria-labelledby="eng-hero-title">
-        <div className="eng-hero__media">
+        {/* ------------------------------------------------------------ hero */}
+        <section className="eng-hero" aria-labelledby="eng-hero-title">
+          <div className="eng-hero__media">
+            <img
+              src={engHeroImg}
+              alt="Engineering hero visual"
+              width={1920}
+              height={1088}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </div>
           <img
-            src={engHeroImg}
-            alt="Engineering hero visual"
-            width={1920}
-            height={1088}
-            fetchPriority="high"
-            decoding="async"
+            className="eng-hero__deco"
+            src={maskImg}
+            alt=""
+            aria-hidden="true"
+            width={1536}
+            height={1536}
+            loading="lazy"
           />
-        </div>
-        <img
-          className="eng-hero__deco"
-          src={maskImg}
-          alt=""
-          aria-hidden="true"
-          width={1536}
-          height={1536}
-          loading="lazy"
-        />
-        <div className="eng-shell eng-hero__grid">
-          <div className="eng-hero__head">
-            <span className="eng-line eng-eyebrow-wrap">
-              <span className="eng-eyebrow eng-anim-line">01 / ENGINEERING</span>
-            </span>
-            <h1 id="eng-hero-title" className="eng-hero__title">
+          <div className="eng-shell eng-hero__grid">
+            <div className="eng-hero__head">
+              <span className="eng-line eng-eyebrow-wrap">
+                <span className="eng-eyebrow eng-anim-line">01 / ENGINEERING</span>
+              </span>
+              <h1 id="eng-hero-title" className="eng-hero__title">
+                <span className="eng-line">
+                  <span className="eng-anim-line">Engineering intelligence.</span>
+                </span>
+                <span className="eng-line">
+                  <span className="eng-anim-line">
+                    <em>Precision shaping</em> the
+                  </span>
+                </span>
+                <span className="eng-line">
+                  <span className="eng-anim-line">built environment.</span>
+                </span>
+              </h1>
+            </div>
+
+            <div className="eng-hero__aside">
+              <p className="eng-hero__lede">
+                From coordinated MEP systems and geospatial intelligence to engineering
+                surveys, construction control and detailed project reports, we translate
+                complex technical data into accurate, efficient and build-ready outcomes.
+              </p>
+              <p className="eng-discipline">PRECISION / PERFORMANCE / INNOVATION</p>
+            </div>
+          </div>
+        </section>
+
+        {/* -------------------------------------------------------- services */}
+        <section className="eng-services eng-shell" aria-label="Engineering sub-services">
+          {SERVICES.map((service, index) => (
+            <ServiceSection key={service.num} service={service} index={index} />
+          ))}
+        </section>
+
+        {/* ------------------------------------------------------------- cta */}
+        <section ref={ctaRef} className="eng-cta" aria-labelledby="eng-cta-title">
+          <div className="eng-cta__mask">
+            <img
+              ref={ctaBgRef}
+              className="eng-cta__bg"
+              src={ctaImg}
+              alt="Aerial dusk view of a bridge and highway interchange crossing a river valley"
+              width={1920}
+              height={1088}
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="eng-cta__scrim" aria-hidden="true" />
+            <ContourLayer variant="cta" />
+          </div>
+
+          <div className="eng-cta__content eng-shell">
+            <span className="eng-eyebrow eng-eyebrow--onDark eng-fade">START A PROJECT</span>
+            <h2 id="eng-cta-title" className="eng-cta__title">
               <span className="eng-line">
-                <span className="eng-anim-line">Engineering intelligence.</span>
+                <span>Let&rsquo;s engineer</span>
               </span>
               <span className="eng-line">
-                <span className="eng-anim-line">
-                  <em>Precision shaping</em> the
+                <span>
+                  what comes <em>next.</em>
                 </span>
               </span>
-              <span className="eng-line">
-                <span className="eng-anim-line">built environment.</span>
-              </span>
-            </h1>
-          </div>
-
-          <div className="eng-hero__aside">
-            <p className="eng-hero__lede">
-              From coordinated MEP systems and geospatial intelligence to engineering
-              surveys, construction control and detailed project reports, we translate
-              complex technical data into accurate, efficient and build-ready outcomes.
+            </h2>
+            <p className="eng-cta__caption eng-fade">
+              Bring us your site, data or project vision. We will help transform it into a
+              precise, practical and build-ready solution.
             </p>
-            <p className="eng-discipline">PRECISION / PERFORMANCE / INNOVATION</p>
+            <Link to="/contact" className="eng-btn eng-fade">
+              <span>Discuss Your Project</span>
+              <Arrow className="eng-btn__arrow" />
+            </Link>
           </div>
-        </div>
-      </section>
-
-      {/* -------------------------------------------------------- services */}
-      <section className="eng-services eng-shell" aria-label="Engineering sub-services">
-        {SERVICES.map((service, index) => (
-          <ServiceSection key={service.num} service={service} index={index} />
-        ))}
-      </section>
-
-      {/* ------------------------------------------------------------- cta */}
-      <section ref={ctaRef} className="eng-cta" aria-labelledby="eng-cta-title">
-        <div className="eng-cta__mask">
-          <img
-            ref={ctaBgRef}
-            className="eng-cta__bg"
-            src={ctaImg}
-            alt="Aerial dusk view of a bridge and highway interchange crossing a river valley"
-            width={1920}
-            height={1088}
-            loading="lazy"
-            decoding="async"
-          />
-          <span className="eng-cta__scrim" aria-hidden="true" />
-          <ContourLayer variant="cta" />
-        </div>
-
-        <div className="eng-cta__content eng-shell">
-          <span className="eng-eyebrow eng-eyebrow--onDark eng-fade">START A PROJECT</span>
-          <h2 id="eng-cta-title" className="eng-cta__title">
-            <span className="eng-line">
-              <span>Let&rsquo;s engineer</span>
-            </span>
-            <span className="eng-line">
-              <span>
-                what comes <em>next.</em>
-              </span>
-            </span>
-          </h2>
-          <p className="eng-cta__caption eng-fade">
-            Bring us your site, data or project vision. We will help transform it into a
-            precise, practical and build-ready solution.
-          </p>
-          <Link to="/contact" className="eng-btn eng-fade">
-            <span>Discuss Your Project</span>
-            <Arrow className="eng-btn__arrow" />
-          </Link>
-        </div>
-      </section>
+        </section>
       </div>
       <Footer />
     </>

@@ -52,7 +52,8 @@ import IrrigationSector from "../pages/Projects/Surveying/IrrigationSector";
 import CitySurvey from "../pages/Projects/Surveying/CitySurvey";
 import RealEstateSector from "../pages/Projects/Surveying/RealEstateSector";
 import PlanningProjects from "../pages/Projects/Planning/PlanningProjects";
-
+import PrivacyPolicy from "../pages/PrivacyPolicy";
+import TermsAndConditions from "../pages/TermsAndConditions";
 // contact
 import Contact from "../pages/contact/Contact";
 
@@ -83,14 +84,14 @@ export default function AppRouter() {
         <Route path="/services/engineering" element={<Engineering />} />
         <Route path="/services/architectural" element={<Architectural />} />
         <Route path="/services/infrastructure-development" element={<InfrastructureDevelopment />} />
-      
+
 
 
 
         <Route path="/cadmax-consultancy" element={<CadmaxConsultancy />} />
         <Route path="/cadmax-projects" element={<CadmaxProjects />} />
         <Route path="/dipendra-ji-goner-site" element={<DipendraSite />} />
-        
+
 
 
 
@@ -124,6 +125,15 @@ export default function AppRouter() {
 
         {/* ===== 🔐 ADMIN ROUTES ===== */}
         <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route
+          path="/privacy-policy"
+          element={<PrivacyPolicy />}
+        />
+
+        <Route
+          path="/terms-and-conditions"
+          element={<TermsAndConditions />}
+        />
       </Routes>
     </BrowserRouter>
   );
