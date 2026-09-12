@@ -582,9 +582,8 @@ export default function CareersPage() {
                     <button
                       key={item.id}
                       type="button"
-                      className={`cp-discipline-tab ${
-                        isActive ? 'is-active' : ''
-                      }`}
+                      className={`cp-discipline-tab ${isActive ? 'is-active' : ''
+                        }`}
                       onClick={() =>
                         setActiveDiscipline(item.id)
                       }
@@ -656,9 +655,8 @@ export default function CareersPage() {
 
                 return (
                   <div
-                    className={`cp-mobile-discipline ${
-                      isOpen ? 'is-open' : ''
-                    }`}
+                    className={`cp-mobile-discipline ${isOpen ? 'is-open' : ''
+                      }`}
                     key={item.id}
                   >
                     <button
