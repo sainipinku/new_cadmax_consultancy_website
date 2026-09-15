@@ -47,7 +47,7 @@ const SERVICES = [
     description:
       "Architecture that balances context, functionality and identity—transforming ideas into purposeful environments with a lasting visual and human impact.",
     capabilities: [
-      "PLANING",
+      "Urban Planning",
       "Architectural Designing",
       "Interior Designing",
 

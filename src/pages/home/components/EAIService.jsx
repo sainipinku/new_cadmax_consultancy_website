@@ -21,7 +21,12 @@ const services = [
     title: "Engineering",
     kicker: "Precision by design",
     image: engSlide1,
-    subservices: ["M.E.P DESIGN", "ENGINEERING SURVEY", "DETAIL PROJECT REPORTS"],
+    subservices: ["MEP Design",
+      "MOBILE MAPPING & GIS ",
+      "GEODETIC MAPPING",
+      "ENGINEERING SURVEYING ",
+      "CONSTRUCTION SURVEY",
+      "DETAILED PROJECT REPORTS ",],
   },
   {
     id: "architectural",
