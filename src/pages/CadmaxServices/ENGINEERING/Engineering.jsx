@@ -418,12 +418,12 @@ function ServiceSection({ service, index }) {
           ))}
         </ul>
 
-        <Link to={service.to} className="eng-explore">
+        {/* <Link to={service.to} className="eng-explore">
           <span>Explore Service</span>
           <span ref={arrowRef} className="eng-explore__arrow">
             <Arrow />
           </span>
-        </Link>
+        </Link> */}
       </div>
     </article>
   );

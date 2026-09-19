@@ -52,8 +52,8 @@ const members = [
 
 const stats = [
   { value: "26+", label: "Years Experience" },
-  { value: "500+", label: "Projects Delivered" },
-  { value: "200+", label: "Happy Clients" },
+  { value: "3500+", label: "Projects Delivered" },
+  { value: "1500+", label: "Happy Clients" },
   { value: "4.9/5", label: "Client Rating" },
 ];
 

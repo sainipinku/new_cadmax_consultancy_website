@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 // ===== Engineering images =====
 import engSlide1 from "../../../assets/Images/EAIService/engineering/slide-1.png";
 // import engSlide2 from "../../../assets/Images/EAIService/engineering/slide-2.png";
@@ -21,6 +21,7 @@ const services = [
     title: "Engineering",
     kicker: "Precision by design",
     image: engSlide1,
+    to: "/services/engineering", // route
     subservices: ["MEP Design",
       "MOBILE MAPPING & GIS ",
       "GEODETIC MAPPING",
@@ -34,6 +35,7 @@ const services = [
     title: "Architectural",
     kicker: "Form that holds meaning",
     image: archSlide1,
+    to: "/services/architectural", // route
     subservices: ["URBAN MASTER PLANNING", "ARCHITECTURAL DESIGNING", "INTERIOR DESIGNING"],
   },
   {
@@ -42,6 +44,7 @@ const services = [
     title: "Infrastructure Development",
     kicker: "The systems beneath the skyline",
     image: infraImg1,
+    to: "/services/infrastructure-development", // route
     subservices: [
       "BUILDING CONSTRUCTION",
       "ROAD CONSTRUCTION",
@@ -168,26 +171,64 @@ export default function EAIService() {
                         {isActive && (
                           <div className="overflow-hidden">
                             <ul className="mt-3 grid grid-cols-2 gap-2 max-w-2xl">
-                              {s.subservices.map((sub, si) => (
+                              {s.subservices.map((sub) => (
                                 <li
                                   key={sub}
-                                  className="relative overflow-hidden flex items-center justify-center rounded-md border border-[#D4B383]/30 bg-[#171717] px-2.5 py-1.5 min-h-[36px] transition-all duration-300 hover:bg-[#D4B383] hover:border-[#D4B383]"
+                                  className="
+            relative overflow-hidden
+            flex items-center justify-center
+            rounded-md
+            border border-[#D4B383]/30
+            bg-[#171717]
+            px-2.5 py-1.5
+            min-h-[36px]
+            transition-all duration-300
+            hover:bg-[#D4B383]
+            hover:border-[#D4B383]
+          "
                                 >
-                                  {/* shine */}
                                   <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-md">
                                     <span className="absolute inset-y-0 -left-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-700 hover:left-[140%]" />
                                   </span>
+
                                   <span
-                                    className="relative z-10 text-center text-[10px] md:text-[11px] font-medium tracking-[0.06em]"
+                                    className="
+              relative z-10
+              text-center
+              text-[10px] md:text-[11px]
+              font-medium
+              tracking-[0.06em]
+            "
                                     style={{ color: "#F5E7C4" }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.color = "#000"; }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.color = "#F5E7C4"; }}
+                                    onMouseEnter={(e) => {
+                                      e.currentTarget.style.color = "#000";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      e.currentTarget.style.color = "#F5E7C4";
+                                    }}
                                   >
                                     {sub}
                                   </span>
                                 </li>
                               ))}
                             </ul>
+
+                            {/* EXPLORE ENGINEERING */}
+                            <div className="mt-5">
+                              <a
+                                href={s.to}
+                                className="sv-explore inline-flex items-center gap-2"
+                                aria-label={`Explore ${s.title}`}
+                              >
+                                Explore {s.title}
+
+                                <ArrowUpRight
+                                  size={16}
+                                  strokeWidth={1.5}
+                                  aria-hidden="true"
+                                />
+                              </a>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -201,6 +242,7 @@ export default function EAIService() {
                 );
               })}
             </ul>
+
           </div>
         </div>
       </div>

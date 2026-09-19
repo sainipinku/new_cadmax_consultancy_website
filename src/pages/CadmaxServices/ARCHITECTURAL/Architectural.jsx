@@ -182,7 +182,7 @@ export default function ArchitecturalExperience() {
           <img className="hero-image" src={archHero} alt="Sculptural contemporary architecture illuminated at dusk" />
           <div className="hero-overlay" />
           <div className="hero-grid" aria-hidden="true" />
-         
+
 
           <div className="hero-content">
             <div className="hero-copy">
@@ -221,8 +221,8 @@ export default function ArchitecturalExperience() {
             <span className="depth-word depth-context">Context</span>
             <span className="depth-word depth-function">Function</span>
             <span className="depth-word depth-identity">Identity</span>
-            <figure className="floating-mask floating-one"><img src={planningImg} alt="" /></figure>
-            <figure className="floating-mask floating-two"><img src={facadeImg} alt="" /></figure>
+            {/* <figure className="floating-mask floating-one"><img src={planningImg} alt="" /></figure>
+            <figure className="floating-mask floating-two"><img src={facadeImg} alt="" /></figure> */}
           </div>
         </section>
 
@@ -254,9 +254,9 @@ export default function ArchitecturalExperience() {
               <span className="service-number">{active.number}</span>
               <h2>{active.title}</h2>
               <p>{active.description}</p>
-              <Link to={active.href} className="round-link" aria-label={`Explore ${active.title}`}>
+              {/* <Link to={active.href} className="round-link" aria-label={`Explore ${active.title}`}>
                 <span>Explore service</span><i>↗</i>
-              </Link>
+              </Link> */}
             </div>
 
             <div className="service-progress" role="tablist" aria-label="Architectural services">
@@ -281,7 +281,7 @@ export default function ArchitecturalExperience() {
                 <figure><img src={service.image} alt={service.alt} /></figure>
                 <h2>{service.title}</h2>
                 <p>{service.description}</p>
-                <Link to={service.href}>Explore service <i>↗</i></Link>
+                {/* <Link to={service.href}>Explore service <i>↗</i></Link> */}
               </article>
             ))}
           </div>
