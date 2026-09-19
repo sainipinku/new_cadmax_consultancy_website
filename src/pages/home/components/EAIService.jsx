@@ -120,13 +120,13 @@ export default function EAIService() {
             </div>
 
             {/* meta strip below image */}
-            <div className="mt-4 flex items-center justify-between text-xs uppercase tracking-[0.24em] text-muted-foreground">
+            {/* <div className="mt-4 flex items-center justify-between text-xs uppercase tracking-[0.24em] text-muted-foreground">
               <span>Field study — {current.id}</span>
               <span className="flex items-center gap-2">
                 <span className="inline-block h-1 w-1 rounded-full bg-accent animate-float-y" />
                 Live portfolio
               </span>
-            </div>
+            </div> */}
           </div>
 
           {/* content column */}

@@ -7,6 +7,7 @@ import CongoAfricaImage from "../../../assets/Images/home/congo_africa.png";
 import DravyavatiRevierImage from "../../../assets/Images/home/dravyavati_revier.png";
 import RingRoadImage from "../../../assets/Images/home/ring_road.png";
 import VatikaImage from "../../../assets/Images/home/vatika_city.png";
+import { Link } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
@@ -121,8 +122,40 @@ const ProjectsShowcase = () => {
             </h2>
           </div>
           <button className="group inline-flex items-center gap-3 text-sm font-general font-semibold text-[var(--muted-foreground)] hover:text-[var(--accent)] transition-colors w-fit">
-            <span className="uppercase tracking-wider">View All Projects</span>
-            <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <Link
+              to="/projects"
+              className="
+    group
+    inline-flex
+    items-center
+    gap-3
+    text-sm
+    font-general
+    font-semibold
+    text-[var(--muted-foreground)]
+    transition-all
+    duration-300
+    w-fit
+    hover:text-[var(--accent)]
+    hover:gap-4
+  "
+            >
+              <span className="uppercase tracking-wider">
+                View All Projects
+              </span>
+
+              <ArrowUpRight
+                className="
+      w-5
+      h-5
+      transition-transform
+      duration-300
+      group-hover:translate-x-1
+      group-hover:-translate-y-1
+    "
+              />
+            </Link>
+
           </button>
         </div>
 
@@ -169,12 +202,42 @@ const ProjectsShowcase = () => {
                   </p>
 
                   {/* View Project Link */}
-                  <div className="flex items-center gap-2 text-white/90 group/link">
-                    <span className="text-sm font-general font-semibold uppercase tracking-wider">
-                      View Project
-                    </span>
-                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
-                  </div>
+                  <button className="group inline-flex items-center gap-3 text-sm font-general font-semibold text-white hover:text-[var(--accent)] transition-colors w-fit">
+                    <Link
+                      to="/projects"
+                      className="
+    group
+    inline-flex
+    items-center
+    gap-3
+    text-sm
+    font-general
+    font-semibold
+    text-white
+    transition-all
+    duration-300
+    w-fit
+    hover:text-[var(--accent)]
+    hover:gap-4
+  "
+                    >
+                      <span className="uppercase tracking-wider">
+                        View All Projects
+                      </span>
+
+                      <ArrowUpRight
+                        className="
+      w-5
+      h-5
+      transition-transform
+      duration-300
+      group-hover:translate-x-1
+      group-hover:-translate-y-1
+    "
+                      />
+                    </Link>
+
+                  </button>
                 </div>
 
                 {/* Hover shadow effect */}
