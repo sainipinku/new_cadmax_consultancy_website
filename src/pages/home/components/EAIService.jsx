@@ -214,10 +214,11 @@ export default function EAIService() {
                             </ul>
 
                             {/* EXPLORE ENGINEERING */}
+
                             <div className="mt-5">
                               <a
                                 href={s.to}
-                                className="sv-explore inline-flex items-center gap-2"
+                                className="sv-explore"
                                 aria-label={`Explore ${s.title}`}
                               >
                                 Explore {s.title}
