@@ -6,7 +6,7 @@ import { createCardStagger, createImageParallax } from '../../../animations/scro
 import CongoAfricaImage from "../../../assets/Images/home/congo_africa.png";
 import DravyavatiRevierImage from "../../../assets/Images/home/dravyavati_revier.png";
 import RingRoadImage from "../../../assets/Images/home/ring_road.png";
-import VatikaImage from "../../../assets/Images/home/vatika_city.png";
+import MetroPhase2Img from "../../../assets/Images/home/metro_phase02.png";
 import { Link } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,10 +33,10 @@ const projects = [
     size: 'medium', // spans 5 columns
   },
   {
-    title: 'Vatika infotech',
+    title: 'Jaipur Metro Phase 2',
     location: 'Jaipur, Rajasthan',
-    category: 'engineering survey, master planning',
-    image: VatikaImage,
+    category: 'geospatial, ENGINEERING SURVEY',
+    image: MetroPhase2Img,
     size: 'large', // spans 7 columns
   },
 ];
