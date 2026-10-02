@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Navbar from "../../components/Layout/Header/Navbar";
 import Footer from "../../components/Layout/Footer/Footer";
-
+import { Link } from "react-router-dom";
 import API, { resolveFileUrl } from "../../api/axios";
 
 import heroBG from "../../../src/assets/Images/project/project_bg_img.png";
@@ -10,10 +10,17 @@ import heroBG from "../../../src/assets/Images/project/project_bg_img.png";
 const noImagePlaceholder =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23e9e5dd'/%3E%3Ctext x='400' y='300' font-family='Arial' font-size='28' fill='%23938b7c' text-anchor='middle'%3ENo Project Image%3C/text%3E%3C/svg%3E";
 
+const getProjectCategory = (project) =>
+  String(project.category || project.subCategory || project.sector || "Other").trim();
+
+const formatCategory = (category) =>
+  category.toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase());
+
 const Project = () => {
   const [projects, setProjects] = useState([]);
   const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
 
   /* =========================================================
      FETCH PROJECTS
@@ -26,10 +33,15 @@ const Project = () => {
 
         const res = await API.get("/projects?type=cards");
 
+        console.log("Full API Response:", res);
+        console.log("Response Data:", res.data);
+
         const data =
           res.data?.data ||
           res.data ||
           [];
+
+        console.log("Final Projects Data:", data);
 
         setProjects(
           Array.isArray(data)
@@ -50,6 +62,13 @@ const Project = () => {
 
     fetchProjects();
   }, []);
+
+  const categories = Array.from(
+    new Set(projects.map(getProjectCategory).filter(Boolean))
+  ).sort((first, second) => first.localeCompare(second));
+  const filteredProjects = selectedCategory === "ALL"
+    ? projects
+    : projects.filter((project) => getProjectCategory(project) === selectedCategory);
 
   const scrollToProjects = () => {
     document
@@ -630,7 +649,7 @@ const Project = () => {
                 >
                   <span className="h-px w-9 bg-current" />
 
-                  SELECTED WORK
+                  PROJECT SHOWCASE
                 </p>
 
                 {/* TITLE */}
@@ -678,6 +697,29 @@ const Project = () => {
                 to precision, functionality and enduring design.
               </p>
             </div>
+
+            <nav
+              aria-label="Project categories"
+              className="mb-9 flex gap-6 overflow-x-auto border-b border-[#151515]/10 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {[{ value: "ALL", label: "Show All" }, ...categories.map((category) => ({
+                value: category,
+                label: formatCategory(category),
+              }))].map((category) => (
+                <button
+                  key={category.value}
+                  type="button"
+                  aria-pressed={selectedCategory === category.value}
+                  onClick={() => {
+                    setSelectedCategory(category.value);
+                    setVisibleCount(9);
+                  }}
+                  className={`relative shrink-0 pb-1 font-inter text-[10px] uppercase tracking-[.08em] transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:transition-transform ${selectedCategory === category.value ? "text-[#24211D] after:scale-x-100 after:bg-[#B89462]" : "text-[#625E57] after:scale-x-0 after:bg-[#B89462] hover:text-[#24211D] hover:after:scale-x-100"}`}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </nav>
 
             {/* =================================================
                 LOADING SKELETON
@@ -736,7 +778,7 @@ const Project = () => {
             ================================================= */}
 
             {!loading &&
-              projects.length === 0 && (
+              filteredProjects.length === 0 && (
                 <div
                   className="
                     flex
@@ -780,7 +822,7 @@ const Project = () => {
             ================================================= */}
 
             {!loading &&
-              projects.length > 0 && (
+              filteredProjects.length > 0 && (
                 <div
                   className="
                     grid
@@ -791,7 +833,7 @@ const Project = () => {
                     lg:grid-cols-3
                   "
                 >
-                  {projects
+                  {filteredProjects
                     .slice(
                       0,
                       visibleCount
@@ -809,201 +851,419 @@ const Project = () => {
                               item.image
                             )
                             : noImagePlaceholder;
+                        const projectLocation =
+                          item.location || item.address || "";
 
                         return (
                           <article
-                            key={
-                              item._id ||
-                              item.id ||
-                              item.title
-                            }
+                            key={item._id || item.id || item.title}
                             className="
-                              group
-                              cursor-pointer
-                            "
+    group
+    relative
+    transition-all
+    duration-500
+    ease-out
+    hover:-translate-y-2
+    focus-within:-translate-y-2
+  "
                           >
-                            {/* IMAGE */}
-
+                            {/* IMAGE CARD */}
                             <div
                               className="
-                                relative
-                                aspect-[4/5]
-                                overflow-hidden
-                                bg-[#DED8CD]
-                              "
+      relative
+      aspect-[4/5]
+      overflow-hidden
+      bg-[#DED8CD]
+      shadow-none
+      transition-shadow
+      duration-500
+      group-hover:shadow-[0_25px_60px_rgba(21,21,21,0.16)]
+    "
                             >
+                              {/* IMAGE */}
                               <img
-                                src={
-                                  projectImage
-                                }
-                                alt={
-                                  item.title ||
-                                  "CADMAX Project"
-                                }
+                                src={projectImage}
+                                alt={item.title || "CADMAX Project"}
                                 className="
-                                  h-full
-                                  w-full
-                                  object-cover
-                                  transition-transform
-                                  duration-700
-                                  ease-out
-                                  group-hover:scale-[1.055]
-                                "
-                                onError={(
-                                  e
-                                ) => {
-                                  e.currentTarget.src =
-                                    noImagePlaceholder;
+        h-full
+        w-full
+        object-cover
+        transition-all
+        duration-[900ms]
+        ease-[cubic-bezier(0.22,1,0.36,1)]
+        group-hover:scale-[1.08]
+        group-hover:brightness-[0.65]
+      "
+                                onError={(e) => {
+                                  e.currentTarget.src = noImagePlaceholder;
                                 }}
                               />
 
-                              {/* OVERLAY */}
-
+                              {/* DEFAULT SOFT GRADIENT */}
                               <div
                                 className="
-                                  absolute
-                                  inset-0
-                                  bg-gradient-to-t
-                                  from-black/55
-                                  via-transparent
-                                  to-transparent
-                                "
+        absolute
+        inset-0
+        bg-gradient-to-t
+        from-black/45
+        via-black/5
+        to-transparent
+        transition-opacity
+        duration-500
+        group-hover:opacity-0
+      "
                               />
 
-                              {/* NUMBER */}
+                              {/* HOVER OVERLAY */}
+                              <div
+                                className="
+        absolute
+        inset-0
+        bg-gradient-to-b
+        from-black/90
+        via-black/55
+        to-black/10
 
+        opacity-0
+        transition-all
+        duration-500
+
+        group-hover:opacity-100
+        group-focus-within:opacity-100
+
+        max-sm:opacity-100
+      "
+                              />
+
+                              {/* PROJECT NUMBER */}
                               <span
                                 className="
-                                  absolute
-                                  left-5
-                                  top-5
-                                  font-inter
-                                  text-[9px]
-                                  font-semibold
-                                  tracking-[.18em]
-                                  text-white/80
-                                "
+        absolute
+        left-5
+        top-5
+        z-20
+
+        font-inter
+        text-[9px]
+        font-semibold
+        tracking-[.18em]
+        text-white/80
+
+        transition-all
+        duration-500
+
+        group-hover:text-[#C9AD82]
+      "
                               >
-                                {String(
-                                  index + 1
-                                ).padStart(
-                                  2,
-                                  "0"
-                                )}
+                                {String(index + 1).padStart(2, "0")}
                               </span>
 
-                              {/* ARROW */}
-
+                              {/* CATEGORY TOP RIGHT */}
                               <span
                                 className="
-                                  absolute
-                                  bottom-5
-                                  right-5
-                                  grid
-                                  h-12
-                                  w-12
-                                  place-items-center
-                                  border
-                                  border-white/70
-                                  text-lg
-                                  text-white
-                                  transition-all
-                                  duration-300
-                                  group-hover:border-[#C9AD82]
-                                  group-hover:bg-[#C9AD82]
-                                  group-hover:text-[#151515]
-                                "
+        absolute
+        right-5
+        top-5
+        z-20
+
+        translate-y-[-10px]
+        opacity-0
+
+        font-inter
+        text-[8px]
+        font-semibold
+        uppercase
+        tracking-[.18em]
+        text-[#C9AD82]
+
+        transition-all
+        duration-500
+
+        group-hover:translate-y-0
+        group-hover:opacity-100
+
+        max-sm:translate-y-0
+        max-sm:opacity-100
+      "
+                              >
+                                {formatCategory(getProjectCategory(item))}
+                              </span>
+
+                              {/* HOVER PROJECT DETAILS */}
+                              <div
+                                className="
+        absolute
+        top-0
+        left-0
+        right-0
+        z-20
+
+        translate-y-10
+        opacity-0
+
+        px-6
+        pb-6
+        pt-14
+        md:px-7
+        md:pb-7
+        md:pt-16
+
+        transition-all
+        duration-500
+        ease-[cubic-bezier(0.22,1,0.36,1)]
+
+        group-hover:translate-y-0
+        group-hover:opacity-100
+
+        group-focus-within:translate-y-0
+        group-focus-within:opacity-100
+
+        max-sm:translate-y-0
+        max-sm:opacity-100
+      "
+                              >
+                                {/* SMALL LINE */}
+                                <div
+                                  className="
+          mb-4
+          h-px
+          w-0
+          bg-[#C9AD82]
+
+          transition-all
+          duration-700
+
+          group-hover:w-12
+          max-sm:w-12
+        "
+                                />
+
+                                {/* TITLE */}
+                                <h3
+                                  className="
+          mb-3
+          max-w-[90%]
+          line-clamp-2
+
+          font-clash
+          text-[clamp(1.5rem,2vw,2rem)]
+          font-medium
+          leading-[1.05]
+          tracking-[-.03em]
+          text-white
+        "
+                                >
+                                  {item.title || "Untitled Project"}
+                                </h3>
+
+                                {/* SHORT DESCRIPTION */}
+                                {(item.description || item.summary || item.details) && (
+                                  <p
+                                    className="
+            mb-5
+            line-clamp-2
+            max-w-[45ch]
+
+            font-inter
+            text-[11px]
+            leading-[1.65]
+            text-white/70
+
+            transition-all
+            duration-500
+            delay-75
+          "
+                                  >
+                                    {item.description ||
+                                      item.summary ||
+                                      item.details}
+                                  </p>
+                                )}
+
+                                {/* LOCATION */}
+                                {projectLocation && (
+                                  <div
+                                    className="
+          mb-5
+          flex
+          items-center
+          gap-3
+
+          font-inter
+          text-[8px]
+          font-semibold
+          uppercase
+          tracking-[.16em]
+          text-white/55
+        "
+                                  >
+                                    <span className="h-px w-6 bg-white/30" />
+                                    {projectLocation}
+                                  </div>
+                                )}
+
+                                {/* VIEW PROJECT BUTTON */}
+                                <Link
+                                  to={`/projects/${item.slug || item._id || item.id}`}
+                                  className="
+          group/button
+
+          inline-flex
+          min-h-[46px]
+          items-center
+          gap-5
+
+          border
+          border-white/40
+          bg-white/5
+
+          pl-5
+          pr-2
+
+          font-inter
+          text-[9px]
+          font-semibold
+          uppercase
+          tracking-[.16em]
+          text-white
+
+          backdrop-blur-sm
+
+          transition-all
+          duration-300
+
+          hover:border-[#C9AD82]
+          hover:bg-[#C9AD82]
+          hover:text-[#151515]
+        "
+                                >
+                                  View Project
+
+                                  <span
+                                    className="
+            grid
+            h-9
+            w-9
+            place-items-center
+
+            border-l
+            border-current/20
+          "
+                                  >
+                                    <span
+                                      className="
+              transition-transform
+              duration-300
+
+              group-hover/button:translate-x-1
+              group-hover/button:-translate-y-1
+            "
+                                    >
+                                      ↗
+                                    </span>
+                                  </span>
+                                </Link>
+                              </div>
+
+                              {/* DEFAULT ARROW */}
+                              <span
+                                className="
+        absolute
+        bottom-5
+        right-5
+        z-10
+
+        grid
+        h-12
+        w-12
+        place-items-center
+
+        border
+        border-white/60
+
+        text-lg
+        text-white
+
+        transition-all
+        duration-500
+
+        group-hover:
+        translate-x-4
+        group-hover:-translate-y-4
+        group-hover:scale-75
+        group-hover:opacity-0
+      "
                               >
                                 ↗
                               </span>
                             </div>
 
-                            {/* PROJECT INFORMATION */}
-
+                            {/* INFORMATION BELOW IMAGE */}
                             <div className="pt-5">
-                              <div
-                                className="
-                                  flex
-                                  items-start
-                                  justify-between
-                                  gap-5
-                                "
-                              >
-                                {/* TITLE */}
+                              <div className="flex items-start justify-between gap-5">
 
                                 <h3
                                   className="
-                                    m-0
-                                    max-w-[75%]
-                                    font-clash
-                                    text-[clamp(1.35rem,1.7vw,1.65rem)]
-                                    font-medium
-                                    leading-[1.05]
-                                    tracking-[-.025em]
-                                    text-[#24211D]
-                                    transition-colors
-                                    duration-300
-                                    group-hover:text-[#B89462]
-                                  "
-                                >
-                                  {item.title ||
-                                    "Untitled Project"}
-                                </h3>
+          m-0
+          max-w-[75%]
 
-                                {/* CATEGORY */}
+          font-clash
+          text-[clamp(1.35rem,1.7vw,1.65rem)]
+          font-medium
+          leading-[1.05]
+          tracking-[-.025em]
+          text-[#24211D]
+
+          transition-colors
+          duration-300
+
+          group-hover:text-[#B89462]
+        "
+                                >
+                                  {item.title || "Untitled Project"}
+                                </h3>
 
                                 <span
                                   className="
-                                    mt-1
-                                    shrink-0
-                                    font-inter
-                                    text-[8px]
-                                    font-semibold
-                                    uppercase
-                                    tracking-[.18em]
-                                    text-[#B89462]
-                                  "
+          mt-1
+          shrink-0
+
+          font-inter
+          text-[8px]
+          font-semibold
+          uppercase
+          tracking-[.18em]
+          text-[#B89462]
+        "
                                 >
-                                  {item.category ||
-                                    "Architecture"}
+                                  {formatCategory(
+                                    getProjectCategory(item)
+                                  )}
                                 </span>
                               </div>
 
-                              {/* DIVIDER */}
-
+                              {/* Animated bottom line */}
                               <div
                                 className="
-                                  my-4
-                                  h-px
-                                  w-full
-                                  bg-[#151515]/15
-                                "
-                              />
-
-                              {/* META */}
-
-                              <div
-                                className="
-                                  flex
-                                  items-center
-                                  justify-between
-                                  gap-5
-                                  font-inter
-                                  text-[9px]
-                                  font-semibold
-                                  uppercase
-                                  tracking-[.12em]
-                                  text-[#151515]/45
-                                "
+        mt-5
+        h-px
+        w-full
+        overflow-hidden
+        bg-[#151515]/10
+      "
                               >
-                                <span>
-                                  {item.location ||
-                                    "Jaipur, India"}
-                                </span>
+                                <div
+                                  className="
+          h-full
+          w-0
+          bg-[#B89462]
 
-                                <span>
-                                  CADMAX
-                                </span>
+          transition-all
+          duration-700
+
+          group-hover:w-full
+        "
+                                />
                               </div>
                             </div>
                           </article>
@@ -1019,7 +1279,7 @@ const Project = () => {
 
             {!loading &&
               visibleCount <
-              projects.length && (
+              filteredProjects.length && (
                 <div
                   className="
                     mt-[clamp(4rem,6vw,6rem)]

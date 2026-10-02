@@ -8,6 +8,8 @@ import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 const SECTORS = [
   { value: "", label: "Select Sector" },
   { value: "ENGINEERING", label: "Engineering" },
+  { value: "ARCHITECTURAL", label: "Architectural" },
+  { value: "INFRASTRUCTURE DEVELOPMENT", label: "Infrastructure Development" },
   { value: "SURVEYING", label: "Surveying" },
   { value: "PLANNING", label: "Planning" },
 ];

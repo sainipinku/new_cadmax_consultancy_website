@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { 
-  Pencil, 
-  Trash2, 
-  Plus, 
-  Eye, 
-  X, 
-  Download, 
-  RotateCcw, 
-  Trash, 
-  LayoutGrid, 
-  List, 
+import {
+  Pencil,
+  Trash2,
+  Plus,
+  Eye,
+  X,
+  Download,
+  RotateCcw,
+  Trash,
+  LayoutGrid,
+  List,
   Search,
   Image as ImageIcon,
   MapPin,
@@ -44,9 +44,8 @@ const Pagination = ({ totalPages, page, onPageChange }) => {
       {start > 1 && <span className="px-1.5 text-slate-400 text-xs">...</span>}
       {pages.map(p => (
         <button key={p} onClick={() => onPageChange(p)}
-          className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
-            p === page ? "bg-blue-600 text-white border-blue-600" : "border-slate-200 text-slate-600 hover:bg-slate-50"
-          }`}>{p}</button>
+          className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${p === page ? "bg-blue-600 text-white border-blue-600" : "border-slate-200 text-slate-600 hover:bg-slate-50"
+            }`}>{p}</button>
       ))}
       {end < totalPages && <span className="px-1.5 text-slate-400 text-xs">...</span>}
       <button onClick={() => onPageChange(page + 1)} disabled={page === totalPages}
@@ -72,7 +71,8 @@ const ProjectManagement = () => {
   const toast = useToast();
   const confirm = useConfirm();
 
-  useEffect(() => { fetchProjects(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    fetchProjects(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showDeleted]);
 
   const fetchProjects = async () => {
@@ -107,7 +107,7 @@ const ProjectManagement = () => {
   };
 
   const filteredProjects = Array.isArray(projects) ? projects.filter(p => {
-    const matchesSearch = searchQuery === "" || 
+    const matchesSearch = searchQuery === "" ||
       p.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.location?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesSector = filterSector === "" || p.sector === filterSector;
@@ -179,16 +179,14 @@ const ProjectManagement = () => {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex bg-slate-100 p-1 rounded-lg">
             <button onClick={() => setActiveTab("cards")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium text-sm transition-all ${
-                activeTab === "cards" ? "bg-white text-blue-600 shadow-sm" : "text-slate-600 hover:text-slate-900"
-              }`}>
+              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium text-sm transition-all ${activeTab === "cards" ? "bg-white text-blue-600 shadow-sm" : "text-slate-600 hover:text-slate-900"
+                }`}>
               <LayoutGrid size={16} /> Cards
               <span className={`ml-1 px-2 py-0.5 text-xs rounded-full ${activeTab === "cards" ? "bg-blue-100" : "bg-slate-200"}`}>{cardProjects.length}</span>
             </button>
             <button onClick={() => setActiveTab("table")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium text-sm transition-all ${
-                activeTab === "table" ? "bg-white text-blue-600 shadow-sm" : "text-slate-600 hover:text-slate-900"
-              }`}>
+              className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium text-sm transition-all ${activeTab === "table" ? "bg-white text-blue-600 shadow-sm" : "text-slate-600 hover:text-slate-900"
+                }`}>
               <List size={16} /> List
               <span className={`ml-1 px-2 py-0.5 text-xs rounded-full ${activeTab === "table" ? "bg-blue-100" : "bg-slate-200"}`}>{tableProjects.length}</span>
             </button>
@@ -204,6 +202,8 @@ const ProjectManagement = () => {
               className="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="">All Sectors</option>
               <option value="ENGINEERING">Engineering</option>
+              <option value="ARCHITECTURAL">Architectural</option>
+              <option value="INFRASTRUCTURE DEVELOPMENT">Infrastructure Development</option>
               <option value="SURVEYING">Surveying</option>
               <option value="PLANNING">Planning</option>
             </select>
@@ -239,7 +239,7 @@ const ProjectManagement = () => {
                       </div>
                     </td></tr>
                   )}
-              {paginatedCards.map((item) => (
+                  {paginatedCards.map((item) => (
                     <tr key={item._id}
                       className={`hover:bg-slate-50 transition-colors group ${item.isDeleted ? "bg-red-50/50" : ""} ${!item.isActive && !item.isDeleted ? "bg-amber-50/30" : ""}`}>
                       <td className="px-4 md:px-6 py-4 w-[20%] min-w-[120px]">
@@ -260,7 +260,7 @@ const ProjectManagement = () => {
                       <td className="px-4 md:px-6 py-4 text-center">
                         {item.isDeleted ? <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800"><XCircle size={12} />Deleted</span>
                           : !item.isActive ? <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800"><AlertCircle size={12} />Inactive</span>
-                          : <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"><CheckCircle2 size={12} />Active</span>}
+                            : <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"><CheckCircle2 size={12} />Active</span>}
                       </td>
                       <td className="px-4 md:px-6 py-4">
                         <div className="flex items-center justify-end gap-1">
@@ -334,7 +334,7 @@ const ProjectManagement = () => {
                       <td className="px-4 md:px-6 py-4 text-center">
                         {item.isDeleted ? <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800"><XCircle size={12} />Deleted</span>
                           : !item.isActive ? <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800"><AlertCircle size={12} />Inactive</span>
-                          : <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"><CheckCircle2 size={12} />Active</span>}
+                            : <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"><CheckCircle2 size={12} />Active</span>}
                       </td>
                       <td className="px-4 md:px-6 py-4">
                         <div className="flex items-center justify-end gap-1">

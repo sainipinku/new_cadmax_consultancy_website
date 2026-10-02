@@ -8,8 +8,8 @@ import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
 const SECTORS = [
   { value: "", label: "Select Sector" },
   { value: "ENGINEERING", label: "Engineering" },
-  { value: "SURVEYING", label: "Surveying" },
-  { value: "PLANNING", label: "Planning" },
+  { value: "ARCHITECTURAL", label: "Architectural" },
+  { value: "INFRASTRUCTURE DEVELOPMENT", label: "Infrastructure Development" },
 ];
 
 const SUB_CATEGORIES = [
@@ -33,6 +33,7 @@ const AddProjectCard = () => {
     sector: "",
     subCategory: "",
     location: "",
+    description: "",
     isActive: true,
   });
 
@@ -70,6 +71,7 @@ const AddProjectCard = () => {
     formData.append("sector", form.sector);
     formData.append("subCategory", form.subCategory);
     formData.append("location", form.location);
+    formData.append("description", form.description);
     formData.append("isActive", form.isActive);
     if (image) {
       formData.append("image", image);
@@ -141,6 +143,19 @@ const AddProjectCard = () => {
               placeholder="e.g., Tonk road, Jaipur, client shree ram group"
               className="w-full rounded-lg border px-4 py-2.5"
               required
+            />
+          </div>
+
+          {/* DESCRIPTION */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <textarea
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              rows="3"
+              placeholder="Brief project description"
+              className="w-full rounded-lg border px-4 py-2.5"
             />
           </div>
 
