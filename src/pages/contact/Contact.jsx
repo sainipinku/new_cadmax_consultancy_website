@@ -3,10 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
-  useMotionValue,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
 } from "framer-motion";
 
@@ -46,8 +44,8 @@ const CONTACT_ITEMS = [
   {
     id: "phone",
     label: "Call our studio",
-    value: "0141-411-3111",
-    href: "tel:+911414113111",
+    value: "+91 141 2940254",
+    href: "tel:+91 141 294 0254",
     icon: FaPhoneAlt,
   },
   {
@@ -179,30 +177,6 @@ const Contact = () => {
     useState("");
 
   /* =======================================================
-     CARD TILT
-  ======================================================= */
-
-  const cardXMotion =
-    useMotionValue(0);
-
-  const cardYMotion =
-    useMotionValue(0);
-
-  const cardRotateX =
-    useSpring(cardXMotion, {
-      stiffness: 150,
-      damping: 24,
-      mass: 0.7,
-    });
-
-  const cardRotateY =
-    useSpring(cardYMotion, {
-      stiffness: 150,
-      damping: 24,
-      mass: 0.7,
-    });
-
-  /* =======================================================
      HERO SCROLL
   ======================================================= */
 
@@ -309,7 +283,12 @@ const Contact = () => {
     try {
       await API.post(
         "/inquiries",
-        form
+        {
+          name: form.fullName.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          message: form.message.trim(),
+        }
       );
 
       setSuccess(
@@ -343,63 +322,20 @@ const Contact = () => {
         requestError
       );
 
-      setError(
-        requestError
-          ?.response
-          ?.data
-          ?.message ||
-        "We could not send your inquiry. Please try again."
-      );
+      const status = requestError?.response?.status;
+      const serverMessage = requestError?.response?.data?.message;
+
+      if (!requestError?.response) {
+        setError("We could not confirm whether your inquiry reached us. It may already be recorded, so please contact us by phone or email before resubmitting.");
+      } else if (status >= 500) {
+        setError("Your inquiry may have been saved, but our server could not complete the request. Please contact us by phone or email before resubmitting.");
+      } else {
+        setError(serverMessage || "Please check your details and try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  /* =======================================================
-     TILT EFFECT
-  ======================================================= */
-
-  const handleCardTilt = (
-    event
-  ) => {
-    if (
-      reduceMotion ||
-      event.pointerType !==
-      "mouse"
-    ) {
-      return;
-    }
-
-    const bounds =
-      event.currentTarget
-        .getBoundingClientRect();
-
-    const x =
-      (event.clientX -
-        bounds.left) /
-      bounds.width -
-      0.5;
-
-    const y =
-      (event.clientY -
-        bounds.top) /
-      bounds.height -
-      0.5;
-
-    cardYMotion.set(
-      x * 5
-    );
-
-    cardXMotion.set(
-      y * -5
-    );
-  };
-
-  const resetCardTilt =
-    () => {
-      cardXMotion.set(0);
-      cardYMotion.set(0);
-    };
 
   return (
     <>
@@ -1605,29 +1541,6 @@ const Contact = () => {
               {/* Main Form Card */}
 
               <motion.div
-                onPointerMove={
-                  handleCardTilt
-                }
-                onPointerLeave={
-                  resetCardTilt
-                }
-                onPointerCancel={
-                  resetCardTilt
-                }
-                style={
-                  reduceMotion
-                    ? undefined
-                    : {
-                      rotateX:
-                        cardRotateX,
-
-                      rotateY:
-                        cardRotateY,
-
-                      transformPerspective:
-                        1300,
-                    }
-                }
                 className="
                   relative
                   isolate
@@ -2067,6 +1980,7 @@ const Contact = () => {
                       min-h-6
                     "
                     aria-live="polite"
+                    aria-atomic="true"
                   >
                     <AnimatePresence
                       mode="wait"
@@ -2114,6 +2028,7 @@ const Contact = () => {
                       {error && (
                         <motion.p
                           key="error"
+                          role="alert"
                           initial={{
                             opacity: 0,
                             y: 8,

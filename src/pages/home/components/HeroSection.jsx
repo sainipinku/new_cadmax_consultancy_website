@@ -1,12 +1,17 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { createHeroCinematic } from "../../../animations/scrollMotion";
 import heroImage from "../../../assets/Hero-video/home_bg_img.jpeg";
+import riverImage from "../../../assets/Images/home/home_banner02.png";
+import roadImage from "../../../assets/Images/home/home_banner03.png";
 gsap.registerPlugin(ScrollTrigger);
+
+const heroImages = [heroImage, riverImage, roadImage];
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
+  const [activeImage, setActiveImage] = useState(0);
 
   const charReveal = (text) => {
     return text.split("").map((char, i) => (
@@ -43,7 +48,7 @@ const HeroSection = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       createHeroCinematic(sectionRef.current, {
-        backgroundSelector: "video",
+        backgroundSelector: "[data-hero-background]",
         headingSelector: "[data-hero-heading]",
         subtitleSelector: "[data-hero-subtitle]",
         ctaSelector: "[data-hero-cta]",
@@ -51,6 +56,14 @@ const HeroSection = () => {
     }, sectionRef);
 
     return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveImage((currentImage) => (currentImage + 1) % heroImages.length);
+    }, 27000);
+
+    return () => window.clearInterval(intervalId);
   }, []);
 
   return (
@@ -71,12 +84,22 @@ const HeroSection = () => {
           type="video/mp4"
         />
       </video> */}
-      {/* Background Image */}
-      <img
-        src={heroImage}
-        alt="CADMAX Consultancy"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+      {/* Background Image Slideshow */}
+      <div
+        data-hero-background
+        className="absolute inset-0 h-full w-full overflow-hidden"
+        aria-hidden="true"
+      >
+        {heroImages.map((image, index) => (
+          <img
+            key={image}
+            src={image}
+            alt=""
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${index === activeImage ? "opacity-100" : "opacity-0"
+              }`}
+          />
+        ))}
+      </div>
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/25" />
 

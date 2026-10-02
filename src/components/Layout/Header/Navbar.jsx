@@ -7,33 +7,9 @@ const Navbar = () => {
   const isHome = location.pathname === "/";
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [projectsDropdown, setProjectsDropdown] = useState(false);
-  const [surveyingDropdown, setSurveyingDropdown] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [textWhite, setTextWhite] = useState(true);
-
-  // Projects menu structure
-  const projectsMenu = {
-    label: "PROJECTS",
-    path: "/projects",
-    items: [
-      { label: "Engineering", path: "/projects/engineering" },
-      {
-        label: "Surveying",
-        path: "/projects/surveying",
-        submenu: [
-          { label: "Transportation", path: "/projects/surveying/transportation" },
-          { label: "Water Influence", path: "/projects/surveying/water-influence" },
-          { label: "Energy Sector", path: "/projects/surveying/energy-sector" },
-          { label: "Irrigation Sector", path: "/projects/surveying/irrigation-sector" },
-          { label: "City Survey", path: "/projects/surveying/city-survey" },
-          { label: "Real Estate Sector", path: "/projects/surveying/real-estate-sector" },
-        ],
-      },
-      { label: "Planning", path: "/projects/planning" },
-    ],
-  };
 
   const simpleLinks = [
     { label: "HOME", path: "/" },
@@ -187,7 +163,7 @@ const Navbar = () => {
                 </div>
               ))}
 
-              {/* Projects with Dropdown */}
+              {/* Projects Link */}
               <div
                 className="overflow-hidden text-center"
                 style={{
@@ -195,89 +171,18 @@ const Navbar = () => {
                   opacity: 0
                 }}
               >
-                <button
-                  onClick={() => setProjectsDropdown(!projectsDropdown)}
-                  className="group flex items-center justify-center w-full text-3xl md:text-4xl lg:text-5xl font-light text-[var(--foreground)] py-3 hover:pl-4 transition-all duration-300"
+                <NavLink
+                  to="/projects"
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `group block text-3xl md:text-4xl lg:text-5xl font-light text-[var(--foreground)] py-3 transition-all duration-300 hover:pl-4 ${isActive ? 'font-semibold' : ''}`
+                  }
                 >
                   <span className="relative inline-block">
                     PROJECTS
                     <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0.5 bg-[var(--accent)] group-hover:w-full transition-all duration-300"></span>
                   </span>
-                  <svg
-                    className={`w-6 h-6 md:w-8 md:h-8 transition-transform duration-300 ${projectsDropdown ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {/* Projects Dropdown */}
-                <div className={`ml-2 md:ml-4 mt-2 space-y-1 transition-all duration-500 ease-in-out ${projectsDropdown ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-                  {projectsMenu.items.map((item, index) => (
-                    <div
-                      key={item.path}
-                      className="overflow-hidden text-center"
-                      style={{
-                        animation: projectsDropdown ? `slideDown 0.5s ease-out ${index * 0.08}s forwards` : 'none',
-                        opacity: projectsDropdown ? 0 : 1
-                      }}
-                    >
-                      {item.submenu ? (
-                        <div>
-                          <button
-                            onClick={() => setSurveyingDropdown(!surveyingDropdown)}
-                            className="flex items-center justify-center w-full text-xl md:text-2xl text-[var(--foreground)] py-2 hover:pl-2 transition-all duration-300"
-                          >
-                            <span>{item.label}</span>
-                            <svg
-                              className={`w-5 h-5 transition-transform duration-300 ${surveyingDropdown ? 'rotate-180' : ''}`}
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </button>
-
-                          {/* Surveying Submenu */}
-                          <div className={`ml-4 md:ml-6 mt-1 space-y-1 transition-all duration-500 ease-in-out ${surveyingDropdown ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-                            {item.submenu.map((sub, subIndex) => (
-                              <Link
-                                key={sub.path}
-                                to={sub.path}
-                                onClick={() => {
-                                  setMenuOpen(false);
-                                  setProjectsDropdown(false);
-                                  setSurveyingDropdown(false);
-                                }}
-                                className="block text-center text-base md:text-lg text-[var(--muted-foreground)] py-1.5 hover:pl-2 transition-all duration-300 hover:text-[var(--foreground)]"
-                                style={{
-                                  animation: surveyingDropdown ? `slideDown 0.4s ease-out ${subIndex * 0.05}s forwards` : 'none',
-                                  opacity: surveyingDropdown ? 0 : 1
-                                }}
-                              >
-                                {sub.label}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <Link
-                          to={item.path}
-                          onClick={() => {
-                            setMenuOpen(false);
-                            setProjectsDropdown(false);
-                          }}
-                          className="block text-center text-xl md:text-2xl text-[var(--foreground)] py-2 hover:pl-2 transition-all duration-300"
-                        >
-                          {item.label}
-                        </Link>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                </NavLink>
               </div>
             </nav>
           </div>
@@ -349,84 +254,18 @@ const Navbar = () => {
             </NavLink>
           ))}
 
-          {/* Projects Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setProjectsDropdown(true)}
-            onMouseLeave={() => {
-              setProjectsDropdown(false);
-              setSurveyingDropdown(false);
-            }}
-          >
-            <NavLink
-              to="/projects"
-              className={({ isActive }) =>
-                `relative text-[14px] font-bold px-3 py-2 transition flex items-center gap-1 font-['Cormorant_Garamond'] tracking-wider
+          <NavLink
+            to="/projects"
+            className={({ isActive }) =>
+              `relative text-[14px] font-bold px-3 py-2 transition font-['Cormorant_Garamond'] tracking-wider
               ${isActive ? "text-[var(--accent)] scale-110 font-extrabold" : textColorClass}
-              
               after:content-[''] after:absolute after:left-0 after:bottom-[6px]
               after:h-[2px] ${textWhite ? 'after:bg-white' : 'after:bg-[var(--accent)]'} after:w-0
               hover:after:w-full after:transition-all`
-              }
-            >
-              PROJECTS
-              <svg
-                className={`w-4 h-4 transition-transform ${projectsDropdown ? "rotate-180" : ""}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </NavLink>
-
-            {/* Projects Dropdown Menu */}
-            {projectsDropdown && (
-              <div className="absolute top-full left-0 bg-[var(--card)] shadow-lg rounded-md py-2 min-w-[150px] border border-[var(--border)] z-[60]">
-                {projectsMenu.items.map((item) => (
-                  <div
-                    key={item.path}
-                    className="relative"
-                    onMouseEnter={() => item.submenu && setSurveyingDropdown(true)}
-                    onMouseLeave={() => item.submenu && setSurveyingDropdown(false)}
-                  >
-                    <Link
-                      to={item.path}
-                      className="flex items-center gap-3 px-4 py-2 text-[13px] font-semibold text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--accent)] transition"
-                    >
-                      {item.label}
-                      {item.submenu && (
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      )}
-                    </Link>
-
-                    {/* Surveying Submenu */}
-                    {item.submenu && surveyingDropdown && (
-                      <div className="absolute top-0 left-full bg-[var(--card)] shadow-lg rounded-md py-2 min-w-[180px] border border-[var(--border)]">
-                        {item.submenu.map((sub) => (
-                          <Link
-                            key={sub.path}
-                            to={sub.path}
-                            className="block px-4 py-2 text-[13px] font-semibold text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--accent)] transition"
-                          >
-                            {sub.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <div className="h-[0.5px] bg-[var(--border)] w-[calc(100%-6vw)] max-w-[1400px] mx-auto mt-2"></div>
-              </div>
-            )}
-          </div>
+            }
+          >
+            PROJECTS
+          </NavLink>
         </nav>
 
         {/* Desktop Button */}
@@ -460,10 +299,10 @@ const Navbar = () => {
         )}
       </header>
 
-      {/* Bottom line - hides on scroll or when dropdown open */}
+      {/* Bottom line - hides on scroll */}
       <div className="fixed top-[77px] left-0 w-full flex justify-center z-50 pointer-events-none">
         <div
-          className={`${isHome ? 'nav-line-enter' : ''} h-[0.5px] ${textWhite ? 'bg-white' : 'bg-[var(--border)]'} w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${hasScrolled || projectsDropdown ? 'opacity-0' : 'opacity-100'
+          className={`${isHome ? 'nav-line-enter' : ''} h-[0.5px] ${textWhite ? 'bg-white' : 'bg-[var(--border)]'} w-[calc(100%-6vw)] max-w-[1400px] transition-opacity duration-300 ease-in-out ${hasScrolled ? 'opacity-0' : 'opacity-100'
             }`}
         />
       </div>

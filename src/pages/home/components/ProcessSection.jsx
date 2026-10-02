@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { createCardStagger, createDepthMotion } from '../../../animations/scrollMotion';
 import { MessageSquare, PenTool, Rocket } from 'lucide-react';
-
+import { Link } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 const PROCESS_STEPS = [
@@ -211,49 +211,57 @@ const ProcessSection = () => {
           <p className="text-[var(--muted-foreground)] font-garamond text-sm md:text-base mb-4 md:mb-6">
             Ready to start your project?
           </p>
-         <button
-  className="group relative inline-flex items-center gap-3 overflow-hidden
-  rounded-full border border-white/15
-  bg-black px-6 md:px-8 py-3 md:py-4
-  text-white font-semibold
-  transition-all duration-500 ease-out
-  hover:border-[#D4B383]
-  hover:bg-[#D4B383]
-  hover:text-black
-  hover:shadow-[0_15px_45px_rgba(212,179,131,0.45)]"
->
-  {/* Animated Shine */}
-  <span
-    className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-full"
-  >
-    <span
-      className="absolute inset-y-0 -left-[120%] w-1/2
-      skew-x-[-20deg]
-      bg-gradient-to-r from-transparent via-white/40 to-transparent
-      transition-all duration-1000
-      group-hover:left-[130%]"
-    />
-  </span>
+          <Link
+            to="/contact"
+            className="
+    group
+    inline-flex
+    items-center
+    justify-center
+    gap-3
+    px-6
+    py-3
+    rounded-full
 
-  {/* Content */}
-  <span className="relative z-10 flex items-center gap-3 transition-all duration-300 group-hover:gap-4">
-    Schedule a Consultation
+    bg-[var(--primary)]
+    text-white
 
-    <svg
-      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M17 8l4 4m0 0l-4 4m4-4H3"
-      />
-    </svg>
-  </span>
-</button>
+    font-general
+    font-semibold
+
+    transition-all
+    duration-300
+
+    hover:bg-[var(--accent)]
+    hover:text-black
+    hover:gap-4
+    hover:shadow-xl
+  "
+          >
+            <span className="relative z-10 flex items-center gap-3 transition-all duration-300 group-hover:gap-4">
+              Schedule a Consultation
+
+              <svg
+                className="
+        h-4
+        w-4
+        transition-all
+        duration-300
+        group-hover:translate-x-1
+      "
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </span>
+          </Link>
         </div>
       </div>
     </section>

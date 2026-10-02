@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createImageParallax, createReveal } from '../../../animations/scrollMotion';
-import stateImage from '../../../assets/Images/stats/stats-image.png';
+import stateImage from '../../../assets/Images/stats/company_state.png';
 import './StatsSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -86,7 +86,7 @@ const StatsSection = () => {
     <section className="relative py-16 md:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-          
+
           {/* Left Side - Stats (2/5 width) */}
           <div className="space-y-8 lg:col-span-2">
             <div>
@@ -103,7 +103,7 @@ const StatsSection = () => {
             </p>
 
             {/* Stats Grid */}
-            <div 
+            <div
               ref={statsRef}
               className="grid grid-cols-2 gap-6"
             >
@@ -133,7 +133,7 @@ const StatsSection = () => {
           </div>
 
           {/* Right Side - Image (3/5 width) */}
-          <div className="relative lg:h-[650px] h-[400px] md:h-[500px] w-full lg:col-span-3">
+          <div className="relative h-[400px] w-full md:h-[500px] lg:h-[560px] lg:col-span-3 xl:translate-x-[35%]">
             {/* Main Image Container */}
             <div className="relative h-full w-full rounded-2xl overflow-hidden">
               <img
@@ -142,7 +142,7 @@ const StatsSection = () => {
                 alt="Cadmax State"
                 className="w-full h-full object-cover"
               />
-              
+
               {/* Gradient Overlay */}
               <div className=" " />
             </div>

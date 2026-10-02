@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import Navbar from "../../../components/Layout/Header/Navbar";
 import Footer from "../../../components/Layout/Footer/Footer";
 import API, { resolveFileUrl } from "../../../api/axios";
-
+import ProjectCard from "./ProjectCard";
 const noImagePlaceholder =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23e9e4da'/%3E%3Ctext x='400' y='300' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='26' fill='%238b8276'%3ENo Project Image%3C/text%3E%3C/svg%3E";
 
@@ -16,49 +17,37 @@ const ProjectLayout = ({
   showProjectList = true,
   noProjectContent = null,
 }) => {
-  const [cardProjects, setCardProjects] = useState([]);
-  const [listProjects, setListProjects] = useState([]);
+  const [allCardProjects, setAllCardProjects] = useState([]);
+  const [allListProjects, setAllListProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedSector, setSelectedSector] = useState(sector || "ALL");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
 
-        // Project Cards
-        let cardUrl = `/projects?sector=${sector}&type=cards`;
-
-        if (subCategory) {
-          cardUrl += `&subCategory=${subCategory}`;
-        }
-
-        const cardRes = await API.get(cardUrl);
+        const cardRes = await API.get("/projects?type=cards");
 
         const cards =
           cardRes.data?.data ||
           cardRes.data ||
           [];
 
-        setCardProjects(
+        setAllCardProjects(
           Array.isArray(cards) ? cards : []
         );
 
-        // Project List
-        let listUrl = `/projects?sector=${sector}&type=list`;
-
-        if (subCategory) {
-          listUrl += `&subCategory=${subCategory}`;
-        }
-
-        const listRes = await API.get(listUrl);
+        const listRes = await API.get("/projects?type=list");
 
         const list =
           listRes.data?.data ||
           listRes.data ||
           [];
 
-        setListProjects(
+        setAllListProjects(
           Array.isArray(list) ? list : []
         );
       } catch (error) {
@@ -67,15 +56,48 @@ const ProjectLayout = ({
           error
         );
 
-        setCardProjects([]);
-        setListProjects([]);
+        setAllCardProjects([]);
+        setAllListProjects([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProjects();
-  }, [sector, subCategory]);
+  }, []);
+
+  const normalize = (value) => String(value || "").trim().toUpperCase();
+  const matchesSelection = (project) => {
+    const matchesSector =
+      selectedSector === "ALL" || normalize(project.sector) === selectedSector;
+    const matchesCategory =
+      !selectedSubCategory || normalize(project.subCategory) === normalize(selectedSubCategory);
+    return matchesSector && matchesCategory;
+  };
+  const cardProjects = allCardProjects.filter(matchesSelection);
+  const listProjects = allListProjects.filter(matchesSelection);
+  const availableSectors = Array.from(
+    new Set(
+      [...allCardProjects, ...allListProjects]
+        .map((project) => String(project.sector || "").trim())
+        .filter(Boolean)
+    )
+  ).sort((first, second) => first.localeCompare(second));
+  const sectorOptions = [
+    { value: "ALL", label: "Show All" },
+    ...availableSectors.map((value) => ({
+      value: normalize(value),
+      label: value.toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase()),
+    })),
+  ];
+  const availableCategories = Array.from(
+    new Set(
+      [...allCardProjects, ...allListProjects]
+        .filter((project) => selectedSector === "ALL" || normalize(project.sector) === selectedSector)
+        .map((project) => String(project.subCategory || "").trim())
+        .filter(Boolean)
+    )
+  ).sort((first, second) => first.localeCompare(second));
 
   const handleDownload = async (
     url,
@@ -454,6 +476,64 @@ const ProjectLayout = ({
         </div>
       </section>
 
+      {showProjectList && (
+        <section
+          aria-label="Filter projects"
+          className="border-b border-black/10 bg-[#f6f3ed]"
+        >
+          <div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-5 py-5 md:px-10 lg:flex-row lg:items-center lg:gap-10">
+            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
+              <span className="shrink-0 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#837b70]">
+                Sector
+              </span>
+              <div className="flex flex-wrap gap-x-5 gap-y-2">
+                {sectorOptions.map((item) => (
+                  <button
+                    key={item.value}
+                    type="button"
+                    aria-pressed={selectedSector === item.value}
+                    onClick={() => {
+                      setSelectedSector(item.value);
+                      setSelectedSubCategory("");
+                    }}
+                    className={`relative pb-1 text-[11px] transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:transition-transform ${selectedSector === item.value ? "font-semibold text-[#a17d48] after:scale-x-100 after:bg-[#cdb083]" : "text-[#625b52] after:scale-x-0 after:bg-[#cdb083] hover:text-[#a17d48] hover:after:scale-x-100"}`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
+              <span className="shrink-0 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#837b70]">
+                Category
+              </span>
+              <div className="flex flex-wrap gap-x-5 gap-y-2">
+                <button
+                  type="button"
+                  aria-pressed={!selectedSubCategory}
+                  onClick={() => setSelectedSubCategory("")}
+                  className={`relative pb-1 text-[11px] transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:transition-transform ${!selectedSubCategory ? "font-semibold text-[#a17d48] after:scale-x-100 after:bg-[#cdb083]" : "text-[#625b52] after:scale-x-0 after:bg-[#cdb083] hover:text-[#a17d48] hover:after:scale-x-100"}`}
+                >
+                  All categories
+                </button>
+                {availableCategories.map((category) => (
+                  <button
+                    key={category}
+                    type="button"
+                    aria-pressed={normalize(selectedSubCategory) === normalize(category)}
+                    onClick={() => setSelectedSubCategory(category)}
+                    className={`relative pb-1 text-[11px] transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:transition-transform ${normalize(selectedSubCategory) === normalize(category) ? "font-semibold text-[#a17d48] after:scale-x-100 after:bg-[#cdb083]" : "text-[#625b52] after:scale-x-0 after:bg-[#cdb083] hover:text-[#a17d48] hover:after:scale-x-100"}`}
+                  >
+                    {category.toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase())}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* =====================================================
           OVERVIEW
       ====================================================== */}
@@ -742,206 +822,25 @@ const ProjectLayout = ({
                         gap-y-14
                       "
                       >
-                        {cardProjects.map(
-                          (
-                            project,
-                            index
-                          ) => {
-                            const imageUrl =
-                              project.image
-                                ? resolveFileUrl(
-                                  project
-                                    .image
-                                    ?.url ||
-                                  project.image
-                                )
-                                : noImagePlaceholder;
+                        <AnimatePresence>
+                          {cardProjects.map((project, index) => {
+                            const imageUrl = project.image
+                              ? resolveFileUrl(project.image?.url || project.image)
+                              : noImagePlaceholder;
 
                             return (
-                              <article
-                                key={
-                                  project._id ||
-                                  project.id ||
-                                  index
-                                }
-                                onClick={() =>
-                                  setSelectedProject(
-                                    project
-                                  )
-                                }
-                                className="
-                                group
-                                cursor-pointer
-                              "
-                              >
-                                {/* Image */}
-
-                                <div
-                                  className="
-                                  relative
-                                  aspect-[4/5]
-                                  overflow-hidden
-                                  bg-[#ded8cd]
-                                "
-                                >
-                                  <img
-                                    src={
-                                      imageUrl
-                                    }
-                                    alt={
-                                      project.title ||
-                                      "CADMAX Project"
-                                    }
-                                    className="
-                                    w-full
-                                    h-full
-                                    object-cover
-                                    transition-transform
-                                    duration-700
-                                    ease-out
-                                    group-hover:scale-[1.055]
-                                  "
-                                    onError={(
-                                      e
-                                    ) => {
-                                      e.currentTarget.src =
-                                        noImagePlaceholder;
-                                    }}
-                                  />
-
-                                  {/* Image Overlay */}
-
-                                  <div
-                                    className="
-                                    absolute
-                                    inset-0
-                                    bg-gradient-to-t
-                                    from-black/50
-                                    via-transparent
-                                    to-transparent
-                                  "
-                                  />
-
-                                  {/* Number */}
-
-                                  <span
-                                    className="
-                                    absolute
-                                    top-5
-                                    left-5
-                                    text-white/85
-                                    text-[9px]
-                                    tracking-[0.18em]
-                                  "
-                                  >
-                                    {String(
-                                      index + 1
-                                    ).padStart(
-                                      2,
-                                      "0"
-                                    )}
-                                  </span>
-
-                                  {/* Arrow */}
-
-                                  <span
-                                    className="
-                                    absolute
-                                    right-5
-                                    bottom-5
-                                    w-12
-                                    h-12
-                                    flex
-                                    items-center
-                                    justify-center
-                                    border
-                                    border-white/70
-                                    text-white
-                                    text-lg
-                                    transition-all
-                                    duration-300
-                                    group-hover:bg-[#cdb083]
-                                    group-hover:text-[#181510]
-                                    group-hover:border-[#cdb083]
-                                  "
-                                  >
-                                    ↗
-                                  </span>
-                                </div>
-
-                                {/* Info */}
-
-                                <div className="pt-5">
-                                  <div
-                                    className="
-                                    flex
-                                    items-start
-                                    justify-between
-                                    gap-5
-                                  "
-                                  >
-                                    <h3
-                                      className="
-                                      font-clash
-                                      text-[clamp(1.35rem,1.7vw,1.65rem)]
-                                      font-medium
-                                      leading-[1.05]
-                                      text-[#181510]
-                                      tracking-[-0.02em]
-                                    "
-                                    >
-                                      {
-                                        project.title
-                                      }
-                                    </h3>
-
-                                    <span
-                                      className="
-                                      mt-1
-                                      text-[#97836a]
-                                      text-[8px]
-                                      tracking-[0.16em]
-                                    "
-                                    >
-                                      PROJECT
-                                    </span>
-                                  </div>
-
-                                  <div
-                                    className="
-                                    h-px
-                                    bg-black/10
-                                    my-4
-                                  "
-                                  />
-
-                                  <div
-                                    className="
-                                    flex
-                                    items-center
-                                    justify-between
-                                    gap-5
-                                    text-[9px]
-                                    uppercase
-                                    tracking-[0.15em]
-                                    text-[#837b70]
-                                  "
-                                  >
-                                    <span>
-                                      {project.location ||
-                                        "Jaipur, India"}
-                                    </span>
-
-                                    <span>
-                                      {sector ||
-                                        "CADMAX"}
-                                    </span>
-                                  </div>
-                                </div>
-                              </article>
+                              <ProjectCard
+                                key={project._id || project.id || index}
+                                project={project}
+                                index={index}
+                                imageUrl={imageUrl}
+                                fallbackImage={noImagePlaceholder}
+                                sector={sector}
+                                onOpen={setSelectedProject}
+                              />
                             );
-                          }
-                        )}
+                          })}
+                        </AnimatePresence>
                       </div>
                     </div>
                   )}

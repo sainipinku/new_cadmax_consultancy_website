@@ -6,8 +6,8 @@ import ctaBg from '../../../assets/Images/Other/cta-entrance.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const CONTACT_EMAIL = 'cadmaxconsultancy@gmail.com';
-const CONTACT_PHONE = '0141-411-3111';
+const CONTACT_EMAIL = 'consultancy@cadmax.co.in';
+const CONTACT_PHONE = '+911412940254';
 
 const ContactSection = () => {
   const sectionRef = useRef(null);

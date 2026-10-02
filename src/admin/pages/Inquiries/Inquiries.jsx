@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Mail, RefreshCw, Inbox, Search, X } from "lucide-react";
 import API from "../../../api/axios";
 
+const getInquiryName = (inquiry) => inquiry.fullName || inquiry.name || "Unknown";
+
 const Inquiries = () => {
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,8 +15,9 @@ const Inquiries = () => {
   const fetchInquiries = async () => {
     try {
       setLoading(true);
-      const res = await API.get("/inquiries");
-      setInquiries(res.data?.data || res.data || []);
+      const res = await API.get("/admin/inquiries");
+      const data = res.data?.data || res.data || [];
+      setInquiries(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Fetch inquiries failed", err);
     } finally {
@@ -40,13 +43,13 @@ const Inquiries = () => {
     }
   };
 
-  const filteredInquiries = Array.isArray(inquiries) 
-    ? inquiries.filter(inq => 
-        searchTerm === "" || 
-        inq.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        inq.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        inq.message?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+  const filteredInquiries = Array.isArray(inquiries)
+    ? inquiries.filter(inq =>
+      searchTerm === "" ||
+      getInquiryName(inq).toLowerCase().includes(searchTerm.toLowerCase()) ||
+      inq.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      inq.message?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : [];
 
   const unreadCount = filteredInquiries.filter(i => i.status === "unread").length;
@@ -136,13 +139,12 @@ const Inquiries = () => {
                       onClick={() => setSelectedInquiry(inq)}>
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
-                            inq.status === "unread" ? "bg-purple-100 text-purple-600" : "bg-slate-100 text-slate-600"
-                          }`}>
-                            {inq.name?.charAt(0).toUpperCase() || "?"}
+                          <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${inq.status === "unread" ? "bg-purple-100 text-purple-600" : "bg-slate-100 text-slate-600"
+                            }`}>
+                            {getInquiryName(inq).charAt(0).toUpperCase()}
                           </div>
                           <span className={`text-sm ${inq.status === "unread" ? "font-semibold text-slate-900" : "text-slate-700"}`}>
-                            {inq.name}
+                            {getInquiryName(inq)}
                           </span>
                         </div>
                       </td>
@@ -152,19 +154,17 @@ const Inquiries = () => {
                         <p className="text-sm text-slate-600 truncate">{inq.message || "-"}</p>
                       </td>
                       <td className="px-5 py-4 text-center">
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
-                          inq.status === "unread" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
-                        }`}>
+                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${inq.status === "unread" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
+                          }`}>
                           {inq.status === "unread" ? "Unread" : "Read"}
                         </span>
                       </td>
                       <td className="px-5 py-4 text-right">
                         <button onClick={(e) => { e.stopPropagation(); toggleStatus(inq._id, inq.status); }}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                            inq.status === "unread"
+                          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${inq.status === "unread"
                               ? "bg-green-600 text-white hover:bg-green-700"
                               : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                          }`}>
+                            }`}>
                           {inq.status === "unread" ? "Mark Read" : "Mark Unread"}
                         </button>
                       </td>
@@ -185,27 +185,24 @@ const Inquiries = () => {
             ) : (
               paginatedInquiries.map((inq) => (
                 <div key={inq._id}
-                  className={`bg-white rounded-xl border border-slate-200 p-4 cursor-pointer hover:shadow-md transition-all ${
-                    inq.status === "unread" ? "border-l-4 border-l-purple-500" : ""
-                  }`}
+                  className={`bg-white rounded-xl border border-slate-200 p-4 cursor-pointer hover:shadow-md transition-all ${inq.status === "unread" ? "border-l-4 border-l-purple-500" : ""
+                    }`}
                   onClick={() => setSelectedInquiry(inq)}>
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
-                        inq.status === "unread" ? "bg-purple-100 text-purple-600" : "bg-slate-100 text-slate-600"
-                      }`}>
-                        {inq.name?.charAt(0).toUpperCase() || "?"}
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${inq.status === "unread" ? "bg-purple-100 text-purple-600" : "bg-slate-100 text-slate-600"
+                        }`}>
+                        {getInquiryName(inq).charAt(0).toUpperCase()}
                       </div>
                       <div>
                         <p className={`text-sm ${inq.status === "unread" ? "font-semibold text-slate-900" : "text-slate-700"}`}>
-                          {inq.name}
+                          {getInquiryName(inq)}
                         </p>
                         <p className="text-xs text-slate-500">{inq.email}</p>
                       </div>
                     </div>
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                      inq.status === "unread" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
-                    }`}>
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${inq.status === "unread" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
+                      }`}>
                       {inq.status}
                     </span>
                   </div>
@@ -213,11 +210,10 @@ const Inquiries = () => {
                   <div className="flex items-center justify-between pt-2 border-t border-slate-100">
                     <span className="text-xs text-slate-400">{inq.phone ? `📞 ${inq.phone}` : ""}</span>
                     <button onClick={(e) => { e.stopPropagation(); toggleStatus(inq._id, inq.status); }}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition ${
-                        inq.status === "unread"
+                      className={`px-3 py-1 rounded-lg text-xs font-medium transition ${inq.status === "unread"
                           ? "bg-green-600 text-white hover:bg-green-700"
                           : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                      }`}>
+                        }`}>
                       {inq.status === "unread" ? "Mark Read" : "Mark Unread"}
                     </button>
                   </div>
@@ -270,10 +266,10 @@ const Inquiries = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-4 pb-4 border-b border-slate-100">
                   <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center text-xl font-bold text-purple-600">
-                    {selectedInquiry.name?.charAt(0).toUpperCase() || "?"}
+                    {getInquiryName(selectedInquiry).charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-lg font-semibold text-slate-800">{selectedInquiry.name}</p>
+                    <p className="text-lg font-semibold text-slate-800">{getInquiryName(selectedInquiry)}</p>
                     <p className="text-sm text-slate-500">{selectedInquiry.email}</p>
                     {selectedInquiry.phone && <p className="text-sm text-slate-500">📞 {selectedInquiry.phone}</p>}
                   </div>
@@ -285,17 +281,15 @@ const Inquiries = () => {
                   </p>
                 </div>
                 <div className="flex items-center justify-between pt-2">
-                  <span className={`px-3 py-1.5 rounded-full text-xs font-medium ${
-                    selectedInquiry.status === "unread" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
-                  }`}>
+                  <span className={`px-3 py-1.5 rounded-full text-xs font-medium ${selectedInquiry.status === "unread" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
+                    }`}>
                     {selectedInquiry.status === "unread" ? "🔴 Unread" : "🟢 Read"}
                   </span>
                   <button onClick={() => { toggleStatus(selectedInquiry._id, selectedInquiry.status); setSelectedInquiry(null); }}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                      selectedInquiry.status === "unread"
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition ${selectedInquiry.status === "unread"
                         ? "bg-green-600 text-white hover:bg-green-700"
                         : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                    }`}>
+                      }`}>
                     Mark as {selectedInquiry.status === "unread" ? "Read" : "Unread"}
                   </button>
                 </div>
