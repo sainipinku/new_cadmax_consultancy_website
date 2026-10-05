@@ -4,8 +4,32 @@ import Navbar from "../../../components/Layout/Header/Navbar";
 import Footer from "../../../components/Layout/Footer/Footer";
 import API, { resolveFileUrl } from "../../../api/axios";
 import ProjectCard from "./ProjectCard";
+
 const noImagePlaceholder =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23e9e4da'/%3E%3Ctext x='400' y='300' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='26' fill='%238b8276'%3ENo Project Image%3C/text%3E%3C/svg%3E";
+
+const getProjectImageUrls = (project) => {
+  const imageValues = [
+    ...(Array.isArray(project.image)
+      ? project.image
+      : project.image
+        ? [project.image]
+        : []),
+    ...(Array.isArray(project.images) ? project.images : []),
+  ];
+
+  return Array.from(
+    new Set(
+      imageValues
+        .map((image) => {
+          if (typeof image === "string") return image;
+          return image?.url || image?.path || "";
+        })
+        .filter(Boolean)
+        .map(resolveFileUrl)
+    )
+  );
+};
 
 const ProjectLayout = ({
   heroImage,
@@ -21,6 +45,7 @@ const ProjectLayout = ({
   const [allListProjects, setAllListProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedSector, setSelectedSector] = useState(sector || "ALL");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
 
@@ -98,6 +123,16 @@ const ProjectLayout = ({
         .filter(Boolean)
     )
   ).sort((first, second) => first.localeCompare(second));
+  const selectedProjectImages = selectedProject
+    ? getProjectImageUrls(selectedProject)
+    : [];
+  const selectedProjectImage =
+    selectedProjectImages[selectedImageIndex] || noImagePlaceholder;
+
+  const openProject = (project) => {
+    setSelectedImageIndex(0);
+    setSelectedProject(project);
+  };
 
   const handleDownload = async (
     url,
@@ -836,7 +871,7 @@ const ProjectLayout = ({
                                 imageUrl={imageUrl}
                                 fallbackImage={noImagePlaceholder}
                                 sector={sector}
-                                onOpen={setSelectedProject}
+                                onOpen={openProject}
                               />
                             );
                           })}
@@ -995,11 +1030,7 @@ const ProjectLayout = ({
 
                                   <td className="py-5 px-4">
                                     <button
-                                      onClick={() =>
-                                        setSelectedProject(
-                                          project
-                                        )
-                                      }
+                                      onClick={() => openProject(project)}
                                       className="
                                       font-clash
                                       text-[16px]
@@ -1213,17 +1244,9 @@ const ProjectLayout = ({
               "
             >
               <img
-                src={
-                  selectedProject.image
-                    ? resolveFileUrl(
-                      selectedProject
-                        .image?.url ||
-                      selectedProject.image
-                    )
-                    : noImagePlaceholder
-                }
+                src={selectedProjectImage}
                 alt={
-                  selectedProject.title
+                  `${selectedProject.title} ${selectedImageIndex + 1}`
                 }
                 className="
                   absolute
@@ -1248,6 +1271,30 @@ const ProjectLayout = ({
                   to-transparent
                 "
               />
+
+              <span className="absolute left-6 top-6 z-10 text-[10px] font-semibold tracking-[0.18em] text-white md:left-9 md:top-8" aria-live="polite">
+                {String(selectedImageIndex + 1).padStart(2, "0")} / {String(selectedProjectImages.length || 1).padStart(2, "0")}
+              </span>
+              {selectedProjectImages.length > 1 && (
+                <div className="absolute bottom-5 right-6 z-10 flex gap-2 md:bottom-7 md:right-9">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedImageIndex((index) => (index - 1 + selectedProjectImages.length) % selectedProjectImages.length)}
+                    aria-label="Show previous project image"
+                    className="border border-white/60 px-3 py-2 text-[9px] font-semibold tracking-[0.12em] text-white transition-colors hover:border-[#cdb083] hover:bg-[#cdb083] hover:text-[#181510]"
+                  >
+                    PREVIOUS
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedImageIndex((index) => (index + 1) % selectedProjectImages.length)}
+                    aria-label="Show next project image"
+                    className="border border-white/60 px-3 py-2 text-[9px] font-semibold tracking-[0.12em] text-white transition-colors hover:border-[#cdb083] hover:bg-[#cdb083] hover:text-[#181510]"
+                  >
+                    NEXT
+                  </button>
+                </div>
+              )}
 
               {/* Close */}
 

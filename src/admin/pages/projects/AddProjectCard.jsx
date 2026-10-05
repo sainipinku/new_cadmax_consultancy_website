@@ -1,6 +1,6 @@
 import { ArrowLeft, Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import API from "../../../api/axios";
 import { useToast } from "../../../components/Toast/Toast";
 import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
@@ -38,15 +38,35 @@ const AddProjectCard = () => {
   });
 
   const [image, setImage] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [imagePreview, setImagePreview] = useState("");
+  const [galleryPreviews, setGalleryPreviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const MAX_SIZE = 10 * 1024 * 1024; // 10MB
+
+  useEffect(() => {
+    if (!image) {
+      setImagePreview("");
+      return undefined;
+    }
+
+    const previewUrl = URL.createObjectURL(image);
+    setImagePreview(previewUrl);
+    return () => URL.revokeObjectURL(previewUrl);
+  }, [image]);
+
+  useEffect(() => {
+    const previewUrls = galleryImages.map((file) => URL.createObjectURL(file));
+    setGalleryPreviews(previewUrls);
+    return () => previewUrls.forEach((previewUrl) => URL.revokeObjectURL(previewUrl));
+  }, [galleryImages]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleImageSelect = (e) => {
-    const selectedFile = e.target.files[0];
+    const selectedFile = e.target.files?.[0];
     if (selectedFile && selectedFile.size > MAX_SIZE) {
       toast.warning("Image size should be less than 10MB");
       e.target.value = "";
@@ -55,8 +75,24 @@ const AddProjectCard = () => {
     setImage(selectedFile);
   };
 
+  const handleGallerySelect = (e) => {
+    const selectedFiles = Array.from(e.target.files || []);
+    const oversizedFile = selectedFiles.find((file) => file.size > MAX_SIZE);
+    if (oversizedFile) {
+      toast.warning(`${oversizedFile.name} is larger than 10MB`);
+      e.target.value = "";
+      return;
+    }
+    setGalleryImages(selectedFiles);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!image) {
+      toast.warning("Please upload a main project image");
+      return;
+    }
 
     const confirmed = await confirm({
       title: "Add Project Card",
@@ -76,6 +112,9 @@ const AddProjectCard = () => {
     if (image) {
       formData.append("image", image);
     }
+    galleryImages.forEach((galleryImage) => {
+      formData.append("images", galleryImage);
+    });
 
     try {
       setLoading(true);
@@ -107,18 +146,54 @@ const AddProjectCard = () => {
 
       <div className="bg-white rounded-xl border shadow-sm p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* IMAGE UPLOAD */}
+          {/* MAIN IMAGE */}
           <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-8 cursor-pointer hover:bg-slate-50 transition-colors">
-            {image ? (
-              <img src={URL.createObjectURL(image)} alt="Preview" className="w-full max-w-xs h-48 object-cover rounded" />
+            {imagePreview ? (
+              <img src={imagePreview} alt="Main project preview" className="w-full max-w-xs h-48 object-cover rounded" />
             ) : (
               <>
                 <Upload size={40} className="text-slate-400" />
-                <span className="text-sm text-slate-500 mt-2">Click to upload project image *</span>
+                <span className="text-sm text-slate-500 mt-2">Click to upload main project image *</span>
               </>
             )}
             <input type="file" hidden accept="image/*" onChange={handleImageSelect} />
           </label>
+
+          {/* ADDITIONAL PROJECT IMAGES */}
+          <section className="space-y-3">
+            <div>
+              <h2 className="text-sm font-medium text-slate-700">Additional Project Images</h2>
+              <p className="text-xs text-slate-500 mt-1">Select multiple images to show in the project details gallery. Each image must be under 10MB.</p>
+            </div>
+            <label className="flex items-center justify-center gap-2 border-2 border-dashed rounded-lg p-5 cursor-pointer hover:bg-slate-50 transition-colors">
+              <Upload size={20} className="text-slate-400" />
+              <span className="text-sm text-slate-600">
+                {galleryImages.length ? `Choose images (${galleryImages.length} selected)` : "Choose additional images"}
+              </span>
+              <input type="file" hidden accept="image/*" multiple onChange={handleGallerySelect} />
+            </label>
+            {galleryImages.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {galleryImages.map((galleryImage, index) => (
+                  <div key={`${galleryImage.name}-${galleryImage.lastModified}-${index}`} className="relative">
+                    <img
+                      src={galleryPreviews[index]}
+                      alt={`Additional gallery preview ${index + 1}`}
+                      className="h-28 w-full rounded-lg border object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setGalleryImages((current) => current.filter((_, imageIndex) => imageIndex !== index))}
+                      aria-label={`Remove additional image ${index + 1}`}
+                      className="absolute right-1 top-1 rounded-full bg-slate-900/75 px-2 py-1 text-xs text-white hover:bg-red-600"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
 
           {/* TITLE */}
           <div>

@@ -1,9 +1,14 @@
-import { ArrowLeft, Upload } from "lucide-react";
+import { ArrowLeft, Upload, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import API, { resolveFileUrl } from "../../../api/axios";
 import { useToast } from "../../../components/Toast/Toast";
 import { useConfirm } from "../../../components/ConfirmModal/ConfirmModal";
+
+const getImagePath = (image) => {
+  if (typeof image === "string") return image;
+  return image?.url || image?.path || "";
+};
 
 const SECTORS = [
   { value: "", label: "Select Sector" },
@@ -42,14 +47,37 @@ const EditProjectCard = () => {
   });
 
   const [currentImage, setCurrentImage] = useState("");
+  const [currentGalleryImages, setCurrentGalleryImages] = useState([]);
   const [newImage, setNewImage] = useState(null);
+  const [newImagePreview, setNewImagePreview] = useState("");
+  const [newGalleryImages, setNewGalleryImages] = useState([]);
+  const [newGalleryPreviews, setNewGalleryPreviews] = useState([]);
+  const [removeCurrentImage, setRemoveCurrentImage] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
   useEffect(() => {
     fetchProject();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (!newImage) {
+      setNewImagePreview("");
+      return undefined;
+    }
+
+    const previewUrl = URL.createObjectURL(newImage);
+    setNewImagePreview(previewUrl);
+    return () => URL.revokeObjectURL(previewUrl);
+  }, [newImage]);
+
+  useEffect(() => {
+    const previewUrls = newGalleryImages.map((file) => URL.createObjectURL(file));
+    setNewGalleryPreviews(previewUrls);
+    return () => previewUrls.forEach((previewUrl) => URL.revokeObjectURL(previewUrl));
+  }, [newGalleryImages]);
 
   const fetchProject = async () => {
     try {
@@ -71,7 +99,21 @@ const EditProjectCard = () => {
         isActive: project.isActive !== false,
       });
 
-      setCurrentImage(project.image?.url || project.image || "");
+      const projectImages = Array.isArray(project.image)
+        ? project.image
+        : project.image
+          ? [project.image]
+          : [];
+      const mainImage = projectImages[0];
+      const galleryImages = [
+        ...projectImages.slice(1),
+        ...(Array.isArray(project.images) ? project.images : []),
+      ];
+
+      setCurrentImage(getImagePath(mainImage));
+      setCurrentGalleryImages(
+        Array.from(new Set(galleryImages.map(getImagePath).filter(Boolean)))
+      );
     } catch (err) {
       console.error(err);
       toast.error("Failed to load project");
@@ -85,13 +127,26 @@ const EditProjectCard = () => {
   };
 
   const handleNewImageSelect = (e) => {
-    const selectedFile = e.target.files[0];
+    const selectedFile = e.target.files?.[0];
     if (selectedFile && selectedFile.size > MAX_SIZE) {
       toast.warning("Image size should be less than 10MB. कृपया 10MB से कम की इमेज ही अपलोड करें।");
       e.target.value = "";
       return;
     }
     setNewImage(selectedFile);
+    if (selectedFile) setRemoveCurrentImage(false);
+  };
+
+  const handleGallerySelect = (e) => {
+    const selectedFiles = Array.from(e.target.files || []);
+    const oversizedFile = selectedFiles.find((file) => file.size > MAX_SIZE);
+    if (oversizedFile) {
+      toast.warning(`${oversizedFile.name} is larger than 10MB`);
+      e.target.value = "";
+      return;
+    }
+    setNewGalleryImages((current) => [...current, ...selectedFiles]);
+    e.target.value = "";
   };
 
   const handleSubmit = async (e) => {
@@ -100,11 +155,13 @@ const EditProjectCard = () => {
     const confirmed = await confirm({
       title: "Update Project Card",
       message: `Are you sure you want to update "${form.title}"?`,
-      type: "info"
+      type: "info",
     });
+
     if (!confirmed) return;
 
     const formData = new FormData();
+
     formData.append("title", form.title);
     formData.append("category", "PROJECT CARD");
     formData.append("sector", form.sector);
@@ -118,15 +175,87 @@ const EditProjectCard = () => {
       formData.append("image", newImage);
     }
 
+    if (removeCurrentImage && !newImage) {
+      formData.append("removeImage", "true");
+    }
+
+    formData.append(
+      "existingImages",
+      JSON.stringify(currentGalleryImages)
+    );
+
+    newGalleryImages.forEach((galleryImage) => {
+      formData.append("images", galleryImage);
+    });
+
+    // =====================================
+    // SHOW COMPLETE FORM DATA IN CONSOLE
+    // =====================================
+
+    console.log("===== FORM STATE =====");
+    console.log("form:", form);
+
+    console.log("===== FORM DATA =====");
+
+    for (const [key, value] of formData.entries()) {
+      if (value instanceof File) {
+        console.log(key, {
+          name: value.name,
+          size: value.size,
+          type: value.type,
+        });
+      } else {
+        console.log(key, value);
+      }
+    }
+
+    console.log("===== IMAGE DATA =====");
+    console.log("newImage:", newImage);
+    console.log(
+      "removeCurrentImage:",
+      removeCurrentImage
+    );
+    console.log(
+      "currentGalleryImages:",
+      currentGalleryImages
+    );
+    console.log(
+      "newGalleryImages:",
+      newGalleryImages
+    );
+
     try {
-      await API.put(`/projects/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      toast.success("Project card updated successfully");
+      setSaving(true);
+
+      const response = await API.put(
+        `/projects/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("UPDATE RESPONSE:", response?.data);
+
+      toast.success(
+        "Project card updated successfully"
+      );
+
       navigate("/admin/projects");
     } catch (err) {
-      console.error(err);
-      toast.error("Failed to update project card");
+      console.error("UPDATE ERROR:", err);
+      console.error(
+        "ERROR RESPONSE:",
+        err?.response?.data
+      );
+
+      toast.error(
+        "Failed to update project card"
+      );
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -148,10 +277,24 @@ const EditProjectCard = () => {
       <div className="bg-white rounded-xl border shadow-sm p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* CURRENT IMAGE */}
-          {currentImage && (
+          {currentImage && !removeCurrentImage && (
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Current Image</label>
-              <img src={resolveFileUrl(currentImage?.url || currentImage)} alt="Project" className="w-full max-w-xs h-48 object-cover rounded-lg border" />
+              <label className="block text-sm font-medium text-slate-700 mb-1">Current Main Image</label>
+              <div className="relative w-fit">
+                <img src={resolveFileUrl(currentImage)} alt="Current project" className="w-full max-w-xs h-48 object-cover rounded-lg border" />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setRemoveCurrentImage(true);
+                    setNewImage(null);
+                  }}
+                  aria-label="Remove current project image"
+                  title="Remove current image"
+                  className="absolute right-2 top-2 rounded-full bg-red-600 p-1.5 text-white shadow hover:bg-red-700"
+                >
+                  <X size={16} />
+                </button>
+              </div>
             </div>
           )}
 
@@ -159,17 +302,90 @@ const EditProjectCard = () => {
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Replace Image</label>
             <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-4 cursor-pointer hover:bg-slate-50">
-              {newImage ? (
-                <img src={URL.createObjectURL(newImage)} alt="New" className="w-32 h-24 object-cover rounded" />
+              {newImagePreview ? (
+                <div className="relative">
+                  <img src={newImagePreview} alt="Replacement project preview" className="w-32 h-24 object-cover rounded" />
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setNewImage(null);
+                    }}
+                    aria-label="Remove selected replacement image"
+                    title="Remove selected image"
+                    className="absolute -right-2 -top-2 rounded-full bg-red-600 p-1 text-white shadow hover:bg-red-700"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
               ) : (
                 <>
                   <Upload size={24} className="text-slate-400" />
-                  <span className="text-sm text-slate-500 mt-1">Click to replace image</span>
+                  <span className="text-sm text-slate-500 mt-1">
+                    {removeCurrentImage ? "Current image removed — upload its replacement" : "Click to replace image"}
+                  </span>
                 </>
               )}
-              <input type="file" hidden accept="image/*" onChange={handleNewImageSelect} />
+              <input key={newImage ? "replacement-selected" : "replacement-empty"} type="file" hidden accept="image/*" onChange={handleNewImageSelect} />
             </label>
           </div>
+
+          {/* PROJECT GALLERY IMAGES */}
+          <section className="space-y-3">
+            <div>
+              <h2 className="text-sm font-medium text-slate-700">Additional Project Images</h2>
+              <p className="mt-1 text-xs text-slate-500">Remove saved images with × or add multiple images. Each uploaded image must be under 10MB.</p>
+            </div>
+            {(currentGalleryImages.length > 0 || newGalleryImages.length > 0) && (
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                {currentGalleryImages.map((galleryImage, index) => (
+                  <div key={`saved-${galleryImage}`} className="relative">
+                    <img
+                      src={resolveFileUrl(galleryImage)}
+                      alt={`Saved gallery preview ${index + 1}`}
+                      className="h-28 w-full rounded-lg border object-cover"
+                    />
+                    <span className="absolute bottom-1 left-1 rounded bg-slate-900/75 px-2 py-1 text-xs text-white">Saved</span>
+                    <button
+                      type="button"
+                      onClick={() => setCurrentGalleryImages((current) => current.filter((_, imageIndex) => imageIndex !== index))}
+                      aria-label={`Remove saved gallery image ${index + 1}`}
+                      title="Remove saved image"
+                      className="absolute right-1 top-1 rounded-full bg-red-600 p-1 text-white shadow hover:bg-red-700"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ))}
+                {newGalleryImages.map((galleryImage, index) => (
+                  <div key={`${galleryImage.name}-${galleryImage.lastModified}-${index}`} className="relative">
+                    <img
+                      src={newGalleryPreviews[index]}
+                      alt={`New gallery preview ${index + 1}`}
+                      className="h-28 w-full rounded-lg border object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setNewGalleryImages((current) => current.filter((_, imageIndex) => imageIndex !== index))}
+                      aria-label={`Remove new gallery image ${index + 1}`}
+                      title="Remove selected image"
+                      className="absolute right-1 top-1 rounded-full bg-red-600 p-1 text-white shadow hover:bg-red-700"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed p-5 transition-colors hover:bg-slate-50">
+              <Upload size={20} className="text-slate-400" />
+              <span className="text-sm text-slate-600">
+                {newGalleryImages.length ? `Choose more images (${newGalleryImages.length} selected)` : "Choose multiple images"}
+              </span>
+              <input type="file" hidden accept="image/*" multiple onChange={handleGallerySelect} />
+            </label>
+          </section>
 
           {/* TITLE */}
           <div>
@@ -222,7 +438,7 @@ const EditProjectCard = () => {
           {/* ACTIONS */}
           <div className="flex justify-end gap-3 border-t pt-4">
             <button type="button" onClick={() => navigate("/admin/projects")} className="px-5 py-2.5 border rounded-lg hover:bg-slate-50">Cancel</button>
-            <button type="submit" className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Update Card</button>
+            <button type="submit" disabled={saving} className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">{saving ? "Saving..." : "Update Card"}</button>
           </div>
         </form>
       </div>
