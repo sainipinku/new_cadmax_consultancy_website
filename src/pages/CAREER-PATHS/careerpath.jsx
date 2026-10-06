@@ -19,9 +19,9 @@ import Footer from '../../components/Layout/Footer/Footer';
 
 import heroBg from '../../assets/Images/careerpath/cadmax-careers-hero.png';
 import ctaBg from '../../assets/Images/careerpath/cadmax-careers-cta.png';
-import siteImg from '../../assets/Images/careerpath/career-site.jpg';
-import studioImg from '../../assets/Images/careerpath/career-studio.jpg';
-import detailImg from '../../assets/Images/careerpath/career-detail.jpg';
+import siteImg from '../../assets/Images/careerpath/career-site01.jpeg';
+import studioImg from '../../assets/Images/careerpath/career-studio-img.jpeg';
+import detailImg from '../../assets/Images/careerpath/career-site-img.jpeg';
 
 import './Careerpath.css';
 
