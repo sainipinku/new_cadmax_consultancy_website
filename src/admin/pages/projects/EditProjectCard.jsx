@@ -53,6 +53,7 @@ const EditProjectCard = () => {
   const [newGalleryImages, setNewGalleryImages] = useState([]);
   const [newGalleryPreviews, setNewGalleryPreviews] = useState([]);
   const [removeCurrentImage, setRemoveCurrentImage] = useState(false);
+  const [initialGalleryCount, setInitialGalleryCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const MAX_SIZE = 10 * 1024 * 1024; // 10MB
@@ -109,11 +110,13 @@ const EditProjectCard = () => {
         ...projectImages.slice(1),
         ...(Array.isArray(project.images) ? project.images : []),
       ];
+      const normalizedGalleryImages = Array.from(
+        new Set(galleryImages.map(getImagePath).filter(Boolean))
+      );
 
       setCurrentImage(getImagePath(mainImage));
-      setCurrentGalleryImages(
-        Array.from(new Set(galleryImages.map(getImagePath).filter(Boolean)))
-      );
+      setInitialGalleryCount(normalizedGalleryImages.length);
+      setCurrentGalleryImages(normalizedGalleryImages);
     } catch (err) {
       console.error(err);
       toast.error("Failed to load project");
@@ -149,6 +152,9 @@ const EditProjectCard = () => {
     e.target.value = "";
   };
 
+  const galleryChanged =
+    newGalleryImages.length > 0 || currentGalleryImages.length !== initialGalleryCount;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -171,6 +177,7 @@ const EditProjectCard = () => {
     formData.append("content", form.content);
     formData.append("isActive", form.isActive);
 
+    // MAIN IMAGE
     if (newImage) {
       formData.append("image", newImage);
     }
@@ -179,65 +186,33 @@ const EditProjectCard = () => {
       formData.append("removeImage", "true");
     }
 
-    formData.append(
-      "existingImages",
-      JSON.stringify(currentGalleryImages)
-    );
+    // GALLERY ONLY IF CHANGED
+    if (galleryChanged) {
+      formData.append("existingImages", JSON.stringify(currentGalleryImages));
 
-    newGalleryImages.forEach((galleryImage) => {
-      formData.append("images", galleryImage);
-    });
-
-    // =====================================
-    // SHOW COMPLETE FORM DATA IN CONSOLE
-    // =====================================
-
-    console.log("===== FORM STATE =====");
-    console.log("form:", form);
-
-    console.log("===== FORM DATA =====");
-
-    for (const [key, value] of formData.entries()) {
-      if (value instanceof File) {
-        console.log(key, {
-          name: value.name,
-          size: value.size,
-          type: value.type,
-        });
-      } else {
-        console.log(key, value);
-      }
+      newGalleryImages.forEach((file) => {
+        formData.append("images", file);
+      });
     }
 
-    console.log("===== IMAGE DATA =====");
-    console.log("newImage:", newImage);
-    console.log(
-      "removeCurrentImage:",
-      removeCurrentImage
-    );
-    console.log(
-      "currentGalleryImages:",
-      currentGalleryImages
-    );
-    console.log(
-      "newGalleryImages:",
-      newGalleryImages
-    );
+    console.log("galleryChanged:", galleryChanged);
+
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
 
     try {
       setSaving(true);
 
       const response = await API.put(
         `/projects/${id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        formData
       );
 
-      console.log("UPDATE RESPONSE:", response?.data);
+      console.log(
+        "UPDATE RESPONSE:",
+        response?.data
+      );
 
       toast.success(
         "Project card updated successfully"
@@ -245,9 +220,8 @@ const EditProjectCard = () => {
 
       navigate("/admin/projects");
     } catch (err) {
-      console.error("UPDATE ERROR:", err);
+      console.error(err);
       console.error(
-        "ERROR RESPONSE:",
         err?.response?.data
       );
 

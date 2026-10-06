@@ -271,10 +271,13 @@ const Project = () => {
               className="mb-9 flex gap-6 overflow-x-auto border-b border-[#151515]/10 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {[
-                { value: "ALL", label: "Show All" },
+                { value: "ALL", label: "Show All", count: projects.length },
                 ...categories.map((category) => ({
                   value: category,
                   label: formatCategory(category),
+                  count: projects.filter(
+                    (project) => getProjectCategory(project) === category
+                  ).length,
                 })),
               ].map((category) => (
                 <button
@@ -292,6 +295,11 @@ const Project = () => {
                     }`}
                 >
                   {category.label}
+                    {!loading && (
+                      <span className="ml-1.5 text-[9px] text-[#8A8379]">
+                        ({category.count})
+                      </span>
+                    )}
                 </button>
               ))}
             </nav>
